@@ -806,19 +806,95 @@ Notes:
 
 
 
-'xxx'
+'49. Group Anagrams'
+
+# Input
+
+# Case 1
+strs = ["eat","tea","tan","ate","nat","bat"]
+#Exp. Out: [["bat"],["nat","tan"],["ate","eat","tea"]]
+
+# # Case 2
+# strs = [""]
+# #Exp. Out: [[""]]
+
+# # Case 3
+# strs = ["a"]
+# # Exp. Out: [["a"]]
+
+
+# My Approach
+
+'''
+Intuition:
+    1. Take the first element of the input and make a list with all element that contains the same characters
+    2. Erase the taken elements from the input.
+    3. Reiterate steps 1 & 2 until the input is exhausted
+
+'''
+
+def groupAnagrams(strs:list):
+    
+    if len(strs) == 1:
+        return[strs]
+
+    # Auxiliary anagram checker
+    def is_anagram(ref, string):
+
+        if len(ref) != len(string):
+            return False
+
+        for char in ref:
+            
+            if char not in string:   
+                return False
+
+        return True
+    
+    # Creating Flag to manage repetitions
+    strs = [[word, False] for word in strs]
+
+
+    result = []
+
+    for word in strs:
+             
+        if word[1] == False:
+
+            anagrams = []
+            anagrams.append(word[0])            
+            word[1] = True
+
+            for rest in strs:
+
+                if rest[1] == False:
+
+                    if is_anagram(word[0], rest[0]):
+                        anagrams.append(rest[0])
+                        rest[1] = True
+        
+            result.append(anagrams)
+
+    return result
+
+
+
+print(groupAnagrams(strs))
 
 
 
 
+'''
+Notes: 
+    It passed 72/126 cases, the case below broke the code:
 
+    Input
+    strs = ["ddddddddddg","dgggggggggg"]
 
-
-
-
-
-
-
+    Use Testcase
+    Output: [["ddddddddddg","dgggggggggg"]]
+    Expected: [["dgggggggggg"],["ddddddddddg"]]
+'''
 
 
 
