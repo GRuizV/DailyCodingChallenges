@@ -810,9 +810,9 @@ Notes:
 
 # Input
 
-# Case 1
-strs = ["eat","tea","tan","ate","nat","bat"]
-#Exp. Out: [["bat"],["nat","tan"],["ate","eat","tea"]]
+# # Case 1
+# strs = ["eat","tea","tan","ate","nat","bat"]
+# #Exp. Out: [["bat"],["nat","tan"],["ate","eat","tea"]]
 
 # # Case 2
 # strs = [""]
@@ -821,6 +821,11 @@ strs = ["eat","tea","tan","ate","nat","bat"]
 # # Case 3
 # strs = ["a"]
 # # Exp. Out: [["a"]]
+
+# # Custom Case
+# strs = ["ddddddddddg","dgggggggggg"]
+# # Expected: [["dgggggggggg"],["ddddddddddg"]]
+
 
 
 # My Approach
@@ -833,68 +838,97 @@ Intuition:
 
 '''
 
-def groupAnagrams(strs:list):
+# def groupAnagrams(strs:list):
     
-    if len(strs) == 1:
-        return[strs]
+#     if len(strs) == 1:
+#         return[strs]
 
-    # Auxiliary anagram checker
-    def is_anagram(ref, string):
+#     # Auxiliary anagram checker
+#     def is_anagram(ref:list, string:list):
 
-        if len(ref) != len(string):
-            return False
+#         if len(ref) != len(string):
+#             return False
 
-        for char in ref:
+#         for char in ref:
             
-            if char not in string:   
-                return False
+#             if ref.count(char) != string.count(char):   
+#                 return False
 
-        return True
+#         return True
     
-    # Creating Flag to manage repetitions
-    strs = [[word, False] for word in strs]
+#     # Creating Flag to manage repetitions
+#     strs = [[word, False] for word in strs]
 
 
-    result = []
+#     result = []
 
-    for word in strs:
+#     for word in strs:
              
-        if word[1] == False:
+#         if word[1] == False:
 
-            anagrams = []
-            anagrams.append(word[0])            
-            word[1] = True
+#             anagrams = []
+#             anagrams.append(word[0])            
+#             word[1] = True
 
-            for rest in strs:
+#             for rest in strs:
 
-                if rest[1] == False:
+#                 if rest[1] == False:
 
-                    if is_anagram(word[0], rest[0]):
-                        anagrams.append(rest[0])
-                        rest[1] = True
+#                     if is_anagram(word[0], rest[0]):
+#                         anagrams.append(rest[0])
+#                         rest[1] = True
         
-            result.append(anagrams)
+#             result.append(anagrams)
 
-    return result
-
-
-
-print(groupAnagrams(strs))
+#     return result
 
 
 
+# print(groupAnagrams(strs))
 
 '''
 Notes: 
-    It passed 72/126 cases, the case below broke the code:
+    It passed 72/126 cases, the case below broke the code: 
+        strs = ["ddddddddddg","dgggggggggg"] / Output: [["ddddddddddg","dgggggggggg"]], Expected: [["dgggggggggg"],["ddddddddddg"]]
 
-    Input
-    strs = ["ddddddddddg","dgggggggggg"]
-
-    Use Testcase
-    Output: [["ddddddddddg","dgggggggggg"]]
-    Expected: [["dgggggggggg"],["ddddddddddg"]]
+    After the fixture, it works but beat no one in efficiency
 '''
+
+
+# Another Approach
+
+# def groupAnagrams(strs):
+    
+#     freq = {}
+
+#     for word in strs:
+
+#         newWord = ''.join(sorted(word))
+
+#         if newWord not in freq:
+#             freq[newWord] = []
+        
+#         freq[newWord].append(word)
+
+#     return list(freq.values())
+
+
+# print(groupAnagrams(strs))
+
+'''
+Notes: Absolutely more elegant solution
+'''
+
+
+
+
+'xxx'
+
+
+
+
+
+
 
 
 
