@@ -1014,7 +1014,120 @@ Notes:
 
 
 
+'53. Maximum Subarray'
+
+# Input
+
+# # Case 1
+# nums = [-2,1,-3,4,-1,2,1,-5,4]
+# # Output: 6 / [4,-1,2,1]
+
+# # Case 2
+# nums = [1]
+# # Output: 1 / [1]
+
+# # Case 3
+# nums = [5,4,-1,7,8]
+# # Output: 23 / [5,4,-1,7,8]
+
+
+
+# My approach
+
+'''
+Intuition: Brute forcing
+    1. Store the sum of the max array
+    2. From the max len down to len = 1, evaluate with a sliding window each sub array.
+    3. Return the max sum
+'''
+
+
+# def maxSubArray(nums):
+
+#     max_sum = sum(nums)
+
+#     # Handling the special case len = 1
+#     if len(nums) == 1:
+#         return max_sum
+    
+    
+#     max_element = max(nums)
+#     nums_len = len(nums)-1
+#     idx = 0
+
+#     while nums_len > 1:
+
+#         if idx + nums_len > len(nums):
+#             nums_len -= 1
+#             idx = 0
+#             continue
+            
+#         sub_array = nums[idx:idx+nums_len]
+#         sub_array_sum = sum(sub_array)
+
+#         if sub_array_sum > max_sum:
+#             max_sum = sub_array_sum
+            
+#         idx += 1
+
+#     # Handling the case where one element is greater than any subarray sum
+#     if max_element > max_sum:
+#         return max_element
+    
+#     return max_sum
+
+
+# print(maxSubArray(nums))
+        
+
+'Notes: My solution worked 94,7% of the cases, the time limit was reached.'
+
+
+
+
+# Kadane's Algorythm (for max subarray sum)
+
+# def maxSubArray(nums):
+
+#     max_end_here = max_so_far = nums[0]
+
+#     for num in nums[1:]:
+
+#         max_end_here = max(num, max_end_here + num)
+#         max_so_far = max(max_so_far, max_end_here)
+    
+#     return max_so_far
+
+
+# print(maxSubArray(nums))
+
+'Notes: Apparently it was a classic problem'
+
+
+
+
+
 'xxx'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
