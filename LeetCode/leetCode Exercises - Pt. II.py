@@ -1107,24 +1107,126 @@ Intuition: Brute forcing
 
 
 
+'54. Spiral Matrix'
+
+# Input
+
+# # Case 1
+# matrix = [[1,2,3],[4,5,6],[7,8,9]]
+# # Output: [1,2,3,6,9,8,7,4,5]
+
+# # Case 2
+# matrix = [[1,2,3,4],[5,6,7,8],[9,10,11,12]]
+# # Output: [1,2,3,4,8,12,11,10,9,5,6,7]
+
+# # Custom Case  / m = 1
+# matrix = [[2,1,3]]
+# # Output: [2,1,3]
+
+# # Custom Case / n = 1
+# matrix = [[2],[1],[3],[5],[4]]
+# # Output: [2,1,3,5,4]
+
+# # Custom Case
+# matrix = [[1,2],[3,4]]
+# # Output: [1,2,4,3]
+
+# # Custom Case
+# matrix = [[2,3,4],[5,6,7],[8,9,10],[11,12,13],[14,15,16]]
+# # Output: [2,3,4,7,10,13,16,15,14,11,8,5,6,9,12]
+
+
+
+
+# My approach
+
+'''
+Intuition:
+    1. Handle Special Cases: m = 1 / n = 1 
+
+    2. Make a while loop that runs until the input has no elements:
+        a. Take all the subelements from the first element and append them individually to the result.
+        b. Make a for loop and take the last subelement of each element and append them individually to the result
+        c. Take all the subelements from the last element and append them in a reverse order individually to the result.
+        d. Make a for loop and take the first subelement of each element and append them in a reverse order individually to the result.
+
+     3. Return the result
+'''
+
+# def spiralOrder(matrix):
+
+#     if len(matrix) == 1:
+#         return matrix[0]
+    
+#     if len(matrix[0]) == 1:
+#         return [num for vec in matrix for num in vec]
+    
+
+#     result = []
+
+#     while len(matrix) != 0:
+
+#         first_element = matrix.pop(0)
+#         result += first_element
+
+#         if len(matrix) == 0:
+#             break
+
+#         second_element = []
+#         for elem in matrix:
+#             second_element.append(elem.pop(-1))
+#         result += second_element
+
+#         third_element = matrix.pop(-1)
+#         result += reversed(third_element)
+        
+#         if len(matrix) > 0 and len(matrix[0]) == 0:
+#             break
+
+#         fourth_element = []
+#         for elem in matrix:
+#             fourth_element.append(elem.pop(0))
+#         result += reversed(fourth_element)
+
+#     return result
+
+# print(spiralOrder(matrix))
+
+
+'Notes: it works up to 76% of the cases, but from here seems more like patching something that could be better designed'
+
+
+# Another Approach
+
+# def spiralOrder(matrix):
+        
+#         result = []
+
+#         while matrix:
+#             result += matrix.pop(0) # 1
+
+#             if matrix and matrix[0]: # 2 
+#                 for line in matrix:
+#                     result.append(line.pop())
+
+#             if matrix: # 3
+#                 result += matrix.pop()[::-1]
+
+#             if matrix and matrix[0]: # 4
+
+#                 for line in matrix[::-1]:
+#                     result.append(line.pop(0))
+
+#         return result
+
+
+'Notes: Same logic, better executed'
+
+
+
+
+
 'xxx'
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
