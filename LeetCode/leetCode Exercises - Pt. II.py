@@ -1311,11 +1311,92 @@ Intuition: Brute Force
 
 
 
+'56. Merge Intervals'
+
+#Input
+
+# # Case 1
+# intervals = [[1,3],[2,6],[8,10],[15,18]]
+# # Output: [[1,6],[8,10],[15,18]]
+
+# # Case 2
+# intervals = [[1,4],[4,5]]
+# # Output: [[1,5]]
+
+# # Custom Case
+# intervals = [[1,4],[0,0]]
+# # Output: [...]
+
+
+# My Approach
+
+'''
+Intuition:
+
+    - Check the second item of the element and the first of the next, 
+    if they coincide, merge.
+        (Through a While Loop)
+'''
+
+# def merge(intervals:list[list[int]]) -> list[list[int]]:
+
+#     #Handling the corner case
+#     if len(intervals) == 1:
+#         return intervals
+
+#     intervals.sort(key=lambda x: x[0])
+
+#     idx = 0
+
+#     while idx < len(intervals)-1:
+
+#         if intervals[idx][1] >= intervals[idx+1][0]:
+
+#             merged_interval = [[min(intervals[idx][0], intervals[idx+1][0]), max(intervals[idx][1], intervals[idx+1][1])]]
+#             intervals = intervals[:idx] + merged_interval + intervals[idx+2:]
+#             idx = 0
+
+#         else:
+#             idx += 1
+
+#     return intervals
+
+# print(merge(intervals))
+
+'Note: My solution works but is not efficient, since it has to go over the whole array again'
+
+
+
+# Some other Approach
+
+# def merge(intervals):
+#     """
+#     :type intervals: List[List[int]]
+#     :rtype: List[List[int]]
+#     """
+#     intervals.sort()
+
+#     merge_intervals = []
+#     curr_interval = intervals[0]
+
+#     for interval in intervals[1:]:
+
+#         if curr_interval[1] < interval[0]:
+#             merge_intervals.append(curr_interval)
+#             curr_interval = interval
+
+#         else:
+#             curr_interval[1] = max(curr_interval[1], interval[1])
+
+#     merge_intervals.append(curr_interval)
+
+#     return merge_intervals
+
+
+# print(merge(intervals))
+
+
+
+
+
 'xxx'
-
-
-
-
-
-
-
