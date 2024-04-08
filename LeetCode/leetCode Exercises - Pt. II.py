@@ -1469,4 +1469,92 @@ But the actual answer I rather take it from the leetCode's solutions wall, since
 
 
 
-'xxx'
+'66. Plus One'
+
+# Input
+
+# # Case 1
+# digits = [1,2,3]
+# # Output: [1,2,4]
+
+# # Case 2
+# digits = [4,3,2,1]
+# # Output: [4,3,2,2]
+
+# # Case 3
+# digits = [9]
+# # Output: [1,0]
+
+# Custom Case
+digits = [9,9,9]
+# Output: [1,0,0,0]
+
+
+# My approach
+
+'''
+Intuition:
+    - The case is simple, the catch is to handle the case "[9,9,9]"
+'''
+
+# def plusOne(digits: list[int]) -> list[int]:
+
+#     idx = -1
+
+#     while abs(idx) <= len(digits):
+        
+#         if abs(idx) == len(digits) and digits[idx] == 9:
+
+#             digits[idx] = 1
+#             digits.append(0)
+#             break
+
+#         if digits[idx] != 9:
+
+#             digits[idx] += 1
+#             break
+
+#         digits[idx] = 0
+#         idx -= 1
+
+#     return digits
+
+
+# print(plusOne(digits=digits))
+
+'''
+Notes: 
+While this code works, there was an even cleverer approach - To convert the digits into a int, add 1 and return as a list of ints
+this way, is avoided the handling of cases
+'''
+
+# A different Approach
+
+def plusOne(digits: list[int]) -> list[int]:
+
+    number = int(''.join([str(x) for x in digits]))
+    number += 1
+    
+    return [int(x) for x in str(number)]
+
+
+print(plusOne(digits=digits))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
