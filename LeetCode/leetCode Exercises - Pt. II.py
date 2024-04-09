@@ -1645,12 +1645,45 @@ x = 399
 
 
 
+'70. Climbing Stairs'
+
+# Input
+
+# # Case 1
+# n = 2
+# # Output = 2
+
+# # Case 2
+# n = 3
+# # Output = 3
+
+# # Case 2
+# n = 5
+# # Output = 3
+
+# Solution
+
+# def climbStairs(n:int) -> int:
+
+#     res = [1,1]
+
+#     for i in range(2, n+1):
+#         res.append(res[i-2]+res[i-1])
+    
+
+#     return res[-1]
+
+
+# print(climbStairs(n))
+
+'Notes: The recursive solution, while elegant and eyecatching, is not as efficient as an iterative one'
+
+
+
+
+
+
 'xxx'
-
-
-
-
-
 
 
 
