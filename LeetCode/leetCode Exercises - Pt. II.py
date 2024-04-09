@@ -1556,9 +1556,9 @@ this way, is avoided the handling of cases
 # x = 8
 # # Output: 2
 
-# Custom Case
-x = 399
-# Output: ..
+# # Custom Case
+# x = 399
+# # Output: ..
 
 
 
@@ -1683,7 +1683,80 @@ x = 399
 
 
 
+'73. Set Matrix Zeroes'
+
+# Input
+
+# # Case 1
+# matrix = [[1,1,1],[1,0,1],[1,1,1]]
+# # Output: [[1,0,1],[0,0,0],[1,0,1]]
+
+# # Case 2
+# matrix = [[0,1,2,0],[3,4,5,2],[1,3,1,5]]
+# # Output: [[0,0,0,0],[0,4,5,0],[0,3,1,0]]
+
+# # Custom Case
+# matrix = [...]
+# # Output: [...]
+
+
+
+# My Approach
+
+'''
+Intuition:
+    - Locate the indexes of every 0 present
+    - Try to overwrite the values for the row and the column of each occurrence
+    - Look up if the col and row are already 0 to optimize
+
+'''
+
+# def setZeroes(matrix: list[list[int]]) -> list[list[int]]:
+
+#     m, n = len(matrix), len(matrix[0])
+
+#     occurrences = []
+
+#     for i, row in enumerate(matrix):
+
+#         for j, col in enumerate(row):
+
+#             if 0 not in row:
+#                 continue
+            
+#             if col == 0:
+#                 occurrences.append((i,j))
+
+
+#     for pair in occurrences:
+
+#         matrix[pair[0]] = [0] * n
+
+#         for row in range(m):
+#             matrix[row][pair[1]] = 0
+
+    
+#     return matrix
+
+
+# for i in setZeroes(matrix):
+#     print(i)
+
+'''
+Notes: It actually passed! :D
+'''
+
+
+
+
+
+
 'xxx'
+
+
+
+
+
 
 
 
