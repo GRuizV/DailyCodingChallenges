@@ -1485,9 +1485,9 @@ But the actual answer I rather take it from the leetCode's solutions wall, since
 # digits = [9]
 # # Output: [1,0]
 
-# Custom Case
-digits = [9,9,9]
-# Output: [1,0,0,0]
+# # Custom Case
+# digits = [9,9,9]
+# # Output: [1,0,0,0]
 
 
 # My approach
@@ -1530,20 +1530,122 @@ this way, is avoided the handling of cases
 
 # A different Approach
 
-def plusOne(digits: list[int]) -> list[int]:
+# def plusOne(digits: list[int]) -> list[int]:
 
-    number = int(''.join([str(x) for x in digits]))
-    number += 1
+#     number = int(''.join([str(x) for x in digits]))
+#     number += 1
     
-    return [int(x) for x in str(number)]
+#     return [int(x) for x in str(number)]
 
 
-print(plusOne(digits=digits))
+# print(plusOne(digits=digits))
 
 
 
 
 
+'69. Sqrt(x)'
+
+# Input
+
+# # Case 1
+# x = 4
+# # Output: 2
+
+# # Case 2
+# x = 8
+# # Output: 2
+
+# Custom Case
+x = 399
+# Output: ..
+
+
+
+
+# My Approach
+
+# limit = 46341
+
+# # Auxiliary Eratosthenes' sieve function
+# def primes(cap):  
+
+#     primes = []
+#     not_primes = []
+
+#     for i in range(2, cap+1):
+
+#         if i not in not_primes:
+#             primes.append(i)
+#             not_primes.extend([x for x in range(i*i, cap+1, i)])
+
+#     return primes
+
+
+# def mySqrt(x:int) -> int:
+
+#     #Setting a limit for calculating primes
+#     limit = x//2
+
+#     prime_nums = primes(limit)
+
+#     squares = list(map(lambda x: x*x, prime_nums))
+
+
+#     #proning in the squares the correct range to make a range to evaluate
+#     root_range = []
+#     for idx, v in enumerate(squares):
+
+#         if x <= v:
+#             root_range = [prime_nums[idx-1], prime_nums[idx]]
+#             break
+
+
+#     #Calculating manually the square of each root in range to select the floor-root for the value
+#     for root in range(root_range[0], root_range[1]+1):
+        
+#         if root*root >= x:
+#             return result
+        
+#         result = root
+
+
+# print(mySqrt(x))
+
+'Notes: This approach was too complicated and actually no as efficient. Apparently with the notion of binary search is easier to solve'
+
+
+# # Binary Search Approach
+
+# def mySqrt(x):
+
+#     left = 0
+#     right = x
+
+#     while left <= right:
+
+#         mid = (left + right)//2
+
+#         if mid*mid < x:
+#             left = mid + 1
+
+#         elif mid*mid > x: 
+#             right = mid -1
+
+#         else:
+#             return mid
+    
+#     return right
+    
+
+# print(mySqrt(x))
+
+
+
+
+
+
+'xxx'
 
 
 
