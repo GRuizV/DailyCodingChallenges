@@ -1751,9 +1751,62 @@ Notes: It actually passed! :D
 
 
 
+'75. Sort Colors'
+
+# Input
+
+# # Case 1
+# nums = [2,0,2,1,1,0]
+# # Output: [0,0,1,1,2,2]
+
+# # Case 2
+# nums = [2,0,1]
+# # Output: [0,1,2]
+
+
+# My approach
+
+'''
+Intuition:
+    Since the solution requires the sorting be in place, 
+    perhaps Bubblesort would do the trick.
+'''
+
+
+# def sortColors(nums:list[int]) -> list[int]:
+
+#     swapped = True
+    
+
+#     while swapped != False:
+
+#         swapped = False
+#         i = 0
+
+#         while True:
+
+#             if i == len(nums)-1:
+#                 break
+
+#             if nums[i] > nums[i+1]:
+#                 nums[i], nums[i+1] = nums[i+1], nums[i]
+#                 swapped = True
+
+#             i += 1
+
+
+# sortColors(nums)
+
+# print(nums)
+
+'Notes: Done!'
+
+
+
+
+
+
 'xxx'
-
-
 
 
 
