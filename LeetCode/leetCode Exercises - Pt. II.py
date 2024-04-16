@@ -1932,12 +1932,64 @@ Intuition:
 
 
 
-'xxx'
+'78. Subsets'
+
+# Input
+
+# # Case 1
+# nums = [1,2,3]
+# # Output: [[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]
+
+# # Case 2
+# nums = [0]
+# # Output: [[],[0]]
 
 
 
+# My Approach
+
+'''
+Intuition:
+    - Perhaps with itertool something might be done
+'''
+
+# def subsets(nums:list[int]) -> list[list[int]]:
+
+#     from itertools import combinations
+
+#     result = []
+
+#     for i in range(len(nums)+1):
+
+#         result.extend(list(map(list, combinations(nums,i))))
+
+#     return result
+
+
+# print(subsets(nums=nums))
+
+'Notes: It actually worked'
 
 
 
+# Another more algorithmic Approach
 
+# def subsets(nums: list[int]) -> list[list[int]]:
 
+#     arr = [[]]
+
+#     for j in nums:
+
+#         temp = []
+
+#         for i in arr: 
+
+#             temp.append(i+[j])
+        
+#         arr.extend(temp)
+    
+#     return arr 
+
+# print(subsets(nums))
+
+'Notes: The guy who came up with this is genius'
