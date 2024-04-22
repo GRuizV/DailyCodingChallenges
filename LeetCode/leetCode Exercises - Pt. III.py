@@ -158,14 +158,130 @@ Intuition:
 
 # print(nums1)
 
-'Done'
-  
-
-
-
-'xxx'  
 
 
 
 
+'91. Decode Ways'  
 
+# Input
+
+# # Case 1:
+# s = '12'
+# # Output: 2
+
+# # Case 2:
+# s = '226'
+# # Output: 3
+
+# # Case 3:
+# s = '06'
+# # Output: 0
+
+# # Custom Case:
+# s = '112342126815'
+# # Output: 11
+
+
+
+# My apporach
+
+# def fib(n):
+
+#     res = [1,1]
+
+#     for _ in range(n-1):
+#         res.append(res[-2] + res[-1])
+          
+#     return res[1:]
+
+
+# def numDecodings(s:str) -> int:
+
+#     if s[0] == '0':
+#         return 0
+    
+#     if len(s) == 1:
+#         return 1
+
+#     substrings = []
+#     subs = ''
+
+#     if s[0] in ['1', '2']:
+#         subs += s[0]
+
+#     for i in range(1, len(s)+1):
+
+#         if i == len(s):
+#             if subs != '':
+#                 substrings.append(subs)
+
+#         elif (s[i] in ['1', '2']) or (s[i-1] in ['1', '2'] and s[i] <= '6'):
+#             subs += s[i]
+
+#         else:
+#             substrings.append(subs)
+#             subs = ''
+
+#     cap = len(max(substrings, key=len))
+#     possibilities = fib(cap)
+
+#     res = 0
+
+#     for i in substrings:
+
+#         if i in '10' or '20':
+#             res += 1
+
+#         else:
+#             res += possibilities[len(i)-1] 
+    
+#     return res
+
+
+# print(numDecodings(s))
+
+
+'''
+Notes: 
+    This solution met 48% of expected results, there are a couple of cases I left unanalyzed.
+    Nevertheless, the logic of fibonaccying the parsing numbers works, perhaps with more time
+    a solution through this approach could work.
+
+'''
+
+
+
+# Dynamic Programming Approach
+
+# def numDecodings(self, s):
+    
+#     dp = {len(s):1}
+
+#     def backtrack(i):
+
+#         if i in dp:
+#             return dp[i]
+
+#         if s[i]=='0':
+#             return 0
+
+#         if i==len(s)-1:
+#             return 1
+
+#         res = backtrack(i+1)
+
+#         if int(s[i:i+2])<27:
+#             res+=backtrack(i+2)
+            
+#         dp[i]=res
+
+#         return res
+
+#     return backtrack(0)
+
+
+
+
+
+'xxx' 
