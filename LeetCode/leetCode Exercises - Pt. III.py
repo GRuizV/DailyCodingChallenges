@@ -284,4 +284,157 @@ Notes:
 
 
 
+'98. Validate Binary Search Tree' 
+
+# Base
+
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+
+
+# Input
+
+# # Case 1
+# root_layout = [2,1,3]
+# root = TreeNode(val=2, left=TreeNode(val=1), right=TreeNode(val=3))
+# # Output: True
+
+
+# # Case 2
+# root_layout  = [5,1,4,None, None, 3, 6]
+# left = TreeNode(val=1)
+# right = TreeNode(val=4, left=TreeNode(val=3), right=TreeNode(val=6)) 
+# root = TreeNode(val=5, left=left, right=right)
+# # Output: False
+
+
+# # Custom Case 1
+# root_layout  = [4,2,5,1,8,5,9,3,10,2,15]
+
+# root = TreeNode(val=4)
+# first_left, first_right = TreeNode(val=2), TreeNode(val=5)
+
+# fl_left = TreeNode(val=1)
+# fl_right = TreeNode(val=8, left=TreeNode(val=5), right=TreeNode(val=9)) 
+# fr_left = TreeNode(val=3)
+# fr_right = TreeNode(val=10, left=TreeNode(val=2), right=TreeNode(val=15)) 
+
+# first_left.left, first_left.right = fl_left, fl_right
+# first_right.left, first_right.right = fr_left, fr_right
+
+# root.left, root.right = first_left, first_right
+# # Output: True
+
+
+# # Custom Case 2
+# root_layout  = [10,9,11,3,4,7,15,8,4,13,16,12,21]
+
+# root = TreeNode(val=10)
+# first_left, first_right = TreeNode(val=9), TreeNode(val=11)
+
+# fl_left = TreeNode(val=3, left=TreeNode(val=4), right=TreeNode(val=7))
+# fl_right = TreeNode(val=15)
+# fr_left = TreeNode(val=8, left=TreeNode(val=4), right=TreeNode(val=13))
+# fr_right = TreeNode(val=16, left=TreeNode(val=12), right=TreeNode(val=21)) 
+
+# first_left.left, first_left.right = fl_left, fl_right
+# first_right.left, first_right.right = fr_left, fr_right
+
+# root.left, root.right = first_left, first_right
+# # Output: False
+
+
+# # Custom Case 3
+# root_layout  = [2,2,2]
+# root = TreeNode(val=2, left=TreeNode(val=2), right=TreeNode(val=2))
+# # Output: False
+
+
+# My approach
+
+'''
+Intuition:
+    traverse with DFS and check each (root-child) group,
+    if balanced, check the next group, else, return False.
+
+    if we get to the end of the tree and there were no imbalance, return True.
+
+'''
+
+
+# def dfs(root:TreeNode):
+
+#     stack = [root]
+
+#     while stack:
+
+#         node = stack.pop()
+#         ndv = node.val
+
+#         if node.left or node.right:
+
+#             if node.left:
+
+#                 ndlv = node.left.val
+                
+#                 if node.left.val > node.val:
+#                    return False
+                
+#                 stack.append(node.left)
+            
+
+#             if node.right:
+
+#                 ndrv = node.right.val
+                                                
+#                 if node.right.val < node.val:
+#                    return False
+                
+#                 stack.append(node.right)
+
+#             if node.val == node.right.val and node.val == node.left.val:
+#                 return False
+            
+#     return True
+
+
+# print(dfs(root))
+
+'Note: My solution works up to 78% of the cases'
+
+
+# Inorder Tree Traversal Approach
+
+# path = []
+
+# def inorder(root:TreeNode, route:list):
+
+#     if root is None:
+#         return
+    
+#     inorder(root.left, route)
+#     route.append(root.val)
+#     inorder(root.right, route)
+
+
+# inorder(root=root, route=path)
+
+
+# print(path)
+
+'Note: The Trick here is that the inorder traversal, basically returns a sorted list if is balanced!'
+
+
+
+
+
 'xxx' 
+
+
+
+
+
