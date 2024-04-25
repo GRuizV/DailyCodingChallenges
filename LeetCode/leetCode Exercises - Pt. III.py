@@ -432,8 +432,128 @@ Intuition:
 
 
 
-'xxx' 
+'101. Symmetric Tree' 
 
+# Base
+
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+
+# Input
+
+# # Case 1
+# root_layout = [1,2,2,3,4,4,3]
+
+# root = TreeNode(val=1)
+# first_left= TreeNode(val=2, left=TreeNode(val=3), right=TreeNode(val=4))
+# first_right = TreeNode(val=2, left=TreeNode(val=4), right=TreeNode(val=3))
+
+# root.left, root.right = first_left, first_right
+# # Output: True
+
+# # Case 2
+# root_layout = [1,2,2,None,3,None,3]
+
+# root = TreeNode(val=1)
+# first_left= TreeNode(val=2, right=TreeNode(val=3))
+# first_right = TreeNode(val=2, right=TreeNode(val=3))
+
+# root.left, root.right = first_left, first_right
+# # Output: False
+
+# # Custom Case 1
+# root_layout = [1,2,2,2,None,2]
+
+# root = TreeNode(val=1)
+# first_left= TreeNode(val=2, left=TreeNode(val=2))
+# first_right = TreeNode(val=2, left=TreeNode(val=2))
+
+# root.left, root.right = first_left, first_right
+# # Output: False
+
+
+
+# My approach
+
+'''
+Intuition:
+    Return a inorder-traversal list of the trees from the first left and right node,
+    and one should be the reverse of the other.
+
+    Handling corner cases:
+    - If only a root: True
+    - If only a root with two leaves, if the leaves are equal: True
+    - If the number of nodes is even: False
+'''
+
+# def isSymetric(root:TreeNode):
+
+#     tree_nodes = []
+
+#     def inorder(root):
+
+#         if root == None:
+#             return 
+        
+#         inorder(root.left)
+#         tree_nodes.append(root.val)
+#         inorder(root.right)
+
+#     inorder(root=root)
+
+    
+#     if len(tree_nodes) == 1:
+#         return True
+    
+#     # If there are an even number of nodes, it can be symetrical
+#     if len(tree_nodes)%2 == 0:
+#         return False   
+    
+#     if len(tree_nodes) == 3:
+#         if root.left.val == root.right.val:
+#             return True
+
+#     mid = len(tree_nodes)//2 
+#     left_tree = tree_nodes[:mid]
+#     right_tree = tree_nodes[mid+1:]
+    
+#     return left_tree == list(reversed(right_tree))
+
+
+# print(isSymetric(root))
+
+'Note: This solution works for cases where all node are identical, since it didnt distinguish between left and right'
+
+
+
+# Recursive Approach
+
+# def is_mirror(self, n1, n2):
+
+#     if n1 is None and n2 is None:
+#         return True
+    
+#     if (n1 is None) or (n2 is None) or (n1.val != n2.val):
+#         return False
+
+#     return self.is_mirror(n1.left, n2.right) and self.is_mirror(n1.right, n2.left)
+
+
+# def isSymmetric(self, root):
+
+#     return self.is_mirror(n1=root.left, n2=root.right)
+
+# 'This solution works perfectly'
+
+
+
+
+
+'xxx' 
 
 
 
