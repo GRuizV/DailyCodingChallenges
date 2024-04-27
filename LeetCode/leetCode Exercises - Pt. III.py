@@ -553,7 +553,146 @@ Intuition:
 
 
 
+'102. Binary Tree Level Order Traversal' 
+
+# Input
+
+# Base
+
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+
+# Input
+
+# # Case 1
+# root_layout = [3,9,20,None,None,15,7]
+
+# root = TreeNode(val=3)
+# first_left= TreeNode(val=9)
+# first_right = TreeNode(val=2, left=TreeNode(val=15), right=TreeNode(val=7))
+
+# root.left, root.right = first_left, first_right
+# # Output: [[3],[9,20],[15,7]]
+
+# # Case 2
+# root_layout = [1]
+# root = TreeNode(val=1)
+# # Output: [[1]]
+
+# # Case 3
+# root_layout = []
+# # Output: []
+
+
+# My Approach
+
+'''
+Intuition:
+
+    With bread-first search, I can pull the values in order by levels.
+
+    Given that Binary tree are binary, with the powers of 2
+    it could be calculated how many nodes exist in each level.
+
+    and with the l = 1 + floor(log_2(n)), the number of levels can
+    be known just having the number of nodes.
+
+    
+'''
+# from collections import deque
+# from math import floor, log2
+
+# def bfs(root:TreeNode):
+
+#     queue = deque()
+#     queue.append(root)
+
+#     path = []
+
+#     while queue:
+
+#         node = queue.popleft()
+
+#         if node not in path:
+
+#             path.append(node)
+
+#             if node.left:
+#                 queue.append(node.left)
+
+#             if node.right:
+#                 queue.append(node.right)
+
+#     return [x.val for x in path]
+
+# nodes_list = bfs(root=root)
+
+# n_levels = 1 + floor(log2(len(nodes_list)))
+
+# result = []
+
+# for i in range(n_levels):
+
+#     temp = []
+
+#     for j in range(pow(2, i)):
+
+#         if nodes_list:
+#             temp.append(nodes_list.pop(0))
+    
+#     result.append(temp)
+    
+
+# print(result)
+
+
+'Notes: This solution works but the leetcode interpreter didnt recognized the log2 function'
+
+
+# A Simplier Approach
+
+# def levelsOrder(root:TreeNode):
+
+#     from collections import deque
+    
+#     queue = deque()
+#     queue.append(root)    
+#     result = []
+
+#     while queue:
+
+#         queue_len = len(queue)
+#         level = [] 
+        
+#         for i in range(queue_len):
+
+#             node = queue.popleft()
+
+#             if node is not None:
+
+#                 level.append(node.val)
+#                 queue.append(node.left)
+#                 queue.append(node.right)
+
+#         if level:   
+#             result.append(level)
+
+#     return result
+
+# print(levelsOrder(root=root))
+
+'Done'
+
+
+
+
+
 'xxx' 
+
 
 
 
