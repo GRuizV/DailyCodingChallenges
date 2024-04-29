@@ -691,9 +691,89 @@ Intuition:
 
 
 
-'xxx' 
+'103. Binary Tree Zigzag Level Order Traversal' 
+
+# Base
+
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+
+# Input
+
+# # Case 1
+# root_layout = [3,9,20,None,None,15,7]
+
+# root = TreeNode(val=3)
+# first_left= TreeNode(val=9)
+# first_right = TreeNode(val=20, left=TreeNode(val=15), right=TreeNode(val=7))
+
+# root.left, root.right = first_left, first_right
+# # Output: [[3],[20,9],[15,7]]
+
+# # Case 2
+# root_layout = [1]
+# root = TreeNode(val=1)
+# # Output: [[1]]
+
+# # Case 3
+# root_layout = []
+# # Output: []
+
+
+# My Approach
+
+'''
+Notes:
+    This will go apparently the same as the level order, but in the other way arround
+    and this time is alternating depending of the level
+'''
+
+
+# def zigzagLevelOrder(root:TreeNode) -> list[list[int]]:
+
+#     from collections import deque
+
+#     queue = deque()
+#     queue.append(root)
+#     result = []
+#     level = 1
+
+#     while queue:
+
+#         len_q = len(queue)
+#         level_nodes = []
+      
+#         for i in range(len_q):
+
+#             node = queue.popleft()
+
+#             if node is not None:
+
+#                 queue.append(node.left)
+#                 queue.append(node.right)
+#                 level_nodes.append(node.val)
+
+#         if len(level_nodes) != 0:
+
+#             if level % 2 == 0:
+#                 level_nodes = list(reversed(level_nodes))
+            
+#             result.append(level_nodes)
+        
+#         level += 1
+    
+#     return result
+
+# print(zigzagLevelOrder(root=root))
+
+'It worked!'
 
 
 
 
 
+'xxx'
