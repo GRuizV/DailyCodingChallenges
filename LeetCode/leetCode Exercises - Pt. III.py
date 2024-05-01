@@ -776,4 +776,81 @@ Notes:
 
 
 
+'104. Maximum Depth of Binary Tree'
+
+# Base
+
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+
+# Input
+
+# # Case 1
+# root_layout = [3,9,20,None,None,15,7]
+
+# root = TreeNode(val=3)
+# first_left= TreeNode(val=9)
+# first_right = TreeNode(val=20, left=TreeNode(val=15), right=TreeNode(val=7))
+
+# root.left, root.right = first_left, first_right
+# # Output: 3
+
+# # Case 2
+# root_layout = [1, None, 2]
+
+# root = TreeNode(val=1, right=TreeNode(val=2))
+# # Output: 2
+
+
+# My approach
+
+'''
+Notes:
+    Here could be to ways (or more) to solve it:
+        1. Implement the BFS by level listing (like the challenges prior to this one) and count the elements of the result
+        2. Simply list through DFS or BFS and apply l = 1 + floor(log_2(n)), to know the number of levels, but probably leetcode won't have 
+           the log2 function in its math module, so I'll the first way.
+'''
+
+# def maxDepth(root:TreeNode) -> int:
+
+#     from collections import deque
+
+#     queue = deque()
+#     queue.append(root)
+#     result = []
+
+#     while queue:
+
+#         queue_len = len(queue)
+#         level = []
+
+#         for _ in range(queue_len):
+
+#             node = queue.popleft()
+
+#             if node is not None:
+
+#                 queue.append(node.left)
+#                 queue.append(node.right)
+
+#                 level.append(node.val)
+
+#         if level:
+#             result.append(level)
+    
+#     return result
+
+# print(maxDepth(root))
+
+'Done!'
+
+
+
+
+
 'xxx'
