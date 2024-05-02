@@ -853,4 +853,48 @@ Notes:
 
 
 
-'xxx'
+'105. Construct Binary Tree from Preorder and Inorder Traversal'
+
+# Base
+
+class TreeNode(object):
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+
+# Input
+
+# Case 1
+preorder, inorder = [3,9,20,15,7],[9,3,15,20,7]
+# Output: [3,9,20,None,None,15,7]
+
+
+def buildTree(preorder, inorder):
+
+    if inorder:
+
+        idx = inorder.index(preorder.pop(0))
+        root = TreeNode(val = inorder[idx])
+        root.left = buildTree(preorder=preorder, inorder=inorder[:idx])
+        root.right = buildTree(preorder=preorder, inorder=inorder[idx+1:])
+
+        return root
+
+
+'Done'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
