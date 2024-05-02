@@ -855,32 +855,32 @@ Notes:
 
 '105. Construct Binary Tree from Preorder and Inorder Traversal'
 
-# Base
+# # Base
 
-class TreeNode(object):
-    def __init__(self, val=0, left=None, right=None):
-        self.val = val
-        self.left = left
-        self.right = right
-
-
-# Input
-
-# Case 1
-preorder, inorder = [3,9,20,15,7],[9,3,15,20,7]
-# Output: [3,9,20,None,None,15,7]
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 
 
-def buildTree(preorder, inorder):
+# # Input
 
-    if inorder:
+# # Case 1
+# preorder, inorder = [3,9,20,15,7],[9,3,15,20,7]
+# # Output: [3,9,20,None,None,15,7]
 
-        idx = inorder.index(preorder.pop(0))
-        root = TreeNode(val = inorder[idx])
-        root.left = buildTree(preorder=preorder, inorder=inorder[:idx])
-        root.right = buildTree(preorder=preorder, inorder=inorder[idx+1:])
 
-        return root
+# def buildTree(preorder, inorder):
+
+#     if inorder:
+
+#         idx = inorder.index(preorder.pop(0))
+#         root = TreeNode(val = inorder[idx])
+#         root.left = buildTree(preorder=preorder, inorder=inorder[:idx])
+#         root.right = buildTree(preorder=preorder, inorder=inorder[idx+1:])
+
+#         return root
 
 
 'Done'
@@ -889,9 +889,59 @@ def buildTree(preorder, inorder):
 
 
 
+'108. Convert Sorted Array to Binary Search Tree'
+
+# # Base
+
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+
+# Input
+
+# # Case 1
+# nums = [-10,-3,0,5,9]
+# # Output: [0,-3,9,-10,None,5] | [0,-10,5,None,-3,None,9]
+
+# # Case 2
+# nums = [1,3]
+# # Output: [3,1] | [1,None,-3]
+
+
+# My Approach
+
+'''
+Intuition:
+    Learnt for the prior exercise, the middle node will be taken as the root.
+    from there, it can recursively built the solution.
+        base case = when len(nums) = 0
+'''
+
+# def sortedArrayToBST(nums:list[int]) -> TreeNode:
+
+#     nums_len = len(nums)
+
+#     if nums_len:
+
+#         idx = nums_len // 2
+
+#         return TreeNode(val = nums[idx], left = sortedArrayToBST(nums=nums[:idx]), right = sortedArrayToBST(nums=nums[idx+1:]))
 
 
 
+# node = sortedArrayToBST(nums=nums)
+# print(node)
+
+'Done'
+
+
+
+
+
+'xxx'
 
 
 
