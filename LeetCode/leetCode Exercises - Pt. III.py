@@ -941,6 +941,73 @@ Intuition:
 
 
 
+'116. Populating Next Right Pointers in Each Node'
+
+# Base
+
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None, next=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+#         self.next = next
+
+
+# Input
+
+# # Case 1
+# tree_lauout = [1,2,3,4,5,6,7]
+
+# left = TreeNode(val=2, left=TreeNode(val=4), right=TreeNode(val=5))
+# right = TreeNode(val=3, left=TreeNode(val=6), right=TreeNode(val=7))
+# root = TreeNode(val=1, left=left, right=right)
+# # Output: [1,#,2,3,#,4,5,6,7,#]
+
+
+#My Approach
+
+'''
+Intuition:
+    This could be solved with the BFS modified to catch nodes by level,
+    and with the level picked from each loop, modify its pointers in that order 
+'''
+
+# def connect(root:TreeNode) -> TreeNode:
+    
+#     #Start
+#     queue = [root]
+    
+#     while queue:
+
+#         q_len = len(queue)
+#         level = []
+
+#         for i in range(q_len):
+
+#             node = queue.pop(0)
+
+#             if node:
+
+#                 queue.extend([node.left, node.right])
+#                 level.append(node)
+        
+#         if level:
+
+#             for i in range(len(level)):
+
+#                 if i != len(level)-1:
+
+#                     level[i].next = level[i+1]
+    
+#     return root
+
+'Worked right way, YAY! :D'
+
+
+
+
+
+
 'xxx'
 
 
