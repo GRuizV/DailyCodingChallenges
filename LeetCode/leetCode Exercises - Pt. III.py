@@ -1008,7 +1008,64 @@ Intuition:
 
 
 
-'xxx'
+'''118. Pascal's Triangle'''
+
+#Input
+
+# #case 1
+# numRows = 5
+# #Output: [[1],[1,1],[1,2,1],[1,3,3,1],[1,4,6,4,1]
+
+# #case 2
+# numRows = 1
+# #Output: [[1]]
+
+# My Approach
+
+'''
+Intuition:
+    initialize a preset solution to [[1],[1,1]] and according to the
+    parameter passed in the function, start to sum and populate this sums to a list
+    like [1]+[resulting_sums]+[1] and return that back to the preset solution, to operate over that
+    new element,
+
+        The number of loops will be numRows - 2 (given the 2 initial elements)
+'''
+
+# def generate(numRows:int) -> list[list[int]]:
+
+#     result = [[1],[1,1]]
+
+#     if numRows == 1:
+#         return [result[0]]
+    
+#     if numRows == 2:
+#         return result
+    
+
+#     for i in range(1, numRows-1):
+
+#         new_element = []
+
+#         for j in range(i):
+#             new_element.append(result[-1][j]+result[-1][j+1])
+
+#         if new_element:
+#             result.append([1]+new_element+[1])
+
+#     return result
+
+# print(generate(numRows=5))
+
+'It worked!'
+
+
+
+
+
+
+'''xxx'''
+
 
 
 
