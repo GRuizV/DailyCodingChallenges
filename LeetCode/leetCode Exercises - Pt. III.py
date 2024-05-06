@@ -1064,7 +1064,86 @@ Intuition:
 
 
 
+'''121. Best Time to Buy and Sell Stock'''
+
+# Input
+
+# #Case 1
+# prices = [7,1,5,3,6,4]
+# #Output: 5
+
+# #Case 2
+# prices = [7,6,4,3,1]
+# #Output: 0
+
+
+
+# My approach
+
+'''
+Intuition
+    - Corner Case: if is a ascendingly sorted list, return 0.
+    
+    - Pick the first item and set the profit as the max between the current profit and the difference between the first element
+      the max value from that item forward.
+    
+    Do this in a while loop until len(prices) = 1.
+'''
+
+
+# def maxProfit(prices: list[int]) -> int:
+
+#     profit = 0
+
+#     if prices == sorted(prices, reverse=True):
+#         return profit
+    
+
+#     while len(prices) > 1:
+
+#         purchase = prices.pop(0)
+
+#         profit = max(profit, max(prices)-purchase)
+    
+#     return profit
+
+
+# print(maxProfit(prices=prices))
+
+'This approach met 94% of the results'
+
+
+# Kadane's Algorithm
+
+# def maxProfit(prices: list[int]) -> int:
+
+#     buy = prices[0]
+#     profit = 0
+
+#     for num in prices[1:]:
+
+#         if num < buy:
+#             buy = num
+        
+#         elif num-buy > profit:
+#             profit = num - buy
+    
+    
+#     return profit  
+
+
+
+# print(maxProfit(prices=prices))
+
+'Done'
+
+
+
+
+
+
 '''xxx'''
+
 
 
 
