@@ -1142,7 +1142,101 @@ Intuition
 
 
 
+'''122. Best Time to Buy and Sell Stock II'''
+
+#Input
+
+# #Case 1
+# prices = [7,1,5,3,6,4]
+# #Output: 7
+
+# #Case 2
+# prices = [1,2,3,4,5]
+# #Output: 4
+
+# #Case 3
+# prices = [7,6,4,3,1]
+# #Output: 0
+
+# #Custom Case
+# prices = [3,3,5,0,0,3,1,4]
+# #Output: 0
+
+# # My approach
+# def maxProfit(prices:list[int]) -> int:
+
+#     if prices == sorted(prices, reverse=True):
+#         return 0
+    
+#     buy = prices[0]
+#     buy2 = None
+#     profit1 = 0
+#     profit2 = 0
+#     total_profit = 0
+
+#     for i in range(1, len(prices)):
+
+#         if prices[i] < buy:
+#             buy = prices[i]
+        
+#         elif prices[i] - buy >= profit1:            
+#             profit1 = prices[i] - buy
+#             buy2 = prices[i] 
+
+#             for j in range(i+1, len(prices)):
+
+#                 if prices[j] < buy2:
+#                     buy2 = prices[j]
+
+#                 elif prices[j] - buy2 >= profit2:
+#                     profit2 = prices[j] - buy2
+#                     total_profit = max(total_profit, profit1 + profit2)
+        
+#         total_profit = max(total_profit, profit1)
+
+#     return total_profit
+
+
+# print(maxProfit(prices=prices))
+
+'This solution went up to solve 83% of the cases, the gap was due to my lack of understanding of the problem'
+
+
+# # Same Kadane's but modified
+# def maxProfit(prices:list[int]) -> int:
+
+#     max = 0 
+#     start = prices[0]
+#     len1 = len(prices)
+
+#     for i in range(0 , len1):
+
+#         if start < prices[i]: 
+#             max += prices[i] - start
+
+#         start = prices[i]
+
+#     return max
+
+
+# print(maxProfit(prices=prices))
+
+'My mistake was to assume it can only be 2 purchases in the term, when it could be as many as it made sense'
+
+
+
+
+
+
 '''xxx'''
+
+
+
+
+
+
+
+
 
 
 
