@@ -1228,9 +1228,121 @@ Intuition
 
 
 
+'''124. Binary Tree Maximum Path Sum'''
+
+# # Base 
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+#Input
+
+# #Case 1
+# tree_layout = [1,2,3]
+# root = TreeNode(val=1, left=TreeNode(val=2), right=TreeNode(val=3))
+# #Output: 6
+
+# #Case 2
+# tree_layout = [-10,9,20,None, None,15,7]
+# left = TreeNode(val=9)
+# right = TreeNode(val=20, left=TreeNode(val=15), right=TreeNode(val=7))
+# root = TreeNode(val=-10, left=left, right=right)
+# #Output: 42
+
+# #Custom Case
+# tree_layout = [1,-2,3,1,-1,-2,-3]
+# left = TreeNode(val=-2, left=TreeNode(val=1), right=TreeNode(val=3))
+# right = TreeNode(val=-3, left=TreeNode(val=-2, left=TreeNode(val=-1)))
+# root = TreeNode(val=1, left=left, right=right)
+# #Output: 3
+
+
+#My approach
+
+'''
+Intuition:
+    - Make a preorder traversal tree list.
+    - Apply Kadane's algorithm to that list.
+'''
+
+
+# def maxPathSum(root:TreeNode) -> int:
+
+#     #First, Preorder
+#     path = []
+
+#     def preorder(node:TreeNode) -> None:
+
+#         if node:
+#             preorder(node=node.left)
+#             path.append(node.val)
+#             preorder(node=node.right)
+
+#     preorder(node=root)
+
+#     #Now Kadane's
+#     max_so_far = max_end_here = path[0]
+
+#     for num in path[1:]:
+
+#         max_end_here = max(num, max_end_here + num)
+#         max_so_far = max(max_so_far, max_end_here)
+
+#     return max_so_far
+
+
+# print(maxPathSum(root=root))
+
+'''
+Notes:
+    - On the first run it went up to 59% of the cases, thats Kudos for me! :D
+    - The problem with this algorithm is that it supposes that after reaching a parent and child node,
+      it's possible to go from a right child to the parent of the parent and that either forcibly makes
+      to pass twice from the parent before going to the granparent, or that one grandchild is connected
+      to the grandfather, which is also out of the rules.
+
+      I misinterpret this because one of the examples showed a path [leftchild, parent, rightchild] which
+      is valid only if we don't want to pass thruough the grandparent.
+    
+    The best choice here is to make a recursive proning algorithm
+'''
+
+
+# #A recursive approach
+# def maxPathSum(root):
+
+#     max_path = float('-inf') #Placeholder
+
+#     def get_max_gain(node):
+
+#         nonlocal max_path
+
+#         if not node:
+#             return 0
+        
+#         gain_on_left = max(get_max_gain(node.left),0)
+#         gain_on_right = max(get_max_gain(node.right),0)
+
+#         current_max_path = node.val + gain_on_left + gain_on_right
+#         max_path = max(max_path, current_max_path)
+
+#         return node.val + max(gain_on_left, gain_on_right)
+    
+#     get_max_gain(root)
+
+#     return max_path
+
+# print(maxPathSum(root))
+'Done'
+
+
+
+
+
+
 '''xxx'''
-
-
 
 
 
