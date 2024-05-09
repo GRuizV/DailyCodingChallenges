@@ -1342,17 +1342,29 @@ Notes:
 
 
 
+'''125. Valid Palindrome'''
+
+# def isPalindrome(s:str) -> bool:
+
+#     s = ''.join([x for x in s if x.isalpha()]).casefold()
+
+#     return s == s[::-1]
+
+
+
+# a = '0P'
+
+# a = ''.join([x for x in a if x.isalnum()]).casefold()
+
+# print(a)
+'Done'
+
+
+
+
+
+
 '''xxx'''
-
-
-
-
-
-
-
-
-
-
 
 
 
