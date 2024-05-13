@@ -1364,7 +1364,106 @@ Notes:
 
 
 
+'''127. Word Ladder'''
+
+#Input
+
+# #Case 1
+# begin_word, end_word, word_list = 'hit', 'cog', ['hot', 'dot', 'dog', 'lot', 'log', 'cog']
+# #Output: 5
+
+# #Custom Case
+# begin_word, end_word, word_list = 'a', 'c', ['a', 'b', 'c']
+# #Output: 5
+
+
+# My approach
+
+'''
+Intuition:
+    1. handle the corner case: the end_word not in the word_list
+    2. create an auxiliary func that check the word against the end_word: True if differ at most by 1 char, else False.
+    3. create a counter initialized in 0
+    4. start checking the begin_word and the end_word, if False sum 1 to the count, and change to the subquent word in the word_list and do the same.
+'''
+
+# def ladderLength(beginWord: str, endWord: str, wordList: list[str]) -> int:
+
+#     if endWord not in wordList:
+#         return 0
+    
+#     def check(word):
+#         return False if len([x for x in word if x not in endWord]) > 1 else True
+       
+#     if beginWord not in wordList:
+#         wordList.insert(0,beginWord)
+#         count = 0
+    
+#     else:
+#         count = 1
+    
+#     for elem in wordList:
+#         count += 1
+
+#         if check(elem):
+#             return count     
+            
+#     return 0
+
+
+# print(ladderLength(beginWord=begin_word, endWord=end_word, wordList=word_list))
+
+
+'This solution only went up to the 21% of the cases'
+
+
+# bfs approach
+
+# from collections import defaultdict, deque
+
+# def ladderLength(beginWord: str, endWord: str, wordList: list[str]) -> int:
+
+#     if endWord not in wordList or not endWord or not beginWord or not wordList:
+#         return 0
+
+#     L = len(beginWord)
+#     all_combo_dict = defaultdict(list)
+
+#     for word in wordList:
+#         for i in range(L):
+#             all_combo_dict[word[:i] + "*" + word[i+1:]].append(word) 
+
+#     queue = deque([(beginWord, 1)])
+#     visited = set()
+#     visited.add(beginWord)
+
+#     while queue:
+#         current_word, level = queue.popleft()
+
+#         for i in range(L):
+#             intermediate_word = current_word[:i] + "*" + current_word[i+1:]
+
+#             for word in all_combo_dict[intermediate_word]:
+
+#                 if word == endWord:
+#                     return level + 1
+
+#                 if word not in visited:
+#                     visited.add(word)
+#                     queue.append((word, level + 1))
+                    
+#     return 0
+
+
+
+
+
+
 '''xxx'''
+
+
+
+
 
 
 
