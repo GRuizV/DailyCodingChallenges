@@ -1459,12 +1459,87 @@ Intuition:
 
 
 
+'''128. Longest Consecutive Sequence'''
+
+
+#Input
+
+# #Case 1
+# nums = [100,4,200,1,3,2]
+# #Output: 4
+
+# #Case 2
+# nums = [0,3,7,2,5,8,4,6,0,1]
+# #Output: 9
+
+
+#My approach
+
+# def longestConsecutive(nums:list)->int:
+
+#     if not nums:
+#         return 0
+   
+#     nums.sort()
+
+#     sequences = {}
+
+#     for i in range(len(nums)):
+
+#         curr_seqs = [x for elem in sequences.values() for x in elem]
+
+#         if nums[i] not in curr_seqs:
+
+#             sequences[nums[i]] = [nums[i]]
+
+#             for j in range(i+1,len(nums)):
+                
+#                 criteria = range( min(sequences[nums[i]])-1, max(sequences[nums[i]])+2)
+#                 if nums[j] in criteria:
+#                     sequences[nums[i]].append(nums[j])
+
+#     result = max(sequences.values(), key=len)
+
+#     return len(set(result))
+
+# print(longestConsecutive(nums=nums))
+
+'This solution went up to 83% of the cases'
+
+
+# Another Approach
+
+# def longestConsecutive (nums):
+
+#     if not nums:
+#         return 0
+    
+#     num_set = set(nums)
+
+#     longest = 1
+
+#     for num in nums:
+
+#         count = 1
+
+#         if num-1 not in num_set:
+
+#             x = num
+
+#             while x+1 in num_set:
+               
+#                 count+=1
+#                 x+=1
+
+#         longest = max(longest, count)
+
+#     return longest
+
+# print(longestConsecutive(nums=nums))
+
+
+
+
+
+
 '''xxx'''
-
-
-
-
-
-
-
-
