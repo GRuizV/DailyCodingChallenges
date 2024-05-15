@@ -1542,4 +1542,152 @@ Intuition:
 
 
 
+'''130. Surrounded Regions'''
+
+#Input
+
+# #Case 1
+# board = [
+#     ["X","X","X","X"],
+#     ["X","O","O","X"],
+#     ["X","X","O","X"],
+#     ["X","O","X","X"]
+#     ]
+# # output = [
+# #     ["X","X","X","X"],
+# #     ["X","X","X","X"],
+# #     ["X","X","X","X"],
+# #     ["X","O","X","X"]
+# #     ]
+
+# #Case 2
+# board = [
+#     ['X']
+#     ]
+# # output = [
+#     # ['X']
+#     # ]
+
+# #Custom Case
+# board = [["O","O"],["O","O"]]
+
+
+
+#My approach
+
+'''
+Intuition:
+    1. Check if there is any 'O' at the boarders.
+    2. Check is there is any 'O' adjacent to the one in the boarder:
+        - If do, add them to the not-be-flipped ground and re run.
+        - if doesn't, flip everything to 'X' and return
+    (Do this until there is no 'O' unchecked )
+'''
+
+# def solve(board:list[list[str]]) -> None:
+
+#     M = len(board)
+#     N = len(board[0])
+
+#     no_flip = []
+#     all_os = []
+
+
+#     # Collect all 'O's
+#     for i in range(M):
+#         all_os.extend((i,j) for j in range(N) if board[i][j] == 'O')
+    
+
+#     #   Check if there is a boarder 'O' within the group
+#     for i in range(len(all_os)):
+
+#         if all_os[i][0] in (0, M-1) or all_os[i][1] in (0, N-1):
+#             no_flip.append(all_os[i])
+
+
+#     # Collect the 'O's near to no_flip 'O' iteratively
+#     flipped = None
+#     i = 0
+
+#     while True:
+
+#         # Condition to end the loop
+#         if len(all_os) == 0 or i == len(all_os) and flipped is False:
+#             break
+
+#         #Collecting the possibilities of an adjacent 'O'
+#         adjacents = []
+
+#         for pos in no_flip:
+#             adjacents.extend([(pos[0]-1, pos[1]), (pos[0]+1, pos[1]), (pos[0], pos[1]-1), (pos[0], pos[1]+1)])
+        
+#         #Check if the current element is adjacent to any no_flip 'O'
+#         if all_os[i] in adjacents:
+#             no_flip.append(all_os.pop(i))
+#             flipped = True
+#             i = 0
+#             continue
+
+#         i += 1
+#         flipped = False
+
+
+#     # Rewritting the board
+#     #   Resetting the board to all "X"
+#     for i in range(M):
+#         board[i] = ["X"]*N
+    
+#     #   preserving the no_flip 'O's
+#     for o in no_flip:
+#         board[o[0]][o[1]] = 'O'
+
+
+# solve(board=board)
+
+'This solution met 98.2% of the cases'
+
+
+#DFS Approach
+
+# def solve(board):
+
+#     n,m=len(board),len(board[0])
+#     seen=set()
+
+#     def is_valid(i,j):
+#         return 0 <= i < n and 0<= j <m and board[i][j]=="O" and (i,j) not in seen
+    
+#     def is_border(i,j):
+#         return i == 0 or i == n-1 or j == 0 or j == m-1
+    
+#     def dfs(i,j):
+
+#         board[i][j]="y"
+#         seen.add((i,j))
+
+#         for dx , dy in ((0,1) ,(0,-1) ,(1,0),(-1,0)):
+#             new_i , new_j = dx + i , dy + j
+
+#             if is_valid(new_i , new_j):
+#                 dfs(new_i , new_j)
+        
+#     for i in range(n):
+#         for j in range(m):
+#             if is_border(i,j) and board[i][j]=="O":
+#                 dfs(i,j) 
+                
+#     for i in range(n):
+#         for j in range(m):
+#             if board[i][j]=="y":
+#                 board[i][j]="O"
+#             else:
+#                 board[i][j]="X"
+
+# solve(board)
+
+
+
+
+
+
 '''xxx'''
