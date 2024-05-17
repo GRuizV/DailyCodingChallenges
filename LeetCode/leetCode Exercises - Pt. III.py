@@ -1690,4 +1690,79 @@ Intuition:
 
 
 
+'''131. Palindrome Partitioning'''
+
+#Input
+
+# # Case 1
+# s = 'aab'
+# # Output: [["a","a","b"],["aa","b"]]
+
+# # Custom Case
+# s = 'aabcdededcbada'
+# # Output: [["a","a","b"],["aa","b"]]
+
+
+
+# My approach
+
+'''
+Intuition:
+
+    Here I don't actually have much ideas in how to solve it, but one good approach
+    I think woul dbe to make a function that can pull all the palindroms present in a string.
+
+    that could be a good start point.
+'''
+
+# # Custom Case
+# s = 'aabcdededcbada'
+# # Output: ['abcdededcba', 'bcdededcb', 'cdededc', 'deded', 'ded', 'ede', 'ded', 'ada', 'aa'] 
+
+# def palindromes(string:str) -> list[str]:
+
+#     s_len = len(string)
+#     palindromes = []
+
+#     for i in range(s_len, 1, -1):   # from s_len down to length 2 of substring
+       
+#         j = 0
+
+#         while j + i <= s_len: 
+
+#             subs = string[j:j+i]
+
+#             if subs == subs[::-1]:
+
+#                 palindromes.append(subs)
+
+#             j += 1
+
+#     print(palindromes)
+
+
+
+# # Printout: ['abcdededcba', 'bcdededcb', 'cdededc', 'deded', 'ded', 'ede', 'ded', 'ada', 'aa'] 
+# palindromes(string=s)
+
+'''
+At least this I was able to do, from here on, I am feeling I am going to brute forcing this and it won't end up being efficient.
+
+I didn't actually solved it but I don't want to waste more time over this
+'''
+
+
+
+
+
+
 '''xxx'''
+
+
+
+
+
+
+
+
+
