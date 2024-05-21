@@ -1756,13 +1756,117 @@ I didn't actually solved it but I don't want to waste more time over this
 
 
 
+'''134. Gas Station'''
+
+# Input
+
+# #Case 1
+# gas, cost = [1,2,3,4,5], [3,4,5,1,2]
+# #Output = 3
+
+# #Case 2
+# gas, cost = [2,3,4], [3,4,3]
+# #Output = -1
+
+# # #Custom Case 
+# gas, cost = [3,1,1], [1,2,2]
+# #Output = 0
+
+
+# My Approach
+
+'''
+Intuition:
+    - Handle the corner case where sum(gas) < sum(cos) / return -1
+    - Collect the possible starting point (Points where gas[i] >= cost[i])
+    - Iterate to each starting point (holding it in a placeholder) to check 
+        if a route starting on that point completes the lap:
+        
+        - if it does: return that starting point
+        - if it doesn't: jump to the next starting point
+
+    - If no lap is completed after the loop, return -1.
+
+'''
+
+# def canCompleteCircuit(gas:list[int], cost:list[int]) -> int:
+
+    
+#     # Handle the corner case
+#     if sum(gas) < sum(cost):
+#         return -1
+    
+
+#     # Collect the potential starting stations
+#     stations = [i for i in range(len(gas)) if gas[i] >= cost[i]]
+
+
+#     # Checking routes starting from each collected station
+#     for i in stations:
+
+#         station = i
+#         tank = gas[i]
+
+#         while tank >= 0:
+            
+#             # Travel to the next station
+#             tank = tank - cost[station] 
+
+#             # Check if we actually can get to the next station with current gas
+#             if tank < 0:
+#                 break
+                
+#             # If we are at the end of the stations (clockwise)
+#             if station + 1 == len(gas):
+#                 station = 0
+                        
+#             else:
+#                 station += 1
+                        
+#             #If we success in making the lap
+#             if station == i:
+#                 return i
+        
+#             # Refill the tank
+#             tank = tank + gas[station]
+
+
+#     # in case no successful loop happens, return -1
+#     return -1
+
+# print(canCompleteCircuit(gas=gas, cost=cost))
+
+'My solution met 85% of the test cases'
+
+
+# # Another approach
+
+# def canCompleteCircuit(gas:list[int], cost:list[int]) -> int:
+
+    
+#     # Handle the corner case
+#     if sum(gas) < sum(cost):
+#         return -1
+    
+#     current_gas = 0
+#     starting_index = 0
+
+#     for i in range(len(gas)):
+
+#         current_gas += gas[i] - cost[i]
+
+#         if current_gas < 0:
+#             current_gas = 0
+#             starting_index = i + 1
+            
+#     return starting_index
+
+# print(canCompleteCircuit(gas=gas, cost=cost))
+
+'This simplified version prooved to be more efficient'
+
+
+
+
+
 '''xxx'''
-
-# Testing more detailed commits
-
-
-
-
-
-
-
