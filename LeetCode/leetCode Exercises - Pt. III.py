@@ -1869,4 +1869,189 @@ Intuition:
 
 
 
+'''138. Copy List with Random Pointer'''
+
+# # Base
+# class Node:
+#     def __init__(self, x, next=None, random=None):
+#         self.val = int(x)
+#         self.next = next
+#         self.random = random
+
+
+# #Input
+
+# #Case 1
+# head_map = [[7,None],[13,0],[11,4],[10,2],[1,0]]
+
+# #Build the relations of the list
+# nodes = [Node(x=val[0]) for val in head_map]
+
+# for i in range(len(nodes)):
+#     nodes[i].next = None if i == len(nodes)-1 else nodes[i+1]
+#     nodes[i].random = None if head_map[i][1] is None else nodes[head_map[i][1]]
+
+# head = nodes[0]
+
+#Output: [[7,None],[13,0],[11,4],[10,2],[1,0]]
+
+
+# #Case 2
+# head_map = [[1,1],[2,1]]
+
+# #Build the relations of the list
+# nodes = [Node(x=val[0]) for val in head_map]
+
+# for i in range(len(nodes)):
+#     nodes[i].next = None if i == len(nodes)-1 else nodes[i+1]
+#     nodes[i].random = None if head_map[i][1] is None else nodes[head_map[i][1]]
+
+# head = nodes[0]
+
+# #Output: [[7,None],[13,0],[11,4],[10,2],[1,0]]
+
+
+# #Case 3
+# head_map = [[3,None],[3,0],[3,None]]
+
+# #Build the relations of the list
+# nodes = [Node(x=val[0]) for val in head_map]
+
+# for i in range(len(nodes)):
+#     nodes[i].next = None if i == len(nodes)-1 else nodes[i+1]
+#     nodes[i].random = None if head_map[i][1] is None else nodes[head_map[i][1]]
+
+# head = nodes[0]
+
+# #Output: [[7,None],[13,0],[11,4],[10,2],[1,0]]
+
+
+
+# My Approach
+
+'''
+Intuition:
+    - Traverse through the list
+    - Create a copy of each node and store it into a list along side with the content of the random pointer.
+    - Traverse the list linking each node to the next and the random pointer to the position in that list.
+
+Thoughts:
+
+- It is possible to create the list with a recursive solution but it'll be still necesary to traverse again
+    to collect the content of the random pointer or how else I can point to somewhere at each moment I don't know if it exist. 
+
+'''
+
+# def copyRandomList(head:Node) -> Node:
+
+#     # Handle the corner case where there is a single node list
+#     if head.next == None:
+#         result = Node(x = head.val, random=result)
+#         return result
+
+#     # Initilize a nodes holder dict to collect the new nodes while traversing the list
+#     nodes = {}
+
+#     # Initilize a nodes holder list to collect the old nodes values while traversing the list
+#     old_nodes_vals = []
+
+#     # Initialize a dummy node to traverse the list
+#     current_node = head
+
+#     # Traverse the list
+#     while current_node is not None:
+
+#         # Collect the old nodes
+#         old_nodes_vals.append(current_node.val)
+
+#         # Check if the node doesn't already exist due to the random pointer handling
+#         if current_node.val not in nodes.keys(): 
+
+#             new_node = Node(x = current_node.val)
+#             nodes[new_node.val] = new_node
+        
+#         else:
+#             new_node = nodes[current_node.val]
+
+
+#         # Handle the random pointer 
+#         if current_node.random is None:
+#             new_node.random = None
+
+#         else:
+
+#             # If the randoms does not exist already in the dict, create a new entry in the dict with the random value as key and a node holding that value 
+#             if current_node.random.val not in nodes.keys():
+#                 nodes[current_node.random.val] = Node(x = current_node.random.val)
+          
+#             new_node.random = nodes[current_node.random.val]
+
+
+#         # Move to the next node
+#         current_node = current_node.next
+    
+
+#     # Pull the nodes as a list to link to their next attribute
+#     nodes_list = [nodes[x] for x in old_nodes_vals]
+
+#     # Traverse the nodes list
+#     for i, node in enumerate(nodes_list):
+
+#         node.next = nodes_list[i+1] if i != len(nodes_list)-1 else None
+   
+
+#     return nodes_list[0]
+
+
+# result = copyRandomList(head=head)
+
+
+# new_copy = []
+# while result is not None:
+#     new_copy.append([result.val, result.random.val if result.random is not None else None])
+#     result = result.next
+
+
+'My solution works while the values of the list are unique, otherwise a new approach is needed'
+
+
+# Another Approach
+
+# def copyRandomList(head:Node):
+
+#     nodes_map = {}
+
+#     current = head
+
+#     while current is not None:
+
+#         nodes_map[current] = Node(x = current.val)
+#         current = current.next
+
+    
+#     current = head
+
+#     while current is not None:
+
+#         new_node = nodes_map[current]
+#         new_node.next = nodes_map.get(current.next)
+#         new_node.random = nodes_map.get(current.random)
+
+#         current = current.next
+    
+#     return nodes_map[head]
+
+
+# result = copyRandomList(head=head)
+
+
+# new_copy = []
+# while result is not None:
+#     new_copy.append([result.val, result.random.val if result.random is not None else None])
+#     result = result.next
+
+
+
+
+
 '''xxx'''
