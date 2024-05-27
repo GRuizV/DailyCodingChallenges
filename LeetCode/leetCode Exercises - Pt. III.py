@@ -2054,4 +2054,84 @@ Thoughts:
 
 
 
+'''139. Word Break'''
+
+#Input
+
+# #Case 1
+# s = "leetcode" 
+# wordDict = ["leet","code"]
+# #Output: True
+
+# #Case 2
+# s = "applepenapple"
+# wordDict = ["apple","pen"]
+# #Output: True
+
+# #Case 3
+# s = "catsandog"
+# wordDict = ["cats","dog","sand","and","cat"]
+# #Output: False
+
+
+# My Approach
+
+'''
+Intuition:
+    (Brute-force): in a while loop go word for word in the dict checking if the 
+        word exists in the string:
+
+            - If it does: Overwrite the string taking out the found word / else: go to the next word
+
+        The loop will be when either no words are found in the string or the string is empty
+
+        if after the loop the string is empty, return True, otherwise False
+'''
+
+# def workBreak(string:str, word_dict:list[str]) -> bool:
+
+#     j = 0
+#     while j < len(word_dict):
+
+#         if word_dict[j] in string:
+
+#             w_len = len(word_dict[j])
+#             idx = string.find(word_dict[j])
+
+#             string = string[:idx]+string[idx+w_len:]
+
+#             j = 0
+        
+#         else:
+#             j += 1
+    
+    
+#     return False if string else True
+
+# print(workBreak(string=s, word_dict=wordDict))
+
+'This solution goes up to the 74% of the test cases'
+
+# Dynamic Programming Approach
+
+# def workBreak(string:str, word_dict:list[str]) -> bool:
+
+#     # dp = [False] * (len(s) + 1) # dp[i] means s[:i+1] can be segmented into words in the wordDicts 
+#     # dp[0] = True
+
+#     # for i in range(len(s)):
+
+#     #     for j in range(i, len(s)):
+
+#     #         if dp[i] and s[i: j+1] in wordDict:
+#     #             dp[j+1] = True
+                
+#     # return dp[-1]
+
+# print(workBreak(string=s, word_dict=wordDict))
+
+
+
+
+
 '''xxx'''
