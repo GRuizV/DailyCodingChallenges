@@ -2068,10 +2068,10 @@ Thoughts:
 # wordDict = ["apple","pen"]
 # #Output: True
 
-# #Case 3
-# s = "catsandog"
-# wordDict = ["cats","dog","sand","and","cat"]
-# #Output: False
+#Case 3
+s = "catsandog"
+wordDict = ["cats","dog","sand","and","cat"]
+#Output: False
 
 
 # My Approach
@@ -2116,17 +2116,21 @@ Intuition:
 
 # def workBreak(string:str, word_dict:list[str]) -> bool:
 
-#     # dp = [False] * (len(s) + 1) # dp[i] means s[:i+1] can be segmented into words in the wordDicts 
-#     # dp[0] = True
+#     dp = [False] * (len(s) + 1) # dp[i] means s[:i+1] can be segmented into words in the wordDicts 
+#     dp[0] = True
 
-#     # for i in range(len(s)):
+#     for i in range(len(s)):
 
-#     #     for j in range(i, len(s)):
+#         for j in range(i, len(s)):
+            
+#             i_dp = dp[i]
+#             sub_s = s[i: j+1]
+#             test = sub_s in wordDict
 
-#     #         if dp[i] and s[i: j+1] in wordDict:
-#     #             dp[j+1] = True
+#             if i_dp and test:
+#                 dp[j+1] = True
                 
-#     # return dp[-1]
+#     return dp[-1]
 
 # print(workBreak(string=s, word_dict=wordDict))
 
@@ -2134,4 +2138,121 @@ Intuition:
 
 
 
-'''xxx'''
+'''140. Word Break II'''
+
+#Input
+
+#Case 1
+s = "catsanddog"
+wordDict = ["cat","cats","and","sand","dog"]
+#Output: ["cats and dog","cat sand dog"]
+
+# #Case 2
+# s = "pineapplepenapple"
+# wordDict = ["apple","pen","applepen","pine","pineapple"]
+# #Output: ["pine apple pen apple","pineapple pen apple","pine applepen apple"]
+
+# #Case 3
+# s = "catsandog"
+# wordDict = ["cats","dog","sand","and","cat"]
+# #Output: []
+
+
+# My Approach
+
+'''
+Intuition:
+
+    - With the solution of the last exercise, bring the found words into a list and join them to from a sentence.
+    - In a loop, check if the first found word is the same of the last sentece, if do, keep searching for another word,
+        - if not found words after looping from the first character, end the loop.
+'''
+
+# def wordBreak(s:str, wordDict:list[str]) -> list[str]:
+
+#     sentences = []
+#     sent = []
+#     string = s
+#     lasts_first_word = []
+
+#     while True:
+
+#         j = 0
+
+#         while j < len(string):
+
+#             if string[0:j+1] in wordDict and string[0:j+1] not in lasts_first_word:
+
+#                 sent.append(string[0:j+1])
+#                 string = string[j+1:]
+#                 j = 0
+            
+#             else:
+#                 j += 1
+        
+
+#         if sent:
+#             sentences.append(' '.join(sent))
+#             string = s
+#             lasts_first_word.append(sent[0])
+#             sent = []
+        
+#         else:
+#             break
+    
+#     return sentences        
+
+# print(wordBreak(s=s, wordDict=wordDict))
+
+"This solution doesn't even get to pass all the initial test cases, but at least it worked as a challenge to do at least one"
+
+
+# Backtracking & Recursion approach
+
+def wordBreakHelper(s:str, start:int, word_set:set, memo:dict) -> list[str]:
+
+    if start in memo:
+        return memo[start]
+    
+    valid_substr = []
+
+    if start == len(s):
+        valid_substr.append('')
+
+    for end in range(start+1, len(s)+1):
+
+        prefix = s[start:end]
+
+        if prefix in word_set:
+
+            suffixes = wordBreakHelper(s, end, word_set, memo)
+
+            for suffix in suffixes:
+
+                valid_substr.append(prefix + ('' if suffix == '' else ' ') + suffix)
+
+    memo[start] = valid_substr
+
+    return valid_substr
+         
+
+
+def wordBreak(s:str, wordDict: list[str]) -> list[str]:
+
+    memo = {}
+    word_set = set(wordDict)
+    return wordBreakHelper(s, 0, word_set, memo)
+
+
+
+print(wordBreak(s=s, wordDict=wordDict))
+
+
+
+
+
+
+
+
+
+
