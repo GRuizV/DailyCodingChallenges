@@ -2068,10 +2068,10 @@ Thoughts:
 # wordDict = ["apple","pen"]
 # #Output: True
 
-#Case 3
-s = "catsandog"
-wordDict = ["cats","dog","sand","and","cat"]
-#Output: False
+# #Case 3
+# s = "catsandog"
+# wordDict = ["cats","dog","sand","and","cat"]
+# #Output: False
 
 
 # My Approach
@@ -2137,15 +2137,14 @@ Intuition:
 
 
 
-
 '''140. Word Break II'''
 
 #Input
 
-#Case 1
-s = "catsanddog"
-wordDict = ["cat","cats","and","sand","dog"]
-#Output: ["cats and dog","cat sand dog"]
+# #Case 1
+# s = "catsanddog"
+# wordDict = ["cat","cats","and","sand","dog"]
+# #Output: ["cats and dog","cat sand dog"]
 
 # #Case 2
 # s = "pineapplepenapple"
@@ -2209,50 +2208,136 @@ Intuition:
 
 # Backtracking & Recursion approach
 
-def wordBreakHelper(s:str, start:int, word_set:set, memo:dict) -> list[str]:
+# def wordBreakHelper(s:str, start:int, word_set:set, memo:dict) -> list[str]:
 
-    if start in memo:
-        return memo[start]
+#     if start in memo:
+#         return memo[start]
     
-    valid_substr = []
+#     valid_substr = []
 
-    if start == len(s):
-        valid_substr.append('')
+#     if start == len(s):
+#         valid_substr.append('')
 
-    for end in range(start+1, len(s)+1):
+#     for end in range(start+1, len(s)+1):
 
-        prefix = s[start:end]
+#         prefix = s[start:end]
 
-        if prefix in word_set:
+#         if prefix in word_set:
 
-            suffixes = wordBreakHelper(s, end, word_set, memo)
+#             suffixes = wordBreakHelper(s, end, word_set, memo)
 
-            for suffix in suffixes:
+#             for suffix in suffixes:
 
-                valid_substr.append(prefix + ('' if suffix == '' else ' ') + suffix)
+#                 valid_substr.append(prefix + ('' if suffix == '' else ' ') + suffix)
 
-    memo[start] = valid_substr
+#     memo[start] = valid_substr
 
-    return valid_substr
+#     return valid_substr
          
 
+# def wordBreak(s:str, wordDict: list[str]) -> list[str]:
 
-def wordBreak(s:str, wordDict: list[str]) -> list[str]:
-
-    memo = {}
-    word_set = set(wordDict)
-    return wordBreakHelper(s, 0, word_set, memo)
-
+#     memo = {}
+#     word_set = set(wordDict)
+#     return wordBreakHelper(s, 0, word_set, memo)
 
 
-print(wordBreak(s=s, wordDict=wordDict))
+# print(wordBreak(s=s, wordDict=wordDict))
 
 
 
 
+'''141. Linked List Cycle'''
+
+# Base
+class ListNode(object):
+    def __init__(self, x):
+        self.val = x
+        self.next = None
 
 
+# Input
+
+# Case 1
+head_layout = [3,2,0,-4]
+
+head = ListNode(x=3)
+pos1 = ListNode(x=2)
+pos2 = ListNode(x=0)
+pos3 = ListNode(x=-4)
+
+head.next, pos1.next, pos2.next, pos3.next = pos1, pos2, pos3, pos1
+# Output: True / Pos1
+
+# # Case 2
+# head_layout = [1,2]
+
+# head = ListNode(x=1)
+# pos1 = ListNode(x=2)
+
+# head.next, pos1.next = pos1, head
+# # Output: True / Pos0
+
+# # Case 3
+# head_layout = [1]
+
+# head = ListNode(x=1)
+# # Output: False / pos-1
 
 
+# def hasCycle(head:ListNode) -> bool:
 
+#     if head is None or head.next == None:
+#         return False
+    
+
+#     visited = []
+
+#     curr = head
+
+#     while curr is not None:
+
+#         if curr in visited:
+#             return True
+        
+#         visited.append(curr)
+
+#         curr = curr.next
+    
+#     return False
+
+# print(hasCycle(head=head))
+
+
+'This a suboptimal solution, it works but it takes considerable memory to solve it'
+
+# Another approach (Probing)
+
+'''
+Explanation
+    By making two markers initialized in the head one with the double of the "speed" of the other, if those are in a cycle
+    at some point they got to meet, it means there is a cycle in the list, but if one if the faster gets to None,
+    that'll mean that there is no cycle in there.
+'''
+
+
+def hasCycle(head:ListNode) -> bool:
+
+    if not head:
+        return False
+    
+    slow = fast = head
+
+    while fast and fast.next:
+
+        slow = slow.next
+        fast = fast.next.next
+
+        if slow == fast:
+            return True
+    
+    return False
+
+
+print(hasCycle(head=head))
 
