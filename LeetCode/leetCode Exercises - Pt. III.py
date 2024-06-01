@@ -2249,25 +2249,25 @@ Intuition:
 
 '''141. Linked List Cycle'''
 
-# Base
-class ListNode(object):
-    def __init__(self, x):
-        self.val = x
-        self.next = None
+# # Base
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
 
 
 # Input
 
-# Case 1
-head_layout = [3,2,0,-4]
+# # Case 1
+# head_layout = [3,2,0,-4]
 
-head = ListNode(x=3)
-pos1 = ListNode(x=2)
-pos2 = ListNode(x=0)
-pos3 = ListNode(x=-4)
+# head = ListNode(x=3)
+# pos1 = ListNode(x=2)
+# pos2 = ListNode(x=0)
+# pos3 = ListNode(x=-4)
 
-head.next, pos1.next, pos2.next, pos3.next = pos1, pos2, pos3, pos1
-# Output: True / Pos1
+# head.next, pos1.next, pos2.next, pos3.next = pos1, pos2, pos3, pos1
+# # Output: True / Pos1
 
 # # Case 2
 # head_layout = [1,2]
@@ -2320,24 +2320,127 @@ Explanation
     that'll mean that there is no cycle in there.
 '''
 
+# def hasCycle(head:ListNode) -> bool:
 
-def hasCycle(head:ListNode) -> bool:
-
-    if not head:
-        return False
+#     if not head:
+#         return False
     
-    slow = fast = head
+#     slow = fast = head
 
-    while fast and fast.next:
+#     while fast and fast.next:
 
-        slow = slow.next
-        fast = fast.next.next
+#         slow = slow.next
+#         fast = fast.next.next
 
-        if slow == fast:
-            return True
+#         if slow == fast:
+#             return True
     
-    return False
+#     return False
+
+# print(hasCycle(head=head))
 
 
-print(hasCycle(head=head))
 
+
+'''146. LRU Cache'''
+
+# Input
+# commands = ["LRUCache", "put", "put", "get", "put", "get", "put", "get", "get", "get"]
+# inputs = [[2], [1, 1], [2, 2], [1], [3, 3], [2], [4, 4], [1], [3], [4]]
+
+# Output: [null, null, null, 1, null, -1, null, -1, 3, 4]
+
+
+# My Approach
+
+'''
+Intuition
+
+    The use of 'OrderedDicts' from the Collections module will be useful to keep track
+    of the last recently used values
+'''
+
+
+# class LRUCache(object):   
+
+#     def __init__(self, capacity):
+#         """
+#         :type capacity: int
+#         """     
+
+#         self.capacity = capacity
+#         self.capacity_count = 0
+#         self.memory = {}
+        
+
+#     def get(self, key):
+#         """
+#         :type key: int
+#         :rtype: int
+#         """
+
+#         output = self.memory.get(key,-1)
+
+#         if output != -1:
+
+#             item = (key, self.memory[key])
+#             del self.memory[item[0]]
+#             self.memory[item[0]] = item[1]
+
+#         return output
+        
+
+#     def put(self, key, value):
+#         """
+#         :type key: int
+#         :type value: int
+#         :rtype: None
+#         """
+
+#         existing_key = self.memory.get(key, -1)
+
+#         if existing_key == -1:
+#             self.memory[key] = value
+
+#         else:
+#             self.memory.update({key:value})
+
+#             item = (key, value)
+#             del self.memory[item[0]]
+#             self.memory[item[0]] = item[1]
+        
+#         self.capacity_count += 1
+
+#         if self.capacity_count > self.capacity:
+
+#             del_item = list(self.memory.keys())[0]
+#             del self.memory[del_item]
+            
+#             self.capacity_count = self.capacity
+
+        
+
+
+# Your LRUCache object will be instantiated and called as such:
+# obj = LRUCache(capacity)
+# param_1 = obj.get(key)
+# obj.put(key,value)
+
+
+# a = {'a':1, 'b':2, 'c':3}
+
+# print(a)
+
+# item = ('a', a['a'])
+
+# del a[item[0]]
+
+# a[item[0]] = item[1]
+
+
+# print(a)
+
+
+
+
+'''xxx'''
