@@ -2443,4 +2443,122 @@ Intuition
 
 
 
+'''148. Sort List'''
+
+# Base
+# class ListNode(object):
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+
+
+# Input
+
+# # Case 1
+# list_layout = [4,2,1,3]
+# head = ListNode(val=4, next=ListNode(val=2, next=ListNode(val=1, next=ListNode(val=3))))
+# # Output: [1,2,3,4]
+
+# # Case 2
+# list_layout = [-1,5,3,4,0]
+# head = ListNode(val=-1, next=ListNode(val=5, next=ListNode(val=3, next=ListNode(val=4, next=ListNode(val=0)))))
+# # Output: [-1,0,3,4,5]
+
+# # Case 3
+# list_layout = [1,2,3,4]
+# head = ListNode(val=1, next=ListNode(val=2, next=ListNode(val=3, next=ListNode(val=4))))
+# # Output: [1,2,3,4]
+
+
+# My Approach
+
+'''
+Intuition
+
+    - Brute force: Traverse the list to collect each node with its value in a list,
+    and apply some sorting algorithm to sort them.
+
+'''
+
+# def sortList(head):
+
+#     if not head:
+#         return ListNode()
+    
+#     curr = head
+#     holder = []
+
+#     while curr:
+
+#         holder.append([curr.val, curr])
+#         curr = curr.next
+
+
+#     def merge_sort(li):
+
+#         if len(li)<=1:
+#             return li
+        
+#         left_side = li[:len(li)//2]
+#         right_side = li[len(li)//2:]
+
+#         left_side = merge_sort(left_side)
+#         right_side = merge_sort(right_side)
+
+#         return merge(left=left_side, right=right_side)
+
+
+#     def merge(left, right):
+        
+#         i = j = 0
+#         result = []
+
+#         while i < len(left) and j < len(right):
+
+#             if left[i][0] < right[j][0]:
+#                 result.append(left[i])
+#                 i+=1
+            
+#             else:
+#                 result.append(right[j])
+#                 j+=1
+
+#         while i < len(left):
+#             result.append(left[i])
+#             i+=1
+        
+#         while j < len(right):
+#             result.append(right[j])
+#             j+=1
+
+#         return result
+
+#     sorted_list = merge_sort(li=holder)
+    
+#     for i in range(len(sorted_list)):
+
+#         if i == len(sorted_list)-1:
+#             sorted_list[i][1].next = None
+        
+#         else:
+#             sorted_list[i][1].next = sorted_list[i+1][1]
+    
+#     return sorted_list[0][1]
+
+# test = sortList(head=head)
+
+
+
+
 '''xxx'''
+
+
+
+
+
+
+
+
+
+
+
