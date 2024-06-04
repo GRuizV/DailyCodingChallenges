@@ -2550,7 +2550,65 @@ Intuition
 
 
 
-'''xxx'''
+'''149. Max Points on a Line'''
+
+'''
+Revision
+
+    The problem could be pretty hard if no math knowledge is acquired beforehand.
+    By definition, if several points share the same 'slope' with one single point,
+    it'd mean that they are all included in the same line.
+
+    So the problem reduces to (brut force) check for each point if the rest share the same
+    slope and the biggest group with common slope will be the answer
+'''
+
+# def maxPoints(points:list[list[int]]):
+
+#     # if there is no more than a pair of point in the plane, well, that's the answer
+#     if len(points) < 3:
+#         return len(points)
+    
+#     # Initializing with the lowest possible answer
+#     result = 2
+
+#     # Since we are counting on pairs, we're iterating up to the second last point of the group
+#     for i, point1 in enumerate(points[:-1]):
+
+#         slopes = {} # The keys will be the slopes and the values the count of points with the same slope
+
+#         for point2 in points[i+1:]:
+            
+#             slope = None
+#             x_comp = point2[0] - point1[0]
+
+#             if x_comp:  # The bool of 0 is False
+                
+#                 # Calculate the slope
+#                 slope = (point2[1] - point1[1]) / x_comp
+
+#             # If that slope already exist, add one point to the count
+#             if slope in slopes:
+
+#                 slopes[slope] += 1
+#                 new = slopes[slope]
+
+#                 result = max(result, new)
+            
+#             # else, create a new dict entry
+#             else:
+#                 slopes[slope] = 2
+
+#     return result
+
+
+
+
+'''149. Max Points on a Line'''
+
+
+
+
 
 
 
