@@ -2699,4 +2699,76 @@ Intuition
 
 
 
+'''152. Maximum Product Subarray'''
+
+# Input
+
+# # Case 1
+# input = [2,3,-2,4]
+# # Output: 6 / [2,3] has the largest product
+
+# # Case 2
+# input = [-2,0,-1]
+# # Output: 0 / all products are 0
+
+# # Custom Case
+# input = [-2,3,-4]
+# # Output: 0 / all products are 0
+
+
+# My approach
+
+'''
+Intuition
+
+    This is a variation of Kadane's Algorithm, and may be solve same way
+    as the original
+'''
+
+# def maxProduct(nums:list[int]) -> int:
+
+#     if len(nums) == 1:
+#         return nums[0]
+
+#     max_ends_here, max_so_far = nums[0]
+
+#     for num in nums[1:]:
+       
+#         max_ends_here = max(num, max_ends_here * num)
+#         max_so_far = max(max_so_far, max_ends_here)
+
+#     return max_so_far
+
+# print(maxProduct(nums=input))
+
+'''
+Original Kadane's modified to compute product solved 51% of the cases. 
+But, apparently with capturing the min_so_far and having a buffer to hold the max_so_far to not interfere with the
+    min_so_far calculation, the problem is solved
+'''
+
+# Another Kadane's Mod. Approach
+
+# def maxProduct(nums:list[int]) -> int:
+
+#     if len(nums) == 1:
+#         return nums[0]
+
+#     max_so_far = min_so_far = result = nums[0]
+
+#     for num in nums[1:]:
+       
+#         temp_max = max(num, max_so_far * num, min_so_far * num)
+#         min_so_far = min(num, max_so_far * num, min_so_far * num)
+#         max_so_far = temp_max
+
+#         result = max(result, max_so_far)
+
+#     return result
+
+# print(maxProduct(nums=input))
+
+
+
+
 '''xxx'''
