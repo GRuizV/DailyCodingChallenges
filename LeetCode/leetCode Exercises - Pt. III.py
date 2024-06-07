@@ -2771,4 +2771,134 @@ But, apparently with capturing the min_so_far and having a buffer to hold the ma
 
 
 
+'''155. Min Stack'''
+
+# Input
+
+# # Case 1
+# commands = ["MinStack","push","push","push","getMin","pop","top","getMin"]
+# inputs = [[],[-2],[0],[-3],[],[],[],[]]
+# # Output: [None,None,None,None,-3,None,0,-2]
+
+# # Custom Case
+# commands = ["MinStack","push","push","push","top","pop","getMin","pop","getMin","pop","push","top","getMin","push","top","getMin","pop","getMin"]
+# inputs = [[],[2147483646],[2147483646],[2147483647],[],[],[],[],[],[],[2147483647],[],[],[-2147483648],[],[],[],[]]
+# # Output: [None,None,None,None,-3,None,0,-2]
+
+
+# Solution
+
+# class MinStack(object):
+
+#     def __init__(self):
+#         self.stack = []
+#         self.min = None
+        
+
+#     def push(self, val):
+#         """
+#         :type val: int
+#         :rtype: None
+#         """
+#         self.stack.append(val)
+
+#         if not self.min:
+#             self.min = val
+        
+#         else:
+#             self.min = min(val, self.min)
+        
+
+#     def pop(self):
+#         """
+#         :rtype: None
+#         """
+#         item = self.stack.pop()
+
+#         if item == self.min:
+            
+#             self.min = min(self.stack) if self.stack else None
+
+
+#     def top(self):
+#         """
+#         :rtype: int
+#         """
+#         return self.stack[-1]
+        
+
+#     def getMin(self):
+#         """
+#         :rtype: int
+#         """
+#         return self.min
+        
+
+# # For testing
+# for i, command in enumerate(commands):
+
+#     if command == 'MinStack':
+#         stack = MinStack()
+    
+#     elif command == 'push':
+#         stack.push(inputs[i][0])   
+
+#     elif command == 'pop':
+#         stack.pop()    
+    
+#     elif command == 'top':
+#         res = stack.top()
+
+#     elif command == 'getMin':
+#         res = stack.getMin()
+
+'My solution worked for 97% of the cases'
+
+
+# Another solution
+
+# class MinStack(object):
+
+#     def __init__(self):
+#         self.stack = []
+                
+
+#     def push(self, val):
+#         """
+#         :type val: int
+#         :rtype: None
+#         """
+
+#         if not self.stack:
+#             self.stack.append([val, val])
+#             return
+        
+#         min_elem = self.stack[-1][1]
+
+#         self.stack.append([val, min(val, min_elem)])
+        
+
+#     def pop(self):
+#         """
+#         :rtype: None
+#         """
+#         self.stack.pop()
+        
+
+#     def top(self):
+#         """
+#         :rtype: int
+#         """
+#         return self.stack[-1][0]
+        
+
+#     def getMin(self):
+#         """
+#         :rtype: int
+#         """
+#         return self.stack[-1][1]
+
+
+
+
 '''xxx'''
