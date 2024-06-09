@@ -2901,4 +2901,140 @@ But, apparently with capturing the min_so_far and having a buffer to hold the ma
 
 
 
+'''160. Intersection of Two Linked Lists'''
+
+# # Base
+
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+# Input
+
+# # Case 1
+# listA, listB = [4,1,8,4,5], [5,6,1,8,4,5]
+
+# a1, a2 = ListNode(x=4), ListNode(x=1)
+# c1, c2, c3 = ListNode(x=8), ListNode(x=4), ListNode(x=5)
+# b1, b2, b3 = ListNode(x=5), ListNode(x=6), ListNode(x=1)
+
+# a1.next, a2.next = a2, c1
+# c1.next, c2.next = c2, c3
+# b1.next, b2.next, b3.next = b2, b3, c1
+# #Output: 8
+
+# # Case 2
+# listA, listB = [1,9,1,2,4], [3,2,4]
+
+# a1, a2, a3 = ListNode(x=1), ListNode(x=9), ListNode(x=1)
+# c1, c2 = ListNode(x=2), ListNode(x=4)
+# b1 = ListNode(x=3)
+
+# a1.next, a2.next, a3.next = a2, a3, c1
+# c1.next = c2
+# b1.next = c1
+# # Output: 2
+
+# # Case 3
+# listA, listB = [2,6,4], [1,5]
+
+# a1, a2, a3 = ListNode(x=2), ListNode(x=6), ListNode(x=4)
+
+# b1, b2 = ListNode(x=1), ListNode(x=5)
+
+# a1.next, a2.next = a2, a3
+# b1.next = b2
+# # Output: None
+
+
+# My approach
+
+'''
+Intuition
+    - Traverse the first list saving the nodes in a list
+    - Traverse the second list while checking if the current node is in the list
+        - If so, return that node
+        - Else, let the loop end
+    - If the code gets to the end of the second loop, means there isn't a intersection.
+'''
+
+# def getIntersectionNode(headA = ListNode, headB = ListNode) -> ListNode:
+
+#     visited_nodes = []
+
+#     curr = headA
+
+#     while curr:
+#         visited_nodes.append(curr)
+#         curr = curr.next
+
+#     curr = headB
+
+#     while curr:
+        
+#         if curr in visited_nodes:
+#             return curr
+        
+#         curr = curr.next
+        
+#     return None
+
+
+# result = getIntersectionNode(headA=a1, headB=b1)
+
+# print(result.val) if result else print(None)
+
+'This solution breaks when the data input is too large in leetcode, it got up to 92% of cases'
+
+# # Two pointers Approach
+
+# def getIntersectionNode(headA = ListNode, headB = ListNode) -> ListNode:
+
+#     a, b = headA, headB
+
+#     while a != b:
+       
+#         if not a:
+#             a = headB
+
+#         else:
+#             a = a.next
+        
+#         if not b:
+#             b = headA
+        
+#         else:
+#             b = b.next
+    
+#     return a
+
+
+# result = getIntersectionNode(headA=a1, headB=b1)
+
+# print(result.val) if result else print(None)
+
+
+'''
+Explanation
+
+    The logic here is that with two pointer, each one directed to the head of each list,
+    if both exhaust their lists and star with the other, if there are intersected they MUST
+    meet at the intersection node after traversing both lists respectviely or otherwise they will be 'None'
+    at same time after the second lap of the respective lists.
+'''
+
+
+
+
 '''xxx'''
+
+
+
+
+
+
+
+
+
+
