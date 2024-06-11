@@ -22,8 +22,9 @@ CHALLENGES INDEX
 152. Maximum Product Subarray
 155. Min Stack
 160. Intersection of Two Linked Lists
+162. Find Peak Element
 
-(21)
+(22)
 
 '''
 
@@ -2042,14 +2043,53 @@ Explanation
 
 
 
+'''162. Find Peak Element'''
+
+# Input
+
+# # Case 1
+# nums = [1,2,3,1]
+# # Output: 2
+
+# # Case 2
+# nums = [1,2,1,3,5,6,4]
+# # Output: 1 | 5
+
+
+# # Solution
+
+# def find_peak_element(nums:list[int]) -> int:
+
+#     if len(nums) == 1 or nums[0] > nums[1]:
+#         return 0
+    
+#     if nums[-1] > nums[-2]:
+#         return len(nums)-1
+
+#     left, right = 0, len(nums)-1
+
+
+#     while left < right:
+
+#         mid = (left + right)//2
+
+#         if nums[mid-1] < nums[mid] > nums[mid+1]:
+#             return mid
+
+#         if nums[mid] < nums[mid+1]:
+#             left = mid + 1
+
+#         else:
+#             right = mid - 1
+    
+#     # Doesn't actually matter if is left or right, because at the end of the loop they're equals
+#     return left
+
+# print(find_peak_element(nums=nums))
+
+'Notes: ChatGPT helped me understanding the conditions and guided through the solution'
+
+
+
+
 '''xxx'''
-
-
-
-
-
-
-
-
-
-
