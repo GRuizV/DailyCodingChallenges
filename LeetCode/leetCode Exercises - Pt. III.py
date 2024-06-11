@@ -23,8 +23,9 @@ CHALLENGES INDEX
 155. Min Stack
 160. Intersection of Two Linked Lists
 162. Find Peak Element
+166. Fraction ro Recurring Decimal
 
-(22)
+(23)
 
 '''
 
@@ -2092,4 +2093,130 @@ Explanation
 
 
 
+'''166. Fraction to Recurring Decimal'''
+
+# Input
+
+# # Case 1
+# num, den = 1, 2
+# # Output: "0.5"
+
+# # Case 2
+# num, den = 2, 1
+# # Output: "2"
+
+# # Case 3
+# num, den = 4, 333
+# # Output: "0.(012)"
+
+# # Custom Case 
+# num, den = 1, 6
+# # Output: "0.1(6)"
+
+
+# My approach
+
+'''
+Intuition
+
+    Here main issue is solving how to identify patterns in a string:
+        - I'll try with parsing the string with split()
+'''
+
+# def fraction_to_decimal(numerator: int, denominator: int) -> str:
+
+#     # If exact division
+#     if int(numerator/denominator) == numerator/denominator:
+#         return str(int(numerator/denominator))
+    
+#     division = str(numerator/denominator)
+
+#     whole, decimal = division.split('.')
+
+#     pattern = ''
+
+#     for i in range(len(decimal)-1):
+
+#         pattern += decimal[i]
+#         abr = decimal.split(pattern)
+
+#         if not any(abr):
+#             return f'{whole}.({pattern})'            
+    
+#     return f'{whole}.{decimal}'
+
+# print(fraction_to_decimal(numerator=num, denominator=den))
+
+'''My solution only solved 50% of the cases because it only works if the whole decimal part is recurring and also didnt considered negatives results'''
+
+
+# Hashmap / Long division Approach
+
+# def fraction_to_decimal(numerator: int, denominator: int) -> str:
+
+#     # If exact division
+#     if numerator % denominator == 0:
+#         return str(numerator//denominator)
+    
+#     # Determe if is a negative result
+#     sign = '-' if numerator * denominator < 0 else None
+
+#     # Work with absolutes to simplify the calculation
+#     numerator, denominator = abs(numerator), abs(denominator)
+
+#     # Initialize integer and decimal parts
+#     integer_part = numerator // denominator
+#     remainder = numerator % denominator
+
+#     decimal_part = ''
+#     remainder_dict = {}
+
+#     # Track the position of the decimals
+#     position = 0
+
+#     # Build the decimal part
+#     while remainder != 0:
+
+#         if remainder in remainder_dict:
+
+#             repeat_start = remainder_dict[remainder]
+#             non_repeaing_part = decimal_part[:repeat_start]
+#             repeating_part = decimal_part[repeat_start:]
+#             return f'{integer_part}.{non_repeaing_part}({repeating_part})' if not sign else f'-{integer_part}.{non_repeaing_part}({repeating_part})'
+
+#         remainder_dict[remainder] = position
+#         remainder *= 10
+#         digit = remainder // denominator
+#         decimal_part += str(digit)
+#         remainder %= denominator
+#         position += 1
+    
+#     return f'{integer_part}.{decimal_part}' if not sign else f'-{integer_part}.{decimal_part}'
+
+# print(fraction_to_decimal(numerator=num, denominator=den))
+
+'''The final solution were based on understanding how long division works and when to capture the moment when is repeating the remainders'''
+
+
+
+
 '''xxx'''
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
