@@ -24,8 +24,9 @@ CHALLENGES INDEX
 160. Intersection of Two Linked Lists
 162. Find Peak Element
 166. Fraction ro Recurring Decimal
+171. Excel Sheet Column Number
 
-(23)
+(24)
 
 '''
 
@@ -2200,9 +2201,49 @@ Intuition
 
 
 
+'''171. Excel Sheet Column Number'''
+
+# Input
+
+# # Case 1
+# columnTitle = 'A'
+# # Output: 1
+
+# # Case 2
+# columnTitle = 'AB'
+# # Output: 28
+
+# # Case 3
+# columnTitle = 'ZY'
+# # Output: 701
+
+# # Custom Case
+# columnTitle = 'ASY'
+# # Output: 1195
+
+# My Approach
+
+# def titleToNumber(columnTitle: str) -> int:
+   
+#     dic = {v:k for k,v in list(enumerate('ABCDEFGHIJKLMNOPQRSTUVWXYZ', 1))}
+
+#     res = 0
+
+#     for idx, letter in enumerate(reversed(columnTitle)):
+
+#         res += dic[letter]*pow(26, idx)
+    
+#     return res
+
+
+# print(titleToNumber(columnTitle=columnTitle))
+
+'Done'
+
+
+
+
 '''xxx'''
-
-
 
 
 
