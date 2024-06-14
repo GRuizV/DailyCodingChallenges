@@ -25,8 +25,9 @@ CHALLENGES INDEX
 162. Find Peak Element
 166. Fraction ro Recurring Decimal
 171. Excel Sheet Column Number
+172. Factorial Trailing Zeroes
 
-(24)
+(25)
 
 '''
 
@@ -2243,21 +2244,70 @@ Intuition
 
 
 
-'''xxx'''
+'''172. Factorial Trailing Zeroes'''
+
+# Input
+
+# # Case 1
+# n = 3
+# # Output: 0 (3! = 6, no trailing zero).
+
+# # Case 2
+# n = 5
+# # Output: 1 (5! = 120).
+
+# # Case 3
+# n = 0
+# # Output: 0 (0! = 1).
+
+# # Custom case
+# n = 1574
+# # Output: 390 
 
 
+# My approach
 
+# def trailingZeroes(n: int) -> int:
 
+#     res = 1
 
+#     for i in range(2, n+1):
+#         res *= i
+    
+#     zeros = 0
 
+#     while True:
 
+#         if  res % 10 != 0:
+#             break
+        
+#         zeros += 1
+#         res //= 10    
+        
+#     return zeros
 
+# print(trailingZeroes(n=1574))
 
+'While my approach works and passed, is not as efficient, is O(n)'
 
+# Optimized approach
 
+'''
+Taking advantage of the fact that every factor of 5 contributes to trailing zeros
+the problem simplifies greatly since no factorials are needed to be calculated
+'''
 
+# def trailingZeroes(n: int) -> int:
 
+#     zeros = 0
 
+#     while n >= 5:
 
+#         n //= 5
+#         zeros += n          
+        
+#     return zeros
 
+# print(trailingZeroes(n=1574))
 
+'Done'
