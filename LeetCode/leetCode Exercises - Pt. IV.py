@@ -2,9 +2,10 @@
 CHALLENGES INDEX
 
 179. Largest Number
+189. Rotate Array
 
 
-(1)
+(2)
 
 '''
 
@@ -176,8 +177,41 @@ CHALLENGES INDEX
 
 
 
-'''xxx'''
+'''189. Rotate Array'''
 
+# Input
+
+# # Case 1
+# nums, k = [1,2,3,4,5,6,7], 3
+# # Output: [5,6,7,1,2,3,4]
+
+# # Case 2
+# nums, k = [-1,-100,3,99], 2
+# # Output: [3,99,-1,-100]
+
+# My approach
+
+def rotate(nums: list[int], k: int) -> None:
+
+    if len(nums) == 1:
+        return
+    
+    rot = k % len(nums)
+
+    dic = {k:v for k, v in enumerate(nums)}
+
+    for i in range(len(nums)):
+
+        n_idx = (i+rot)%len(nums)
+        nums[n_idx] = dic[i]
+
+'It actually worked!'
+
+
+
+
+'''xxx'''
+   
 
 
 
