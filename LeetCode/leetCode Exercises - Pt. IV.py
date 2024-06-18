@@ -3,10 +3,10 @@ CHALLENGES INDEX
 
 179. Largest Number
 189. Rotate Array
+198. House Robber (DS)
 
 
-(2)
-
+(3)
 '''
 
 
@@ -189,29 +189,88 @@ CHALLENGES INDEX
 # nums, k = [-1,-100,3,99], 2
 # # Output: [3,99,-1,-100]
 
-# My approach
+# # My approach
+# def rotate(nums: list[int], k: int) -> None:
 
-def rotate(nums: list[int], k: int) -> None:
-
-    if len(nums) == 1:
-        return
+#     if len(nums) == 1:
+#         return
     
-    rot = k % len(nums)
+#     rot = k % len(nums)
 
-    dic = {k:v for k, v in enumerate(nums)}
+#     dic = {k:v for k, v in enumerate(nums)}
 
-    for i in range(len(nums)):
+#     for i in range(len(nums)):
 
-        n_idx = (i+rot)%len(nums)
-        nums[n_idx] = dic[i]
+#         n_idx = (i+rot)%len(nums)
+#         nums[n_idx] = dic[i]
 
 'It actually worked!'
 
 
 
 
-'''xxx'''
+'''198. House Robber'''
    
+# Input
+
+# # Case 1
+# nums = [1,2,3,1]
+# # Output: 4
+
+# # Case 2
+# nums = [2,7,9,3,1]
+# # Output: 12
+
+# # Custom Case
+# nums = [2,1,1,2]
+# # Output: 12
+
+# # DS Approach ( space: O(n) )
+# def rob(nums: list[int]) -> int:
+    
+#     # Handling corner cases
+#     if len(nums) == 1:
+#         return nums[0]
+    
+#     # Initializing the aux array
+#     dp = [0] * len(nums)
+#     dp[0] = nums[0]
+#     dp[1] = max(dp[0], nums[1])
+
+#     for i in range(2, len(nums)):
+
+#         dp[i] = max(dp[i-1], dp[i-2] + nums[i])
+
+#     return dp[-1]
+
+# print(rob(nums=nums))
+                
+'-------------------'
+
+# # DS Approach ( space: O(1) )
+# def rob(nums: list[int]) -> int:
+    
+#     # Handling corner cases
+#     if len(nums) == 1:
+#         return nums[0]
+    
+#     # Initializing the aux array
+#     prev_rob = 0
+#     max_rob = 0
+
+#     for num in nums:
+
+#         temp = max(max_rob, prev_rob + num)
+#         prev_rob = max_rob
+#         max_rob = temp
+    
+#     return max_rob
+
+# print(rob(nums=nums))
+
+'Done'
 
 
 
+
+'''xxx'''
