@@ -1,7 +1,7 @@
 '''
 CHALLENGES INDEX
 
-50. Pow(x, n)
+50. Pow(x, n) (RC)
 53. Maximum Subarray  (DS)
 54. Spiral Matrix
 55. Jump Game  (DS)
@@ -11,11 +11,11 @@ CHALLENGES INDEX
 69. Sqrt(x)
 70. Climbing Stairs  (DS)
 73. Set Matrix Zeroes
-75. Sort Colors
+75. Sort Colors (TP)
 76. Minimum Window Substring
 78. Subsets
 79. Word Search
-88. Merge Sorted Array
+88. Merge Sorted Array (TP)
 91. Decode Ways  (DS) 
 98. Validate Binary Search Tree 
 101. Symmetric Tree
@@ -25,6 +25,12 @@ CHALLENGES INDEX
 105. Construct Binary Tree from Preorder and Inorder Traversal
 108. Convert Sorted Array to Binary Search Tree
 116. Populating Next Right Pointers in Each Node
+
+*DS: Dynamic Programming
+*RC: Recursion
+*TP: Two-pointers
+
+(25)
 
 '''
 

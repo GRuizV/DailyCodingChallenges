@@ -2,7 +2,7 @@
 CHALLENGES INDEX
 
 179. Largest Number
-189. Rotate Array
+189. Rotate Array  (TP)
 198. House Robber (DS)
 
 

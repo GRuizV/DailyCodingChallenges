@@ -5,28 +5,34 @@ CHALLENGES INDEX
 2. Add Two Numbers
 3. Longest Substring Without Repeating Characters
 4. Median of Two Sorted Arrays
-5. Longest Palindromic Substring (DS)
+5. Longest Palindromic Substring (DS) (TP)
 7. Reverse Integer
 8. String to Integer (atoi)
-11. Container With Most Water
+11. Container With Most Water (TP)
 13. Roman to Integer
 	13.1 Roman to Integer - Variation: the other way around, Just For Fun.
 14. Longest Common Prefix
-15. 3Sum
+15. 3Sum (TP)
 17. Letter Combinations of a Phone Number
-19. Remove Nth Node From End of List
+19. Remove Nth Node From End of List (TP)
 20. Valid Parentheses
-21. Merge Two Sorted Lists
+21. Merge Two Sorted Lists (RC)
 22. Generate Parentheses (DS)
 23. Merge k Sorted Lists
 29. Divide Two Integers
 34. Find First and Last Position of Element in Sorted Array
 36. Valid Sudoku
 38. Count and Say
-42. Trapping Rain Water (DS)
+42. Trapping Rain Water (DS) (TP)
 46. Permutations
 48. Rotate Image
 49. Group Anagrams
+
+*DS: Dynamic Programming
+*RC: Recursion
+*TP: Two-pointers
+
+(25)
 
 '''
 

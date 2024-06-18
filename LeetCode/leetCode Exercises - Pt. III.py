@@ -5,7 +5,7 @@ CHALLENGES INDEX
 121. Best Time to Buy and Sell Stock (DS)
 122. Best Time to Buy and Sell Stock II (DS)
 124. Binary Tree Maximum Path Sum (DS)
-125. Valid Palindrome
+125. Valid Palindrome (TP)
 127. Word Ladder
 128. Longest Consecutive Sequence
 130. Surrounded Regions
@@ -14,18 +14,23 @@ CHALLENGES INDEX
 138. Copy List with Random Pointer
 139. Word Break (DS)
 140. Word Break II (DS)
-141. Linked List Cycle
+141. Linked List Cycle  (TP)
 146. LRU Cache
-148. Sort List
+148. Sort List  (TP)
 149. Max Points on a Line
 150. Evaluate Reverse Polish Notation
 152. Maximum Product Subarray (DS)
 155. Min Stack
-160. Intersection of Two Linked Lists
+160. Intersection of Two Linked Lists  (TP)
 162. Find Peak Element
 166. Fraction ro Recurring Decimal
 171. Excel Sheet Column Number
 172. Factorial Trailing Zeroes
+
+
+*DS: Dynamic Programming
+*RC: Recursion
+*TP: Two-pointers
 
 (25)
 
