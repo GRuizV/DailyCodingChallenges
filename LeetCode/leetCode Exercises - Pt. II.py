@@ -2,21 +2,21 @@
 CHALLENGES INDEX
 
 50. Pow(x, n)
-53. Maximum Subarray
+53. Maximum Subarray  (DS)
 54. Spiral Matrix
-55. Jump Game
+55. Jump Game  (DS)
 56. Merge Intervals
-62. Unique Paths
+62. Unique Paths  (DS)
 66. Plus One
 69. Sqrt(x)
-70. Climbing Stairs
+70. Climbing Stairs  (DS)
 73. Set Matrix Zeroes
 75. Sort Colors
 76. Minimum Window Substring
 78. Subsets
 79. Word Search
 88. Merge Sorted Array
-91. Decode Ways  
+91. Decode Ways  (DS) 
 98. Validate Binary Search Tree 
 101. Symmetric Tree
 102. Binary Tree Level Order Traversal 

@@ -5,7 +5,7 @@ CHALLENGES INDEX
 2. Add Two Numbers
 3. Longest Substring Without Repeating Characters
 4. Median of Two Sorted Arrays
-5. Longest Palindromic Substring
+5. Longest Palindromic Substring (DS)
 7. Reverse Integer
 8. String to Integer (atoi)
 11. Container With Most Water
@@ -17,13 +17,13 @@ CHALLENGES INDEX
 19. Remove Nth Node From End of List
 20. Valid Parentheses
 21. Merge Two Sorted Lists
-22. Generate Parentheses
+22. Generate Parentheses (DS)
 23. Merge k Sorted Lists
 29. Divide Two Integers
 34. Find First and Last Position of Element in Sorted Array
 36. Valid Sudoku
 38. Count and Say
-42. Trapping Rain Water
+42. Trapping Rain Water (DS)
 46. Permutations
 48. Rotate Image
 49. Group Anagrams

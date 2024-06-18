@@ -1,25 +1,25 @@
 '''
 CHALLENGES INDEX
 
-118. Pascal's Triangle
-121. Best Time to Buy and Sell Stock
-122. Best Time to Buy and Sell Stock II
-124. Binary Tree Maximum Path Sum
+118. Pascal's Triangle (DS)
+121. Best Time to Buy and Sell Stock (DS)
+122. Best Time to Buy and Sell Stock II (DS)
+124. Binary Tree Maximum Path Sum (DS)
 125. Valid Palindrome
 127. Word Ladder
 128. Longest Consecutive Sequence
 130. Surrounded Regions
-131. Palindrome Partitioning
+131. Palindrome Partitioning (DS)
 134. Gas Station
 138. Copy List with Random Pointer
-139. Word Break
-140. Word Break II
+139. Word Break (DS)
+140. Word Break II (DS)
 141. Linked List Cycle
 146. LRU Cache
 148. Sort List
 149. Max Points on a Line
 150. Evaluate Reverse Polish Notation
-152. Maximum Product Subarray
+152. Maximum Product Subarray (DS)
 155. Min Stack
 160. Intersection of Two Linked Lists
 162. Find Peak Element
