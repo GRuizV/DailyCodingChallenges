@@ -4,9 +4,10 @@ CHALLENGES INDEX
 179. Largest Number
 189. Rotate Array  (TP)
 198. House Robber (DS)
+200. Number of Islands (Matrix) (BFS)
 
 
-(3)
+(4)
 '''
 
 
@@ -273,4 +274,192 @@ CHALLENGES INDEX
 
 
 
-'''xxx'''
+'''200. Number of Islands'''
+
+# Input
+
+# # Case 1
+# grid = [
+#   ["1","1","1","1","0"],
+#   ["1","1","0","1","0"],
+#   ["1","1","0","0","0"],
+#   ["0","0","0","0","0"]
+# ]
+# # Ouput: 1
+
+# # Case 2
+# grid = [
+#   ["1","1","0","0","0"],
+#   ["1","1","0","0","0"],
+#   ["0","0","1","0","0"],
+#   ["0","0","0","1","1"]
+# ]
+# # Ouput: 3
+
+# # Custom Case
+# grid = [
+#     ["1","0"]
+#     ]
+# # Ouput: 1
+
+
+'My BFS Approach'
+# def numIslands(grid:list[list[str]]) -> int:
+    
+#     if len(grid) == 1:
+#         return len([x for x in grid[0] if x =='1'])
+
+#     # Create the 'lands' coordinates
+#     coord = []
+
+#     # Collecting the 'lands' coordinates
+#     for i, row in enumerate(grid):
+#         coord.extend((i, j) for j, value in enumerate(row) if value == '1')
+
+
+#     # Create the groups holder
+#     islands = []
+#     used = set()
+
+
+#     # BFS Definition
+#     def bfs(root:tuple) -> list:
+
+#         queue = [root]
+#         curr_island = []
+
+#         while queue:
+
+#             land = queue.pop(0)
+#             x, y = land[0], land[1]
+            
+#             if grid[x][y] == '1' and (land not in curr_island and land not in used):
+
+#                 curr_island.append(land)
+              
+#                 # Define next lands to search
+#                 if x == 0:
+#                     if y == 0:
+#                         next_lands = [(x+1,y),(x,y+1)]
+                    
+#                     elif y < len(grid[0])-1:
+#                         next_lands = [(x+1,y),(x,y-1),(x,y+1)]
+                    
+#                     else:
+#                         next_lands = [(x+1,y),(x,y-1)]
+                
+#                 elif x < len(grid)-1:
+#                     if y == 0:
+#                         next_lands = [(x-1,y),(x+1,y),(x,y+1)]
+                    
+#                     elif y < len(grid[0])-1:
+#                         next_lands = [(x-1,y),(x+1,y),(x,y-1),(x,y+1)]
+                    
+#                     else:
+#                         next_lands = [(x-1,y),(x+1,y),(x,y-1)]
+                
+#                 else:
+#                     if y == 0:
+#                         next_lands = [(x-1,y),(x,y+1)]
+                    
+#                     elif y < len(grid[0])-1:
+#                         next_lands = [(x-1,y),(x,y-1),(x,y+1)]
+                    
+#                     else:
+#                         next_lands = [(x-1,y),(x,y-1)]
+                                   
+#                 # List the next lands to visit
+#                 for next_land in next_lands:
+
+#                     if next_land not in curr_island:
+
+#                         queue.append(next_land)
+
+#         return curr_island
+        
+
+#     # Checking all the 1s in the grid
+#     for elem in coord:
+
+#         if elem not in used:
+
+#             island = bfs(elem)
+
+#             islands.append(island)
+#             used.update(set(island))
+    
+#     return len(islands)
+
+
+# print(numIslands(grid=grid))
+
+
+'Simplified & Corrected BFS Approach'
+
+# def numIslands(grid:list[list[str]]) -> int:
+
+#     if not grid:
+#         return 0
+
+#     num_islands = 0
+#     directions = [(1,0),(-1,0),(0,1),(0,-1)]
+
+#     for i in range(len(grid)):
+
+#         for j in range(len(grid[0])):
+
+#             if grid[i][j] == '1':
+
+#                 num_islands += 1
+
+#                 queue = [(i,j)]
+
+#                 while queue:
+
+#                     x, y = queue.pop(0)
+
+#                     if 0 <= x < len(grid) and 0 <= y < len(grid[0]) and grid[x][y] == '1':
+
+#                         grid[x][y] = '0'    # Mark as visited
+
+#                         for dx, dy in directions:
+
+#                             queue.append((x + dx, y + dy))
+    
+#     return num_islands
+
+'Done'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
