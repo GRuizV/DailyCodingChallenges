@@ -3,28 +3,28 @@ CHALLENGES INDEX
 
 50. Pow(x, n) (RC)
 53. Maximum Subarray  (DS)
-54. Spiral Matrix
+54. Spiral Matrix  (Matrix)  
 55. Jump Game  (DS)
 56. Merge Intervals
 62. Unique Paths  (DS)
 66. Plus One
 69. Sqrt(x)
 70. Climbing Stairs  (DS)
-73. Set Matrix Zeroes
+73. Set Matrix Zeroes  (Matrix)
 75. Sort Colors (TP)
 76. Minimum Window Substring
 78. Subsets
-79. Word Search
+79. Word Search  (Matrix)
 88. Merge Sorted Array (TP)
 91. Decode Ways  (DS) 
-98. Validate Binary Search Tree 
-101. Symmetric Tree
-102. Binary Tree Level Order Traversal 
-103. Binary Tree Zigzag Level Order Traversal 
-104. Maximum Depth of Binary Tree
+98. Validate Binary Search Tree  (DFS)
+101. Symmetric Tree  (BFS) (DFS)
+102. Binary Tree Level Order Traversal  (BFS)
+103. Binary Tree Zigzag Level Order Traversal  (BFS) (DFS)
+104. Maximum Depth of Binary Tree  (BFS)
 105. Construct Binary Tree from Preorder and Inorder Traversal
 108. Convert Sorted Array to Binary Search Tree
-116. Populating Next Right Pointers in Each Node
+116. Populating Next Right Pointers in Each Node  (BFS) (DFS)
 
 *DS: Dynamic Programming
 *RC: Recursion

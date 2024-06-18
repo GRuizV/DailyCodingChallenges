@@ -4,11 +4,11 @@ CHALLENGES INDEX
 118. Pascal's Triangle (DS)
 121. Best Time to Buy and Sell Stock (DS)
 122. Best Time to Buy and Sell Stock II (DS)
-124. Binary Tree Maximum Path Sum (DS)
+124. Binary Tree Maximum Path Sum (DS) (DFS)
 125. Valid Palindrome (TP)
-127. Word Ladder
+127. Word Ladder  (BFS)
 128. Longest Consecutive Sequence
-130. Surrounded Regions
+130. Surrounded Regions  (Matrix) (BFS) (DFS)
 131. Palindrome Partitioning (DS)
 134. Gas Station
 138. Copy List with Random Pointer

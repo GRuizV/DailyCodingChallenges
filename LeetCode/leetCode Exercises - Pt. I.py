@@ -21,11 +21,11 @@ CHALLENGES INDEX
 23. Merge k Sorted Lists
 29. Divide Two Integers
 34. Find First and Last Position of Element in Sorted Array
-36. Valid Sudoku
+36. Valid Sudoku  (Matrix)
 38. Count and Say
 42. Trapping Rain Water (DS) (TP)
 46. Permutations
-48. Rotate Image
+48. Rotate Image  (Matrix)
 49. Group Anagrams
 
 *DS: Dynamic Programming
