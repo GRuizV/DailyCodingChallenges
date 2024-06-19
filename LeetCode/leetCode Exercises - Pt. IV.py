@@ -5,9 +5,12 @@ CHALLENGES INDEX
 189. Rotate Array  (TP)
 198. House Robber (DS)
 200. Number of Islands  (Matrix) (BFS) (DFS)
+202. Happy Number (FDC)
+
+* FDC: Floyd's detection cycle
 
 
-(4)
+(5)
 '''
 
 
@@ -433,14 +436,106 @@ CHALLENGES INDEX
 
 
 
+'''202. Happy Number'''
+
+# Input
+
+# # Case 1
+# n = 19
+# # Output: True
+
+# # Case 2
+# n = 2
+# # Output: False
+
+# # Custom Case
+# n = 18
+# # Output: False
+
+
+# My Approach
+'''
+Intuition (Recursive)
+    
+    - Recursively separate the digits and check the sum of their squares compared to 1.
+        - If the stackoverflow is reached, return False
+    
+    '''
+
+# def isHappy(n:int) -> bool:
+
+#     def aux(m:int) -> bool:
+
+#         num = [int(x)**2 for x in str(m)]
+#         num = sum(num)
+
+#         if num == 1:
+#             return True
+        
+#         return aux(m=num)
+    
+#     try:
+#         res = aux(m=n)
+
+#         if res:
+#             return True
+    
+#     except RecursionError as e:        
+#         return False
+
+# print(isHappy(n=n))
+
+'This approach may work but it exceed time limit: only met 4% of cases'
+
+
+'''
+Notes: 
+
+There are mainly two ways of solving this: The set approach and the Floyd's Cycle detection algorithm
+
+    - The set approach: Use a set to save the seen numbers and if you end up in one of them, you entered a cycle
+    - The Floyd's Cycle Detection Algorithm: Similar to the case of catching a cycle in a linked list with two pointers: Slow and Fast.
+'''
+
+# # Set Approach
+# def isHappy(n:int) -> bool:
+
+#     def getNum(m:int)->int:
+#         return sum(int(x)**2 for x in str(m))
+
+#     seen = set()
+
+#     while n != 1 and n not in seen:
+#         seen.add(n)
+#         n = getNum(n)
+    
+#     return n == 1
+
+# print(isHappy(n=n))
+
+
+# # # FDC Approach
+# def isHappy(n:int) -> bool:
+
+#     def getNum(m:int)->int:
+#         return sum(int(x)**2 for x in str(m))
+
+#     slow = n
+#     fast = getNum(n)
+
+#     while fast != 1 and slow != fast:
+#         slow = getNum(slow)
+#         fast = getNum(getNum(fast))
+    
+#     return fast == 1
+
+# print(isHappy(n=n))
+'Done'
+
+
+
+
 '''xxx'''
-
-
-
-
-
-
-
 
 
 
