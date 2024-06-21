@@ -7,6 +7,7 @@ CHALLENGES INDEX
 200. Number of Islands  (Matrix) (BFS) (DFS)
 202. Happy Number (FCD) (TP)
 204. Count Primes
+206. Reverse Linked List
 
 
 
@@ -612,21 +613,76 @@ the multiples of other primes is more time and space efficient than storing the 
 
 
 
-'''Done'''
+'''206. Reverse Linked List'''
+
+# Base 
+
+# # Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+
+
+
+# Input
+
+# # Case 1
+# head_layout = [1,2,3,4,5]
+# head = ListNode(val=1)
+# two, three, four, five = ListNode(2), ListNode(3), ListNode(4), ListNode(5),
+# head.next, two.next, three.next, four.next = two, three, four, five
+# # Output: [5,4,3,2,1]
+
+# # Case 2
+# head_layout = [1,2]
+# head, two, = ListNode(1), ListNode(2)
+# head.next = two
+# # Output: [2,1]
+
+# # Case 3
+# head_layout = []
+# head = None
+# # Output: []
+
+
+# My Approach
+
+# def reverseList(head:ListNode) -> ListNode:
+    
+#     # Initialize node holders
+#     prev = None
+#     curr = head    
+
+#     while curr:
+#         next_node = curr.next
+#         curr.next = prev
+#         prev = curr
+#         curr = next_node       
+    
+#     return prev
+
+
+# def rec_reverseList(head:ListNode) -> ListNode:
+    
+#     # Base case
+#     if not head or not head.next:
+#         return head   
+
+#     # Recursive Call
+#     new_head = rec_reverseList(head.next)
+
+#     # Reversing the list
+#     head.next.next = head
+#     head.next = None
+
+#     return new_head
+
+'Done'
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
+'''xxx'''
 
 
