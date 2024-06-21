@@ -5,12 +5,18 @@ CHALLENGES INDEX
 189. Rotate Array  (TP)
 198. House Robber (DS)
 200. Number of Islands  (Matrix) (BFS) (DFS)
-202. Happy Number (FDC)
+202. Happy Number (FCD) (TP)
+204. Count Primes
 
-* FDC: Floyd's detection cycle
 
 
-(5)
+*DS: Dynamic Programming
+*RC: Recursion
+*TP: Two-pointers
+*FCD: Floyd's cycle detection
+
+
+(6)
 '''
 
 
@@ -535,16 +541,78 @@ There are mainly two ways of solving this: The set approach and the Floyd's Cycl
 
 
 
-'''xxx'''
+'''204. Count Primes'''
+
+# Input
+
+# # Case 1
+# n = 10
+# # Output: 4 (2,3,5,7)
+
+# # Custom Case
+# n = 30
+# # Output: 4 (2,3,5,7)
+
+
+'''
+Intuition
+    - Application of Eratosthenes Sieve
+'''
+
+# def countPrimes(n: int) -> int:
+
+#     # Handling corner cases
+#     if n in range(3):
+#         return 0 
+    
+        
+#     primes, non_primes = [], []
+
+#     for num in range(2, n):
+
+#         primes.append(num) if num not in non_primes else None
+
+#         non_primes.extend(x for x in range(num*num, n, num))
+    
+#     return len(primes)
+
+# print(countPrimes(n=n))
+
+'''
+This solution works well for data input in low scales (Worked for 26% of the cases), for big numbers could be quite time complex.
+
+After researching a modified version of the Sieve is the way to go, instead of appending numbers to later count them, creating a boolean list to only mark
+the multiples of other primes is more time and space efficient than storing the actual numbers.
+
+    But the real hit here is that we will curb the loop of marking the multiples to the square root of the parameter given, because is safe to assume that after the square root
+    other numbers will pretty much be multiples of the range before the SR.
+
+'''
+
+# def countPrimes(n:int) -> int:
+
+#     if n <= 2:
+#         return 0
+
+#     primes = [True]*n
+
+#     primes[0] = primes[1] = False
+
+#     for i in range(2, int(n**0.5)+1):
+
+#         if primes[i]:
+
+#             for j in range(i*i, n, i):
+#                 primes[j] = False
+    
+#     return sum(primes)
+
+'This one did it!'
 
 
 
 
-
-
-
-
-
+'''Done'''
 
 
 
