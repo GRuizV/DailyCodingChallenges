@@ -8,6 +8,9 @@ CHALLENGES INDEX
 202. Happy Number (FCD) (TP)
 204. Count Primes
 206. Reverse Linked List
+207. Course Schedule (DFS)
+
+
 
 
 
@@ -17,7 +20,7 @@ CHALLENGES INDEX
 *FCD: Floyd's cycle detection
 
 
-(6)
+(8)
 '''
 
 
@@ -683,6 +686,96 @@ the multiples of other primes is more time and space efficient than storing the 
 
 
 
+'''207. Course Schedule'''
+
+# Input
+
+# # Case 1
+# numCourses = 2
+# prerequisites = [[1,0]]
+# # Output: True
+
+# # Case 2
+# numCurses = 2
+# prerequisites = [[1,0], [0,1]]
+# # Output: False
+
+
+# # My approach
+
+# def canFinish(numCourses:int, prerequisites: list[list[int]]) -> bool:
+
+#     # Create the graph
+#     preMap = {course:[] for course in range(numCourses)}
+
+#     # Populate the graph
+#     for crs, pre in prerequisites:
+#         preMap[crs].append(pre)
+
+#     # Create a visit (set) to check the current branch visited (to detect cycles)
+#     visit_set = set()
+
+#     # Define the DFS func
+#     def dfs(node):
+
+#         # Base case where is a cylce
+#         if node in visit_set:
+#             return False
+        
+#         # Base case where not prerequisites
+#         if preMap[node] == []:
+#             return True
+        
+#         visit_set.add(node)
+
+#         for prereq in preMap[node]:
+            
+#             if not dfs(prereq):
+#                 return False
+
+#         visit_set.remove(node)
+#         preMap[prereq] = [] # As it passes, then cleared the list in case is a prereq of something else
+#         return True
+    
+#     courses = sorted(set(x for pair in prerequisites for x in pair))
+
+#     for crs in courses:        
+#         if not dfs(crs):
+#             return False
+    
+#     return True
+
+
+# print(canFinish(numCourses, prerequisites))
+
+'Done'
+
+
+
+
 '''xxx'''
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
