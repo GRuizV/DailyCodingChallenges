@@ -9,6 +9,7 @@ CHALLENGES INDEX
 204. Count Primes
 206. Reverse Linked List
 207. Course Schedule (DFS)
+210. Course Schedule II (DFS)
 
 
 
@@ -20,7 +21,7 @@ CHALLENGES INDEX
 *FCD: Floyd's cycle detection
 
 
-(8)
+(9)
 '''
 
 
@@ -701,7 +702,7 @@ the multiples of other primes is more time and space efficient than storing the 
 # # Output: False
 
 
-# # My approach
+# # DFS Approach
 
 # def canFinish(numCourses:int, prerequisites: list[list[int]]) -> bool:
 
@@ -753,10 +754,100 @@ the multiples of other primes is more time and space efficient than storing the 
 
 
 
+'''210. Course Schedule II'''
+
+# Input
+
+# # Case 1
+# numCourses = 2
+# prerequisites = [[0,1]]
+# # Output: True
+
+# # Case 2
+# numCourses = 4
+# prerequisites = [[1,0],[2,0],[3,1],[3,2]]
+# # Output: [0,1,2,3] or [0,2,1,3]
+
+# # Case 3
+# numCourses = 1
+# prerequisites = []
+# # Output: [0]
+
+# # Custom Case
+# numCourses = 3
+# prerequisites = [[1,0]]
+# # Output: [0]
+
+
+# My approach
+
+# def findOrder(numCourses:int, prerequisites: list[list[int]]) -> list[int]:
+
+#     # Handling corner case
+#     if not prerequisites:
+#         return [x for x in range(numCourses)]
+    
+#     # Create the graph as an Adjacency list
+#     pre_map = {course:[] for course in range(numCourses)}
+
+#     # Populate the graph
+#     for crs, pre in prerequisites:
+#         pre_map[crs].append(pre)
+
+#     # Create the visit set to watch for cycles
+#     visit_set = set()
+
+#     # Create the path in which the order of the courses will be stored
+#     path = []
+
+#     # Define the recursive dfs func
+#     def dfs(course):
+
+#         # If we get to a course we already pass through, means we're in a Cycle
+#         if course in visit_set:
+#             return False
+
+#         # If we get to a course that has no prerequisites, means we can take it
+#         if pre_map[course] == []:
+
+#             path.append(course) if course not in path else None
+
+#             return True
+        
+#         visit_set.add(course)   # Mark the course as visited
+
+#         # Check if the course's prerequisites are available to take
+#         for prereq in pre_map[course]:
+            
+#             if dfs(prereq) is False:
+#                 return False
+            
+#         visit_set.remove(course)
+#         pre_map[course] = []
+#         path.append(course)  # Build the path backwards
+
+#         return True
+
+
+#     # # Create a list with all the courses available
+#     # courses = sorted(set(x for pair in prerequisites for x in pair))
+
+
+#     # Run through all the courses
+#     for crs in range(numCourses):
+#         if dfs(crs) is False:
+#             return []
+        
+#     return path
+
+# print(findOrder(numCourses=numCourses, prerequisites=prerequisites))
+
+'It worked based on the first case version'
+
+
+
+
 '''xxx'''
-
-
-
 
 
 
