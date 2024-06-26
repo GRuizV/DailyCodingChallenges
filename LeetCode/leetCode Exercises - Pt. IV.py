@@ -10,6 +10,7 @@ CHALLENGES INDEX
 206. Reverse Linked List
 207. Course Schedule (DFS)
 210. Course Schedule II (DFS)
+208. Implement Trie (Prefix Tree)
 
 
 
@@ -21,7 +22,7 @@ CHALLENGES INDEX
 *FCD: Floyd's cycle detection
 
 
-(9)
+(10)
 '''
 
 
@@ -847,15 +848,79 @@ the multiples of other primes is more time and space efficient than storing the 
 
 
 
+'''208. Implement Trie (Prefix Tree)'''
+
+# # Implementation
+
+# class TrieNode:
+
+#     def __init__(self, is_word=False):
+
+#         self.values = {}
+#         self.is_word = is_word
+
+
+# class Trie:
+
+#     def __init__(self):
+#         self.root = TrieNode()
+   
+
+#     def insert(self, word: str) -> None:
+
+#         node = self.root
+
+#         for char in word:
+
+#             if char not in node.values:
+#                 node.values[char] = TrieNode()
+            
+#             node = node.values[char]
+
+#         node.is_word = True
+
+
+#     def search(self, word: str) -> bool:
+        
+#         node = self.root
+
+#         for char in word:          
+                    
+#             if char not in node.values:
+#                 return False
+            
+#             node = node.values[char]
+        
+#         return node.is_word
+
+
+#     def startsWith(self, prefix: str) -> bool:
+        
+#         node = self.root
+
+#         for char in prefix:
+
+#             if char not in node.values:
+#                 return False
+            
+#             node = node.values[char]
+        
+#         return True
+
+# # Trie Testing
+# new_trie = Trie()
+
+# new_trie.insert('Carrot')
+
+# print(new_trie.startsWith('Car'))
+# x=''
+
+'Done'
+
+
+
+
 '''xxx'''
-
-
-
-
-
-
-
-
 
 
 
