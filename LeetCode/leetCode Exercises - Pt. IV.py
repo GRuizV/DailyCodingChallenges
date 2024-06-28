@@ -11,6 +11,7 @@ CHALLENGES INDEX
 207. Course Schedule (DFS)
 210. Course Schedule II (DFS)
 208. Implement Trie (Prefix Tree)
+212. Word Search II (DFS)
 
 
 
@@ -22,7 +23,7 @@ CHALLENGES INDEX
 *FCD: Floyd's cycle detection
 
 
-(10)
+(11)
 '''
 
 
@@ -920,7 +921,304 @@ the multiples of other primes is more time and space efficient than storing the 
 
 
 
+'''212. Word Search II'''
+
+# Input 
+
+# # Case 1
+# board = [["o","a","a","n"],["e","t","a","e"],["i","h","k","r"],["i","f","l","v"]]
+# words = ["oath","pea","eat","rain"]
+# # Output: ["eat","oath"]
+
+# # Case 2
+# board = [["a","b"],["c","d"]], 
+# words = ["abcb"]
+# # Output: []
+
+# # Custom Case
+# board = [["a","b"],["c","d"]], 
+# words = ["abcb"]
+# # Output: []
+
+
+# My Approach
+
+'''
+Rationale:
+
+    - Based on the 'Word Seach I' backtracking solution, I will try to emulate the same but
+        since now there are multiple word to lookout for, I will rely on a Trie implementation
+        to look out for prefixes to optimize the process.
+
+        And to try to make it work, I will pull the first letter of each word and only start
+        the searches from those positions, so, roughly the plan is:
+
+        1. Collect the coordinates of the first letter from each of the word and store them in a dict
+            as {'word': coordinates[(x,y)]}, if a word has no coordinates and it means it won't be found
+            in the matrix, so it won't be in Trie.
+        
+        2. Initiate the Trie with the words with coordinates.
+
+        3. Iterate through each of the words, and iterate for each pair of coordinates to look out for that word,
+            if found, add it to a result list if don't pass to the next pair of coordinates, and so on for each word.
+        
+        4. Return the found words
+
+'''
+
+# # ACTUAL CODE
+# # TRIE IMPLEMENTATION
+
+# # TrieNode Definition
+# class TrieNode:
+
+#     def __init__(self):
+#         self.values = {}
+#         self.is_word = False
+
+
+# # Trie DS Definition
+# class Trie:
+
+#     def __init__(self):
+#         self.root = TrieNode()
+    
+#     def insert(self, word:str) -> None:
+
+#         curr_node = self.root
+
+#         for char in word:
+
+#             if char not in curr_node.values:
+#                 curr_node.values[char] = TrieNode()
+            
+#             curr_node = curr_node.values[char]
+        
+#         curr_node.is_word = True
+
+#     def search(self, word:str) -> bool:
+
+#         curr_node = self.root
+
+#         for char in word:
+
+#             if char not in curr_node.values:
+#                 return False
+            
+#             curr_node = curr_node.values[char]
+
+#         return curr_node.is_word
+
+#     def stars_with(self, prefix:str) -> bool:
+
+#         curr_node = self.root
+
+#         for char in prefix:
+
+#             if char not in curr_node.values:
+#                 return False
+            
+#             curr_node = curr_node.values[char]
+
+#         return True
+
+# # Actual Solution
+# def findWords(board: list[list[str]], words: list[str]) -> list[str]:
+
+#     import copy
+
+#     #AUX BACKTRACK FUNC DEF
+#     def backtrack(i:int, j:int, k:str) -> bool:
+
+#         if new_trie.search(k):
+#             return True
+                 
+#         if not new_trie.stars_with(k):
+#             return False
+        
+#         temp = board[i][j]
+#         board[i][j] = '.'
+
+#         #1
+#         if 0<i<len(board)-1 and 0<j<len(board[0])-1:
+#             if backtrack(i+1, j, k+board[i+1][j]) or backtrack(i-1, j, k+board[i-1][j]) or backtrack(i, j+1, k+board[i][j+1]) or backtrack(i, j-1, k+board[i][j-1]):        
+#                 return True
+        
+#         #2
+#         elif 0 == i and 0 == j:
+#             if backtrack(i+1, j, k+board[i+1][j]) or backtrack(i, j+1, k+board[i][j+1]):        
+#                 return True
+            
+#         #3
+#         elif 0 == i and 0<j<len(board[0])-1:
+#             if backtrack(i+1, j, k+board[i+1][j]) or backtrack(i, j+1, k+board[i][j+1]) or backtrack(i, j-1, k+board[i][j-1]):        
+#                 return True
+        
+#         #4
+#         elif len(board)-1 == i and len(board[0])-1 == j:
+#             if backtrack(i-1, j, k+board[i-1][j]) or backtrack(i, j-1, k+board[i][j-1]):        
+#                 return True
+        
+#         #5
+#         elif 0<i<len(board)-1 and 0 == j:
+#             if backtrack(i+1, j, k+board[i+1][j]) or backtrack(i-1, j, k+board[i-1][j]) or backtrack(i, j+1, k+board[i][j+1]):        
+#                 return True
+            
+#         #6
+#         elif 0<i<len(board)-1 and len(board[0])-1 == j:
+#             if backtrack(i+1, j, k+board[i+1][j]) or backtrack(i-1, j, k+board[i-1][j]) or backtrack(i, j-1, k+board[i][j-1]):        
+#                 return True
+        
+#         #7
+#         elif len(board)-1 == i and 0 == j:
+#             if backtrack(i-1, j, k+board[i-1][j]) or backtrack(i, j+1, k+board[i][j+1]):        
+#                 return True
+        
+#         #8
+#         elif len(board)-1 == i and 0<j<len(board[0])-1:
+#             if backtrack(i-1, j, k+board[i-1][j]) or backtrack(i, j+1, k+board[i][j+1]) or backtrack(i, j-1, k+board[i][j-1]):        
+#                 return True
+
+#         #9
+#         elif len(board)-1 == i and len(board[0])-1 == j:
+#             if backtrack(i-1, j, k+board[i-1][j]) or backtrack(i, j-1, k+board[i][j-1]):        
+#                 return True
+
+
+#         board[i][j] = temp
+
+#         return False 
+    
+
+#     # COLLECT FIRST LETTER COORDINATES FOR EACH WORD
+#     words_dict = {}
+
+#     for word in words:
+
+#         coordinates = []
+
+#         for i,row in enumerate(board):
+#             coordinates.extend([(i,j) for j,elem in enumerate(row) if board[i][j] == word[0]])
+
+#         if coordinates:
+#             words_dict[word] = coordinates
+
+
+#     # INITIATE THE TRIE
+#     new_trie = Trie()
+
+#     for word in words_dict.keys():
+#         new_trie.insert(word)
+
+#     x = 0
+
+#     result = []
+
+#     # ITERATE THE DICT
+#     for word in words_dict:
+
+#         temp_board = copy.deepcopy(board)
+
+#         for i,j in words_dict[word]:
+
+#             if backtrack(i, j, word[0]):
+
+#                 result.append(word)
+#                 board = temp_board
+            
+#     x = 0
+
+#     return result
+
+# print(findWords(board=board, words=words))
+
+'''
+Notes:
+    My solution and approach wasn't that far. The logic was correct, the execution was the one to fail.
+    My version of the solution tends to get redundant and can't handle efficiently larger inputs
+'''
+
+
+# # TrieNode Definition
+# class TrieNode:
+
+#     def __init__(self):
+#         self.values = {}
+#         self.is_word = False
+
+
+# # Trie DS Definition
+# class Trie:
+
+#     def __init__(self):
+#         self.root = TrieNode()
+    
+#     def insert(self, word:str) -> None:
+
+#         curr_node = self.root
+
+#         for char in word:
+#             if char not in curr_node.values:
+#                 curr_node.values[char] = TrieNode()            
+#             curr_node = curr_node.values[char]
+        
+#         curr_node.is_word = True
+
+
+# # Actual Solution
+# def findWords(board: list[list[str]], words: list[str]) -> list[str]:
+
+#     # Build the Trie
+#     trie = Trie()
+
+#     for word in words:
+#         trie.insert(word)
+    
+#     # Auxiliary vars
+#     rows, cols = len(board), len(board[0])
+#     result = set()
+#     visited = set()
+
+
+#     #Aux DFS Func
+#     def dfs(node:TrieNode, i:int, j:str, path:str) -> None:
+
+#         if i<0 or i>=rows or j<0 or j>=cols or (i,j) in visited or board[i][j] not in node.values:
+#             return
+        
+#         visited.add((i,j))
+#         node = node.values[board[i][j]]
+#         path += board[i][j]
+
+#         if node.is_word:
+#             result.add(path)
+#             node.is_word = False    # To avoid duplicate results
+
+#         # Explore neighbors in 4 directions (up, down, left, right)
+#         for x, y in [(i-1,j),(i+1,j),(i,j-1),(i,j+1)]:
+#             dfs(node, x, y, path)
+        
+#         visited.remove((i,j))
+       
+
+#     # Traverse the board
+#     for i in range(rows):
+#         for j in range(cols):
+#             dfs(trie.root, i, j, '')        
+
+
+#     return result
+
+'Done'
+
+
+
+
 '''xxx'''
+
+
+
+
 
 
 
