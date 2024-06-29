@@ -12,6 +12,7 @@ CHALLENGES INDEX
 210. Course Schedule II (DFS)
 208. Implement Trie (Prefix Tree)
 212. Word Search II (DFS)
+215. Kth Largest Element in an Array (Heaps)
 
 
 
@@ -23,7 +24,7 @@ CHALLENGES INDEX
 *FCD: Floyd's cycle detection
 
 
-(11)
+(12)
 '''
 
 
@@ -1214,11 +1215,27 @@ Notes:
 
 
 
+'''215. Kth Largest Element in an Array'''
+
+# import heapq
+
+# def findKthLargest(self, nums: list[int], k: int) -> int:
+#         heap = nums[:k]
+#         heapq.heapify(heap)
+        
+#         for num in nums[k:]:
+#             if num > heap[0]:
+#                 heapq.heappop(heap)
+#                 heapq.heappush(heap, num)
+        
+#         return heap[0]
+
+'Done'
+
+
+
+
 '''xxx'''
-
-
-
-
 
 
 
