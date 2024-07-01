@@ -13,6 +13,7 @@ CHALLENGES INDEX
 208. Implement Trie (Prefix Tree)
 212. Word Search II (DFS)
 215. Kth Largest Element in an Array (Heaps)
+218. The Skyline Problem (Heaps) 
 
 
 
@@ -24,7 +25,7 @@ CHALLENGES INDEX
 *FCD: Floyd's cycle detection
 
 
-(12)
+(13)
 '''
 
 
@@ -1235,17 +1236,84 @@ Notes:
 
 
 
+'''218. The Skyline Problem'''
+
+'''
+Explanation of the Code
+
+    Events Creation:
+
+        For each building, two events are created: entering ((left, -height, right)) and exiting ((right, height, 0)).
+    
+    Sorting Events:
+
+        Events are sorted first by x-coordinate. If x-coordinates are the same, entering events are processed before exiting events. For entering events with the same x-coordinate, taller buildings are processed first.
+    
+    Processing Events:
+
+        A max-heap (live_heap) keeps track of the current active buildings' heights. Heights are stored as negative values to use Python's min-heap as a max-heap.
+        When processing each event, heights are added to or removed from the heap as needed.
+        If the maximum height changes (top of the heap), a key point is added to the result.
+    
+    This approach efficiently manages the skyline problem by leveraging sorting and a max-heap to dynamically track the highest building at each critical point.
+'''
+
+# from heapq import heappush, heappop, heapify
+
+# def getSkyline(buildings: list[list[int]]) -> list[list[int]]:
+        
+#     # Create events for entering and exiting each building
+#     events = []
+
+#     for left, right, height in buildings:
+#         events.append((left, -height, right))  # Entering event
+#         events.append((right, height, 0))     # Exiting event
+    
+
+#     # Sort events: primarily by x coordinate, then by height
+#     events.sort()
+    
+
+#     # Max-heap to store the current active buildings
+#     result = []
+#     live_heap = [(0, float('inf'))]  # (height, end)
+
+
+#     # Process each event
+#     for x, h, r in events:
+
+#         if h < 0:  # Entering event
+#             heappush(live_heap, (h, r))
+
+#         else:  # Exiting event
+            
+#             # Remove the building height from the heap
+#             for i in range(len(live_heap)):
+#                 if live_heap[i][1] == x:
+#                     live_heap[i] = live_heap[-1]  # Replace with last element
+#                     live_heap.pop()  # Remove last element
+#                     heapify(live_heap)  # Restore heap property
+#                     break
+        
+#         # Ensure the heap is valid
+#         while live_heap[0][1] <= x:
+#             heappop(live_heap)
+        
+#         # Get the current maximum height
+#         max_height = -live_heap[0][0]
+        
+#         # If the current maximum height changes, add the key point
+#         if not result or result[-1][1] != max_height:
+#             result.append([x, max_height])
+                
+#     return result
+
+'Done'
+
+
+
+
 '''xxx'''
-
-
-
-
-
-
-
-
-
-
 
 
 
