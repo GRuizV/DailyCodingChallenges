@@ -13,7 +13,8 @@ CHALLENGES INDEX
 208. Implement Trie (Prefix Tree)
 212. Word Search II (DFS)
 215. Kth Largest Element in an Array (Heaps)
-218. The Skyline Problem (Heaps) 
+218. The Skyline Problem (Heaps)
+227. Basic Calculator II (Stack)
 
 
 
@@ -25,7 +26,7 @@ CHALLENGES INDEX
 *FCD: Floyd's cycle detection
 
 
-(13)
+(14)
 '''
 
 
@@ -1313,7 +1314,155 @@ Explanation of the Code
 
 
 
+'''227. Basic Calculator II'''
+
+# Input
+
+# # Case 1
+# s = "3+2*2"
+# # Output: 7
+
+# # Case 2
+# s = " 3/2 "
+# # Output: 1
+
+# # Case 3
+# s = " 3+5 / 2 "
+# # Output: 5
+
+# # Custom Case
+# s = " 3+5 / 2 "
+# # Output: 5
+
+
+#My Approach
+
+'''
+Intuition:
+
+    1. Process the string to make valid expression elements.
+    2. Process each operator:
+        - '/*-+' in that order, until there is none left.
+        - Take each operator and the element to the left and to the right to compose a new element to insert it 
+            where the left one where.
+    3. Return the result.
+
+'''
+
+# def calculate(s: str) -> int:
+    
+#     # Handle no operators case
+#     if not any(op in s for op in '/*-+'):
+#         return int(s)
+    
+
+#     # Process the String to make it a valid Expression List
+#     expression = []
+#     num = ''
+
+#     for char in s:
+
+#         if char != ' ':
+
+#             if char in '+-*/':
+#                 expression.append(num)
+#                 expression.append(char)
+#                 num = ''
+            
+#             else:
+#                 num += char
+
+#     expression.append(num)  # Append the last number in the string
+
+
+#     # Process the expression list until there are no operators
+#     while any(op in expression for op in '+-*/'):
+
+#         for elem in expression:
+
+#             if elem == '*':
+#                 idx = expression.index('*')
+#                 new_element = int(expression[idx-1]) * int(expression[idx+1])
+#                 expression = expression[:idx-1] + [new_element] + expression[idx+2:]
+            
+#             elif elem == '/':
+#                 idx = expression.index('/')
+#                 new_element = int(expression[idx-1]) // int(expression[idx+1])
+#                 expression = expression[:idx-1] + [new_element] + expression[idx+2:]
+                            
+#             elif elem == '+':
+#                 idx = expression.index('+')
+#                 new_element = int(expression[idx-1]) + int(expression[idx+1])
+#                 expression = expression[:idx-1] + [new_element] + expression[idx+2:]
+            
+#             elif elem == '-':
+#                 idx = expression.index('-')
+#                 new_element = int(expression[idx-1]) - int(expression[idx+1])
+#                 expression = expression[:idx-1] + [new_element] + expression[idx+2:]
+
+
+#     # Return the result
+#     return expression[0]
+
+# print(calculate(s=s))
+
+
+'''
+Notes: 
+    This approach met 90% of the cases but have troubles when dealing with long operations
+    given that it only looks out for the next operator in '*/+-' in that order, when actual order
+    from left to right matters.
+'''
+
+
+# Stack Approach
+
+# import math
+
+# def calculate(s:str) -> int:
+
+#     num = 0
+#     pre_sign = '+'
+#     stack = []
+
+#     for char in s+'+':
+
+#         if char.isdigit():
+#             num = num*10 + int(char)
+
+#         elif char in '/*-+':
+
+#             if pre_sign == '+':
+#                 stack.append(num)
+            
+#             elif pre_sign == '-':
+#                 stack.append(-num)
+                        
+#             elif pre_sign == '*':
+#                 stack.append(stack.pop()*num)            
+            
+#             elif pre_sign == '/':
+#                 stack.append(math.trunc(stack.pop()/num))
+            
+#             pre_sign = char
+#             num = 0
+    
+#     return sum(stack)
+
+# print(calculate(s=s))
+
+'Done'
+
+
+
+
 '''xxx'''
+
+
+
+
+
+
 
 
 
