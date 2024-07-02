@@ -1331,7 +1331,7 @@ Explanation of the Code
 # # Output: 5
 
 # # Custom Case
-# s = " 3+5 / 2 "
+# s = "1+2*5/3+6/4*2"
 # # Output: 5
 
 
@@ -1375,8 +1375,8 @@ Intuition:
 #     expression.append(num)  # Append the last number in the string
 
 
-#     # Process the expression list until there are no operators
-#     while any(op in expression for op in '+-*/'):
+#     # Process the '*' and the '/' in the expression list until there are no more of those operators
+#     while any(op in expression for op in '*/'):
 
 #         for elem in expression:
 
@@ -1389,8 +1389,14 @@ Intuition:
 #                 idx = expression.index('/')
 #                 new_element = int(expression[idx-1]) // int(expression[idx+1])
 #                 expression = expression[:idx-1] + [new_element] + expression[idx+2:]
-                            
-#             elif elem == '+':
+
+    
+#     # Process the '+' and the '-' in the expression list until there are no more of those operators
+#     while any(op in expression for op in '+-'):
+
+#         for elem in expression:
+                                        
+#             if elem == '+':
 #                 idx = expression.index('+')
 #                 new_element = int(expression[idx-1]) + int(expression[idx+1])
 #                 expression = expression[:idx-1] + [new_element] + expression[idx+2:]
@@ -1409,9 +1415,7 @@ Intuition:
 
 '''
 Notes: 
-    This approach met 90% of the cases but have troubles when dealing with long operations
-    given that it only looks out for the next operator in '*/+-' in that order, when actual order
-    from left to right matters.
+    This approach met 97% of the cases and it only breaks by time-limit.
 '''
 
 
