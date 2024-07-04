@@ -15,6 +15,7 @@ CHALLENGES INDEX
 215. Kth Largest Element in an Array (Heaps)
 218. The Skyline Problem (Heaps)
 227. Basic Calculator II (Stack)
+230. Kth Smallest Element in a BST  (RC) (Heaps) or (Stack)
 
 
 
@@ -26,7 +27,7 @@ CHALLENGES INDEX
 *FCD: Floyd's cycle detection
 
 
-(14)
+(15)
 '''
 
 
@@ -1460,14 +1461,191 @@ Notes:
 
 
 
+'''230. Kth Smallest Element in a BST'''
+
+#Base
+
+# # Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+
+# # Case 1
+# tree_layout = [3,1,4,None,2]
+
+# one, four = TreeNode(val=1, right=TreeNode(val=2)), TreeNode(val=4)
+# root = TreeNode(val=3, left=one, right=four)
+
+# k = 1
+# # Output: 1
+
+# # Case 2
+# tree_layout = [5,3,6,2,4,None,None,1]
+
+# three, six = TreeNode(val=3, left=TreeNode(val=2, left=TreeNode(val=1)), right=TreeNode(val=4)), TreeNode(val=6)
+# root = TreeNode(val=5, left=three, right=six)
+
+# k = 3
+# # Output: 3
+
+# # Custom Case
+# tree_layout = [5,3,6,2,4,None,None,1]
+
+# three, six = TreeNode(val=3, left=TreeNode(val=2, left=TreeNode(val=1)), right=TreeNode(val=4)), TreeNode(val=6)
+# root = TreeNode(val=5, left=three, right=six)
+
+# k = 3
+# # Output: 3
+
+
+# My Aprroach
+
+'''
+Intuition:
+    - Traverse the Tree with preorder to extract the values
+    - Create a Max heap of length k and go through the rest of the elements (mantaining the heap property).
+    - Return the first element of the heap.
+'''
+
+# def kth_smallest(root: TreeNode,k: int) -> int:
+
+#     # Define Aux Inorder traversal func
+#     def inorder(root: TreeNode, path:list) -> list:
+
+#         if root:
+
+#             node = root
+
+#             inorder(root=node.left, path=path)
+#             path.append(node.val)
+#             inorder(root=node.right, path=path)
+
+#             return path
+
+#     tree_list = inorder(root=root, path=[])
+
+#     tree_list.sort()
+
+#     return tree_list[k-1]
+
+
+# print(kth_smallest(root=root, k=k))
+
+'''Notes: 
+- This approach works perfectly, and it beated 37% of solutions in Runtime and 80% in space.
+    
+    Complexity:
+    - Time complexity: O(nlogn).
+    - Space Complexity: O(n).
+
+Now, if no sorting func is required to be used, below will be that version.
+'''
+
+# # Without Sorting Approach
+# import heapq
+
+# def kth_smallest(root: TreeNode,k: int) -> int:
+
+#     # Define Aux Inorder traversal func
+#     def inorder(root: TreeNode, path:list) -> list:
+
+#         if root:
+
+#             node = root
+
+#             inorder(root=node.left, path=path)
+#             path.append(node.val)
+#             inorder(root=node.right, path=path)
+
+#             return path
+
+#     # Extract the tree nodes values in a list
+#     tree_list = inorder(root=root, path=[])
+
+
+#     # Make a min-heap out of the tree_list up to the 'k' limit
+#     heap = tree_list[:k]
+#     heapq.heapify(heap)
+
+#     # Iterate through each element in the tree_list starting from 'k' up to len(tree_list)
+#     for num in tree_list[k:]:
+
+#         if num < heap[0]:
+#             heapq.heappop(heap)
+#             heapq.heappush(heap, num)
+    
+#     return heap[-1] # The result is the last element of the min-heap, since it was length k, and the last is the kth
+
+
+# print(kth_smallest(root=root, k=k))
+
+'''Notes: 
+- This approach also worked smoothly, and it consequentially reduced its performance
+    beating only 6% of solutions in Runtime and it maintains the 80% in space.
+    
+    Complexity:
+    - Time complexity: O(n+(n-k)logk).
+    - Space Complexity: O(n).
+
+Now, what if I don't traverse the elements (O(n)) and later I traverse up to k?
+    Would it be possible to order the heap while traversing the tree?.
+'''
+
+# # Another enhanced solution
+# import heapq
+
+# def kth_smallest(root: TreeNode, k: int) -> int:
+
+#     # Define the heap with 'inf' as it first element (To be pushed later on)
+#     heap = [float('inf')]
+
+#     # Define Aux Inorder traversal func
+#     def inorder(root: TreeNode) -> None:
+
+#         if root:
+
+#             node = root
+
+#             inorder(root=node.left)
+
+#             if len(heap) == k:
+
+#                 if node.val < heap[0]:
+#                     heapq.heappop(heap)
+#                     heapq.heappush(heap, node.val)
+#                     pass
+            
+#             else:
+#                 heap.append(node.val)
+
+
+#             inorder(root=node.right)
+    
+#     inorder(root=root)
+    
+#     return heap[-1] # The result is the last element of the min-heap, since it was length k, and the last is the kth
+
+
+# print(kth_smallest(root=root, k=k))
+
+'''Notes: 
+- This approach also worked smoothly, and it actually beated the first approach in performance,
+    beating 57% of solutions in Runtime and it maintains the 80% in space.
+    
+    Complexity:
+    - Time complexity: O(nlogk).
+    - Space Complexity: O(n+k).
+
+That was a great exercise, now what is the customary solution for this?.
+    Quick answer: Simply inorderlt traverse the tree up to k, since is a Binary Search Tree, it was already sorted.
+'''
+
+'Done'
+
+
+
+
 '''xxx'''
-
-
-
-
-
-
-
-
-
-
