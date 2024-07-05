@@ -2,9 +2,9 @@
 CHALLENGES INDEX
 
 179. Largest Number
-189. Rotate Array  (TP)
+189. Rotate Array (TP)
 198. House Robber (DS)
-200. Number of Islands  (Matrix) (BFS) (DFS)
+200. Number of Islands (Matrix) (BFS) (DFS)
 202. Happy Number (FCD) (TP)
 204. Count Primes
 206. Reverse Linked List
@@ -15,7 +15,8 @@ CHALLENGES INDEX
 215. Kth Largest Element in an Array (Heaps)
 218. The Skyline Problem (Heaps)
 227. Basic Calculator II (Stack)
-230. Kth Smallest Element in a BST  (RC) (Heaps) or (Stack)
+230. Kth Smallest Element in a BST (RC) (Heaps) or (Stack)
+234. Palindrome Linked List
 
 
 
@@ -27,7 +28,7 @@ CHALLENGES INDEX
 *FCD: Floyd's cycle detection
 
 
-(15)
+(16)
 '''
 
 
@@ -1648,4 +1649,75 @@ That was a great exercise, now what is the customary solution for this?.
 
 
 
+'''234. Palindrome Linked List'''
+
+#Base
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+
+
+# Input
+
+# # Case 1
+# head_layout = [1,2,2,1]
+# head = ListNode(val=1, next=ListNode(val=2, next=ListNode(val=2, next=ListNode(val=1))))
+# # Output: True
+
+# # Case 2
+# head_layout = [1,2]
+# head = ListNode(val=1, next=ListNode(val=2))
+# # Output: False
+
+# # Custom Case
+# head_layout = [1,0,0]
+# head = ListNode(val=1, next=ListNode(val=0, next=ListNode(val=0)))
+# # Output: False
+
+
+# My Approach
+
+'''
+Intuition:
+    - Traverse the list collecting the values
+    - Return the test that the values collected are equal to their reverse
+'''
+
+# # Brute forcing
+# def is_palindrome(head:ListNode) -> bool:
+    
+#     # Define values holder
+#     visited = []    
+
+#     # Traverse the list
+#     while head:
+        
+#         visited.append(head.val)
+
+#         head = head.next
+
+#     return visited == visited[::-1]
+
+# print(is_palindrome(head=head))
+
+'Done'
+
+
+
+
 '''xxx'''
+
+
+
+
+
+
+
+
+
+
+
+
