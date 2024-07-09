@@ -16,7 +16,7 @@ CHALLENGES INDEX
 218. The Skyline Problem (Heaps)
 227. Basic Calculator II (Stack)
 230. Kth Smallest Element in a BST (RC) (Heaps) or (Stack)
-234. Palindrome Linked List
+234. Palindrome Linked List - Opt: (Rec) + (TP) or (TP)
 
 
 
@@ -1652,16 +1652,14 @@ That was a great exercise, now what is the customary solution for this?.
 '''234. Palindrome Linked List'''
 
 #Base
-
 # Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, val=0, next=None):
-#         self.val = val
-#         self.next = next
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
 
 
 # Input
-
 # # Case 1
 # head_layout = [1,2,2,1]
 # head = ListNode(val=1, next=ListNode(val=2, next=ListNode(val=2, next=ListNode(val=1))))
@@ -1672,13 +1670,13 @@ That was a great exercise, now what is the customary solution for this?.
 # head = ListNode(val=1, next=ListNode(val=2))
 # # Output: False
 
-# # Custom Case
-# head_layout = [1,0,0]
-# head = ListNode(val=1, next=ListNode(val=0, next=ListNode(val=0)))
-# # Output: False
+# Custom Case
+head_layout = [1,0,0]
+head = ListNode(val=1, next=ListNode(val=0, next=ListNode(val=0)))
+# Output: False
 
 
-# My Approach
+# My Approach (Brute forcing)
 
 '''
 Intuition:
@@ -1686,7 +1684,6 @@ Intuition:
     - Return the test that the values collected are equal to their reverse
 '''
 
-# # Brute forcing
 # def is_palindrome(head:ListNode) -> bool:
     
 #     # Define values holder
@@ -1703,6 +1700,108 @@ Intuition:
 
 # print(is_palindrome(head=head))
 
+'''Note: 
+    This is the most "direct" way to solve it, but there are two more way to solve this same challenge
+    One involves recursion/backtracking and the other solve the problem with O(1) of space complexity, while this and
+    The recursive approaches consumes O(n).'''
+
+
+
+
+# Recursive Approach
+'''
+Intuition:
+    - Make a pointer to the head of the llist (will be used later).
+    - Define the Auxiliary recursive function:
+        + This function will go in depth through the list and when it hits the end,
+            it will start to go back in the call stack (which is virtually traversing the list backwards).
+        + When the reverse traversing starts compare each node with the pointer defined at the begining and if they have equal values
+            it means up to that point the palindrome property exist, otherwise, return False.
+        + If the loop finishes, it means the whole list is palindromic.
+    - return True.
+'''
+# class Solution:
+
+#     def __init__(self) -> None:
+#         pass
+
+#     def is_palindrome(self, head:ListNode) -> bool:
+
+#         self.front_pointer = head
+
+#         def rec_traverse(current_node:ListNode) -> bool:
+
+#             if current_node is not None:
+                
+#                 if not rec_traverse(current_node.next):
+#                     return False
+                
+#                 if self.front_pointer.val != current_node.val:
+#                     return False
+            
+#                 self.front_pointer = self.front_pointer.next
+
+#             return True
+        
+#         return rec_traverse(head)
+    
+# solution = Solution()
+# print(solution.is_palindrome(head=head))
+'The solution as a -standalone function- is more complex than as a class method'
+
+
+# Iterative Approach / Memory-efficient
+
+'''
+Intuition:
+    - Use a two-pointer approach to get to the middle of the list.
+    - Reverse the next half (from the 'slow' pointer) of the llist.
+    - Initiate a new pointer to the actual head of the llist and in a loop (while 'the prev node')
+        compare the two pointer up until they are different or the 'prev' node gets to None.
+    - If the loop finishes without breaking, return 'True'.
+'''
+
+# def is_palindrome(head:ListNode) -> bool:
+
+#     # Hanlde corner cases:
+#     if not head or not head.next:
+#         return True
+    
+
+#     # Traverse up to the middle of the llist
+#     slow = fast = head
+
+#     while fast and fast.next:
+#         slow = slow.next
+#         fast = fast.next.next
+
+    
+#     # Reverse the remaining half of the llist
+#     prev = None
+
+#     while slow:
+#         next_node = slow.next
+#         slow.next = prev
+#         prev = slow
+#         slow = next_node
+
+
+#     # Compare the reversed half with the actual first half of the llist
+#     left, right = head, prev
+
+#     while right:
+
+#         if left.val != right.val:
+#             return False
+        
+#         left, right = left.next, right.next
+
+    
+#     # If it didn't early end then means the llist is palindromic
+#     return True
+
+
+# print(is_palindrome(head=head))
 'Done'
 
 
