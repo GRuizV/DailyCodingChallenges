@@ -16,7 +16,8 @@ CHALLENGES INDEX
 218. The Skyline Problem (Heaps)
 227. Basic Calculator II (Stack)
 230. Kth Smallest Element in a BST (RC) (Heaps) or (Stack)
-234. Palindrome Linked List - Opt: (Rec) + (TP) or (TP)
+234. Palindrome Linked List - Opt: (RC) + (TP) or (TP)
+237. Delete Node in a Linked List
 
 
 
@@ -28,7 +29,7 @@ CHALLENGES INDEX
 *FCD: Floyd's cycle detection
 
 
-(16)
+(17)
 '''
 
 
@@ -1670,14 +1671,13 @@ class ListNode:
 # head = ListNode(val=1, next=ListNode(val=2))
 # # Output: False
 
-# Custom Case
-head_layout = [1,0,0]
-head = ListNode(val=1, next=ListNode(val=0, next=ListNode(val=0)))
-# Output: False
+# # Custom Case
+# head_layout = [1,0,0]
+# head = ListNode(val=1, next=ListNode(val=0, next=ListNode(val=0)))
+# # Output: False
 
 
 # My Approach (Brute forcing)
-
 '''
 Intuition:
     - Traverse the list collecting the values
@@ -1751,7 +1751,6 @@ Intuition:
 
 
 # Iterative Approach / Memory-efficient
-
 '''
 Intuition:
     - Use a two-pointer approach to get to the middle of the list.
@@ -1807,7 +1806,73 @@ Intuition:
 
 
 
+'''237. Delete Node in a Linked List'''
+
+# # Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+
+# # Input
+
+# # Case 1
+# llist = [4,5,1,9]
+# node = ListNode(5)
+
+# head = ListNode(4)
+# head.next = node
+# node.next = ListNode(1)
+# node.next.next = ListNode(9)
+
+# Output: [4,1,9]
+
+# # Case 2
+# llist = [4,5,1,9]
+# node = ListNode(1)
+
+# head = ListNode(4)
+# head.next = ListNode(5)
+# head.next.next = node
+# node.next = ListNode(9)
+
+# # Output: [4,5,9]
+
+
+# Solution
+
+'''
+Intuition:
+    - The only way to modify the list in place without accessing the head of the list is to overwrite
+        the value of the given node with the next, and when reach the end, point the last node to None.
+'''
+
+# def delete_node(node:ListNode) -> None:
+#     node.val = node.next.val
+#     node.next = node.next.next
+
+# #Testing
+# delete_node(node=node)
+
+# new_node = head
+
+# while new_node:
+#     print(new_node.val, end=' ')
+#     new_node = new_node.next
+'Done'
+
+
+
+
 '''xxx'''
+
+
+
+
+
+
+
 
 
 
