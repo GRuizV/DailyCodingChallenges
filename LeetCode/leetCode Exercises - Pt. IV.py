@@ -18,7 +18,7 @@ CHALLENGES INDEX
 230. Kth Smallest Element in a BST (RC) (Heaps) or (Stack)
 234. Palindrome Linked List - Opt: (RC) + (TP) or (TP)
 237. Delete Node in a Linked List
-
+238. Product of Array Except Self (PS)
 
 
 
@@ -27,9 +27,10 @@ CHALLENGES INDEX
 *RC: Recursion
 *TP: Two-pointers
 *FCD: Floyd's cycle detection
+*PS: Preffix-sum
 
 
-(17)
+(18)
 '''
 
 
@@ -1860,20 +1861,108 @@ Intuition:
 # while new_node:
 #     print(new_node.val, end=' ')
 #     new_node = new_node.next
+
+'Done'
+
+
+
+
+'''238. Product of Array Except Self'''
+
+# Input
+
+# # Case 1
+# nums = [1,2,3,4]
+# # Output: [24,12,8,6]
+
+# # Case 2
+# nums = [-1,1,0,-3,3]
+# # Output: [0,0,9,0,0]
+
+
+# My Approach - (Brute forcing)
+# from math import prod
+
+# def product_except_self(nums:list[int]) -> list[int]:
+
+#     res = []
+
+#     for i in range(len(nums)):
+#         res.append(prod(nums[:i]+nums[i+1:]))
+
+#     return res
+
+# print(product_except_self(nums=nums))
+
+'Note: This solution suffices 75% of test cases, but resulted inefficient with large inputs'
+
+
+# # My Approach v2 - (Trying to carry the result - pseudo-prefix sum)
+# from math import prod
+
+# def product_except_self(nums:list[int]) -> list[int]:
+
+#     res = []
+#     nums_prod = prod(nums)
+
+#     for i in range(len(nums)):
+
+#         elem = nums_prod//nums[i] if nums[i] != 0 else prod(nums[:i]+nums[i+1:])
+#         res.append(elem)
+
+
+#     return res
+
+# print(product_except_self(nums=nums))
+
+'Note: It worked and beated 85% in time compl. and 74% in memory compl.'
+
+
+# Preffix-Suffix product Approach - Customary
+
+'''
+Intuition:
+    - The core idea of this approach is to build an array of the carrying product of all elements from left to right (Preffix)
+        and build another more array with the sabe but from right to left (suffix).
+
+    - After having that by combining those products but element by element, the preffix from 0 to n-1 indexed and the suffix from n-1 to 0 indexed
+        and EXCLUDING the current index (i) in the final traversal, the 'self' element is explicitly excluded from the product.
+'''
+
+# from itertools import accumulate
+# import operator
+
+# def product_except_self(nums:list[int]) -> list[int]:
+
+#     res = []
+
+#     # Populate both preffix and suffix
+#     preffix = list(accumulate(nums, operator.mul))
+#     suffix = list(accumulate(reversed(nums), operator.mul))[::-1]
+
+
+#     # Combine the results
+#     for i in range(len(preffix)):
+
+#         if 0 < i < len(preffix)-1:
+#             res.append(preffix[i-1]*suffix[i+1])
+        
+#         elif i == 0:
+#             res.append(suffix[i+1])
+
+#         else:
+#             res.append(preffix[i-1])
+    
+#     return res
+
+# print(product_except_self(nums=nums))
+
 'Done'
 
 
 
 
 '''xxx'''
-
-
-
-
-
-
-
-
 
 
 
