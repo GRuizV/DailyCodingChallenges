@@ -19,6 +19,7 @@ CHALLENGES INDEX
 234. Palindrome Linked List - Opt: (RC) + (TP) or (TP)
 237. Delete Node in a Linked List
 238. Product of Array Except Self (PS)
+239. Sliding Window Maximum
 
 
 
@@ -28,9 +29,10 @@ CHALLENGES INDEX
 *TP: Two-pointers
 *FCD: Floyd's cycle detection
 *PS: Preffix-sum
+*SW: Sliding-Window
 
 
-(18)
+(19)
 '''
 
 
@@ -1962,15 +1964,82 @@ Intuition:
 
 
 
+'''239. Sliding Window Maximum'''
+
+# Input
+
+# # Case 1
+# nums = [1,3,-1,-3,5,3,6,7]
+# k = 3
+# # Output: [3,3,5,5,6,7]
+
+# # Case 2
+# nums = [1]
+# k = 1
+# # Output: [1]
+
+# # Cusom Case
+# nums = [1,3,-1,-3,5,3,6,7]
+# k = 3
+# # Output: [3,3,5,5,6,7]
+
+
+'My approach'
+# def max_sliding_window(nums:list[int], k:int) -> list[int]:
+
+#     if len(nums) == 1:
+#         return nums
+    
+#     if k == len(nums):
+#         return [max(nums)]
+
+
+#     result = []
+
+#     for i in range(len(nums)-k+1):
+#         result.append(max(nums[i:i+k]))
+
+#     return result
+
+# print(max_sliding_window(nums=nums, k=k))
+
+'Note: This approach cleared 73% of test cases, but breaks with large inputs'
+
+
+'Monotonically Decreacing Queue'
+# def max_sliding_window(nums:list[int], k:int) -> list[int]:
+
+#     import collections
+
+#     output = []
+#     deque = collections.deque() # nums
+#     left = right = 0
+
+#     while right < len(nums):
+
+#         # Pop smaller values from de deque
+#         while deque and nums[deque[-1]] < nums[right]:
+#             deque.pop()
+
+#         deque.append(right)
+
+#         # remove the left val from the window
+#         if left > deque[0]:
+#             deque.popleft()
+
+#         if (right+1) >= k:
+#             output.append(nums[deque[0]])
+#             left += 1
+        
+#         right += 1
+
+#     return output
+
+# print(max_sliding_window(nums=nums, k=k))
+
+'done'
+
+
+
+
 '''xxx'''
-
-
-
-
-
-
-
-
-
-
-
