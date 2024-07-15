@@ -20,6 +20,7 @@ CHALLENGES INDEX
 237. Delete Node in a Linked List
 238. Product of Array Except Self (PS)
 239. Sliding Window Maximum
+240. Search a 2D Matrix II
 
 
 
@@ -32,7 +33,7 @@ CHALLENGES INDEX
 *SW: Sliding-Window
 
 
-(19)
+(20)
 '''
 
 
@@ -2042,4 +2043,101 @@ Intuition:
 
 
 
+'''240. Search a 2D Matrix II'''
+
+# Input
+
+# # Case 1
+# matrix = [[1,4,7,11,15],[2,5,8,12,19],[3,6,9,16,22],[10,13,14,17,24],[18,21,23,26,30]]
+# target = 5
+# # Output: True
+
+# # Case 2
+# matrix = [[1,4,7,11,15],[2,5,8,12,19],[3,6,9,16,22],[10,13,14,17,24],[18,21,23,26,30]]
+# target = 20
+# # Output: False
+
+
+'My approach'
+
+'''
+Intuition:
+    - iterativelly search in the first row of the matrix if the value is in there by a belonging test
+        - If the value is in the element, break and return True / else, pop that element from the matrix
+        - Transpose the matrix and start over until there's no more elements in the matrix
+    - If the loop reaches the last element of the matrix, return False
+'''
+
+# def search_matrix(matrix:list[list[int]], target: int) -> bool:
+
+#     m = len(matrix)
+#     n = len(matrix[0])
+
+#     # Handle the corner case
+#     if n == m == 1:
+#         return target == matrix[0][0]
+
+#     while matrix:
+
+#         # print(matrix)
+
+#         element = matrix.pop(0)
+
+#         if target in element:
+#             return True
+        
+#         matrix = [list(x) for x in zip(*matrix)]
+    
+#     return False
+
+# print(search_matrix(matrix=matrix,target=target))
+
+'''Note: This approach doesn't worked because dinamically changing the data structure mess in how python checks membership'''
+
+
+'''Binary search approach'''
+
+# def search_matrix(matrix:list[list[int]], target: int) -> bool:
+
+    # m = len(matrix)
+    # n = len(matrix[0])
+
+    # # Handle the corner case
+    # if n == m == 1:
+    #     return target == matrix[0][0]
+
+    # row, col = m-1, 0   # Start the search from the bottom left corner
+
+    # while row >= 0 and col < n:
+
+    #     element = matrix[row][col]
+
+    #     if element == target:
+    #         return True
+        
+    #     elif element > target:
+    #         row -= 1
+                   
+    #     else:
+    #         col += 1
+    
+    # return False
+
+# print(search_matrix(matrix=matrix,target=target))
+
+'done'
+
+
+
+
 '''xxx'''
+
+
+
+
+
+
+
+
+
+
