@@ -21,6 +21,7 @@ CHALLENGES INDEX
 238. Product of Array Except Self (PS)
 239. Sliding Window Maximum
 240. Search a 2D Matrix II
+279. Perfect Squares
 
 
 
@@ -33,7 +34,7 @@ CHALLENGES INDEX
 *SW: Sliding-Window
 
 
-(20)
+(21)
 '''
 
 
@@ -2130,14 +2131,83 @@ Intuition:
 
 
 
+'''279. Perfect Squares'''
+
+# Input
+
+# # Case 1
+# n = 12
+# # Output: 3 (4+4+4)
+
+# # Case 2
+# n = 13
+# # Output: 2 (4+9)
+
+# # Custom case
+# n = 43
+# # Output: 3 
+
+# # Custom case
+# n = 67
+# # Output: 3 
+
+'My approach'
+
+'''
+Intuition:
+    - Build the possible addends (Each number that its 2nd power is less than n).
+    - Reverse the addends (To have them from bigger to smaller).
+    - Iteratively check from bigger to smaller how many addends can be grouped to sum up using modulo and division.
+        + If a division if the group is still short reach the n, go to the next addend to fill up.
+    - When the group is completed, start the process over but starting from the next addend.
+        The last group will always be the largest, since it consists of a groups of 1's.
+    - Return the count of the shortest group.
+'''
+
+# def num_squares(n:int) -> int:
+
+#     # Define the holder of the groups
+#     result = []
+
+#     # Define the holder and the indext to populate the addends
+#     addends = []
+#     i = 1
+
+#     # Populate the addends / ex: [1, 4, 9]
+#     while i*i <= n:
+#         addends.append(i*i)
+#         i += 1
+
+#     # Reverse the addends
+#     addends = addends[::-1]
+
+#     # Form the groups
+#     for i in range(len(addends)):
+
+#         group = []
+
+#         for j in range(i, len(addends)):
+
+#             if sum(group) == n:
+#                 break
+        
+#             if (n-sum(group))/addends[j] >= 1:                
+#                 group += ([addends[j]] * ((n-sum(group))//addends[j]))
+        
+#         result.append(group) if len(group) != n else None
+
+#     # Sort the groups from the shortest to the largest
+#     result.sort(key=len)
+
+#     #return the shortest
+#     return len(result[0])
+
+# print(num_squares(n=n))
+
+'This solution cleared 96% of the test cases, the actual DP solution didnt made sense to me'
+
+
+
+
 '''xxx'''
-
-
-
-
-
-
-
-
-
 
