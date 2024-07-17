@@ -21,7 +21,8 @@ CHALLENGES INDEX
 238. Product of Array Except Self (PS)
 239. Sliding Window Maximum
 240. Search a 2D Matrix II
-279. Perfect Squares
+279. Perfect Squares (DP)
+283. Move Zeroes (TP)
 
 
 
@@ -2209,5 +2210,91 @@ Intuition:
 
 
 
+'''283. Move Zeroes'''
+
+# Input
+
+# # Case 1
+# nums = [0,1,0,3,12]
+# # Output: [1,3,12,0,0]
+
+# # Case 2
+# nums = [0]
+# # Output: [0]
+
+# # Custom Case
+# nums = [2,3,4,0,5,6,8,0,1,0,0,0,9]
+# # Output: [0]
+
+
+'My approach'
+
+'''
+Intuition:
+    - Create a new list as a buffer to hold every item in the initial order
+    - Separate the buffer into non-zeroes and zeroes different list and joint them together.
+    - Replace each value of the original list with the order or the buffer list.
+
+This solution is more memory expensive than one with a Two-pointer approach, but let's try it
+'''
+
+# def move_zeroes(nums:list[int]) -> None:
+
+#     # Handle corner case
+#     if len(nums) == 1:
+#         return nums
+ 
+#     # Create the buffers to separate the non-zeroes to the zeroes
+#     non_zeroes, zeroes = [x for x in nums if x != 0],[x for x in nums if x == 0]
+
+#     # Join the buffers into one single list
+#     buffer = non_zeroes + zeroes
+
+#     # Modify the original input with the buffer's order
+#     for i in range(len(nums)):
+#         nums[i] = buffer[i]
+    
+# move_zeroes(nums=nums)
+
+# print(nums)
+
+'Note: This solution was accepted and beated submissions by 37% in runtime and 87% in memory'
+
+
+'Two-pointers Approach'
+# def move_zeroes(nums:list[int]) -> None:
+
+#     # Initialize the left pointer
+#     l = 0
+
+#     # Iterate with the right pointer through the elements of nums
+#     for r in range(len(nums)):
+
+#         if nums[r] != 0:
+
+#             nums[r], nums[l] = nums[l], nums[r]
+
+#             l += 1
+
+# move_zeroes(nums=nums)
+
+# print(nums)
+
+'Done'
+
+
+
+
 '''xxx'''
+
+
+
+
+
+
+
+
+
+
+
 
