@@ -23,6 +23,7 @@ CHALLENGES INDEX
 240. Search a 2D Matrix II
 279. Perfect Squares (DP)
 283. Move Zeroes (TP)
+287. Find the Duplicate Number (FCD)
 
 
 
@@ -33,9 +34,10 @@ CHALLENGES INDEX
 *FCD: Floyd's cycle detection
 *PS: Preffix-sum
 *SW: Sliding-Window
+*FCD: Floyd's Cycle Detection (Hare & Tortoise)
 
 
-(21)
+(22)
 '''
 
 
@@ -2285,7 +2287,80 @@ This solution is more memory expensive than one with a Two-pointer approach, but
 
 
 
+'''287. Find the Duplicate Number'''
+
+# Input
+
+# # Case 1
+# nums = [1,3,4,2,2]
+# # Output: 2
+
+# # Case 2
+# nums = [3,1,3,4,2]
+# # Output: 3
+
+# # Custom Case
+# nums = [3,3,3,3,3]
+# # Output: 3
+
+'My approach'
+
+# def find_duplicate(nums:list[int]) -> int:
+
+#     for num in nums:
+
+#         if nums.count(num) != 1:
+#             return num
+
+# print(find_duplicate(nums=nums))
+
+'Note: This approach cleared 92% of cases but breaks with larger inputs'
+
+
+'Hare & Tortoise Approach'
+
+# def find_duplicate(nums:list[int]) -> int:
+
+#     # Initialize two pointers directing to the first element in the list
+#     slow = fast = nums[0]
+
+#     # Iterate until they coincide (They' found each other in the cycle)
+#     while True:
+#         slow = nums[slow]
+#         fast = nums[nums[fast]]
+        
+#         if slow == fast:
+#             break
+    
+#     # Reset the slow to the begining of the list, so they an meet at the repeating number
+#     slow = nums[0]
+
+#     # Iterate again but at same pace, they will eventually meet at the repeated number
+#     while slow != fast:
+#         slow = nums[slow]
+#         fast = nums[fast]
+
+#     return fast
+
+# print(find_duplicate(nums=nums))
+
+'Done'
+
+
+
+
 '''xxx'''
+
+
+
+
+
+
+
+
+
+
+
 
 
 
