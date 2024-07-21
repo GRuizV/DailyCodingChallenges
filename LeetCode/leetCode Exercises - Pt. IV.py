@@ -24,6 +24,7 @@ CHALLENGES INDEX
 279. Perfect Squares (DP)
 283. Move Zeroes (TP)
 287. Find the Duplicate Number (FCD)
+289. Game of Life (Matrix)
 
 
 
@@ -37,7 +38,7 @@ CHALLENGES INDEX
 *FCD: Floyd's Cycle Detection (Hare & Tortoise)
 
 
-(22)
+(23)
 '''
 
 
@@ -2349,9 +2350,95 @@ This solution is more memory expensive than one with a Two-pointer approach, but
 
 
 
+'''289. Game of Life'''
+
+# Input
+
+# Case 1
+board = [[0,1,0],[0,0,1],[1,1,1],[0,0,0]]
+# Output: [[0,0,0],[1,0,1],[0,1,1],[0,1,0]]
+
+# # Case 2
+# board = [[1,1],[1,0]]
+# # Output: [[1,1],[1,1]]
+
+'My approach'
+
+'''
+Intuition:
+    - Create a 'result matrix' filled with 0s with the size of the original one.
+    - Create a auxiliary function that evaluates all the neighbors to collect the number of 1s to apply the rule.
+        + In the neighbors evaluation since there are 1s and 0s, to avoid more looping I will sum up to get the number of living cells.
+    - Populate the result matrix according to the rules.
+'''
+
+def game_of_life(board:list[list[int]]) -> None:
+
+    # Set the matrix dimentions
+    m,n = len(board),len(board[0])
+
+    # Define the holder matrix
+    holder = [[0]*n for _ in range(m)]
+
+    # Define the directions of the neighbors
+    directions = [(-1,-1),(-1,0),(-1,1),(0,-1),(0,1),(1,-1),(1,0),(1,1)]
+
+    # Iterate to evaluate each of the cells of the original board
+    for i in range(m):
+
+        for j in range(n):
+
+            # Define the actual neighbors
+            neighbors = [ board[i+dx][j+dy] for dx, dy in directions if 0 <= i+dx < m and 0 <= j+dy < n ]
+
+            # Evalue the number of live neighbors
+            neighbors = sum(neighbors)
+
+            # APPLY THE RULES
+            if board[i][j] == 1:
+                
+                # 1. Any live cell with fewer than two live neighbors dies as if caused by under-population.
+                if neighbors < 2:
+                    holder[i][j] = 0    # Update the holder matrix in the exact position with the result of the rule apply
+                
+                # 2. Any live cell with two or three live neighbors lives on to the next generation.
+                elif 2 <= neighbors <= 3:
+                    holder[i][j] = 1
+                
+                # 3. Any live cell with more than three live neighbors dies, as if by over-population.
+                elif neighbors > 3:
+                    holder[i][j] = 0
+
+            else:
+                # 4. Any dead cell with exactly three live neighbors becomes a live cell, as if by reproduction.
+                if neighbors == 3:
+                    holder[i][j] = 1
+
+
+    # Prepare the output: Modify the original board according to the result of the game
+    for i in range(m):
+        for j in range(n):
+            board[i][j] = holder[i][j] 
+
+
+# Testing
+for i in range(len(board)):
+    print(board[i])
+
+game_of_life(board=board)
+print()
+
+for i in range(len(board)):
+    print(board[i])
+
+'''
+Done: My approach worked and beated 72% of submissions in runtime and 35% in space.
+'''
+
+
+
+
 '''xxx'''
-
-
 
 
 
