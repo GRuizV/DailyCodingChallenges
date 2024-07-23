@@ -25,6 +25,7 @@ CHALLENGES INDEX
 283. Move Zeroes (TP)
 287. Find the Duplicate Number (FCD)
 289. Game of Life (Matrix)
+295. Find Median from Data Stream (Heaps)
 
 
 
@@ -38,7 +39,7 @@ CHALLENGES INDEX
 *FCD: Floyd's Cycle Detection (Hare & Tortoise)
 
 
-(23)
+(24)
 '''
 
 
@@ -2354,9 +2355,9 @@ This solution is more memory expensive than one with a Two-pointer approach, but
 
 # Input
 
-# Case 1
-board = [[0,1,0],[0,0,1],[1,1,1],[0,0,0]]
-# Output: [[0,0,0],[1,0,1],[0,1,1],[0,1,0]]
+# # Case 1
+# board = [[0,1,0],[0,0,1],[1,1,1],[0,0,0]]
+# # Output: [[0,0,0],[1,0,1],[0,1,1],[0,1,0]]
 
 # # Case 2
 # board = [[1,1],[1,0]]
@@ -2372,64 +2373,64 @@ Intuition:
     - Populate the result matrix according to the rules.
 '''
 
-def game_of_life(board:list[list[int]]) -> None:
+# def game_of_life(board:list[list[int]]) -> None:
 
-    # Set the matrix dimentions
-    m,n = len(board),len(board[0])
+#     # Set the matrix dimentions
+#     m,n = len(board),len(board[0])
 
-    # Define the holder matrix
-    holder = [[0]*n for _ in range(m)]
+#     # Define the holder matrix
+#     holder = [[0]*n for _ in range(m)]
 
-    # Define the directions of the neighbors
-    directions = [(-1,-1),(-1,0),(-1,1),(0,-1),(0,1),(1,-1),(1,0),(1,1)]
+#     # Define the directions of the neighbors
+#     directions = [(-1,-1),(-1,0),(-1,1),(0,-1),(0,1),(1,-1),(1,0),(1,1)]
 
-    # Iterate to evaluate each of the cells of the original board
-    for i in range(m):
+#     # Iterate to evaluate each of the cells of the original board
+#     for i in range(m):
 
-        for j in range(n):
+#         for j in range(n):
 
-            # Define the actual neighbors
-            neighbors = [ board[i+dx][j+dy] for dx, dy in directions if 0 <= i+dx < m and 0 <= j+dy < n ]
+#             # Define the actual neighbors
+#             neighbors = [ board[i+dx][j+dy] for dx, dy in directions if 0 <= i+dx < m and 0 <= j+dy < n ]
 
-            # Evalue the number of live neighbors
-            neighbors = sum(neighbors)
+#             # Evalue the number of live neighbors
+#             neighbors = sum(neighbors)
 
-            # APPLY THE RULES
-            if board[i][j] == 1:
+#             # APPLY THE RULES
+#             if board[i][j] == 1:
                 
-                # 1. Any live cell with fewer than two live neighbors dies as if caused by under-population.
-                if neighbors < 2:
-                    holder[i][j] = 0    # Update the holder matrix in the exact position with the result of the rule apply
+#                 # 1. Any live cell with fewer than two live neighbors dies as if caused by under-population.
+#                 if neighbors < 2:
+#                     holder[i][j] = 0    # Update the holder matrix in the exact position with the result of the rule apply
                 
-                # 2. Any live cell with two or three live neighbors lives on to the next generation.
-                elif 2 <= neighbors <= 3:
-                    holder[i][j] = 1
+#                 # 2. Any live cell with two or three live neighbors lives on to the next generation.
+#                 elif 2 <= neighbors <= 3:
+#                     holder[i][j] = 1
                 
-                # 3. Any live cell with more than three live neighbors dies, as if by over-population.
-                elif neighbors > 3:
-                    holder[i][j] = 0
+#                 # 3. Any live cell with more than three live neighbors dies, as if by over-population.
+#                 elif neighbors > 3:
+#                     holder[i][j] = 0
 
-            else:
-                # 4. Any dead cell with exactly three live neighbors becomes a live cell, as if by reproduction.
-                if neighbors == 3:
-                    holder[i][j] = 1
-
-
-    # Prepare the output: Modify the original board according to the result of the game
-    for i in range(m):
-        for j in range(n):
-            board[i][j] = holder[i][j] 
+#             else:
+#                 # 4. Any dead cell with exactly three live neighbors becomes a live cell, as if by reproduction.
+#                 if neighbors == 3:
+#                     holder[i][j] = 1
 
 
-# Testing
-for i in range(len(board)):
-    print(board[i])
+#     # Prepare the output: Modify the original board according to the result of the game
+#     for i in range(m):
+#         for j in range(n):
+#             board[i][j] = holder[i][j] 
 
-game_of_life(board=board)
-print()
 
-for i in range(len(board)):
-    print(board[i])
+# # Testing
+# for i in range(len(board)):
+#     print(board[i])
+
+# game_of_life(board=board)
+# print()
+
+# for i in range(len(board)):
+#     print(board[i])
 
 '''
 Done: My approach worked and beated 72% of submissions in runtime and 35% in space.
@@ -2438,16 +2439,110 @@ Done: My approach worked and beated 72% of submissions in runtime and 35% in spa
 
 
 
+'''295. Find Median from Data Stream'''
+
+# Input
+
+# # Case 1
+# commands = ["MedianFinder", "addNum", "addNum", "findMedian", "addNum", "findMedian"]
+# inputs = [[], 1, 2, [], 3, []]
+# # Output: [None, None, None, 1.5, None, 2.0]
+
+# # Case 2
+# commands = ["MedianFinder","addNum","findMedian","addNum","findMedian","addNum","findMedian","addNum","findMedian","addNum","findMedian"]
+# inputs = [[],-1,[],-2,[],-3,[],-4,[],-5,[]]
+# # Output: [None, None, -1.0, None, -1.5, None, -2.0, None, -2.5, None, -3.0]
+
+
+'My approach'
+
+# import heapq
+
+# class MedianFinder:
+
+#     def __init__(self):
+#         self.nums = []      
+
+#     def addNum(self, num: int) -> None:
+
+#         # heapq.heappush(self.nums, num)
+#         # heapq.heapify(self.nums)
+
+#         self.nums.append(num)
+#         self.nums.sort()
+        
+
+#     def findMedian(self) -> float:
+
+#         nums_len = len(self.nums)
+
+#         if nums_len % 2 == 0:
+#             mid1, mid2 = nums_len//2-1, nums_len//2
+#             return (self.nums[mid1]+self.nums[mid2])/2
+        
+#         else:            
+#             mid = nums_len//2
+#             return self.nums[mid]
+
+
+# # Testing
+
+# obj = MedianFinder()
+
+# for idx, command in enumerate(commands):
+
+#     if command == 'addNum':
+#         print(obj.addNum(inputs[idx]))
+    
+#     elif command == 'findMedian':
+#         print(obj.findMedian())
+
+
+'Note: This solution met 95% of cases but sorting in every adition cauases inefficiencies'
+
+
+
+'Heaps approach'
+
+# import heapq
+
+# class MedianFinder:
+
+#     def __init__(self):
+#         self.small = []  # Max-heap (inverted values)
+#         self.large = []  # Min-heap
+
+#     def addNum(self, num: int) -> None:
+
+#         # Add to max-heap (invert to simulate max-heap)
+#         heapq.heappush(self.small, -num)
+        
+#         # Balance the heaps
+#         if self.small and self.large and (-self.small[0] > self.large[0]):
+#             heapq.heappush(self.large, -heapq.heappop(self.small))
+        
+#         # Ensure the sizes of the heaps differ by at most 1
+#         if len(self.small) > len(self.large) + 1:
+#             heapq.heappush(self.large, -heapq.heappop(self.small))
+
+#         if len(self.large) > len(self.small):
+#             heapq.heappush(self.small, -heapq.heappop(self.large))
+
+#     def findMedian(self) -> float:
+
+#         # If the heaps are of equal size, median is the average of the tops
+#         if len(self.small) == len(self.large):
+#             return (-self.small[0] + self.large[0]) / 2
+        
+#         # Otherwise, the median is the top of the max-heap
+#         return -self.small[0]
+
+'Done'
+
+
+
+
 '''xxx'''
-
-
-
-
-
-
-
-
-
 
 
 
