@@ -27,6 +27,7 @@ CHALLENGES INDEX
 289. Game of Life (Matrix)
 295. Find Median from Data Stream (Heaps)
 297. Serialize and Deserialize Binary Tree (DFS) (BFS)
+300. Longest Increasing Subsequence (DP)
 
 
 
@@ -41,7 +42,7 @@ CHALLENGES INDEX
 *FCD: Floyd's Cycle Detection (Hare & Tortoise)
 
 
-(24)
+(25)
 '''
 
 
@@ -2724,5 +2725,64 @@ Done: My approach worked and beated 72% of submissions in runtime and 35% in spa
 
 
 
+'''300. Longest Increasing Subsequence'''
+
+# # Input
+
+# # Case 1
+# nums = [10,9,2,5,3,7,101,18]
+# # Output: 4
+
+# # Case 2
+# nums = [0,1,0,3,2,3]
+# # Output: 4
+
+# # Case 3
+# nums = nums = [7,7,7,7,7,7,7]
+# # Output: 1
+
+
+'DP Solution'
+
+# def lengthOfLIS(nums: list[int]) -> int:    
+    
+#     # Handle corner case
+#     if not nums:
+#         return 0
+    
+
+#     # Initialize the dp array
+#     dp = [1] * len(nums)
+
+#     # Iterate through the elements of the list, starting from the second
+#     for i in range(1, len(nums)):
+
+#         for j in range(i):
+
+#             if nums[i] > nums[j]:
+#                 dp[i] = max(dp[i], dp[j]+1)
+
+
+#     return max(dp)
+
+'Done'
+
+
+
+
 '''xxx'''
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
