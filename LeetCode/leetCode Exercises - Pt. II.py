@@ -2,9 +2,9 @@
 CHALLENGES INDEX
 
 50. Pow(x, n) (RC)
-53. Maximum Subarray  (DP)
-54. Spiral Matrix  (Matrix)  
-55. Jump Game  (DP)
+53. Maximum Subarray (DP)
+54. Spiral Matrix (Matrix)  
+55. Jump Game (DP)
 56. Merge Intervals
 62. Unique Paths (DP)
 66. Plus One
@@ -14,10 +14,10 @@ CHALLENGES INDEX
 75. Sort Colors (TP)
 76. Minimum Window Substring
 78. Subsets
-79. Word Search  (Matrix)
+79. Word Search (Matrix)
 88. Merge Sorted Array (TP)
 91. Decode Ways (DP) 
-98. Validate Binary Search Tree  (DFS)
+98. Validate Binary Search Tree (DFS)
 101. Symmetric Tree (BFS) (DFS)
 102. Binary Tree Level Order Traversal (BFS)
 103. Binary Tree Zigzag Level Order Traversal (BFS) (DFS)
