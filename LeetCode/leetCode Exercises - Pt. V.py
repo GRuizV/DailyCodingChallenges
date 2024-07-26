@@ -3,6 +3,7 @@ CHALLENGES INDEX
 
 297. Serialize and Deserialize Binary Tree (DFS) (BFS)
 300. Longest Increasing Subsequence (DP)
+315. Count of Smaller Numbers After Self - Partially solved
 
 
 
@@ -17,7 +18,7 @@ CHALLENGES INDEX
 *FCD: Floyd's Cycle Detection (Hare & Tortoise)
 
 
-(2)
+(3)
 '''
 
 
@@ -248,13 +249,64 @@ CHALLENGES INDEX
 
 
 
+'''315. Count of Smaller Numbers After Self'''
+
+# Input
+
+# # Case 1
+# nums = [5,2,6,1]
+# # Output: [2,1,1,0]
+
+# # Case 1
+# nums = [-1,-1]
+# # Output: [0,0]
+
+
+'My Approach (Brute forcing)'
+
+# def count_smaller(nums: list[int]) -> list[int]:
+
+#     # Handle corner case
+#     if len(nums) == 1:
+#         return [0]
+    
+
+#     # Set the min value of the group
+#     min_num = min(nums)
+    
+
+#     # Initialize the result holder
+#     result = []
+
+#     for x,num in enumerate(nums):
+
+#         # corner case: if the number is the smallest of the group or the right most one, no smaller numbers after it
+#         if num == min_num or num == nums[-1]:
+#             result.append(0)
+        
+#         else:
+
+#             # Define a sublist with all elements to the right of the current one
+#             sublist = nums[x+1:]
+
+#             # Count how many of those are smaller than the current one
+#             count = len([x for x in sublist if x<num])
+
+#             # Add that result to the holder
+#             result.append(count)
+            
+#     return result
+     
+
+# print(count_smaller(nums=nums))
+
+'Note: This approach met up to 79% o the cases'
+
+
+
+
+
 '''xxx'''
-
-
-
-
-
-
 
 
 
