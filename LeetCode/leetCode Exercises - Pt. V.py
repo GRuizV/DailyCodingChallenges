@@ -5,6 +5,7 @@ CHALLENGES INDEX
 300. Longest Increasing Subsequence (DP)
 315. Count of Smaller Numbers After Self - Partially solved
 322. Coin Change (DP)
+326. Power of Three (RC)
 
 
 
@@ -19,7 +20,7 @@ CHALLENGES INDEX
 *FCD: Floyd's Cycle Detection (Hare & Tortoise)
 
 
-(4)
+(5)
 '''
 
 
@@ -389,11 +390,55 @@ CHALLENGES INDEX
 
 
 
+'''326. Power of Three'''
+
+# Input
+
+# # Case 1
+# n = 45
+# # Output: True
+
+# # Custom Case
+# n = -1
+# # Output: True
+
+
+'Iterative approach'
+
+# def is_power_of_three(n:int) -> bool:
+
+#     powers = [3**x for x in range(21)]
+
+#     return n in powers
+
+
+
+'Recursive apporach'
+
+# def is_power_of_three(n:int) -> bool:
+
+#     # Base case: if n is 1, it's a power of three
+#     if n == 1:
+#         return True
+
+#     # If n is less than 1, it can't be a power of three
+#     if n < 1:
+#         return False
+
+#     # Recursive case: check if n is divisible by 3 and then recurse with n divided by 3
+#     if n % 3 == 0:
+#         return is_power_of_three(n // 3)
+
+#     # If n is not divisible by 3, it's not a power of three
+#     return False
+
+'Done'
+
+
+
+
+
 '''xxx'''
-    
-
-
-
 
 
 
