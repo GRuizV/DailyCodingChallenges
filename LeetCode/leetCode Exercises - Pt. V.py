@@ -4,6 +4,7 @@ CHALLENGES INDEX
 297. Serialize and Deserialize Binary Tree (DFS) (BFS)
 300. Longest Increasing Subsequence (DP)
 315. Count of Smaller Numbers After Self - Partially solved
+322. Coin Change (DP)
 
 
 
@@ -18,7 +19,7 @@ CHALLENGES INDEX
 *FCD: Floyd's Cycle Detection (Hare & Tortoise)
 
 
-(3)
+(4)
 '''
 
 
@@ -306,8 +307,90 @@ CHALLENGES INDEX
 
 
 
-'''xxx'''
+'''322. Coin Change'''
 
+# Input
+
+# # Case 1
+# coins = [1,2,5]
+# amount = 11
+# # Output: 3
+
+# # Case 2
+# coins = [2]
+# amount = 3
+# # Output: -1
+
+# # Custome Case
+# coins = [186,419,83,408]
+# amount = 6249
+# # Output: 20
+
+
+'My Approach (Greedy approach)'
+
+# def coin_change(coins:list[int], amount: int) -> int:
+
+#     # Handle Corner Case
+#     if not amount:
+#         return 0
+    
+#     # Sort the coins decreasingly
+#     coins = sorted(coins, reverse=True)
+
+#     # Initialize the coins counter
+#     result = 0
+
+#     # Iterate through
+#     for coin in coins:
+
+#         if coin <= amount:
+
+#             result += amount // coin
+#             amount %= coin
+        
+#         if not amount:
+#             return result
+    
+#     # If the execution get to this point, it means it was not an exact number of coins for the total of the amount
+#     return -1
+
+# print(coin_change(coins=coins, amount=amount))
+
+'Note: This is a Greedy approach and only met up 27% of test cases'
+
+
+'DP Approach'
+
+# def coin_change(coins:list[int], amount: int) -> int:
+
+#     # DP INITIALIZATION
+#     # Initialize the dp array
+#     dp = [float('inf')] * (amount+1)
+
+#     # Initialize the base case: 0 coins for amount 0
+#     dp[0] = 0
+
+#     # DP TRANSITION
+#     for coin in coins:
+
+#         for x in range(coin, amount+1):
+#             dp[x] = min(dp[x], dp[x-coin] + 1)
+
+#     # Return result
+#     return dp[amount] if dp[amount] != float('inf') else -1
+
+
+# print(coin_change(coins=coins, amount=amount))
+
+'Done'
+
+
+
+
+
+'''xxx'''
+    
 
 
 
