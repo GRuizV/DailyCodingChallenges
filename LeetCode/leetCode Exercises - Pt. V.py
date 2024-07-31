@@ -6,6 +6,7 @@ CHALLENGES INDEX
 315. Count of Smaller Numbers After Self - Partially solved
 322. Coin Change (DP)
 326. Power of Three (RC)
+328. Odd Even Linked List
 
 
 
@@ -14,13 +15,12 @@ CHALLENGES INDEX
 *DS: Dynamic Programming
 *RC: Recursion
 *TP: Two-pointers
-*FCD: Floyd's cycle detection
+*FCD: Floyd's cycle detection (Hare & Tortoise approach)
 *PS: Preffix-sum
 *SW: Sliding-Window
-*FCD: Floyd's Cycle Detection (Hare & Tortoise)
 
 
-(5)
+(6)
 '''
 
 
@@ -438,7 +438,153 @@ CHALLENGES INDEX
 
 
 
+'''328. Odd Even Linked List'''
+
+# from typing import Optional
+
+# Base
+
+# # Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+
+
+# Input
+
+# # Case 1
+# list_map = [1,2,3,4,5]
+# head = ListNode(1, ListNode(2, ListNode(3, ListNode(4, ListNode(5)))))
+# # Output: [1,3,5,2,4]
+
+# # Case 2
+# list_map = [2,1,3,5,6,4]
+# head = ListNode(2, ListNode(1, ListNode(3, ListNode(5, ListNode(6, ListNode(4))))))
+# # Output: [2,3,6,1,5,4]
+
+
+'My Approach'
+
+'''
+Intuition:
+    - Create a mock node (even) to hold its respective members.
+    - Traverse the list and each even node conect it to the mock node and the odd node conected to the next of its consequent even.
+    - Conect the tail of the original node (now the odd nodes) to the mocking node 'even'.
+'''
+
+# def oddEvenList(head: Optional[ListNode]) -> Optional[ListNode]:
+
+#     # Handle corner case: There has to be a node to do something.
+#     if head:        
+
+#         # Initialize the 'even' nodes holder
+#         even = ListNode()
+
+#         # Traverse the LList & separete odds from even
+#         curr = head
+#         curr_even = even
+        
+#         while curr:
+
+#             if curr.next:
+                
+#                 # Assign the connection
+#                 curr_even.next = curr.next
+#                 curr.next = curr.next.next
+
+#                 # Continue traversing
+#                 curr = curr.next
+#                 curr_even = curr_even.next
+            
+#             else:
+#                 break
+
+
+#         # if the lenght of the LList is odd:
+#         #   The tail of odds is a node and must be connect to the even head, and the tail of even must point to None.
+#         # if is even:
+#         #   The tail of odd is None and the list mus be traversed again to connect its tail to even's head and the tail of even is already pointing to None.
+        
+#         if curr:
+#             curr_even.next = None
+#             curr.next = even.next
+
+#         else:
+#             curr = head
+
+#             while curr.next:
+#                 curr = curr.next
+            
+#             curr.next = even.next
+        
+#         # As the modification was in place, there is no return statement
+
+
+
+# oddEvenList(head=head)
+
+# # Testing
+# curr = head
+
+# while curr:
+#     print(curr.val, end=' ')
+#     curr = curr.next
+
+
+'Note: This approached worked, it beated 71% of submissions in Runtime and 38% in Memory'
+
+
+
+'A cleaner approach of the same'
+
+# def oddEvenList(head):
+#     if not head or not head.next:
+#         return head
+
+#     odd = head
+#     even = head.next
+#     even_head = even
+
+#     while even and even.next:
+#         odd.next = even.next
+#         odd = odd.next
+#         even.next = odd.next
+#         even = even.next
+
+#     odd.next = even_head
+
+#     return head
+
+'Done'
+
+
+
+
+
 '''xxx'''
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
