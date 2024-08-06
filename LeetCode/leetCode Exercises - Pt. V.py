@@ -9,6 +9,9 @@ CHALLENGES INDEX
 328. Odd Even Linked List
 329. Longest Increasing Path in a Matrix (Matrix) (DFS) (MEM)
 334. Increasing Triplet Subsequence (GRE)
+344. Reverse String (TP)
+350. Intersection of Two Arrays II (TP)
+
 
 
 
@@ -25,7 +28,7 @@ CHALLENGES INDEX
 
 
 
-(8)
+(9)
 '''
 
 
@@ -864,4 +867,49 @@ Note: This approach met 90% of test cases, but failed with larger inputs.
 
 
 
+'''344. Reverse String'''
+
+'Note: The problem ask for modify in place an iterable'
+
+'Two pointers approach'
+
+# def reverse_string(s: list[str]) -> None:
+
+#     left, right = 0, len(s)
+
+#     while left < right:
+
+#         s[left], s[right] = s[right], s[left]
+
+#         left += 1
+#         right -= 1
+
+'Done'
+
+
+
+
+
 '''xxx'''
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
