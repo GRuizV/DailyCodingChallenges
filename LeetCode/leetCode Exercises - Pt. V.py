@@ -11,6 +11,7 @@ CHALLENGES INDEX
 334. Increasing Triplet Subsequence (GRE)
 344. Reverse String (TP)
 350. Intersection of Two Arrays II (TP)
+341. Flatten Nested List Iterator (DFS)
 
 
 
@@ -28,7 +29,7 @@ CHALLENGES INDEX
 
 
 
-(10)
+(11)
 '''
 
 
@@ -978,7 +979,92 @@ Intuition:
 
 
 
+'''341. Flatten Nested List Iterator'''
+
+# Base
+
+"""
+This is the interface that allows for creating nested lists.
+You should not implement it, or speculate about its implementation
+"""
+# class NestedInteger:
+#    def isInteger(self) -> bool:
+#        """
+#        @return True if this NestedInteger holds a single integer, rather than a nested list.
+#        """
+
+#    def getInteger(self) -> int:
+#        """
+#        @return the single integer that this NestedInteger holds, if it holds a single integer
+#        Return None if this NestedInteger holds a nested list
+#        """
+
+#    def getList(self) -> None: #[NestedInteger] is the actual expected return
+#        """
+#        @return the nested list that this NestedInteger holds, if it holds a nested list
+#        Return None if this NestedInteger holds a single integer
+#        """
+
+
+# Input
+
+# # Case 1
+# nested_list = [[1,0],2,[1,1]]
+# # Output: [1,1,2,1,1]
+
+# # Case 2
+# nested_list = [1,[4,[6]]]
+# # Output: [1,4,6]
+
+
+'The Solution'
+
+# class NestedIterator:
+
+#     def __init__(self, nestedList: list[NestedInteger]):
+    
+#         # Initialize the stack with the reversed nested list
+#         self.stack = nestedList[::-1]
+    
+#     def next(self) -> int:
+
+#         # The next element must be an integer, just pop and return it
+#         return self.stack.pop().getInteger()
+    
+#     def hasNext(self) -> bool:
+
+#         # While there are elements in the stack and the top element is an Integer to be returned
+#         while self.stack:
+            
+#             # Peek at the top element
+#             top = self.stack[-1]
+            
+#             # If it's an integer, we're done
+#             if top.isInteger():
+#                 return True
+            
+#             # Otherwise, it's a list, pop it and push its contents onto the stack
+#             self.stack.pop()
+#             self.stack.extend(top.getList()[::-1])
+        
+#         # If the stack is empty, return False
+#         return False
+
+'Done'
+
+
+
+
+
 '''xxx'''
+
+
+
+
+
+
+
+
 
 
 
