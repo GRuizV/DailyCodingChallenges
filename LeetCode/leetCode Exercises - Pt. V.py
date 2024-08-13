@@ -12,6 +12,7 @@ CHALLENGES INDEX
 344. Reverse String (TP)
 350. Intersection of Two Arrays II (TP)
 341. Flatten Nested List Iterator (DFS)
+347. Top K Frequent Elements (Heaps) (Sorting)
 
 
 
@@ -29,7 +30,7 @@ CHALLENGES INDEX
 
 
 
-(11)
+(12)
 '''
 
 
@@ -1056,7 +1057,67 @@ You should not implement it, or speculate about its implementation
 
 
 
+'''347. Top K Frequent Elements'''
+
+# Input
+
+# # Case 1
+# nums = [1,2,2,1]
+# k = 2
+# # Output: [1,2]
+
+# # Case 2
+# nums = [1]
+# k = 1
+# # Output: [1]
+
+
+'My approach'
+
+'''
+Intuition:
+    
+Ideas' pool:
+    + A Counter function approach:
+        - Call a Counter on the input and sort by freq, return in order.
+
+    + A Heap approach:
+        - ...    
+
+'''
+
+# def topKFrequent(nums: list[int], k: int) -> list[int]:
+
+#     # Create the result list holder
+#     result = []
+
+#     # Import Counter
+#     from collections import Counter
+
+#     #  Transform the input into a list sorted by freq
+#     nums = sorted(Counter(nums).items(), key=lambda x: x[1], reverse=True)
+
+#     # Populate the result accordingly
+#     for i in range(k):
+#         result.append(nums[i][0])
+
+#     # Return the result
+#     return result
+
+# # Testing
+# print(topKFrequent(nums=nums, k=k))
+
+'Note: This approach worked beating submissions only 20% in Runtime and 61% in Memory'
+
+'Done'
+
+
+
+
+
 '''xxx'''
+
+
 
 
 
