@@ -13,6 +13,7 @@ CHALLENGES INDEX
 350. Intersection of Two Arrays II (TP)
 341. Flatten Nested List Iterator (DFS)
 347. Top K Frequent Elements (Heaps) (Sorting)
+378. Kth Smallest Element in a Sorted Matrix (Matrix) (Heaps)
 
 
 
@@ -30,7 +31,7 @@ CHALLENGES INDEX
 
 
 
-(12)
+(13)
 '''
 
 
@@ -1115,13 +1116,87 @@ Ideas' pool:
 
 
 
+'''378. Kth Smallest Element in a Sorted Matrix'''
+
+# Input
+
+# # Case 1
+# matrix = [[1,5,9],[10,11,13],[12,13,15]]
+# k = 8
+# # Output: 13 / The elements in the matrix are [1,5,9,10,11,12,13,13,15], and the 8th smallest number is 13
+
+# # Case 2
+# matrix = matrix = [[-5]]
+# k = 1
+# # Output: -5
+
+'My approach'
+
+'''
+Intuition:
+
+    Ideas' pool:
+
+        + Brute forcing: flatten the input, sort and return
+        + Heap: Hold a min heap of size k, traverse all items in the matrix and return the last of the heap
+
+'''
+
+
+'Brute force'
+
+# def kthSmallest(matrix: list[list[int]], k: int) -> int:
+
+#     # Flatten the input
+#     matrix = [x for elem in matrix for x in elem]
+
+#     # Sort the resulting matrix
+#     matrix.sort()
+
+#     # x=0 
+
+#     # Return the kth element
+#     return matrix[k-1]
+
+# print(kthSmallest(matrix=matrix, k=k))
+
+'Note: This approach works, it has O(nlongn) time complexity and beated other submissions by 89% in Runtine and 22% in Memory'
+
+
+'Min-heap approach'
+
+# def kthSmallest(matrix: list[list[int]], k: int) -> int:
+
+#     # Capture the matrix dimentions
+#     n = len(matrix)
+
+#     # Import the heapq module
+#     import heapq
+    
+#     # Create a min-heap with the first element of each row
+#     min_heap = [(matrix[i][0], i, 0) for i in range(n)]
+#     heapq.heapify(min_heap)
+    
+#     # Extract min k-1 times to get to the kth smallest element
+#     for _ in range(k - 1):
+#         value, row, col = heapq.heappop(min_heap)
+#         if col + 1 < n:
+#             heapq.heappush(min_heap, (matrix[row][col + 1], row, col + 1))
+    
+#     # The root of the heap is the kth smallest element
+#     return heapq.heappop(min_heap)[0]
+
+# print(kthSmallest(matrix=matrix, k=k))
+
+'Note: This solution worked, it has a time complexity of O(klogn) and beated submissions by 50% in Runtime and 34% in Memory.'
+
+'Done'
+
+
+
+
+
 '''xxx'''
-
-
-
-
-
-
 
 
 
