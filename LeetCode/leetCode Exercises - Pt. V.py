@@ -14,6 +14,8 @@ CHALLENGES INDEX
 341. Flatten Nested List Iterator (DFS)
 347. Top K Frequent Elements (Heaps) (Sorting)
 378. Kth Smallest Element in a Sorted Matrix (Matrix) (Heaps)
+380. Insert Delete GetRandom O(1)
+
 
 
 
@@ -31,7 +33,7 @@ CHALLENGES INDEX
 
 
 
-(13)
+(14)
 '''
 
 
@@ -1196,14 +1198,117 @@ Intuition:
 
 
 
+'''380. Insert Delete GetRandom O(1)'''
+
+# Input
+
+# # Case 1
+# operations = ["RandomizedSet", "insert", "remove", "insert", "getRandom", "remove", "insert", "getRandom"]
+# inputs = [[], [1], [2], [2], [], [1], [2], []]
+# # Output: [None, true, false, true, 2, true, false, 2]
+
+'My approach'
+
+# import random
+
+# class RandomizedSet:
+
+#     def __init__(self):
+#         self.set: set = set()
+#         print('Set created!')
+        
+
+#     def insert(self, val: int) -> bool:
+
+#         if val not in self.set:
+#             self.set.add(val)
+#             return True
+
+#         else:
+#             return False
+        
+
+#     def remove(self, val: int) -> bool:
+
+#         if val in self.set:
+#             self.set.remove(val)
+#             return True
+        
+#         else:
+#             return False
+        
+
+#     def getRandom(self) -> int:
+
+#         return random.choice(list(self.set))
+
+'Note: While this approach works, it has O(1) time complexity for all the functions, the list casting in the getRandom() function make it go up to O(n) breaking the challenge requirement'
+
+
+'An optimal solution'
+
+# import random
+
+# class RandomizedSet:
+
+#     def __init__(self):
+#         self.list = []
+#         self.dict = {}
+                
+#     def insert(self, val: int) -> bool:
+
+#         if val in self.dict:
+#             return False
+        
+#         self.dict[val] = len(self.list)
+#         self.list.append(val)
+
+#         return True
+
+#     def remove(self, val: int) -> bool:
+
+#         if val not in self.dict:
+#             return False
+        
+#         last_value, idx = self.list[-1], self.dict[val]
+
+#         # Rewrite the list and the dict
+#         self.list[idx], self.dict[last_value] = last_value, idx
+
+#         # Update the list to remove the duplicate
+#         self.list.pop()
+
+#         # Remove the value entry in the dict
+#         del self.dict[val]
+
+#         return True
+        
+#     def getRandom(self) -> int:
+
+#         return random.choice(self.list)
+
+# # Testing
+# for i, op in enumerate(operations):
+
+#     if op == 'RandomizedSet':
+#         obj = RandomizedSet()
+        
+#     elif op == 'insert':
+#         print(obj.insert(inputs[i][0]))
+    
+#     elif op == 'remove':
+#         print(obj.remove(inputs[i][0]))
+    
+#     else:
+#         print(obj.getRandom())
+
+'Done'
+
+
+
+
+
 '''xxx'''
-
-
-
-
-
-
-
 
 
 
