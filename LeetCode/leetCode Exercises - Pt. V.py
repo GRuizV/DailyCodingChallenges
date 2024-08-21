@@ -15,6 +15,8 @@ CHALLENGES INDEX
 347. Top K Frequent Elements (Heaps) (Sorting)
 378. Kth Smallest Element in a Sorted Matrix (Matrix) (Heaps)
 380. Insert Delete GetRandom O(1)
+384. Shuffle an Array
+
 
 
 
@@ -33,7 +35,7 @@ CHALLENGES INDEX
 
 
 
-(14)
+(15)
 '''
 
 
@@ -1308,7 +1310,68 @@ Intuition:
 
 
 
+'''384. Shuffle an Array'''
+
+# Input
+
+# # Case 1
+# operations = ["Solution", "shuffle", "reset", "shuffle"]
+# inputs = [[[1, 2, 3]], [], [], []]
+# # Output: [None, [3, 1, 2], [1, 2, 3], [1, 3, 2]]
+
+# # Case 2
+# operations = ["Solution","reset","shuffle","reset","shuffle","reset","shuffle","reset","shuffle"]
+# inputs = [[[-6,10,184]],[],[],[],[],[],[],[],[]]
+# # Output: [[null,[-6,10,184],[-6,10,184],[-6,10,184],[-6,184,10],[-6,10,184],[10,-6,184],[-6,10,184],[10,-6,184]]
+
+
+'My approach'
+
+# import random
+
+# class Solution:
+
+#     def __init__(self, nums: list[int]):
+#         self.base = nums
+              
+#     def reset(self) -> list[int]:       
+#         return self.base
+        
+#     def shuffle(self) -> list[int]:
+#         nums = self.base[:] # Deepcopy of the list
+#         random.shuffle(nums)        
+#         return nums
+    
+
+# # Testing
+# for i, op in enumerate(operations):
+
+#     if op == 'Solution':
+#         obj = Solution(inputs[i][0])
+#         print('Object created')
+
+#     elif op == 'shuffle':
+#         print(obj.shuffle())
+
+#     else:
+#         print(obj.reset())
+
+'Notes: This approached worked beating 88% of submissions in runtime and 25% in memory'
+
+'Done'
+
+
+
+
+
 '''xxx'''
+
+
+
+
+
+
+
 
 
 
