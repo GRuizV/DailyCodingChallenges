@@ -7,7 +7,7 @@ CHALLENGES INDEX
 322. Coin Change (DP)
 326. Power of Three (RC)
 328. Odd Even Linked List
-329. Longest Increasing Path in a Matrix (Matrix) (DFS) (MEM)
+329. Longest Increasing Path in a Matrix (Matrix) (DFS) (MEM) (RC)
 334. Increasing Triplet Subsequence (GRE)
 344. Reverse String (TP)
 350. Intersection of Two Arrays II (TP)
@@ -17,6 +17,7 @@ CHALLENGES INDEX
 380. Insert Delete GetRandom O(1)
 384. Shuffle an Array
 395. Longest Substring with At Least K Repeating Characters (SW) (RC) (DQ)
+454. 4Sum II (Arrays)
 
 
 
@@ -37,7 +38,7 @@ CHALLENGES INDEX
 
 
 
-(16)
+(17)
 '''
 
 
@@ -1480,30 +1481,30 @@ Intuition:
 
 'Divide and Conquer approach'
 
-from collections import Counter
+# from collections import Counter
 
-def longestSubstring(s: str, k: int) -> int:
+# def longestSubstring(s: str, k: int) -> int:
 
-    # Base case
-    if len(s) == 0 or len(s) < k:
-        return 0
+#     # Base case
+#     if len(s) == 0 or len(s) < k:
+#         return 0
 
-    # Count the frequency of eachcharacter in the string
-    counter = Counter(s)
+#     # Count the frequency of eachcharacter in the string
+#     counter = Counter(s)
 
-    # Iterate through the string and split at a character that doesn't meet the frequency requirement
-    for i, char in enumerate(s):
+#     # Iterate through the string and split at a character that doesn't meet the frequency requirement
+#     for i, char in enumerate(s):
 
-        if counter[char] < k:
+#         if counter[char] < k:
 
-            # Split and recursively process the left and right substrings
-            left_part = longestSubstring(s[:i], k)
-            right_part = longestSubstring(s[i+1:], k)
+#             # Split and recursively process the left and right substrings
+#             left_part = longestSubstring(s[:i], k)
+#             right_part = longestSubstring(s[i+1:], k)
 
-            return max(left_part, right_part)
+#             return max(left_part, right_part)
 
-    # If there's no splits, means that the entire substring is valid
-    return len(s)
+#     # If there's no splits, means that the entire substring is valid
+#     return len(s)
 
 'Done'
 
@@ -1511,18 +1512,89 @@ def longestSubstring(s: str, k: int) -> int:
 
 
 
-'''xxx'''
+'''454. 4Sum II'''
+
+# Input
+
+# # Case 1
+# nums1 = [1,2]
+# nums2 = [-2,-1]
+# nums3 = [-1,2]
+# nums4 = [0,2]
+# # Output: 2
 
 
+'My approach'
+
+'''
+Brute forcing
+
+    Intuition:
+        - With the help of itertools class 'product' all the possible index combinations will be generated.
+        - Check iteratively which sums up to 0 and count them.
+        - Return the count.
+'''
+# def fourSumCount( nums1: list[int], nums2: list[int], nums3: list[int], nums4: list[int]) -> int:
+
+#     # Import 'product' from itertool
+#     from itertools import product
+
+#     # Capture the size of the arrays
+#     n = len(nums1)
+
+#     # Handle Corner Case: if n = 1
+#     if n == 1:
+#         return 1 if sum(nums1+nums2+nums3+nums4) == 0 else 0
+    
+#     # Create the count holder
+#     count = 0
+
+#     # Generate all possible indexes combinations for the size of the arrays
+#     combinations = [x for x in product(range(n), repeat=4)]
+
+#     # Iteratively check each combination to see if they meet the requirement
+#     for comb in combinations:
+
+#         tupl = [nums1[comb[0]], nums2[comb[1]], nums3[comb[2]], nums4[comb[3]]]
+#         comb_sum = sum(tupl)
+#         count += 1 if comb_sum == 0 else 0
+    
+#     return count
+
+# # Testing
+# print(fourSumCount(nums1=nums1, nums2=nums2, nums3=nums3, nums4=nums4))
+
+'''Note: This apporach was O(n^4) complex and while this approach works, it's very memory and time extensive, so it just met up 14% of the test cases.'''
 
 
+'An Optimized O(n^2)'
 
+'''
+Intuition:
+    - Check all possible sums of elements between the first two arrays.
+    - Find if there is their complement in the remaining two.
+    - Return the count of the sums that have their complement.
+'''
 
+# def fourSumCount( nums1: list[int], nums2: list[int], nums3: list[int], nums4: list[int]) -> int:
 
+#     # Import 'product' from itertool
+#     from collections import Counter
+        
+#     # Initialize the count holder
+#     count = 0
 
+#     # Count the sums of all pairs in nums1 and nums2
+#     countAB = Counter(a+b for a in nums1 for b in nums2)
 
+#     # Check for the complements of the existing sums in countAB
+#     for c in nums3:
+#         for d in nums4:
 
+#             if countAB[-(c+d)]:
+#                 count += countAB[-(c+d)]
+    
+#     return count
 
-
-
+'done'
 
