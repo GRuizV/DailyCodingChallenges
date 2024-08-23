@@ -34,7 +34,6 @@ CHALLENGES INDEX
 *DS: Dynamic Programming
 *RC: Recursion
 *TP: Two-pointers
-*FCD: Floyd's cycle detection
 *PS: Preffix-sum
 *SW: Sliding-Window
 *FCD: Floyd's Cycle Detection (Hare & Tortoise)
