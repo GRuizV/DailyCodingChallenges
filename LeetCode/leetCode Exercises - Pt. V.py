@@ -16,6 +16,7 @@ CHALLENGES INDEX
 378. Kth Smallest Element in a Sorted Matrix (Matrix) (Heaps)
 380. Insert Delete GetRandom O(1)
 384. Shuffle an Array
+395. Longest Substring with At Least K Repeating Characters (SW) (RC) (DQ)
 
 
 
@@ -32,10 +33,11 @@ CHALLENGES INDEX
 *SW: Sliding-Window
 *MEM: Memoization
 *GRE: Greedy
+*DQ: Divide and Conquer
 
 
 
-(15)
+(16)
 '''
 
 
@@ -1357,6 +1359,151 @@ Intuition:
 #         print(obj.reset())
 
 'Notes: This approached worked beating 88% of submissions in runtime and 25% in memory'
+
+'Done'
+
+
+
+
+
+'''395. Longest Substring with At Least K Repeating Characters'''
+
+# Input
+
+# # Case 1
+# s, k = "aaabb", 3
+# # Output: 3 / The longest substring is "aaa", as 'a' is repeated 3 times.
+
+# # Case 2
+# s, k = "ababbc", 2
+# # Output: 5 / The longest substring is "aaa", as 'a' is repeated 3 times.
+
+
+'My approach'
+
+'''
+Intuition:
+    
+    Brute forcing:
+
+        - Import the Counter class from collections.
+        - Initialize a max_len counter in 0 to hold the max len of a valid substring according to the requirements of k.
+        - Starting from the len(s) down to k, check in a range, all the substrings of all those different sizes and
+            with Counter's help check is the minimum freq is at least k,
+                if it does: Refresh the max_len counter.
+                if it doesn't: check the rests of the substrings
+
+'''
+
+# from collections import Counter
+
+# def longestSubstring(s: str, k: int) -> int:
+
+#     # Initialize the max counter
+#     max_len = 0
+
+#     # Capture the len of s
+#     l = len(s)
+
+#     # Handle the corner case: len(s) < k
+#     if l < k:
+#         return max_len
+
+#     # Check all possibles valid substrings
+#     for i in range(k-1, l):
+
+#         for j in range(l-i):
+
+#             # Create the possible valid substring
+#             substring = s[j:j+i+1]
+
+#             # Create a counter from the substring
+#             subs_counter = Counter(substring)
+
+#             # Capture the minimum freq of the caracters present
+#             subs_min_freq = min(subs_counter.values())
+
+#             # Update the counter only if the minimum is at least k in size
+#             max_len = len(substring) if subs_min_freq >= k else max_len
+
+
+#     # Return what's un the max counter
+#     return max_len
+
+# Testing
+# print(longestSubstring(s=s, k=k))
+
+'Note: This approach met the 87% of cases but with large input breaks. I will rethink the loop to make it go from the largest to the lowest limit, that should save some runtime.'
+
+
+'My 2nd approach'
+
+# from collections import Counter
+
+# def longestSubstring(s: str, k: int) -> int:
+
+#     # Capture the len of s
+#     l = len(s)
+
+#     # Handle the corner case: len(s) < k
+#     if l < k:
+#         return 0
+
+#     # Check all possibles valid substrings
+#     for i in range(l-1, k-2, -1):
+
+#         if i != -1:
+
+#             for j in range(l-i):
+                        
+#                 # Create the possible valid substring
+#                 substring = s[j:j+i+1]
+
+#                 # Create a counter from the substring
+#                 subs_counter = Counter(substring)
+
+#                 # Capture the minimum freq of the caracters present
+#                 subs_min_freq = min(subs_counter.values())
+
+#                 # If the min freq found is at least k, that's the longest valid substring possible
+#                 if subs_min_freq >= k:
+#                     return len(substring)
+
+#     # Return 0
+#     return 0
+
+# # Testing
+# print(longestSubstring(s=s, k=k))
+
+'Note: Unfortunately my second approach had the same performance.'
+
+
+'Divide and Conquer approach'
+
+from collections import Counter
+
+def longestSubstring(s: str, k: int) -> int:
+
+    # Base case
+    if len(s) == 0 or len(s) < k:
+        return 0
+
+    # Count the frequency of eachcharacter in the string
+    counter = Counter(s)
+
+    # Iterate through the string and split at a character that doesn't meet the frequency requirement
+    for i, char in enumerate(s):
+
+        if counter[char] < k:
+
+            # Split and recursively process the left and right substrings
+            left_part = longestSubstring(s[:i], k)
+            right_part = longestSubstring(s[i+1:], k)
+
+            return max(left_part, right_part)
+
+    # If there's no splits, means that the entire substring is valid
+    return len(s)
 
 'Done'
 
