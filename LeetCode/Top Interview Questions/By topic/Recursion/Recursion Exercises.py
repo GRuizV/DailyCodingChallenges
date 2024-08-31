@@ -3,6 +3,7 @@ CHALLENGES INDEX
 
 2. Add Two Numbers (LL) (RC)
 21. Merge Two Sorted Lists (LL) (RC)
+50. Pow(x, n) (RC)
 
 
 *LL: Linked-Lists
@@ -218,6 +219,94 @@ CHALLENGES INDEX
 #     print(res)
 
 #     'Notes: it works!'
+
+'50. Pow(x, n)'
+# def x():
+
+#     # Input
+
+#     # Case 1
+#     x = 2.00000
+#     n = 10
+#     # Output: 1024.00000
+
+#     # Case 2
+#     x = 2.10000
+#     n = 3
+#     # Output: 9.26100
+
+#     # Case 3
+#     x = 2.00000
+#     n = -2
+#     # Output: 0.25000
+
+#     # Custom Case
+#     x = 0.00001
+#     n = 2147483647
+#     # Output: ...
+
+#     # My Approach
+#     def myPow(x, n):
+
+#         if x == 0:
+#             return 0
+        
+#         if n == 0:
+#             return 1
+
+#         res = 1
+
+#         for _ in range(abs(n)):
+#             res *= x
+
+#         if n > 0:
+#             return f'{res:.5f}'
+        
+#         else:        
+#             return f'{(1/res):.5f}'
+
+
+#     print(myPow(x, n))
+
+#     'Notes: it works, but broke memory with the case: x = 0.00001, n=2147483647, it is 95% of the solution'
+
+#     # Another Approach
+#     def myPow(x: float, n: int) -> float:
+
+#         b = n
+
+#         if x == 0:
+#             return 0
+        
+#         elif b == 0:
+#             return 1
+        
+#         elif b < 0:
+#             b = -b
+#             x = 1 / x
+        
+
+#         a = 1
+
+#         while b > 0:
+
+#             if b % 2 == 0:
+#                 x = x * x
+#                 b = b // 2
+
+#             else:
+#                 b = b - 1
+#                 a = a * x
+                
+#         return a
+
+#     print(myPow(x, n))
+
+#     '''
+#     Notes: 
+#         This solution takes advantage of the property x^(2n) = (x^2)^n, 
+#         saving a lot of time reducing in half the calculations each time the exponent is even.
+#     '''
 
 
 

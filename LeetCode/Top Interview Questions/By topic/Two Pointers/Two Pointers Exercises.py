@@ -5,6 +5,8 @@ CHALLENGES INDEX
 11. Container With Most Water (Array) (TP) (GRE)
 15. 3Sum (Array) (TP) (Sorting)
 42. Trapping Rain Water (Array) (TP) (DS) (Stack)
+75. Sort Colors (Array) (TP) (Sorting)
+88. Merge Sorted Array (Array) (TP) (Sorting)
 
 
 *LL: Linked-Lists
@@ -261,6 +263,124 @@ CHALLENGES INDEX
 #     print(trap([3,0,2]))
 
 #     'Done'
+
+'75. Sort Colors'
+# def x():
+
+#     # Input
+#     # Case 1
+#     nums = [2,0,2,1,1,0]
+#     # Output: [0,0,1,1,2,2]
+
+#     # Case 2
+#     nums = [2,0,1]
+#     # Output: [0,1,2]
+
+#     '''
+#     My approach
+
+#         Intuition:
+#             Since the solution requires the sorting be in place, 
+#             perhaps Bubblesort would do the trick.
+#     '''
+
+#     def sortColors(nums:list[int]) -> list[int]:
+
+#         swapped = True       
+
+#         while swapped != False:
+
+#             swapped = False
+#             i = 0
+
+#             while True:
+
+#                 if i == len(nums)-1:
+#                     break
+
+#                 if nums[i] > nums[i+1]:
+#                     nums[i], nums[i+1] = nums[i+1], nums[i]
+#                     swapped = True
+
+#                 i += 1
+
+#     # Testing
+#     sortColors(nums)
+#     print(nums)
+
+#     'Notes: Done!'
+
+'88. Merge Sorted Array'
+# def x():
+
+#     # Input
+#     # Case 1
+#     nums1 = [1,2,3,0,0,0]
+#     m = 3
+#     nums2 = [2,5,6]
+#     n = 3
+#     # Output: [1,2,2,3,5,6]
+
+#     # Case 2
+#     nums1 = [1]
+#     m = 1
+#     nums2 = []
+#     n = 0
+#     # Output: [1]
+
+#     # Case 3
+#     nums1 = [0]
+#     m = 0
+#     nums2 = [1]
+#     n = 1
+#     # Output: [1]
+
+#     # Custom case
+#     nums1 = [0,2,0,0,0,0,0]
+#     m = 2
+#     nums2 = [-1,-1,2,5,6]
+#     n = 5
+#     # Output: [1]
+
+#     # Custom case
+#     nums1 = [-1,1,0,0,0,0,0,0]
+#     m = 2
+#     nums2 = [-1,0,1,1,2,3]
+#     n = 6
+#     # Output: [1]
+
+
+#     'Solution'
+#     def merge(nums1, m, nums2, n):
+
+#         if m == 0:
+#             for i in range(n):
+#                 nums1[i] = nums2[i]
+
+#         elif n != 0:
+
+#             m = n = 0
+
+#             while n < len(nums2):
+
+#                 if nums2[n] < nums1[m]:
+
+#                     nums1[:m], nums1[m+1:] = nums1[:m] + [nums2[n]], nums1[m:-1]
+
+#                     n += 1
+#                     m += 1
+                
+#                 else:
+
+#                     if all([x==0 for x in nums1[m:]]):
+#                         nums1[m] = nums2[n]
+#                         n += 1
+                        
+#                     m += 1
+
+#     # Testing
+#     merge(nums1,m,nums2,n)
+#     print(nums1)
 
 
 

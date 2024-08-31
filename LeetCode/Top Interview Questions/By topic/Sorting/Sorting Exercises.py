@@ -4,6 +4,9 @@ CHALLENGES INDEX
 15. 3Sum (Array) (TP) (Sorting)
 23. Merge k Sorted Lists (LL) (DQ) (Heap) (Sorting)
 49. Group Anagrams (Array) (Hash Table) (Sorting)
+56. Merge Intervals (Array) (Sorting)
+75. Sort Colors (Array) (TP) (Sorting)
+88. Merge Sorted Array (Array) (TP) (Sorting)
 
 
 *LL: Linked-Lists
@@ -18,10 +21,12 @@ CHALLENGES INDEX
 *GRE: Greedy
 *DQ: Divide and Conquer
 *BT: Backtracking
+*BFS & DFS: Breadth-First Search & Depth-First Search
 *Arrays, Hash Tables & Matrices
 *Sorting
 *Heaps, Stacks & Queues
-*Graphs, Trees & Binary Trees
+*Graphs & Trees
+*Others
 
 (XX)
 '''
@@ -298,6 +303,200 @@ CHALLENGES INDEX
 #     Notes: Absolutely more elegant solution
 #     '''
 
+'56. Merge Intervals'
+# def x():
+
+#     #Input
+#     # Case 1
+#     intervals = [[1,3],[2,6],[8,10],[15,18]]
+#     # Output: [[1,6],[8,10],[15,18]]
+
+#     # Case 2
+#     intervals = [[1,4],[4,5]]
+#     # Output: [[1,5]]
+
+#     # Custom Case
+#     intervals = [[1,4],[0,0]]
+#     # Output: [...]
+
+#     '''
+#     Intuition:
+
+#         - Check the second item of the element and the first of the next, 
+#         if they coincide, merge.
+#             (Through a While Loop)
+#     '''
+
+#     def merge(intervals:list[list[int]]) -> list[list[int]]:
+
+#         #Handling the corner case
+#         if len(intervals) == 1:
+#             return intervals
+
+#         intervals.sort(key=lambda x: x[0])
+
+#         idx = 0
+
+#         while idx < len(intervals)-1:
+
+#             if intervals[idx][1] >= intervals[idx+1][0]:
+
+#                 merged_interval = [[min(intervals[idx][0], intervals[idx+1][0]), max(intervals[idx][1], intervals[idx+1][1])]]
+#                 intervals = intervals[:idx] + merged_interval + intervals[idx+2:]
+#                 idx = 0
+
+#             else:
+#                 idx += 1
+
+#         return intervals
+
+#     # Testing
+#     print(merge(intervals))
+
+#     'Note: My solution works but is not efficient, since it has to go over the whole array again'
+
+    
+#     'Some other Approach'
+#     def merge(intervals):
+
+#         intervals.sort()
+
+#         merge_intervals = []
+#         curr_interval = intervals[0]
+
+#         for interval in intervals[1:]:
+
+#             if curr_interval[1] < interval[0]:
+#                 merge_intervals.append(curr_interval)
+#                 curr_interval = interval
+
+#             else:
+#                 curr_interval[1] = max(curr_interval[1], interval[1])
+
+#         merge_intervals.append(curr_interval)
+
+#         return merge_intervals
+
+#     # Testing
+#     print(merge(intervals))
+
+'75. Sort Colors'
+# def x():
+
+#     # Input
+#     # Case 1
+#     nums = [2,0,2,1,1,0]
+#     # Output: [0,0,1,1,2,2]
+
+#     # Case 2
+#     nums = [2,0,1]
+#     # Output: [0,1,2]
+
+#     '''
+#     My approach
+
+#         Intuition:
+#             Since the solution requires the sorting be in place, 
+#             perhaps Bubblesort would do the trick.
+#     '''
+
+#     def sortColors(nums:list[int]) -> list[int]:
+
+#         swapped = True       
+
+#         while swapped != False:
+
+#             swapped = False
+#             i = 0
+
+#             while True:
+
+#                 if i == len(nums)-1:
+#                     break
+
+#                 if nums[i] > nums[i+1]:
+#                     nums[i], nums[i+1] = nums[i+1], nums[i]
+#                     swapped = True
+
+#                 i += 1
+
+#     # Testing
+#     sortColors(nums)
+#     print(nums)
+
+#     'Notes: Done!'
+
+'88. Merge Sorted Array'
+# def x():
+
+#     # Input
+#     # Case 1
+#     nums1 = [1,2,3,0,0,0]
+#     m = 3
+#     nums2 = [2,5,6]
+#     n = 3
+#     # Output: [1,2,2,3,5,6]
+
+#     # Case 2
+#     nums1 = [1]
+#     m = 1
+#     nums2 = []
+#     n = 0
+#     # Output: [1]
+
+#     # Case 3
+#     nums1 = [0]
+#     m = 0
+#     nums2 = [1]
+#     n = 1
+#     # Output: [1]
+
+#     # Custom case
+#     nums1 = [0,2,0,0,0,0,0]
+#     m = 2
+#     nums2 = [-1,-1,2,5,6]
+#     n = 5
+#     # Output: [1]
+
+#     # Custom case
+#     nums1 = [-1,1,0,0,0,0,0,0]
+#     m = 2
+#     nums2 = [-1,0,1,1,2,3]
+#     n = 6
+#     # Output: [1]
+
+
+#     'Solution'
+#     def merge(nums1, m, nums2, n):
+
+#         if m == 0:
+#             for i in range(n):
+#                 nums1[i] = nums2[i]
+
+#         elif n != 0:
+
+#             m = n = 0
+
+#             while n < len(nums2):
+
+#                 if nums2[n] < nums1[m]:
+
+#                     nums1[:m], nums1[m+1:] = nums1[:m] + [nums2[n]], nums1[m:-1]
+
+#                     n += 1
+#                     m += 1
+                
+#                 else:
+
+#                     if all([x==0 for x in nums1[m:]]):
+#                         nums1[m] = nums2[n]
+#                         n += 1
+                        
+#                     m += 1
+
+#     # Testing
+#     merge(nums1,m,nums2,n)
+#     print(nums1)
 
 
 

@@ -2,29 +2,29 @@
 CHALLENGES INDEX
 
 50. Pow(x, n) (RC)
-53. Maximum Subarray (DP)
+53. Maximum Subarray (Array) (DQ) (DP)
 54. Spiral Matrix (Matrix)  
-55. Jump Game (DP)
-56. Merge Intervals
-62. Unique Paths (DP)
-66. Plus One
-69. Sqrt(x)
+55. Jump Game (Array) (DP) (GRE)
+56. Merge Intervals (Array) (Sorting)
+62. Unique Paths (DP) 
+66. Plus One (Others)
+69. Sqrt(x) (Others)
 70. Climbing Stairs (DP)
-73. Set Matrix Zeroes (Matrix)
-75. Sort Colors (TP)
-76. Minimum Window Substring
-78. Subsets
-79. Word Search (Matrix)
-88. Merge Sorted Array (TP)
-91. Decode Ways (DP) 
-98. Validate Binary Search Tree (DFS)
-101. Symmetric Tree (BFS) (DFS)
-102. Binary Tree Level Order Traversal (BFS)
+73. Set Matrix Zeroes (Matrix) (Hash Table)
+75. Sort Colors (Array) (TP) (Sorting)
+76. Minimum Window Substring (Hash Table) (SW)
+78. Subsets (Array) (BT)
+79. Word Search (Matrix) (BT)
+88. Merge Sorted Array (Array) (TP) (Sorting)
+91. Decode Ways (DP)
+98. Validate Binary Search Tree (Tree) (DFS)
+101. Symmetric Tree (Tree) (BFS) (DFS)
+102. Binary Tree Level Order Traversal (Tree) (BFS) (DFS)
 103. Binary Tree Zigzag Level Order Traversal (BFS) (DFS)
-104. Maximum Depth of Binary Tree (BFS)
-105. Construct Binary Tree from Preorder and Inorder Traversal
-108. Convert Sorted Array to Binary Search Tree
-116. Populating Next Right Pointers in Each Node (BFS) (DFS)
+104. Maximum Depth of Binary Tree (Tree) (BFS) (DFS)
+105. Construct Binary Tree from Preorder and Inorder Traversal (DQ) (Tree)
+108. Convert Sorted Array to Binary Search Tree (DQ) (Tree)
+116. Populating Next Right Pointers in Each Node (BFS) (DFS) (Tree)
 
 
 *LL: Linked-Lists
@@ -39,10 +39,12 @@ CHALLENGES INDEX
 *GRE: Greedy
 *DQ: Divide and Conquer
 *BT: Backtracking
+*BFS & DFS: Breadth-First Search & Depth-First Search
 *Arrays, Hash Tables & Matrices
 *Sorting
 *Heaps, Stacks & Queues
-*Graphs, Trees & Binary Trees
+*Graphs & Trees
+*Others
 
 
 (25)
@@ -51,6 +53,7 @@ CHALLENGES INDEX
 
 '50. Pow(x, n)'
 # def x():
+
 #     # Input
 
 #     # Case 1
@@ -138,6 +141,7 @@ CHALLENGES INDEX
 
 '53. Maximum Subarray'
 # def x():
+
 #     # Input
 
 #     # Case 1
@@ -220,6 +224,7 @@ CHALLENGES INDEX
 
 '54. Spiral Matrix'
 # def x():
+
 #     # Input
 #     # Case 1
 #     matrix = [[1,2,3],[4,5,6],[7,8,9]]
@@ -330,6 +335,7 @@ CHALLENGES INDEX
 
 '55. Jump Game'
 # def x():
+
 #     # Input
 #     # Case 1
 #     nums = [2,3,1,1,4]
