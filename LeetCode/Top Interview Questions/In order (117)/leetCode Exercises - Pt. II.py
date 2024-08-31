@@ -27,9 +27,23 @@ CHALLENGES INDEX
 116. Populating Next Right Pointers in Each Node (BFS) (DFS)
 
 
+*LL: Linked-Lists
+*BS: Binary Search
 *DP: Dynamic Programming
 *RC: Recursion
 *TP: Two-pointers
+*FCD: Floyd's cycle detection (Hare & Tortoise approach)
+*PS: Preffix-sum
+*SW: Sliding-Window
+*MEM: Memoization
+*GRE: Greedy
+*DQ: Divide and Conquer
+*BT: Backtracking
+*Arrays, Hash Tables & Matrices
+*Sorting
+*Heaps, Stacks & Queues
+*Graphs, Trees & Binary Trees
+
 
 (25)
 '''

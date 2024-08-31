@@ -1,38 +1,51 @@
 '''
 CHALLENGES INDEX
 
-1. Two Sum
+1. Two Sum (Array) (Hash Table)
 2. Add Two Numbers (LL) (RC)
-3. Longest Substring Without Repeating Characters
-4. Median of Two Sorted Arrays
+3. Longest Substring Without Repeating Characters (Hash Table) (SW)
+4. Median of Two Sorted Arrays (Array) (BS)
 5. Longest Palindromic Substring (DP) (TP)
-7. Reverse Integer
-8. String to Integer (atoi)
-11. Container With Most Water (TP)
-13. Roman to Integer
-13.1 Roman to Integer - Variation: the other way around, Just For Fun.
-14. Longest Common Prefix
-15. 3Sum (TP)
-17. Letter Combinations of a Phone Number
-19. Remove Nth Node From End of List (TP)
-20. Valid Parentheses
-21. Merge Two Sorted Lists (RC)
-22. Generate Parentheses (DP)
-23. Merge k Sorted Lists
-29. Divide Two Integers
-34. Find First and Last Position of Element in Sorted Array
-36. Valid Sudoku  (Matrix)
-38. Count and Say
-42. Trapping Rain Water (DP) (TP)
-46. Permutations
-48. Rotate Image  (Matrix)
-49. Group Anagrams
+7. Reverse Integer (Others)
+8. String to Integer - atoi (Others)
+11. Container With Most Water (Array) (TP) (GRE)
+13. Roman to Integer (Hash Table) 
+13.1 Roman to Integer - Variation: the other way around, Just For Fun. (Hash Table) 
+14. Longest Common Prefix (Others)
+15. 3Sum (Array) (TP) (Sorting)
+17. Letter Combinations of a Phone Number (Hash Table) (BT)
+19. Remove Nth Node From End of List (LL) (TP)
+20. Valid Parentheses (Stack)
+21. Merge Two Sorted Lists (LL) (RC)
+22. Generate Parentheses (DP) (BT)
+23. Merge k Sorted Lists (LL) (DQ) (Heap) (Sorting)
+29. Divide Two Integers (Others)
+34. Find First and Last Position of Element in Sorted Array (Array) (BS)
+36. Valid Sudoku (Array) (Hash Table) (Matrix)
+38. Count and Say (Others)
+42. Trapping Rain Water (Array) (TP) (DS) (Stack)
+46. Permutations (Array) (BT)
+48. Rotate Image (Array) (Matrix)
+49. Group Anagrams (Array) (Hash Table) (Sorting)
+
 
 
 *LL: Linked-Lists
+*BS: Binary Search
 *DP: Dynamic Programming
 *RC: Recursion
 *TP: Two-pointers
+*FCD: Floyd's cycle detection (Hare & Tortoise approach)
+*PS: Preffix-sum
+*SW: Sliding-Window
+*MEM: Memoization
+*GRE: Greedy
+*DQ: Divide and Conquer
+*BT: Backtracking
+*Arrays, Hash Tables & Matrices
+*Sorting
+*Heaps, Stacks & Queues
+*Graphs, Trees & Binary Trees
 
 (25)
 '''
@@ -40,6 +53,7 @@ CHALLENGES INDEX
 
 '1. Two Sum'
 # def x():
+
 #     # 1st approach
 #     nums = [3,2,4]
 #     target = 6
@@ -97,6 +111,7 @@ CHALLENGES INDEX
 
 '2. Add Two Numbers'
 # def x():
+
 #     # Definition for singly-linked list.
 #     class ListNode(object):
 #         def __init__(self, val=0, next=None):
@@ -199,6 +214,7 @@ CHALLENGES INDEX
 
 '3. Longest Substring Without Repeating Characters'
 # def x():
+
 #     s = "abcabcbb"
 
 
@@ -259,6 +275,7 @@ CHALLENGES INDEX
 
 '4. Median of Two Sorted Arrays'
 # def x():
+
 #     # Input
 #     nums1 = [1,3]
 #     nums2 = [2]
@@ -327,6 +344,7 @@ CHALLENGES INDEX
 
 '5. Longest Palindromic Substring'
 # def x():
+
 #     # Input
 #     s = "cbbd"
 
@@ -374,6 +392,7 @@ CHALLENGES INDEX
 
 '7. Reverse Integer'
 # def x():
+
 #     # Input
 #     x = -15
 
@@ -399,6 +418,7 @@ CHALLENGES INDEX
 
 '8. String to Integer (atoi)'
 # def x():
+
 #     # Input
 #     s = "   -43.25"
 
@@ -510,6 +530,7 @@ CHALLENGES INDEX
 
 '11. Container With Most Water'
 # def x():
+
 #     # Input
 #     heights = [1,8,6,2,5,4,8,3,7]
 
@@ -561,6 +582,7 @@ CHALLENGES INDEX
 
 '13. Roman to Integer'
 # def x():
+
 #     '''
 #     Substraction exceptions:
 #         - I can be placed before V (5) and X (10) to make 4 and 9. 
@@ -639,6 +661,7 @@ CHALLENGES INDEX
 
 '13.1 Roman to Integer - Variation: the other way around, Just For Fun.'
 # def x():
+
 #     # Input
 #     num = 1994
 
@@ -752,6 +775,7 @@ CHALLENGES INDEX
 
 '14. Longest Common Prefix'
 # def x():
+
 #     '''
 #     Approach:
 
@@ -880,6 +904,7 @@ CHALLENGES INDEX
 
 '15. 3Sum'
 # def x():
+
 #     import itertools
 
 #     # Input
@@ -963,6 +988,7 @@ CHALLENGES INDEX
 
 '17. Letter Combinations of a Phone Number'
 # def x():
+
 #     # # Input
 #     # s = '23'
 
@@ -1110,6 +1136,7 @@ CHALLENGES INDEX
 
 '19. Remove Nth Node From End of List'
 # def x():
+
 #     # Base
 #     class ListNode(object):
 #         def __init__(self, val=0, next=None):
@@ -1184,6 +1211,7 @@ CHALLENGES INDEX
 
 '20. Valid Parentheses'
 # def x():
+
 #     # input / Case - expected result
 #     s = '()'    # True
 #     s = '()[]{}'    # True
@@ -1228,6 +1256,7 @@ CHALLENGES INDEX
 
 '21. Merge Two Sorted Lists'
 # def x():
+
 #     # Base
 #     class ListNode(object):
 #         def __init__(self, val=0, next=None):
@@ -1319,6 +1348,7 @@ CHALLENGES INDEX
 
 '22. Generate Parentheses'
 # def x():
+
 #     # Input
 #     n = 3   # Expected Output: ['((()))', '(()())', '(())()', '()(())', '()()()']
 
@@ -1369,6 +1399,7 @@ CHALLENGES INDEX
 
 '23. Merge k Sorted Lists'
 # def x():
+
 #     # Base
 #     class ListNode(object):
 #         def __init__(self, val=0, next=None):
@@ -1443,6 +1474,7 @@ CHALLENGES INDEX
 
 '29. Divide Two Integers'
 # def x():
+
 #     # Input
 
 #     # Case 1
@@ -1537,6 +1569,7 @@ CHALLENGES INDEX
 
 '34. Find First and Last Position of Element in Sorted Array'
 # def x():
+
 #     # Input
 
 #     # case 1
@@ -1573,6 +1606,7 @@ CHALLENGES INDEX
 
 '36. Valid Sudoku'
 # def x():
+
 #     # Input
 
 #     # Case 1
@@ -1701,6 +1735,7 @@ CHALLENGES INDEX
 
 '38. Count and Say'
 # def x():
+
 #     # Input
 
 #     # Case 1
@@ -1780,6 +1815,7 @@ CHALLENGES INDEX
 
 '42. Trapping Rain Water'
 # def x():
+
 #     # Input
 
 #     # case 1
@@ -1831,6 +1867,7 @@ CHALLENGES INDEX
 
 '46. Permutations'
 # def x():
+
 #     # Input
 
 #     # Case 1
@@ -1868,6 +1905,7 @@ CHALLENGES INDEX
 
 '48. Rotate Image'
 # def x():
+
 #     # Input
 
 #     # Case 1
@@ -1937,6 +1975,7 @@ CHALLENGES INDEX
 
 '49. Group Anagrams'
 # def x():
+
 #     # Input
 
 #     # Case 1
