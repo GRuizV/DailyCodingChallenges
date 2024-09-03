@@ -7,6 +7,9 @@ CHALLENGES INDEX
 103. Binary Tree Zigzag Level Order Traversal (BFS) (DFS)
 104. Maximum Depth of Binary Tree (Tree) (BFS) (DFS)
 116. Populating Next Right Pointers in Each Node (BFS) (DFS) (Tree)
+124. Binary Tree Maximum Path Sum (DP) (Tree) (DFS)
+127. Word Ladder (Hast Table) (BFS)
+130. Surrounded Regions (Matrix) (BFS) (DFS)
 
 
 *LL: Linked-Lists
@@ -591,6 +594,350 @@ CHALLENGES INDEX
 #         return root
 
 #     'Worked right way, YAY! :D'
+
+'''124. Binary Tree Maximum Path Sum'''
+# def x():
+
+#     # Base 
+#     class TreeNode(object):
+#         def __init__(self, val=0, left=None, right=None):
+#             self.val = val
+#             self.left = left
+#             self.right = right
+
+#     # Input
+#     #Case 1
+#     tree_layout = [1,2,3]
+#     root = TreeNode(val=1, left=TreeNode(val=2), right=TreeNode(val=3))
+#     #Output: 6
+
+#     #Case 2
+#     tree_layout = [-10,9,20,None, None,15,7]
+#     left = TreeNode(val=9)
+#     right = TreeNode(val=20, left=TreeNode(val=15), right=TreeNode(val=7))
+#     root = TreeNode(val=-10, left=left, right=right)
+#     #Output: 42
+
+#     #Custom Case
+#     tree_layout = [1,-2,3,1,-1,-2,-3]
+#     left = TreeNode(val=-2, left=TreeNode(val=1), right=TreeNode(val=3))
+#     right = TreeNode(val=-3, left=TreeNode(val=-2, left=TreeNode(val=-1)))
+#     root = TreeNode(val=1, left=left, right=right)
+#     #Output: 3
+
+
+#     '''
+#     My Approach
+
+#         Intuition:
+#             - Make a preorder traversal tree list.
+#             - Apply Kadane's algorithm to that list.
+#     '''
+
+#     def maxPathSum(root:TreeNode) -> int:
+
+#         #First, Preorder
+#         path = []
+
+#         def preorder(node:TreeNode) -> None:
+
+#             if node:
+#                 preorder(node=node.left)
+#                 path.append(node.val)
+#                 preorder(node=node.right)
+
+#         preorder(node=root)
+
+#         #Now Kadane's
+#         max_so_far = max_end_here = path[0]
+
+#         for num in path[1:]:
+
+#             max_end_here = max(num, max_end_here + num)
+#             max_so_far = max(max_so_far, max_end_here)
+
+#         return max_so_far
+
+#     # Testing
+#     print(maxPathSum(root=root))
+
+#     '''
+#     Notes:
+#         - On the first run it went up to 59% of the cases, thats Kudos for me! :D
+#         - The problem with this algorithm is that it supposes that after reaching a parent and child node,
+#         it's possible to go from a right child to the parent of the parent and that either forcibly makes
+#         to pass twice from the parent before going to the granparent, or that one grandchild is connected
+#         to the grandfather, which is also out of the rules.
+
+#         I misinterpret this because one of the examples showed a path [leftchild, parent, rightchild] which
+#         is valid only if we don't want to pass thruough the grandparent.
+        
+#         The best choice here is to make a recursive proning algorithm
+#     '''
+
+
+#     'A recursive approach'
+#     def maxPathSum(root):
+
+#         max_path = float('-inf') #Placeholder
+
+#         def get_max_gain(node):
+
+#             nonlocal max_path
+
+#             if not node:
+#                 return 0
+            
+#             gain_on_left = max(get_max_gain(node.left),0)
+#             gain_on_right = max(get_max_gain(node.right),0)
+
+#             current_max_path = node.val + gain_on_left + gain_on_right
+#             max_path = max(max_path, current_max_path)
+
+#             return node.val + max(gain_on_left, gain_on_right)
+        
+#         get_max_gain(root)
+
+#         return max_path
+
+#     # Testing
+#     print(maxPathSum(root))
+
+#     'Done'
+
+'''127. Word Ladder'''
+# def x():
+
+#     # Input
+#     #Case 1
+#     begin_word, end_word, word_list = 'hit', 'cog', ['hot', 'dot', 'dog', 'lot', 'log', 'cog']
+#     #Output: 5
+
+#     #Custom Case
+#     begin_word, end_word, word_list = 'a', 'c', ['a', 'b', 'c']
+#     #Output: 5
+    
+
+#     '''
+#     My Approach
+
+#         Intuition:
+#             1. handle the corner case: the end_word not in the word_list
+#             2. create an auxiliary func that check the word against the end_word: True if differ at most by 1 char, else False.
+#             3. create a counter initialized in 0
+#             4. start checking the begin_word and the end_word, if False sum 1 to the count, and change to the subquent word in the word_list and do the same.
+#     '''
+
+#     def ladderLength(beginWord: str, endWord: str, wordList: list[str]) -> int:
+
+#         if endWord not in wordList:
+#             return 0
+        
+#         def check(word):
+#             return False if len([x for x in word if x not in endWord]) > 1 else True
+        
+#         if beginWord not in wordList:
+#             wordList.insert(0,beginWord)
+#             count = 0
+        
+#         else:
+#             count = 1
+        
+#         for elem in wordList:
+#             count += 1
+
+#             if check(elem):
+#                 return count     
+                
+#         return 0
+
+#     # Testing
+#     print(ladderLength(beginWord=begin_word, endWord=end_word, wordList=word_list))
+
+#     'Note: This solution only went up to the 21% of the cases'
+
+
+#     'BFS approach'
+#     from collections import defaultdict, deque
+
+#     def ladderLength(beginWord: str, endWord: str, wordList: list[str]) -> int:
+
+#         if endWord not in wordList or not endWord or not beginWord or not wordList:
+#             return 0
+
+#         L = len(beginWord)
+#         all_combo_dict = defaultdict(list)
+
+#         for word in wordList:
+#             for i in range(L):
+#                 all_combo_dict[word[:i] + "*" + word[i+1:]].append(word) 
+
+#         queue = deque([(beginWord, 1)])
+#         visited = set()
+#         visited.add(beginWord)
+
+#         while queue:
+#             current_word, level = queue.popleft()
+
+#             for i in range(L):
+#                 intermediate_word = current_word[:i] + "*" + current_word[i+1:]
+
+#                 for word in all_combo_dict[intermediate_word]:
+
+#                     if word == endWord:
+#                         return level + 1
+
+#                     if word not in visited:
+#                         visited.add(word)
+#                         queue.append((word, level + 1))
+                        
+#         return 0
+
+#     'Done'
+
+'''130. Surrounded Regions'''
+# def x():
+
+#     #Input
+#     #Case 1
+#     board = [
+#         ["X","X","X","X"],
+#         ["X","O","O","X"],
+#         ["X","X","O","X"],
+#         ["X","O","X","X"]
+#         ]
+#     # output = [
+#     #     ["X","X","X","X"],
+#     #     ["X","X","X","X"],
+#     #     ["X","X","X","X"],
+#     #     ["X","O","X","X"]
+#     #     ]
+
+#     #Case 2
+#     board = [
+#         ['X']
+#         ]
+#     # output = [
+#         # ['X']
+#         # ]
+
+#     #Custom Case
+#     board = [["O","O"],["O","O"]]
+
+
+#     '''
+#     My Approach
+
+#         Intuition:
+#             1. Check if there is any 'O' at the boarders.
+#             2. Check is there is any 'O' adjacent to the one in the boarder:
+#                 - If do, add them to the not-be-flipped ground and re run.
+#                 - if doesn't, flip everything to 'X' and return
+#             (Do this until there is no 'O' unchecked )
+#     '''
+
+#     def solve(board:list[list[str]]) -> None:
+
+#         M = len(board)
+#         N = len(board[0])
+
+#         no_flip = []
+#         all_os = []
+
+
+#         # Collect all 'O's
+#         for i in range(M):
+#             all_os.extend((i,j) for j in range(N) if board[i][j] == 'O')
+        
+
+#         #   Check if there is a boarder 'O' within the group
+#         for i in range(len(all_os)):
+
+#             if all_os[i][0] in (0, M-1) or all_os[i][1] in (0, N-1):
+#                 no_flip.append(all_os[i])
+
+
+#         # Collect the 'O's near to no_flip 'O' iteratively
+#         flipped = None
+#         i = 0
+
+#         while True:
+
+#             # Condition to end the loop
+#             if len(all_os) == 0 or i == len(all_os) and flipped is False:
+#                 break
+
+#             #Collecting the possibilities of an adjacent 'O'
+#             adjacents = []
+
+#             for pos in no_flip:
+#                 adjacents.extend([(pos[0]-1, pos[1]), (pos[0]+1, pos[1]), (pos[0], pos[1]-1), (pos[0], pos[1]+1)])
+            
+#             #Check if the current element is adjacent to any no_flip 'O'
+#             if all_os[i] in adjacents:
+#                 no_flip.append(all_os.pop(i))
+#                 flipped = True
+#                 i = 0
+#                 continue
+
+#             i += 1
+#             flipped = False
+
+
+#         # Rewritting the board
+#         #   Resetting the board to all "X"
+#         for i in range(M):
+#             board[i] = ["X"]*N
+        
+#         #   preserving the no_flip 'O's
+#         for o in no_flip:
+#             board[o[0]][o[1]] = 'O'
+
+#     # Testing
+#     solve(board=board)
+
+#     'This solution met 98.2% of the cases'
+
+
+#     'DFS Approach'
+#     def solve(board):
+
+#         n,m=len(board),len(board[0])
+#         seen=set()
+
+#         def is_valid(i,j):
+#             return 0 <= i < n and 0<= j <m and board[i][j]=="O" and (i,j) not in seen
+        
+#         def is_border(i,j):
+#             return i == 0 or i == n-1 or j == 0 or j == m-1
+        
+#         def dfs(i,j):
+
+#             board[i][j]="y"
+#             seen.add((i,j))
+
+#             for dx , dy in ((0,1) ,(0,-1) ,(1,0),(-1,0)):
+#                 new_i , new_j = dx + i , dy + j
+
+#                 if is_valid(new_i , new_j):
+#                     dfs(new_i , new_j)
+            
+#         for i in range(n):
+#             for j in range(m):
+#                 if is_border(i,j) and board[i][j]=="O":
+#                     dfs(i,j) 
+                    
+#         for i in range(n):
+#             for j in range(m):
+#                 if board[i][j]=="y":
+#                     board[i][j]="O"
+#                 else:
+#                     board[i][j]="X"
+
+#     # Testing
+#     solve(board)
+
+#     'Done'
 
 
 

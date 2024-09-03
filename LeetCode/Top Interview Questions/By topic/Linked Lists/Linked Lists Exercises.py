@@ -5,6 +5,11 @@ CHALLENGES INDEX
 19. Remove Nth Node From End of List (LL) (TP)
 21. Merge Two Sorted Lists (LL) (RC)
 23. Merge k Sorted Lists (LL) (DQ) (Heap) (Sorting)
+138. Copy List with Random Pointer (Hash Table) (LL)
+141. Linked List Cycle (TP) (LL)
+148. Sort List (TP) (LL)
+160. Intersection of Two Linked Lists (TP) (LL)
+
 
 
 *LL: Linked-Lists
@@ -19,6 +24,13 @@ CHALLENGES INDEX
 *GRE: Greedy
 *DQ: Divide and Conquer
 *BT: Backtracking
+*BFS & DFS: Breadth-First Search & Depth-First Search
+*Arrays, Hash Tables & Matrices
+*Sorting
+*Heaps, Stacks & Queues
+*Graphs & Trees
+*Others
+
 
 
 (XX)
@@ -370,6 +382,487 @@ CHALLENGES INDEX
 #     print(res)
 
 #     'Notes: It worked'
+
+'''138. Copy List with Random Pointer'''
+# def x():
+
+#     # Base
+#     class Node:
+#         def __init__(self, x, next=None, random=None):
+#             self.val = int(x)
+#             self.next = next
+#             self.random = random
+
+
+#     #Input
+#     #Case 1
+#     head_map = [[7,None],[13,0],[11,4],[10,2],[1,0]]
+
+#     #Build the relations of the list
+#     nodes = [Node(x=val[0]) for val in head_map]
+
+#     for i in range(len(nodes)):
+#         nodes[i].next = None if i == len(nodes)-1 else nodes[i+1]
+#         nodes[i].random = None if head_map[i][1] is None else nodes[head_map[i][1]]
+
+#     head = nodes[0]
+#     # Output: [[7,None],[13,0],[11,4],[10,2],[1,0]]
+
+
+#     #Case 2
+#     head_map = [[1,1],[2,1]]
+
+#     #Build the relations of the list
+#     nodes = [Node(x=val[0]) for val in head_map]
+
+#     for i in range(len(nodes)):
+#         nodes[i].next = None if i == len(nodes)-1 else nodes[i+1]
+#         nodes[i].random = None if head_map[i][1] is None else nodes[head_map[i][1]]
+
+#     head = nodes[0]
+#     #Output: [[7,None],[13,0],[11,4],[10,2],[1,0]]
+
+
+#     #Case 3
+#     head_map = [[3,None],[3,0],[3,None]]
+
+#     #Build the relations of the list
+#     nodes = [Node(x=val[0]) for val in head_map]
+
+#     for i in range(len(nodes)):
+#         nodes[i].next = None if i == len(nodes)-1 else nodes[i+1]
+#         nodes[i].random = None if head_map[i][1] is None else nodes[head_map[i][1]]
+
+#     head = nodes[0]
+#     #Output: [[7,None],[13,0],[11,4],[10,2],[1,0]]
+
+
+#     '''
+#     My Approach
+
+#         Intuition:
+#             - Traverse through the list
+#             - Create a copy of each node and store it into a list along side with the content of the random pointer.
+#             - Traverse the list linking each node to the next and the random pointer to the position in that list.
+
+#         Thoughts:
+
+#         - It is possible to create the list with a recursive solution but it'll be still necesary to traverse again
+#             to collect the content of the random pointer or how else I can point to somewhere at each moment I don't know if it exist. 
+#     '''
+
+#     def copyRandomList(head:Node) -> Node:
+
+#         # Handle the corner case where there is a single node list
+#         if head.next == None:
+#             result = Node(x = head.val, random=result)
+#             return result
+
+#         # Initilize a nodes holder dict to collect the new nodes while traversing the list
+#         nodes = {}
+
+#         # Initilize a nodes holder list to collect the old nodes values while traversing the list
+#         old_nodes_vals = []
+
+#         # Initialize a dummy node to traverse the list
+#         current_node = head
+
+#         # Traverse the list
+#         while current_node is not None:
+
+#             # Collect the old nodes
+#             old_nodes_vals.append(current_node.val)
+
+#             # Check if the node doesn't already exist due to the random pointer handling
+#             if current_node.val not in nodes.keys(): 
+
+#                 new_node = Node(x = current_node.val)
+#                 nodes[new_node.val] = new_node
+            
+#             else:
+#                 new_node = nodes[current_node.val]
+
+
+#             # Handle the random pointer 
+#             if current_node.random is None:
+#                 new_node.random = None
+
+#             else:
+
+#                 # If the randoms does not exist already in the dict, create a new entry in the dict with the random value as key and a node holding that value 
+#                 if current_node.random.val not in nodes.keys():
+#                     nodes[current_node.random.val] = Node(x = current_node.random.val)
+            
+#                 new_node.random = nodes[current_node.random.val]
+
+
+#             # Move to the next node
+#             current_node = current_node.next
+        
+
+#         # Pull the nodes as a list to link to their next attribute
+#         nodes_list = [nodes[x] for x in old_nodes_vals]
+
+#         # Traverse the nodes list
+#         for i, node in enumerate(nodes_list):
+#             node.next = nodes_list[i+1] if i != len(nodes_list)-1 else None    
+
+#         return nodes_list[0]
+
+#     # Testing
+#     result = copyRandomList(head=head)
+
+#     new_copy = []
+#     while result is not None:
+#         new_copy.append([result.val, result.random.val if result.random is not None else None])
+#         result = result.next
+
+#     'Note: My solution works while the values of the list are unique, otherwise a new approach is needed'
+
+
+#     'Another Approach'
+#     def copyRandomList(head:Node):
+
+#         nodes_map = {}
+
+#         current = head
+
+#         while current is not None:
+
+#             nodes_map[current] = Node(x = current.val)
+#             current = current.next
+
+        
+#         current = head
+
+#         while current is not None:
+
+#             new_node = nodes_map[current]
+#             new_node.next = nodes_map.get(current.next)
+#             new_node.random = nodes_map.get(current.random)
+
+#             current = current.next
+        
+#         return nodes_map[head]
+
+
+#     result = copyRandomList(head=head)
+
+
+#     new_copy = []
+#     while result is not None:
+#         new_copy.append([result.val, result.random.val if result.random is not None else None])
+#         result = result.next
+
+#     'Done'
+
+'''141. Linked List Cycle'''
+# def x():
+
+#     # Base
+#     class ListNode(object):
+#         def __init__(self, x):
+#             self.val = x
+#             self.next = None
+
+#     # Input
+#     # Case 1
+#     head_layout = [3,2,0,-4]
+#     head = ListNode(x=3)
+#     pos1 = ListNode(x=2)
+#     pos2 = ListNode(x=0)
+#     pos3 = ListNode(x=-4)
+#     head.next, pos1.next, pos2.next, pos3.next = pos1, pos2, pos3, pos1
+#     # Output: True / Pos1
+
+#     # Case 2
+#     head_layout = [1,2]
+#     head = ListNode(x=1)
+#     pos1 = ListNode(x=2)
+#     head.next, pos1.next = pos1, head
+#     # Output: True / Pos0
+
+#     # Case 3
+#     head_layout = [1]
+#     head = ListNode(x=1)
+#     # Output: False / pos-1
+
+#     'My Approach'
+#     def hasCycle(head:ListNode) -> bool:
+
+#         # Hanlde Corner Case
+#         if head is None or head.next == None:
+#             return False
+        
+
+#         visited = []
+#         curr = head
+
+#         while curr is not None:
+
+#             if curr in visited:
+#                 return True
+            
+#             visited.append(curr)
+
+#             curr = curr.next
+        
+#         return False
+
+#     # Testing
+#     print(hasCycle(head=head))
+
+#     'Note: This a suboptimal solution, it works but it takes considerable memory to solve it'
+
+
+#     '''
+#     Another approach (Probing)
+
+#     Explanation
+        
+#         By making two markers initialized in the head one with the double of the "speed" of the other, if those are in a cycle
+#         at some point they got to meet, it means there is a cycle in the list, but if one if the faster gets to None,
+#         that'll mean that there is no cycle in there.
+#     '''
+
+#     def hasCycle(head:ListNode) -> bool:
+
+#         if not head:
+#             return False
+        
+#         slow = fast = head
+
+#         while fast and fast.next:
+
+#             slow = slow.next
+#             fast = fast.next.next
+
+#             if slow == fast:
+#                 return True
+        
+#         return False
+
+#     # Testing
+#     print(hasCycle(head=head))
+
+#     'Done'
+
+'''148. Sort List'''
+# def x():
+
+#     # Base
+#     class ListNode(object):
+#         def __init__(self, val=0, next=None):
+#             self.val = val
+#             self.next = next
+
+#     # Input
+#     # Case 1
+#     list_layout = [4,2,1,3]
+#     head = ListNode(val=4, next=ListNode(val=2, next=ListNode(val=1, next=ListNode(val=3))))
+#     # Output: [1,2,3,4]
+
+#     # Case 2
+#     list_layout = [-1,5,3,4,0]
+#     head = ListNode(val=-1, next=ListNode(val=5, next=ListNode(val=3, next=ListNode(val=4, next=ListNode(val=0)))))
+#     # Output: [-1,0,3,4,5]
+
+#     # Case 3
+#     list_layout = [1,2,3,4]
+#     head = ListNode(val=1, next=ListNode(val=2, next=ListNode(val=3, next=ListNode(val=4))))
+#     # Output: [1,2,3,4]
+
+
+#     '''
+#     My Approach
+    
+#         Intuition:
+
+#             - Brute force: Traverse the list to collect each node with its value in a list,
+#             and apply some sorting algorithm to sort them.
+#     '''
+
+#     def sortList(head):
+
+#         if not head:
+#             return ListNode()
+        
+#         curr = head
+#         holder = []
+
+#         while curr:
+
+#             holder.append([curr.val, curr])
+#             curr = curr.next
+
+
+#         def merge_sort(li):
+
+#             if len(li)<=1:
+#                 return li
+            
+#             left_side = li[:len(li)//2]
+#             right_side = li[len(li)//2:]
+
+#             left_side = merge_sort(left_side)
+#             right_side = merge_sort(right_side)
+
+#             return merge(left=left_side, right=right_side)
+
+
+#         def merge(left, right):
+            
+#             i = j = 0
+#             result = []
+
+#             while i < len(left) and j < len(right):
+
+#                 if left[i][0] < right[j][0]:
+#                     result.append(left[i])
+#                     i+=1
+                
+#                 else:
+#                     result.append(right[j])
+#                     j+=1
+
+#             while i < len(left):
+#                 result.append(left[i])
+#                 i+=1
+            
+#             while j < len(right):
+#                 result.append(right[j])
+#                 j+=1
+
+#             return result
+
+#         sorted_list = merge_sort(li=holder)
+        
+#         for i in range(len(sorted_list)):
+
+#             if i == len(sorted_list)-1:
+#                 sorted_list[i][1].next = None
+            
+#             else:
+#                 sorted_list[i][1].next = sorted_list[i+1][1]
+        
+#         return sorted_list[0][1]
+
+#     # Testing
+#     test = sortList(head=head)
+
+#     'Done'
+
+'''160. Intersection of Two Linked Lists'''
+# def x():
+
+#     # Base
+#     class ListNode(object):
+#         def __init__(self, x):
+#             self.val = x
+#             self.next = None
+
+#     # Input
+#     # Case 1
+#     listA, listB = [4,1,8,4,5], [5,6,1,8,4,5]
+#     a1, a2 = ListNode(x=4), ListNode(x=1)
+#     c1, c2, c3 = ListNode(x=8), ListNode(x=4), ListNode(x=5)
+#     b1, b2, b3 = ListNode(x=5), ListNode(x=6), ListNode(x=1)
+#     a1.next, a2.next = a2, c1
+#     c1.next, c2.next = c2, c3
+#     b1.next, b2.next, b3.next = b2, b3, c1
+#     #Output: 8
+
+#     # Case 2
+#     listA, listB = [1,9,1,2,4], [3,2,4]
+#     a1, a2, a3 = ListNode(x=1), ListNode(x=9), ListNode(x=1)
+#     c1, c2 = ListNode(x=2), ListNode(x=4)
+#     b1 = ListNode(x=3)
+#     a1.next, a2.next, a3.next = a2, a3, c1
+#     c1.next = c2
+#     b1.next = c1
+#     # Output: 2
+
+#     # Case 3
+#     listA, listB = [2,6,4], [1,5]
+#     a1, a2, a3 = ListNode(x=2), ListNode(x=6), ListNode(x=4)
+#     b1, b2 = ListNode(x=1), ListNode(x=5)
+#     a1.next, a2.next = a2, a3
+#     b1.next = b2
+#     # Output: None
+
+
+#     '''
+#     My approach
+
+#         Intuition
+#             - Traverse the first list saving the nodes in a list
+#             - Traverse the second list while checking if the current node is in the list
+#                 - If so, return that node
+#                 - Else, let the loop end
+#             - If the code gets to the end of the second loop, means there isn't a intersection.
+#     '''
+
+#     def getIntersectionNode(headA = ListNode, headB = ListNode) -> ListNode:
+
+#         visited_nodes = []
+
+#         curr = headA
+
+#         while curr:
+#             visited_nodes.append(curr)
+#             curr = curr.next
+
+#         curr = headB
+
+#         while curr:
+            
+#             if curr in visited_nodes:
+#                 return curr
+            
+#             curr = curr.next
+            
+#         return None
+
+#     # Testing
+#     result = getIntersectionNode(headA=a1, headB=b1)
+#     print(result.val) if result else print(None)
+
+#     'Note: This solution breaks when the data input is too large in leetcode, it got up to 92% of cases'
+
+
+#     'Two pointers Approach'
+#     def getIntersectionNode(headA = ListNode, headB = ListNode) -> ListNode:
+
+#         a, b = headA, headB
+
+#         while a != b:
+        
+#             if not a:
+#                 a = headB
+
+#             else:
+#                 a = a.next
+            
+#             if not b:
+#                 b = headA
+            
+#             else:
+#                 b = b.next
+        
+#         return a
+
+#     # Testing
+#     result = getIntersectionNode(headA=a1, headB=b1)
+#     print(result.val) if result else print(None)
+
+#     '''
+#     Explanation
+
+#         The logic here is that with two pointer, each one directed to the head of each list,
+#         if both exhaust their lists and star with the other, if there are intersected they MUST
+#         meet at the intersection node after traversing both lists respectviely or otherwise they will be 'None'
+#         at same time after the second lap of the respective lists.
+# '''
 
 
 

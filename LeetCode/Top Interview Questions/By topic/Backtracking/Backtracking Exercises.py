@@ -6,6 +6,9 @@ CHALLENGES INDEX
 46. Permutations (Array) (BT)
 78. Subsets (Array) (BT)
 79. Word Search (Matrix) (BT)
+131. Palindrome Partitioning (DP) (BT)
+140. Word Break II (DP) (BT)
+
 
 
 *LL: Linked-Lists
@@ -401,6 +404,174 @@ CHALLENGES INDEX
             
 #     # Testing
 #     print(exist(board, word))
+
+'''131. Palindrome Partitioning'''
+# def x():
+
+#     # Input
+#     # Case 1
+#     s = 'aab'
+#     # Output: [["a","a","b"],["aa","b"]]
+
+#     # Custom Case
+#     s = 'aabcdededcbada'
+#     # Output: [["a","a","b"],["aa","b"]]
+
+#     # Custom Case
+#     s = 'aabcdededcbada'
+#     # Output: ['abcdededcba', 'bcdededcb', 'cdededc', 'deded', 'ded', 'ede', 'ded', 'ada', 'aa'] 
+
+
+#     '''
+#     My Approach
+
+#         Intuition:
+
+#             Here I don't actually have much ideas in how to solve it, but one good approach
+#             I think woul dbe to make a function that can pull all the palindroms present in a string.
+
+#             that could be a good start point.
+#     '''
+
+#     def palindromes(string:str) -> list[str]:
+
+#         s_len = len(string)
+#         palindromes = []
+
+#         for i in range(s_len, 1, -1):   # from s_len down to length 2 of substring
+        
+#             j = 0
+
+#             while j + i <= s_len: 
+
+#                 subs = string[j:j+i]
+
+#                 if subs == subs[::-1]:
+
+#                     palindromes.append(subs)
+
+#                 j += 1
+
+#         print(palindromes)
+
+#     # Testing
+#     # Printout: ['abcdededcba', 'bcdededcb', 'cdededc', 'deded', 'ded', 'ede', 'ded', 'ada', 'aa'] 
+#     palindromes(string=s)
+
+#     '''
+#     Notes: At least this I was able to do, from here on, I am feeling I am going to brute forcing this and it won't end up being efficient.
+
+#         I didn't actually solved it but I don't want to waste more time over this.
+#     '''
+
+'''140. Word Break II'''
+# def x():
+
+#     #Input
+#     #Case 1
+#     s = "catsanddog"
+#     wordDict = ["cat","cats","and","sand","dog"]
+#     #Output: ["cats and dog","cat sand dog"]
+
+#     #Case 2
+#     s = "pineapplepenapple"
+#     wordDict = ["apple","pen","applepen","pine","pineapple"]
+#     #Output: ["pine apple pen apple","pineapple pen apple","pine applepen apple"]
+
+#     #Case 3
+#     s = "catsandog"
+#     wordDict = ["cats","dog","sand","and","cat"]
+#     #Output: []
+
+
+#     '''
+#     My Approach
+
+#         Intuition:
+
+#             - With the solution of the last exercise, bring the found words into a list and join them to from a sentence.
+#             - In a loop, check if the first found word is the same of the last sentece, if do, keep searching for another word,
+#                 - if not found words after looping from the first character, end the loop.
+#     '''
+
+#     def wordBreak(s:str, wordDict:list[str]) -> list[str]:
+
+#         sentences = []
+#         sent = []
+#         string = s
+#         lasts_first_word = []
+
+#         while True:
+
+#             j = 0
+
+#             while j < len(string):
+
+#                 if string[0:j+1] in wordDict and string[0:j+1] not in lasts_first_word:
+
+#                     sent.append(string[0:j+1])
+#                     string = string[j+1:]
+#                     j = 0
+                
+#                 else:
+#                     j += 1
+            
+
+#             if sent:
+#                 sentences.append(' '.join(sent))
+#                 string = s
+#                 lasts_first_word.append(sent[0])
+#                 sent = []
+            
+#             else:
+#                 break
+        
+#         return sentences        
+
+#     # Testing
+#     print(wordBreak(s=s, wordDict=wordDict))
+
+#     "Note:This solution doesn't even get to pass all the initial test cases, but at least it worked as a challenge to do at least one"
+
+
+#     'Backtracking & Recursion approach'
+#     def wordBreakHelper(s:str, start:int, word_set:set, memo:dict) -> list[str]:
+
+#         if start in memo:
+#             return memo[start]
+        
+#         valid_substr = []
+
+#         if start == len(s):
+#             valid_substr.append('')
+
+#         for end in range(start+1, len(s)+1):
+
+#             prefix = s[start:end]
+
+#             if prefix in word_set:
+
+#                 suffixes = wordBreakHelper(s, end, word_set, memo)
+
+#                 for suffix in suffixes:
+
+#                     valid_substr.append(prefix + ('' if suffix == '' else ' ') + suffix)
+
+#         memo[start] = valid_substr
+
+#         return valid_substr
+            
+
+#     def wordBreak(s:str, wordDict: list[str]) -> list[str]:
+
+#         memo = {}
+#         word_set = set(wordDict)
+#         return wordBreakHelper(s, 0, word_set, memo)
+
+#     # Testing
+#     print(wordBreak(s=s, wordDict=wordDict))
+
+#     'Done'
 
 
 

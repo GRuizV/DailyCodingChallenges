@@ -8,6 +8,14 @@ CHALLENGES INDEX
 62. Unique Paths (DP)
 70. Climbing Stairs (DP)
 91. Decode Ways (DP)
+118. Pascal's Triangle (Array) (DP)
+121. Best Time to Buy and Sell Stock (Array) (DP)
+122. Best Time to Buy and Sell Stock II (Array) (DP) (GRE)
+124. Binary Tree Maximum Path Sum (DP) (Tree) (DFS)
+131. Palindrome Partitioning (DP) (BT)
+139. Word Break (DP)
+140. Word Break II (DP) (BT)
+152. Maximum Product Subarray (Array) (DP)
 
 
 *LL: Linked-Lists
@@ -22,6 +30,13 @@ CHALLENGES INDEX
 *GRE: Greedy
 *DQ: Divide and Conquer
 *BT: Backtracking
+*BFS & DFS: Breadth-First Search & Depth-First Search
+*Arrays, Hash Tables & Matrices
+*Sorting
+*Heaps, Stacks & Queues
+*Graphs & Trees
+*Others
+
 
 
 (XX)
@@ -419,6 +434,638 @@ CHALLENGES INDEX
 #             return res
 
 #         return backtrack(0)
+
+'''118. Pascal's Triangle'''
+# def x():
+
+#     # Input
+#     # Case 1
+#     numRows = 5
+#     #Output: [[1],[1,1],[1,2,1],[1,3,3,1],[1,4,6,4,1]
+
+#     # Case 2
+#     numRows = 1
+#     #Output: [[1]]
+      
+
+#     '''
+#     My Approach
+
+#         Intuition:
+#             initialize a preset solution to [[1],[1,1]] and according to the
+#             parameter passed in the function, start to sum and populate this sums to a list
+#             like [1]+[resulting_sums]+[1] and return that back to the preset solution, to operate over that
+#             new element,
+
+#                 The number of loops will be numRows - 2 (given the 2 initial elements)
+#     '''
+
+#     def generate(numRows:int) -> list[list[int]]:
+
+#         result = [[1],[1,1]]
+
+#         if numRows == 1:
+#             return [result[0]]
+        
+#         if numRows == 2:
+#             return result
+        
+
+#         for i in range(1, numRows-1):
+
+#             new_element = []
+
+#             for j in range(i):
+#                 new_element.append(result[-1][j]+result[-1][j+1])
+
+#             if new_element:
+#                 result.append([1]+new_element+[1])
+
+#         return result
+
+#     # Testing
+#     print(generate(numRows=5))
+
+#     'It worked!'
+
+'''121. Best Time to Buy and Sell Stock'''
+# def x():
+
+#     # Input
+#     #Case 1
+#     prices = [7,1,5,3,6,4]
+#     #Output: 5
+
+#     #Case 2
+#     prices = [7,6,4,3,1]
+#     #Output: 0
+
+
+#     '''
+#     My approach
+#         Intuition
+#             - Corner Case: if is a ascendingly sorted list, return 0.
+            
+#             - Pick the first item and set the profit as the max between the current profit and the difference between the first element
+#             the max value from that item forward.
+            
+#             Do this in a while loop until len(prices) = 1.
+#     '''
+
+#     def maxProfit(prices: list[int]) -> int:
+
+#         profit = 0
+
+#         if prices == sorted(prices, reverse=True):
+#             return profit        
+
+#         while len(prices) > 1:
+
+#             purchase = prices.pop(0)
+#             profit = max(profit, max(prices)-purchase)
+        
+#         return profit
+
+#     # Testing
+#     print(maxProfit(prices=prices))
+
+#     'This approach met 94% of the results'
+
+
+#     '''Kadane's Algorithm'''
+#     def maxProfit(prices: list[int]) -> int:
+
+#         buy = prices[0]
+#         profit = 0
+
+#         for num in prices[1:]:
+
+#             if num < buy:
+#                 buy = num
+            
+#             elif num-buy > profit:
+#                 profit = num - buy
+        
+        
+#         return profit
+
+#     # Testing
+#     print(maxProfit(prices=prices))
+
+#     'Done'
+
+'''122. Best Time to Buy and Sell Stock II'''
+# def x():
+
+#     #Input
+#     #Case 1
+#     prices = [7,1,5,3,6,4]
+#     #Output: 7
+
+#     #Case 2
+#     prices = [1,2,3,4,5]
+#     #Output: 4
+
+#     #Case 3
+#     prices = [7,6,4,3,1]
+#     #Output: 0
+
+#     #Custom Case
+#     prices = [3,3,5,0,0,3,1,4]
+#     #Output: 0
+
+
+#     'My approach'
+#     def maxProfit(prices:list[int]) -> int:
+
+#         if prices == sorted(prices, reverse=True):
+#             return 0
+        
+#         buy = prices[0]
+#         buy2 = None
+#         profit1 = 0
+#         profit2 = 0
+#         total_profit = 0
+
+#         for i in range(1, len(prices)):
+
+#             if prices[i] < buy:
+#                 buy = prices[i]
+            
+#             elif prices[i] - buy >= profit1:            
+#                 profit1 = prices[i] - buy
+#                 buy2 = prices[i] 
+
+#                 for j in range(i+1, len(prices)):
+
+#                     if prices[j] < buy2:
+#                         buy2 = prices[j]
+
+#                     elif prices[j] - buy2 >= profit2:
+#                         profit2 = prices[j] - buy2
+#                         total_profit = max(total_profit, profit1 + profit2)
+            
+#             total_profit = max(total_profit, profit1)
+
+#         return total_profit
+
+#     # Testing
+#     print(maxProfit(prices=prices))
+
+#     'This solution went up to solve 83% of the cases, the gap was due to my lack of understanding of the problem'
+
+
+#     '''Same Kadane's but modified'''
+#     def maxProfit(prices:list[int]) -> int:
+
+#         max = 0 
+#         start = prices[0]
+#         len1 = len(prices)
+
+#         for i in range(0 , len1):
+
+#             if start < prices[i]: 
+#                 max += prices[i] - start
+
+#             start = prices[i]
+
+#         return max
+
+#     # Testing
+#     print(maxProfit(prices=prices))
+
+#     'My mistake was to assume it can only be 2 purchases in the term, when it could be as many as it made sense'
+
+'''124. Binary Tree Maximum Path Sum'''
+# def x():
+
+#     # Base 
+#     class TreeNode(object):
+#         def __init__(self, val=0, left=None, right=None):
+#             self.val = val
+#             self.left = left
+#             self.right = right
+
+#     # Input
+#     #Case 1
+#     tree_layout = [1,2,3]
+#     root = TreeNode(val=1, left=TreeNode(val=2), right=TreeNode(val=3))
+#     #Output: 6
+
+#     #Case 2
+#     tree_layout = [-10,9,20,None, None,15,7]
+#     left = TreeNode(val=9)
+#     right = TreeNode(val=20, left=TreeNode(val=15), right=TreeNode(val=7))
+#     root = TreeNode(val=-10, left=left, right=right)
+#     #Output: 42
+
+#     #Custom Case
+#     tree_layout = [1,-2,3,1,-1,-2,-3]
+#     left = TreeNode(val=-2, left=TreeNode(val=1), right=TreeNode(val=3))
+#     right = TreeNode(val=-3, left=TreeNode(val=-2, left=TreeNode(val=-1)))
+#     root = TreeNode(val=1, left=left, right=right)
+#     #Output: 3
+
+
+#     '''
+#     My Approach
+
+#         Intuition:
+#             - Make a preorder traversal tree list.
+#             - Apply Kadane's algorithm to that list.
+#     '''
+
+#     def maxPathSum(root:TreeNode) -> int:
+
+#         #First, Preorder
+#         path = []
+
+#         def preorder(node:TreeNode) -> None:
+
+#             if node:
+#                 preorder(node=node.left)
+#                 path.append(node.val)
+#                 preorder(node=node.right)
+
+#         preorder(node=root)
+
+#         #Now Kadane's
+#         max_so_far = max_end_here = path[0]
+
+#         for num in path[1:]:
+
+#             max_end_here = max(num, max_end_here + num)
+#             max_so_far = max(max_so_far, max_end_here)
+
+#         return max_so_far
+
+#     # Testing
+#     print(maxPathSum(root=root))
+
+#     '''
+#     Notes:
+#         - On the first run it went up to 59% of the cases, thats Kudos for me! :D
+#         - The problem with this algorithm is that it supposes that after reaching a parent and child node,
+#         it's possible to go from a right child to the parent of the parent and that either forcibly makes
+#         to pass twice from the parent before going to the granparent, or that one grandchild is connected
+#         to the grandfather, which is also out of the rules.
+
+#         I misinterpret this because one of the examples showed a path [leftchild, parent, rightchild] which
+#         is valid only if we don't want to pass thruough the grandparent.
+        
+#         The best choice here is to make a recursive proning algorithm
+#     '''
+
+
+#     'A recursive approach'
+#     def maxPathSum(root):
+
+#         max_path = float('-inf') #Placeholder
+
+#         def get_max_gain(node):
+
+#             nonlocal max_path
+
+#             if not node:
+#                 return 0
+            
+#             gain_on_left = max(get_max_gain(node.left),0)
+#             gain_on_right = max(get_max_gain(node.right),0)
+
+#             current_max_path = node.val + gain_on_left + gain_on_right
+#             max_path = max(max_path, current_max_path)
+
+#             return node.val + max(gain_on_left, gain_on_right)
+        
+#         get_max_gain(root)
+
+#         return max_path
+
+#     # Testing
+#     print(maxPathSum(root))
+
+#     'Done'
+
+'''131. Palindrome Partitioning'''
+# def x():
+
+#     # Input
+#     # Case 1
+#     s = 'aab'
+#     # Output: [["a","a","b"],["aa","b"]]
+
+#     # Custom Case
+#     s = 'aabcdededcbada'
+#     # Output: [["a","a","b"],["aa","b"]]
+
+#     # Custom Case
+#     s = 'aabcdededcbada'
+#     # Output: ['abcdededcba', 'bcdededcb', 'cdededc', 'deded', 'ded', 'ede', 'ded', 'ada', 'aa'] 
+
+
+#     '''
+#     My Approach
+
+#         Intuition:
+
+#             Here I don't actually have much ideas in how to solve it, but one good approach
+#             I think woul dbe to make a function that can pull all the palindroms present in a string.
+
+#             that could be a good start point.
+#     '''
+
+#     def palindromes(string:str) -> list[str]:
+
+#         s_len = len(string)
+#         palindromes = []
+
+#         for i in range(s_len, 1, -1):   # from s_len down to length 2 of substring
+        
+#             j = 0
+
+#             while j + i <= s_len: 
+
+#                 subs = string[j:j+i]
+
+#                 if subs == subs[::-1]:
+
+#                     palindromes.append(subs)
+
+#                 j += 1
+
+#         print(palindromes)
+
+#     # Testing
+#     # Printout: ['abcdededcba', 'bcdededcb', 'cdededc', 'deded', 'ded', 'ede', 'ded', 'ada', 'aa'] 
+#     palindromes(string=s)
+
+#     '''
+#     Notes: At least this I was able to do, from here on, I am feeling I am going to brute forcing this and it won't end up being efficient.
+
+#         I didn't actually solved it but I don't want to waste more time over this.
+#     '''
+
+'''139. Word Break'''
+# def x():
+
+#     #Input
+#     #Case 1
+#     s = "leetcode" 
+#     wordDict = ["leet","code"]
+#     #Output: True
+
+#     #Case 2
+#     s = "applepenapple"
+#     wordDict = ["apple","pen"]
+#     #Output: True
+
+#     #Case 3
+#     s = "catsandog"
+#     wordDict = ["cats","dog","sand","and","cat"]
+#     #Output: False
+
+
+#     '''
+#     My Approach
+
+#         Intuition (Brute-force):
+
+#             in a while loop go word for word in the dict checking if the word exists in the string:
+
+#                 - If it does: Overwrite the string taking out the found word / else: go to the next word
+
+#                 The loop will be when either no words are found in the string or the string is empty
+
+#                 if after the loop the string is empty, return True, otherwise False
+#     '''
+
+#     def workBreak(string:str, word_dict:list[str]) -> bool:
+
+#         j = 0
+
+#         while j < len(word_dict):
+
+#             if word_dict[j] in string:
+
+#                 w_len = len(word_dict[j])
+#                 idx = string.find(word_dict[j])
+#                 string = string[:idx]+string[idx+w_len:]
+
+#                 j = 0
+        
+#             else:
+#                 j += 1
+
+#         return False if string else True
+
+#     print(workBreak(string=s, word_dict=wordDict))
+
+#     'Note: This solution goes up to the 74% of the test cases'
+
+
+#     'Dynamic Programming Approach'
+#     def workBreak(string:str, word_dict:list[str]) -> bool:
+
+#         dp = [False] * (len(s) + 1) # dp[i] means s[:i+1] can be segmented into words in the wordDicts 
+#         dp[0] = True
+
+#         for i in range(len(s)):
+
+#             for j in range(i, len(s)):
+                
+#                 i_dp = dp[i]
+#                 sub_s = s[i: j+1]
+#                 test = sub_s in wordDict
+
+#                 if i_dp and test:
+#                     dp[j+1] = True
+                    
+#         return dp[-1]
+
+#     print(workBreak(string=s, word_dict=wordDict))
+
+#     'Done'
+
+'''140. Word Break II'''
+# def x():
+
+#     #Input
+#     #Case 1
+#     s = "catsanddog"
+#     wordDict = ["cat","cats","and","sand","dog"]
+#     #Output: ["cats and dog","cat sand dog"]
+
+#     #Case 2
+#     s = "pineapplepenapple"
+#     wordDict = ["apple","pen","applepen","pine","pineapple"]
+#     #Output: ["pine apple pen apple","pineapple pen apple","pine applepen apple"]
+
+#     #Case 3
+#     s = "catsandog"
+#     wordDict = ["cats","dog","sand","and","cat"]
+#     #Output: []
+
+
+#     '''
+#     My Approach
+
+#         Intuition:
+
+#             - With the solution of the last exercise, bring the found words into a list and join them to from a sentence.
+#             - In a loop, check if the first found word is the same of the last sentece, if do, keep searching for another word,
+#                 - if not found words after looping from the first character, end the loop.
+#     '''
+
+#     def wordBreak(s:str, wordDict:list[str]) -> list[str]:
+
+#         sentences = []
+#         sent = []
+#         string = s
+#         lasts_first_word = []
+
+#         while True:
+
+#             j = 0
+
+#             while j < len(string):
+
+#                 if string[0:j+1] in wordDict and string[0:j+1] not in lasts_first_word:
+
+#                     sent.append(string[0:j+1])
+#                     string = string[j+1:]
+#                     j = 0
+                
+#                 else:
+#                     j += 1
+            
+
+#             if sent:
+#                 sentences.append(' '.join(sent))
+#                 string = s
+#                 lasts_first_word.append(sent[0])
+#                 sent = []
+            
+#             else:
+#                 break
+        
+#         return sentences        
+
+#     # Testing
+#     print(wordBreak(s=s, wordDict=wordDict))
+
+#     "Note:This solution doesn't even get to pass all the initial test cases, but at least it worked as a challenge to do at least one"
+
+
+#     'Backtracking & Recursion approach'
+#     def wordBreakHelper(s:str, start:int, word_set:set, memo:dict) -> list[str]:
+
+#         if start in memo:
+#             return memo[start]
+        
+#         valid_substr = []
+
+#         if start == len(s):
+#             valid_substr.append('')
+
+#         for end in range(start+1, len(s)+1):
+
+#             prefix = s[start:end]
+
+#             if prefix in word_set:
+
+#                 suffixes = wordBreakHelper(s, end, word_set, memo)
+
+#                 for suffix in suffixes:
+
+#                     valid_substr.append(prefix + ('' if suffix == '' else ' ') + suffix)
+
+#         memo[start] = valid_substr
+
+#         return valid_substr
+            
+
+#     def wordBreak(s:str, wordDict: list[str]) -> list[str]:
+
+#         memo = {}
+#         word_set = set(wordDict)
+#         return wordBreakHelper(s, 0, word_set, memo)
+
+#     # Testing
+#     print(wordBreak(s=s, wordDict=wordDict))
+
+#     'Done'
+
+'''152. Maximum Product Subarray'''
+# def x():
+
+#     # Input
+#     # Case 1
+#     input = [2,3,-2,4]
+#     # Output: 6 / [2,3] has the largest product
+
+#     # Case 2
+#     input = [-2,0,-1]
+#     # Output: 0 / all products are 0
+
+#     # Custom Case
+#     input = [-2,3,-4]
+#     # Output: 0 / all products are 0
+
+
+#     '''
+#     My approach
+
+#         Intuition
+
+#             This is a variation of Kadane's Algorithm, and may be solve same way
+#             as the original
+#     '''
+
+#     def maxProduct(nums:list[int]) -> int:
+
+#         if len(nums) == 1:
+#             return nums[0]
+
+#         max_ends_here, max_so_far = nums[0]
+
+#         for num in nums[1:]:
+        
+#             max_ends_here = max(num, max_ends_here * num)
+#             max_so_far = max(max_so_far, max_ends_here)
+
+#         return max_so_far
+
+#     # Testing
+#     print(maxProduct(nums=input))
+
+#     '''
+#     Original Kadane's modified to compute product solved 51% of the cases. 
+#     But, apparently with capturing the min_so_far and having a buffer to hold the max_so_far to not interfere with the
+#         min_so_far calculation, the problem is solved
+#     '''
+
+#     '''Another Kadane's Mod. Approach'''
+#     def maxProduct(nums:list[int]) -> int:
+
+#         if len(nums) == 1:
+#             return nums[0]
+
+#         max_so_far = min_so_far = result = nums[0]
+
+#         for num in nums[1:]:
+        
+#             temp_max = max(num, max_so_far * num, min_so_far * num)
+#             min_so_far = min(num, max_so_far * num, min_so_far * num)
+#             max_so_far = temp_max
+
+#             result = max(result, max_so_far)
+
+#         return result
+
+#     # Testing
+#     print(maxProduct(nums=input))
+
+#     'Done'
 
 
 

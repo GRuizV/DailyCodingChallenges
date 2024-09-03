@@ -28,12 +28,24 @@ CHALLENGES INDEX
 295. Find Median from Data Stream (Heaps)
 
 
-*DS: Dynamic Programming
+*LL: Linked-Lists
+*BS: Binary Search
+*DP: Dynamic Programming
 *RC: Recursion
 *TP: Two-pointers
+*FCD: Floyd's cycle detection (Hare & Tortoise approach)
 *PS: Preffix-sum
 *SW: Sliding-Window
-*FCD: Floyd's Cycle Detection (Hare & Tortoise)
+*MEM: Memoization
+*GRE: Greedy
+*DQ: Divide and Conquer
+*BT: Backtracking
+*BFS & DFS: Breadth-First Search & Depth-First Search
+*Arrays, Hash Tables & Matrices
+*Sorting
+*Heaps, Stacks & Queues
+*Graphs & Trees
+*Others
 
 (25)
 '''

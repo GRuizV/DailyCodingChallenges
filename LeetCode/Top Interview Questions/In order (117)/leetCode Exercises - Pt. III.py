@@ -1,36 +1,51 @@
 '''
 CHALLENGES INDEX
 
-118. Pascal's Triangle (DP)
-121. Best Time to Buy and Sell Stock (DP)
-122. Best Time to Buy and Sell Stock II (DP)
-124. Binary Tree Maximum Path Sum (DP) (DFS)
+118. Pascal's Triangle (Array) (DP)
+121. Best Time to Buy and Sell Stock (Array) (DP)
+122. Best Time to Buy and Sell Stock II (Array) (DP) (GRE)
+124. Binary Tree Maximum Path Sum (DP) (Tree) (DFS)
 125. Valid Palindrome (TP)
-127. Word Ladder (BFS)
-128. Longest Consecutive Sequence
+127. Word Ladder (Hast Table) (BFS)
+128. Longest Consecutive Sequence (Array) (Hash Table)
 130. Surrounded Regions (Matrix) (BFS) (DFS)
-131. Palindrome Partitioning (DP)
-134. Gas Station
-138. Copy List with Random Pointer
+131. Palindrome Partitioning (DP) (BT)
+134. Gas Station (Array) (GRE)
+138. Copy List with Random Pointer (Hash Table) (LL)
 139. Word Break (DP)
-140. Word Break II (DP)
-141. Linked List Cycle (TP)
-146. LRU Cache
-148. Sort List (TP)
-149. Max Points on a Line
-150. Evaluate Reverse Polish Notation
-152. Maximum Product Subarray (DP)
-155. Min Stack
-160. Intersection of Two Linked Lists (TP)
-162. Find Peak Element
-166. Fraction ro Recurring Decimal
-171. Excel Sheet Column Number
-172. Factorial Trailing Zeroes
+140. Word Break II (DP) (BT)
+141. Linked List Cycle (TP) (LL)
+146. LRU Cache (Hash Table)
+148. Sort List (TP) (LL)
+149. Max Points on a Line (Other)
+150. Evaluate Reverse Polish Notation (Stack)
+152. Maximum Product Subarray (Array) (DP)
+155. Min Stack (Stack)
+160. Intersection of Two Linked Lists (TP) (LL)
+162. Find Peak Element (Array)
+166. Fraction to Recurring Decimal (Hash Table) (Others)
+171. Excel Sheet Column Number (Others)
+172. Factorial Trailing Zeroes (Others)
 
 
+*LL: Linked-Lists
+*BS: Binary Search
 *DP: Dynamic Programming
 *RC: Recursion
 *TP: Two-pointers
+*FCD: Floyd's cycle detection (Hare & Tortoise approach)
+*PS: Preffix-sum
+*SW: Sliding-Window
+*MEM: Memoization
+*GRE: Greedy
+*DQ: Divide and Conquer
+*BT: Backtracking
+*BFS & DFS: Breadth-First Search & Depth-First Search
+*Arrays, Hash Tables & Matrices
+*Sorting
+*Heaps, Stacks & Queues
+*Graphs & Trees
+*Others
 
 (25)
 '''

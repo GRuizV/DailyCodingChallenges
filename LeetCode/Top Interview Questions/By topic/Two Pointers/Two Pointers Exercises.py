@@ -7,6 +7,10 @@ CHALLENGES INDEX
 42. Trapping Rain Water (Array) (TP) (DS) (Stack)
 75. Sort Colors (Array) (TP) (Sorting)
 88. Merge Sorted Array (Array) (TP) (Sorting)
+125. Valid Palindrome (TP)
+141. Linked List Cycle (TP) (LL)
+148. Sort List (TP) (LL)
+160. Intersection of Two Linked Lists (TP) (LL)
 
 
 *LL: Linked-Lists
@@ -21,6 +25,12 @@ CHALLENGES INDEX
 *GRE: Greedy
 *DQ: Divide and Conquer
 *BT: Backtracking
+*BFS & DFS: Breadth-First Search & Depth-First Search
+*Arrays, Hash Tables & Matrices
+*Sorting
+*Heaps, Stacks & Queues
+*Graphs & Trees
+*Others
 
 
 (XX)
@@ -381,6 +391,328 @@ CHALLENGES INDEX
 #     # Testing
 #     merge(nums1,m,nums2,n)
 #     print(nums1)
+
+'''125. Valid Palindrome'''
+# def x():
+        
+#     def isPalindrome(s:str) -> bool:
+#         s = ''.join([x for x in s if x.isalpha()]).casefold()
+#         return s == s[::-1]
+
+#     # Testing
+#     a = '0PO'
+#     # a = ''.join([x for x in a if x.isalnum()]).casefold()
+#     print(isPalindrome(a))
+
+#     'Done'
+
+'''141. Linked List Cycle'''
+# def x():
+
+#     # Base
+#     class ListNode(object):
+#         def __init__(self, x):
+#             self.val = x
+#             self.next = None
+
+#     # Input
+#     # Case 1
+#     head_layout = [3,2,0,-4]
+#     head = ListNode(x=3)
+#     pos1 = ListNode(x=2)
+#     pos2 = ListNode(x=0)
+#     pos3 = ListNode(x=-4)
+#     head.next, pos1.next, pos2.next, pos3.next = pos1, pos2, pos3, pos1
+#     # Output: True / Pos1
+
+#     # Case 2
+#     head_layout = [1,2]
+#     head = ListNode(x=1)
+#     pos1 = ListNode(x=2)
+#     head.next, pos1.next = pos1, head
+#     # Output: True / Pos0
+
+#     # Case 3
+#     head_layout = [1]
+#     head = ListNode(x=1)
+#     # Output: False / pos-1
+
+#     'My Approach'
+#     def hasCycle(head:ListNode) -> bool:
+
+#         # Hanlde Corner Case
+#         if head is None or head.next == None:
+#             return False
+        
+
+#         visited = []
+#         curr = head
+
+#         while curr is not None:
+
+#             if curr in visited:
+#                 return True
+            
+#             visited.append(curr)
+
+#             curr = curr.next
+        
+#         return False
+
+#     # Testing
+#     print(hasCycle(head=head))
+
+#     'Note: This a suboptimal solution, it works but it takes considerable memory to solve it'
+
+
+#     '''
+#     Another approach (Probing)
+
+#     Explanation
+        
+#         By making two markers initialized in the head one with the double of the "speed" of the other, if those are in a cycle
+#         at some point they got to meet, it means there is a cycle in the list, but if one if the faster gets to None,
+#         that'll mean that there is no cycle in there.
+#     '''
+
+#     def hasCycle(head:ListNode) -> bool:
+
+#         if not head:
+#             return False
+        
+#         slow = fast = head
+
+#         while fast and fast.next:
+
+#             slow = slow.next
+#             fast = fast.next.next
+
+#             if slow == fast:
+#                 return True
+        
+#         return False
+
+#     # Testing
+#     print(hasCycle(head=head))
+
+#     'Done'
+
+'''148. Sort List'''
+# def x():
+
+#     # Base
+#     class ListNode(object):
+#         def __init__(self, val=0, next=None):
+#             self.val = val
+#             self.next = next
+
+#     # Input
+#     # Case 1
+#     list_layout = [4,2,1,3]
+#     head = ListNode(val=4, next=ListNode(val=2, next=ListNode(val=1, next=ListNode(val=3))))
+#     # Output: [1,2,3,4]
+
+#     # Case 2
+#     list_layout = [-1,5,3,4,0]
+#     head = ListNode(val=-1, next=ListNode(val=5, next=ListNode(val=3, next=ListNode(val=4, next=ListNode(val=0)))))
+#     # Output: [-1,0,3,4,5]
+
+#     # Case 3
+#     list_layout = [1,2,3,4]
+#     head = ListNode(val=1, next=ListNode(val=2, next=ListNode(val=3, next=ListNode(val=4))))
+#     # Output: [1,2,3,4]
+
+
+#     '''
+#     My Approach
+    
+#         Intuition:
+
+#             - Brute force: Traverse the list to collect each node with its value in a list,
+#             and apply some sorting algorithm to sort them.
+#     '''
+
+#     def sortList(head):
+
+#         if not head:
+#             return ListNode()
+        
+#         curr = head
+#         holder = []
+
+#         while curr:
+
+#             holder.append([curr.val, curr])
+#             curr = curr.next
+
+
+#         def merge_sort(li):
+
+#             if len(li)<=1:
+#                 return li
+            
+#             left_side = li[:len(li)//2]
+#             right_side = li[len(li)//2:]
+
+#             left_side = merge_sort(left_side)
+#             right_side = merge_sort(right_side)
+
+#             return merge(left=left_side, right=right_side)
+
+
+#         def merge(left, right):
+            
+#             i = j = 0
+#             result = []
+
+#             while i < len(left) and j < len(right):
+
+#                 if left[i][0] < right[j][0]:
+#                     result.append(left[i])
+#                     i+=1
+                
+#                 else:
+#                     result.append(right[j])
+#                     j+=1
+
+#             while i < len(left):
+#                 result.append(left[i])
+#                 i+=1
+            
+#             while j < len(right):
+#                 result.append(right[j])
+#                 j+=1
+
+#             return result
+
+#         sorted_list = merge_sort(li=holder)
+        
+#         for i in range(len(sorted_list)):
+
+#             if i == len(sorted_list)-1:
+#                 sorted_list[i][1].next = None
+            
+#             else:
+#                 sorted_list[i][1].next = sorted_list[i+1][1]
+        
+#         return sorted_list[0][1]
+
+#     # Testing
+#     test = sortList(head=head)
+
+#     'Done'
+
+'''160. Intersection of Two Linked Lists'''
+# def x():
+
+#     # Base
+#     class ListNode(object):
+#         def __init__(self, x):
+#             self.val = x
+#             self.next = None
+
+#     # Input
+#     # Case 1
+#     listA, listB = [4,1,8,4,5], [5,6,1,8,4,5]
+#     a1, a2 = ListNode(x=4), ListNode(x=1)
+#     c1, c2, c3 = ListNode(x=8), ListNode(x=4), ListNode(x=5)
+#     b1, b2, b3 = ListNode(x=5), ListNode(x=6), ListNode(x=1)
+#     a1.next, a2.next = a2, c1
+#     c1.next, c2.next = c2, c3
+#     b1.next, b2.next, b3.next = b2, b3, c1
+#     #Output: 8
+
+#     # Case 2
+#     listA, listB = [1,9,1,2,4], [3,2,4]
+#     a1, a2, a3 = ListNode(x=1), ListNode(x=9), ListNode(x=1)
+#     c1, c2 = ListNode(x=2), ListNode(x=4)
+#     b1 = ListNode(x=3)
+#     a1.next, a2.next, a3.next = a2, a3, c1
+#     c1.next = c2
+#     b1.next = c1
+#     # Output: 2
+
+#     # Case 3
+#     listA, listB = [2,6,4], [1,5]
+#     a1, a2, a3 = ListNode(x=2), ListNode(x=6), ListNode(x=4)
+#     b1, b2 = ListNode(x=1), ListNode(x=5)
+#     a1.next, a2.next = a2, a3
+#     b1.next = b2
+#     # Output: None
+
+
+#     '''
+#     My approach
+
+#         Intuition
+#             - Traverse the first list saving the nodes in a list
+#             - Traverse the second list while checking if the current node is in the list
+#                 - If so, return that node
+#                 - Else, let the loop end
+#             - If the code gets to the end of the second loop, means there isn't a intersection.
+#     '''
+
+#     def getIntersectionNode(headA = ListNode, headB = ListNode) -> ListNode:
+
+#         visited_nodes = []
+
+#         curr = headA
+
+#         while curr:
+#             visited_nodes.append(curr)
+#             curr = curr.next
+
+#         curr = headB
+
+#         while curr:
+            
+#             if curr in visited_nodes:
+#                 return curr
+            
+#             curr = curr.next
+            
+#         return None
+
+#     # Testing
+#     result = getIntersectionNode(headA=a1, headB=b1)
+#     print(result.val) if result else print(None)
+
+#     'Note: This solution breaks when the data input is too large in leetcode, it got up to 92% of cases'
+
+
+#     'Two pointers Approach'
+#     def getIntersectionNode(headA = ListNode, headB = ListNode) -> ListNode:
+
+#         a, b = headA, headB
+
+#         while a != b:
+        
+#             if not a:
+#                 a = headB
+
+#             else:
+#                 a = a.next
+            
+#             if not b:
+#                 b = headA
+            
+#             else:
+#                 b = b.next
+        
+#         return a
+
+#     # Testing
+#     result = getIntersectionNode(headA=a1, headB=b1)
+#     print(result.val) if result else print(None)
+
+#     '''
+#     Explanation
+
+#         The logic here is that with two pointer, each one directed to the head of each list,
+#         if both exhaust their lists and star with the other, if there are intersected they MUST
+#         meet at the intersection node after traversing both lists respectviely or otherwise they will be 'None'
+#         at same time after the second lap of the respective lists.
+# '''
 
 
 
