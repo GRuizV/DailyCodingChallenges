@@ -8,6 +8,7 @@ CHALLENGES INDEX
 179. Largest Number (Array) (Sorting) (GRE)
 215. Kth Largest Element in an Array (Array) (Heap) (DQ) (Sorting)
 218. The Skyline Problem (Heaps) (DQ)
+334. Increasing Triplet Subsequence (Array) (GRE)
 
 
 *LL: Linked-Lists
@@ -597,6 +598,157 @@ CHALLENGES INDEX
 #                 result.append([x, max_height])
                     
 #         return result
+
+#     'Done'
+
+'''334. Increasing Triplet Subsequence'''
+# def x():
+
+#     # Input
+#     # Case 1
+#     nums = [1,2,3,4,5]
+#     # Output: True / Any triplet where i < j < k is valid.
+
+#     # Case 2
+#     nums = [5,4,3,2,1]
+#     # Output: False / Any triplet where i < j < k is valid.
+
+#     # Case 3
+#     nums = [2,1,5,0,4,6]
+#     # Output: True / The triplet (3, 4, 5) where [0,4,6] is valid.
+
+#     # Custom Case
+#     nums = [1,2,2147483647]
+#     # Output: False.
+
+
+#     '''
+#     My approach (Brute forcing) - Iterative looping
+
+#         Intuition:
+
+#             - Handle corner cases: 
+#                 + If no input; 
+#                 + if input length < 3; 
+#                 + If input length = 3 != to sorted(input, reverse = False)
+#                 + If input == sorted(input, reverse = True)
+
+#             - In a while loop check one by one, starting from the first index, if next to it is any other element greater than it.
+#                 from that element start the search for a greater element than the first greater and 
+                
+#                 + if found, return True;
+#                 + else, move the initial index to the next and start over
+#                 + if the initial index gets to the second last element and no triplet has been found, return False.
+#     '''
+
+#     def increasingTriplet(nums: list[int]) -> bool:
+
+#         # Handle corner cases
+#         if not nums or len(nums) < 3 or (len(nums) == 3 and nums != sorted(nums, reverse=True)) or nums == sorted(nums, reverse=True):
+#             return False
+
+#         # Initialize the triplet initial index
+#         i = 0
+
+#         # Iterate through the input elements
+#         while i < len(nums)-2:
+
+#             for j in range(i+1, len(nums)):
+
+#                 if nums[j] > nums[i]:
+
+#                     for k in range(j+1, len(nums)):
+
+#                         if nums[k] > nums[j]:
+
+#                             return True
+                        
+#             i += 1
+        
+#         return False
+
+#     # Testing
+#     print(increasingTriplet(nums=nums))
+
+#     'Note: This approach met 90% of test cases, but failed with larger inputs. Time complexity: O(n^3)'
+
+
+#     '''
+#     My approach - Iterative selection
+
+#         Intuition:
+
+#             - Starting from the first index, check with listcomp if there is a larger element present.
+#                 + if it does, get its index and do the same but for this second element.
+#                     * if there are a larger element present return True,
+#                     * else, move the initial input to the next and start over.
+
+#             - Like the prior approach if it reaches the second last element in the input, end the loop and return False
+#     '''
+
+#     def increasingTriplet(nums: list[int]) -> bool:
+
+#         # Handle corner cases
+#         # if not nums or len(nums) < 3 or (len(nums) == 3 and nums != sorted(nums, reverse=True)) or nums == sorted(nums, reverse=True):
+#         #     return False
+
+#         # Initialize the triplet initial index
+#         i = 0
+
+#         # Iterate through the input elements
+#         while i < len(nums)-2:
+
+#             # Get the next greater element of nums[i]
+#             sec_greater = list(filter(lambda x: x>nums[i], nums[i+1:-1]))
+
+#             # if such element exist
+#             if sec_greater:    
+                
+#                 # Iterate again for the rest of the greater elements
+#                 for elem in sec_greater:
+
+#                     # Get the idx of the first greater element than nums[i]
+#                     j = nums.index(elem, i+1)            
+
+#                     # Find a element greater than nums[j]
+#                     third_greater = list(filter(lambda x: x>nums[j], nums[j+1:]))
+
+#                     # if there are greater element than nums[j], return True
+#                     if third_greater:
+#                         return True       
+                            
+#             i += 1
+        
+#         return False
+
+#     # Testing
+#     print(increasingTriplet(nums=nums))
+
+#     'Note: This approach met 90% of test cases, but failed with larger inputs. Time complexity: O(n^2*logn)'
+
+
+#     'Optimized solution O(n)'
+
+#     def increasingTriplet(nums: list[int]) -> bool:
+
+#         first = float('inf')
+#         second = float('inf')
+        
+#         for num in nums:
+
+#             if num <= first:
+#                 first = num
+
+#             elif num <= second:
+#                 second = num
+
+#             else:
+#                 return True
+        
+#         return False
+
+#     # Testing
+#     print(increasingTriplet(nums=nums))
 
 #     'Done'
 

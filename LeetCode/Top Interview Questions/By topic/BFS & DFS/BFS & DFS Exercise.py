@@ -15,6 +15,9 @@ CHALLENGES INDEX
 210. Course Schedule II (DFS) (Topological Sort)
 212. Word Search II (Array) (DFS) (BT) (Matrix)
 230. Kth Smallest Element in a BST (Heap) (DFS) (Tree)
+297. Serialize and Deserialize Binary Tree (BFS) (Tree)
+329. Longest Increasing Path in a Matrix (Matrix) (DFS) (MEM) (RC)
+341. Flatten Nested List Iterator (DFS)
 
 
 *LL: Linked-Lists
@@ -1711,6 +1714,364 @@ CHALLENGES INDEX
 #     That was a great exercise, now what is the customary solution for this?.
 #         Quick answer: Simply inorderlt traverse the tree up to k, since is a Binary Search Tree, it was already sorted.
 #     '''
+
+#     'Done'
+
+'''297. Serialize and Deserialize Binary Tree'''
+# def x():
+
+#     # Definition for a binary tree node.
+#     class TreeNode(object):
+#         def __init__(self, x):
+#             self.val = x
+#             self.left = None
+#             self.right = None
+
+
+#     # Input
+#     # Case 1
+#     root_map = [1,2,3,None,None,4,5]
+#     root = TreeNode(1)
+#     two, three = TreeNode(2), TreeNode(3)
+#     four, five = TreeNode(4), TreeNode(5)
+#     root.left, root.right = two, three
+#     three.left, three.right = four, five
+
+#     # Custom Case
+#     root_map = [4,-7,-3,None,None,-9,-3,9,-7,-4,None,6,None,-6,-6,None,None,0,6,5,None,9,None,None,-1,-4,None,None,None,-2]
+#     root = TreeNode(4)
+#     two, three = TreeNode(-7), TreeNode(-3)
+#     root.left, root.right = two, three
+#     four, five = TreeNode(-9), TreeNode(-3)
+#     three.left, three.right = four, five
+#     six, seven, eight = TreeNode(9), TreeNode(-7), TreeNode(-4)
+#     four.left, four.right = six, seven
+#     five.left = eight
+#     nine, ten = TreeNode(6), TreeNode(-6)
+#     seven.left = nine
+#     eight.right = ten
+#     eleven, twelve, thirteen = TreeNode(-6), TreeNode(0), TreeNode(6)
+#     nine.left, nine.right = eleven, twelve
+#     ten.left = thirteen
+#     fourteen, fifteen = TreeNode(5), TreeNode(-2)
+#     thirteen.left, thirteen.right = fourteen, fifteen
+#     sixteen, seventeen = TreeNode(9), TreeNode(-1)
+#     fourteen.left, fourteen.right = sixteen, seventeen
+#     eighteen = TreeNode(-4)
+#     seventeen.left = eighteen
+#     # Output: [4,-7,-3,null,null,-9,-3,9,-7,-4,null,6,null,-6,-6,null,null,0,6,5,null,9,null,null,-1,-4,null,null,null,-2]
+
+
+#     'Solution'
+#     class Codec:
+
+#         def serialize(self, root):
+#             """
+#             Encodes a tree to a single string.
+            
+#             :type root: TreeNode
+#             :rtype: str
+#             """
+
+#             # Handle corner case
+#             if not root:
+#                 return ''
+
+#             queue = [root]
+#             visited = []
+
+#             while queue:
+
+#                 node = queue.pop(0)
+
+#                 if node:
+#                     visited.append(str(node.val))
+#                     queue.extend([node.left, node.right])
+
+#                 else:
+#                     visited.append('None')        
+
+#             return ','.join(visited)
+            
+
+#         def deserialize(self, data):
+#             """
+#             Decodes your encoded data to tree.
+            
+#             :type data: str
+#             :rtype: TreeNode
+#             """
+
+#             # Handle corner case
+#             if not data:
+#                 return
+            
+#             # Transform data into a valid input for the tree
+#             data = [int(x) if x != 'None' else None for x in data.split(',')]
+
+#             # Initilize the root
+#             root = TreeNode(data[0])
+
+#             # Populate the tree
+#             index = 1
+#             queue = [root]
+
+#             while index < len(data) and queue:
+
+#                 node = queue.pop(0)
+
+#                 if data[index]:
+
+#                     node.left = TreeNode(data[index])
+#                     queue.append(node.left)
+                
+#                 index += 1
+                
+#                 if data[index]:
+
+#                     node.right = TreeNode(data[index])
+#                     queue.append(node.right)
+                
+#                 index += 1
+
+#             return root
+
+
+#     # Testing
+#     ser = Codec()
+#     deser = Codec()
+#     ans = deser.serialize(root=root)
+
+#     # Your Codec object will be instantiated and called as such:
+#     ser = Codec()
+#     deser = Codec()
+#     ans = deser.deserialize(ser.serialize(root))
+
+#     # Auxiliary pretty print function
+#     def pretty_print_bst(node, prefix="", is_left=True):
+
+#         if not node:
+#             node = root
+        
+#         if not node:
+#             print('Empty Tree')
+#             return
+
+
+#         if node.right is not None:
+#             pretty_print_bst(node.right, prefix + ("│   " if is_left else "    "), False)
+
+#         print(prefix + ("└── " if is_left else "┌── ") + str(node.val))
+
+#         if node.left is not None:
+#             pretty_print_bst(node.left, prefix + ("    " if is_left else "│   "), True)
+
+
+#     pretty_print_bst(node=root)
+#     print('\n\n\n\n')
+#     pretty_print_bst(node=ans)
+
+#     'Done'
+
+'''329. Longest Increasing Path in a Matrix'''
+# def x():
+
+#     # Input
+#     # Case 1
+#     matrix = [[9,9,4],[6,6,8],[2,1,1]]
+#     # Output: 4 // Longest path [1, 2, 6, 9]
+
+#     # Case 2
+#     matrix = [[3,4,5],[3,2,6],[2,2,1]]
+#     # Output: 4 // Longest path [3, 4, 5, 6]
+
+
+#     '''
+#     My Approach (DP)
+    
+#         Intuition:
+
+#             Thinking in the matrix as a graph my intuition is to check each node
+#             following DFS for its vecinity only if the neighbor is higher than the curr node value,
+#             and store the possible path length from each node in a DP matrix. after traversing the graph
+#             the max value in the DP matrix will be the answer.
+#     '''
+
+#     def longestIncreasingPath(matrix: list[list[int]]) -> int:
+
+#         # Handle corner case: no matrix
+#         if not matrix or not matrix[0]:
+#             return 0
+
+#         # Capturing the matrix dimentions
+#         m,n = len(matrix), len(matrix[0])
+
+#         # Defining the DP matrix
+#         dp = [[1]*n for _ in range(m)]
+
+#         # Define the directions for later adding the neighbors
+#         directions = [(1,0),(-1,0),(0,1),(0,-1)]
+        
+#         # Traverse the matrix
+#         for i in range(m):
+
+#             for j in range(n):
+
+#                 # Define its max: its current max path in the dp matrix
+#                 elem_max = dp[i][j]
+
+#                 # Define the actual neighbors: The element within the matrix boundaries and higher and itself
+#                 neighbors = [(i+dx, j+dy) for dx,dy in directions if 0<=i+dx<m and 0<= j+dy<n and matrix[i+dx][j+dy] > matrix[i][j]]
+
+#                 # Check for each neighbor's max path while redefine its own max path
+#                 for neighbor in neighbors:
+#                     curr = dp[i][j]
+#                     next_max = max(curr, curr + dp[neighbor[0]][neighbor[1]])
+#                     elem_max = max(elem_max, next_max)
+                
+#                 # Update it in the dp matrix
+#                 dp[i][j] = elem_max    
+
+#         # get dp's max
+#         result = max(max(x) for x in dp)
+        
+#         # Return its value
+#         return result
+
+#     # Testing
+#     print(longestIncreasingPath(matrix=matrix))
+
+#     'Note: This approach only works if it starts from the node with the largest value'
+
+
+#     'DFS with Memoization Approach'
+#     def longestIncreasingPath(matrix: list[list[int]]) -> int:
+
+#         # Handle Corner Case
+#         if not matrix or not matrix[0]:
+#             return 0
+
+#         # Capture matrix's dimentions
+#         m, n = len(matrix), len(matrix[0])
+
+#         # Define the memoization table
+#         dp = [[-1] * n for _ in range(m)]
+
+#         # Define the directions
+#         directions = [(1,0),(-1,0),(0,1),(0,-1)]
+        
+#         # Define the DFS helper function
+#         def dfs(x, y):
+
+#             # Handle corner case: the cell was already visited
+#             if dp[x][y] != -1:
+#                 return dp[x][y]
+            
+#             # Define the max starting path, which is 1 for any cell
+#             max_path = 1
+
+#             # Define the directions to go
+#             for dx, dy in directions:
+
+#                 nx, ny = x + dx, y + dy
+
+#                 # If it's a valid neighbor, recalculate the path
+#                 if 0 <= nx < m and 0 <= ny < n and matrix[nx][ny] > matrix[x][y]:
+                    
+#                     # The new path will be the max between the existing max path and any other valid path from the neighbor
+#                     max_path = max(max_path, 1 + dfs(nx, ny))
+            
+#             # Update the Memoization table
+#             dp[x][y] = max_path
+            
+#             # Return the value
+#             return dp[x][y]
+        
+
+#         # Define the initial max lenght
+#         max_len = 0
+
+#         # Run the main loop for each cell
+#         for i in range(m):
+#             for j in range(n):
+#                 max_len = max(max_len, dfs(i, j))
+        
+#         # Return the max length
+#         return max_len
+
+#     # Testing
+#     print(longestIncreasingPath(matrix=matrix))
+
+#     'Done'
+
+'''341. Flatten Nested List Iterator'''
+# def x():
+
+#     # Base
+#     """
+#     This is the interface that allows for creating nested lists.
+#     You should not implement it, or speculate about its implementation
+#     """
+
+#     class NestedInteger:
+#        def isInteger(self) -> bool:
+#            """
+#            @return True if this NestedInteger holds a single integer, rather than a nested list.
+#            """
+
+#        def getInteger(self) -> int:
+#            """
+#            @return the single integer that this NestedInteger holds, if it holds a single integer
+#            Return None if this NestedInteger holds a nested list
+#            """
+
+#        def getList(self) -> None: #[NestedInteger] is the actual expected return
+#            """
+#            @return the nested list that this NestedInteger holds, if it holds a nested list
+#            Return None if this NestedInteger holds a single integer
+#            """
+
+#     # Input
+#     # Case 1
+#     nested_list = [[1,0],2,[1,1]]
+#     # Output: [1,1,2,1,1]
+
+#     # Case 2
+#     nested_list = [1,[4,[6]]]
+#     # Output: [1,4,6]
+
+
+#     'The Solution'
+#     class NestedIterator:
+
+#         def __init__(self, nestedList: list[NestedInteger]):
+        
+#             # Initialize the stack with the reversed nested list
+#             self.stack = nestedList[::-1]
+        
+#         def next(self) -> int:
+
+#             # The next element must be an integer, just pop and return it
+#             return self.stack.pop().getInteger()
+        
+#         def hasNext(self) -> bool:
+
+#             # While there are elements in the stack and the top element is an Integer to be returned
+#             while self.stack:
+                
+#                 # Peek at the top element
+#                 top = self.stack[-1]
+                
+#                 # If it's an integer, we're done
+#                 if top.isInteger():
+#                     return True
+                
+#                 # Otherwise, it's a list, pop it and push its contents onto the stack
+#                 self.stack.pop()
+#                 self.stack.extend(top.getList()[::-1])
+            
+#             # If the stack is empty, return False
+#             return False
 
 #     'Done'
 

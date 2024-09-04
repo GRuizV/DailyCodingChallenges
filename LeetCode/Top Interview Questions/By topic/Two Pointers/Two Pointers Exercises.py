@@ -16,6 +16,8 @@ CHALLENGES INDEX
 234. Palindrome Linked List (LL) (RC) (TP)
 283. Move Zeroes (Array) (TP)
 287. Find the Duplicate Number (FCD) (Array) (TP)
+344. Reverse String (TP)
+350. Intersection of Two Arrays II (Array) (TP)
 
 
 *LL: Linked-Lists
@@ -1134,6 +1136,109 @@ CHALLENGES INDEX
 
 #     # Testing
 #     print(find_duplicate(nums=nums))
+
+#     'Done'
+
+'''344. Reverse String'''
+# def x():
+
+#     'Note: The problem ask for modify in place an iterable'
+
+#     'Two pointers approach'
+#     def reverse_string(s: list[str]) -> None:
+
+#         left, right = 0, len(s)
+
+#         while left < right:
+
+#             s[left], s[right] = s[right], s[left]
+
+#             left += 1
+#             right -= 1
+
+#     'Done'
+
+'''350. Intersection of Two Arrays II'''
+# def x():
+
+#     # Input
+#     # Case 1
+#     nums1, nums2 = [1,2,2,1], [2,2]
+#     # Output: [2,2]
+
+#     # Case 2
+#     nums1, nums2 = [4,9,5], [9,4,9,8,4]
+#     # Output: [4,9]
+
+
+#     '''
+#     My approach
+
+#         Intuition:
+#             - Handle a corner case.
+#             - Make a list holder for the result.
+#             - Get the largest list.
+#             - Collect the common elements and populate the result holder with the lower count from both inputs.
+#     '''
+
+#     def intersect(nums1: list[int], nums2: list[int]) -> list[int]:
+
+#         # Handle corner case
+#         if not nums1 or not nums2:
+#             return []
+
+#         # Create a list holder for the common elements
+#         commons = []
+
+#         # Create an iterator with the longest list
+#         longest = nums1 if len(nums1)>len(nums2) else nums2
+        
+#         # Collect the common elements
+#         for elem in longest:
+
+#             if elem in nums1 and elem in nums2 and elem not in commons:
+
+#                count = nums1.count(elem) if nums1.count(elem) < nums2.count(elem) else nums2.count(elem)
+
+#                commons.extend([elem]*count)
+        
+#         return commons
+
+#     # Testing
+#     print(intersect(nums1=nums1, nums2=nums2))
+
+#     'Note: This approach worked and beated only 5% in runtine and 93% in memory'
+
+
+#     'Two pointer approach'
+#     def intersect(nums1: list[int], nums2: list[int]) -> list[int]:
+
+#         # Sort both arrays
+#         nums1.sort()
+#         nums2.sort()
+        
+#         # Initialize pointers and the result list
+#         i, j = 0, 0
+#         result = []
+        
+#         # Traverse both arrays
+#         while i < len(nums1) and j < len(nums2):
+
+#             if nums1[i] < nums2[j]:
+#                 i += 1
+
+#             elif nums1[i] > nums2[j]:
+#                 j += 1
+
+#             else:
+#                 result.append(nums1[i])
+#                 i += 1
+#                 j += 1
+        
+#         return result
+
+#     # Testing
+#     print(intersect(nums1=nums1, nums2=nums2))
 
 #     'Done'
 

@@ -10,6 +10,7 @@ CHALLENGES INDEX
 179. Largest Number (Array) (Sorting) (GRE)
 215. Kth Largest Element in an Array (Array) (Heap) (DQ) (Sorting)
 295. Find Median from Data Stream (Heap) (Sorting)
+347. Top K Frequent Elements (Array) (Heaps) (Sorting)
 
 
 *LL: Linked-Lists
@@ -769,6 +770,59 @@ CHALLENGES INDEX
             
 #             # Otherwise, the median is the top of the max-heap
 #             return -self.small[0]
+
+#     'Done'
+
+'''347. Top K Frequent Elements'''
+# def x():
+
+#     # Input
+#     # Case 1
+#     nums = [1,2,2,1]
+#     k = 2
+#     # Output: [1,2]
+
+#     # Case 2
+#     nums = [1]
+#     k = 1
+#     # Output: [1]
+
+
+#     '''
+#     My approach
+
+#         Intuition:
+            
+#         Ideas' pool:
+#             + A Counter function approach:
+#                 - Call a Counter on the input and sort by freq, return in order.
+
+#             + A Heap approach:
+#                 - ...    
+#     '''
+
+#     def topKFrequent(nums: list[int], k: int) -> list[int]:
+
+#         # Create the result list holder
+#         result = []
+
+#         # Import Counter
+#         from collections import Counter
+
+#         #  Transform the input into a list sorted by freq
+#         nums = sorted(Counter(nums).items(), key=lambda x: x[1], reverse=True)
+
+#         # Populate the result accordingly
+#         for i in range(k):
+#             result.append(nums[i][0])
+
+#         # Return the result
+#         return result
+
+#     # Testing
+#     print(topKFrequent(nums=nums, k=k))
+
+#     'Note: This approach worked beating submissions only 20% in Runtime and 61% in Memory'
 
 #     'Done'
 

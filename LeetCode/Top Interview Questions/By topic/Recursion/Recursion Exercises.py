@@ -6,6 +6,9 @@ CHALLENGES INDEX
 50. Pow(x, n) (RC)
 206. Reverse Linked List (LL) (RC)
 234. Palindrome Linked List (LL) (RC) (TP)
+326. Power of Three (RC) (Others)
+329. Longest Increasing Path in a Matrix (Matrix) (DFS) (MEM) (RC)
+395. Longest Substring with At Least K Repeating Characters (SW) (RC) (DQ)
 
 
 *LL: Linked-Lists
@@ -534,6 +537,316 @@ CHALLENGES INDEX
 #     # Testing
 #     print(is_palindrome(head=head))
     
+#     'Done'
+
+'''326. Power of Three'''
+# def x():
+
+#     # Input
+#     # Case 1
+#     n = 45
+#     # Output: True
+
+#     # Custom Case
+#     n = -1
+#     # Output: True
+
+
+#     'Iterative approach'
+#     def is_power_of_three(n:int) -> bool:
+
+#         powers = [3**x for x in range(21)]
+
+#         return n in powers
+
+
+#     'Recursive apporach'
+#     def is_power_of_three(n:int) -> bool:
+
+#         # Base case: if n is 1, it's a power of three
+#         if n == 1:
+#             return True
+
+#         # If n is less than 1, it can't be a power of three
+#         if n < 1:
+#             return False
+
+#         # Recursive case: check if n is divisible by 3 and then recurse with n divided by 3
+#         if n % 3 == 0:
+#             return is_power_of_three(n // 3)
+
+#         # If n is not divisible by 3, it's not a power of three
+#         return False
+
+#     'Done'
+
+'''329. Longest Increasing Path in a Matrix'''
+# def x():
+
+#     # Input
+#     # Case 1
+#     matrix = [[9,9,4],[6,6,8],[2,1,1]]
+#     # Output: 4 // Longest path [1, 2, 6, 9]
+
+#     # Case 2
+#     matrix = [[3,4,5],[3,2,6],[2,2,1]]
+#     # Output: 4 // Longest path [3, 4, 5, 6]
+
+
+#     '''
+#     My Approach (DP)
+    
+#         Intuition:
+
+#             Thinking in the matrix as a graph my intuition is to check each node
+#             following DFS for its vecinity only if the neighbor is higher than the curr node value,
+#             and store the possible path length from each node in a DP matrix. after traversing the graph
+#             the max value in the DP matrix will be the answer.
+#     '''
+
+#     def longestIncreasingPath(matrix: list[list[int]]) -> int:
+
+#         # Handle corner case: no matrix
+#         if not matrix or not matrix[0]:
+#             return 0
+
+#         # Capturing the matrix dimentions
+#         m,n = len(matrix), len(matrix[0])
+
+#         # Defining the DP matrix
+#         dp = [[1]*n for _ in range(m)]
+
+#         # Define the directions for later adding the neighbors
+#         directions = [(1,0),(-1,0),(0,1),(0,-1)]
+        
+#         # Traverse the matrix
+#         for i in range(m):
+
+#             for j in range(n):
+
+#                 # Define its max: its current max path in the dp matrix
+#                 elem_max = dp[i][j]
+
+#                 # Define the actual neighbors: The element within the matrix boundaries and higher and itself
+#                 neighbors = [(i+dx, j+dy) for dx,dy in directions if 0<=i+dx<m and 0<= j+dy<n and matrix[i+dx][j+dy] > matrix[i][j]]
+
+#                 # Check for each neighbor's max path while redefine its own max path
+#                 for neighbor in neighbors:
+#                     curr = dp[i][j]
+#                     next_max = max(curr, curr + dp[neighbor[0]][neighbor[1]])
+#                     elem_max = max(elem_max, next_max)
+                
+#                 # Update it in the dp matrix
+#                 dp[i][j] = elem_max    
+
+#         # get dp's max
+#         result = max(max(x) for x in dp)
+        
+#         # Return its value
+#         return result
+
+#     # Testing
+#     print(longestIncreasingPath(matrix=matrix))
+
+#     'Note: This approach only works if it starts from the node with the largest value'
+
+
+#     'DFS with Memoization Approach'
+#     def longestIncreasingPath(matrix: list[list[int]]) -> int:
+
+#         # Handle Corner Case
+#         if not matrix or not matrix[0]:
+#             return 0
+
+#         # Capture matrix's dimentions
+#         m, n = len(matrix), len(matrix[0])
+
+#         # Define the memoization table
+#         dp = [[-1] * n for _ in range(m)]
+
+#         # Define the directions
+#         directions = [(1,0),(-1,0),(0,1),(0,-1)]
+        
+#         # Define the DFS helper function
+#         def dfs(x, y):
+
+#             # Handle corner case: the cell was already visited
+#             if dp[x][y] != -1:
+#                 return dp[x][y]
+            
+#             # Define the max starting path, which is 1 for any cell
+#             max_path = 1
+
+#             # Define the directions to go
+#             for dx, dy in directions:
+
+#                 nx, ny = x + dx, y + dy
+
+#                 # If it's a valid neighbor, recalculate the path
+#                 if 0 <= nx < m and 0 <= ny < n and matrix[nx][ny] > matrix[x][y]:
+                    
+#                     # The new path will be the max between the existing max path and any other valid path from the neighbor
+#                     max_path = max(max_path, 1 + dfs(nx, ny))
+            
+#             # Update the Memoization table
+#             dp[x][y] = max_path
+            
+#             # Return the value
+#             return dp[x][y]
+        
+
+#         # Define the initial max lenght
+#         max_len = 0
+
+#         # Run the main loop for each cell
+#         for i in range(m):
+#             for j in range(n):
+#                 max_len = max(max_len, dfs(i, j))
+        
+#         # Return the max length
+#         return max_len
+
+#     # Testing
+#     print(longestIncreasingPath(matrix=matrix))
+
+#     'Done'
+
+'''395. Longest Substring with At Least K Repeating Characters'''
+# def x():
+
+#     # Input
+#     # Case 1
+#     s, k = "aaabb", 3
+#     # Output: 3 / The longest substring is "aaa", as 'a' is repeated 3 times.
+
+#     # Case 2
+#     s, k = "ababbc", 2
+#     # Output: 5 / The longest substring is "aaa", as 'a' is repeated 3 times.
+
+
+#     '''
+#     My approach
+
+#         Intuition:
+            
+#             Brute forcing:
+
+#                 - Import the Counter class from collections.
+#                 - Initialize a max_len counter in 0 to hold the max len of a valid substring according to the requirements of k.
+#                 - Starting from the len(s) down to k, check in a range, all the substrings of all those different sizes and
+#                     with Counter's help check is the minimum freq is at least k,
+#                         if it does: Refresh the max_len counter.
+#                         if it doesn't: check the rests of the substrings.
+#     '''
+
+#     from collections import Counter
+
+#     def longestSubstring(s: str, k: int) -> int:
+
+#         # Initialize the max counter
+#         max_len = 0
+
+#         # Capture the len of s
+#         l = len(s)
+
+#         # Handle the corner case: len(s) < k
+#         if l < k:
+#             return max_len
+
+#         # Check all possibles valid substrings
+#         for i in range(k-1, l):
+
+#             for j in range(l-i):
+
+#                 # Create the possible valid substring
+#                 substring = s[j:j+i+1]
+
+#                 # Create a counter from the substring
+#                 subs_counter = Counter(substring)
+
+#                 # Capture the minimum freq of the caracters present
+#                 subs_min_freq = min(subs_counter.values())
+
+#                 # Update the counter only if the minimum is at least k in size
+#                 max_len = len(substring) if subs_min_freq >= k else max_len
+
+
+#         # Return what's un the max counter
+#         return max_len
+
+#     # Testing
+#     print(longestSubstring(s=s, k=k))
+
+#     'Note: This approach met the 87% of cases but with large input breaks. I will rethink the loop to make it go from the largest to the lowest limit, that should save some runtime.'
+
+
+#     'My 2nd approach'
+#     from collections import Counter
+
+#     def longestSubstring(s: str, k: int) -> int:
+
+#         # Capture the len of s
+#         l = len(s)
+
+#         # Handle the corner case: len(s) < k
+#         if l < k:
+#             return 0
+
+#         # Check all possibles valid substrings
+#         for i in range(l-1, k-2, -1):
+
+#             if i != -1:
+
+#                 for j in range(l-i):
+                            
+#                     # Create the possible valid substring
+#                     substring = s[j:j+i+1]
+
+#                     # Create a counter from the substring
+#                     subs_counter = Counter(substring)
+
+#                     # Capture the minimum freq of the caracters present
+#                     subs_min_freq = min(subs_counter.values())
+
+#                     # If the min freq found is at least k, that's the longest valid substring possible
+#                     if subs_min_freq >= k:
+#                         return len(substring)
+
+#         # Return 0
+#         return 0
+
+#     # Testing
+#     print(longestSubstring(s=s, k=k))
+
+#     'Note: Unfortunately my second approach had the same performance.'
+
+
+#     'Divide and Conquer approach'
+#     from collections import Counter
+
+#     def longestSubstring(s: str, k: int) -> int:
+
+#         # Base case
+#         if len(s) == 0 or len(s) < k:
+#             return 0
+
+#         # Count the frequency of eachcharacter in the string
+#         counter = Counter(s)
+
+#         # Iterate through the string and split at a character that doesn't meet the frequency requirement
+#         for i, char in enumerate(s):
+
+#             if counter[char] < k:
+
+#                 # Split and recursively process the left and right substrings
+#                 left_part = longestSubstring(s[:i], k)
+#                 right_part = longestSubstring(s[i+1:], k)
+
+#                 return max(left_part, right_part)
+
+#         # If there's no splits, means that the entire substring is valid
+#         return len(s)
+
 #     'Done'
 
 

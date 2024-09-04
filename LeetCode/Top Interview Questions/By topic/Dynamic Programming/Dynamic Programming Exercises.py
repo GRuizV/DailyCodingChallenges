@@ -18,6 +18,8 @@ CHALLENGES INDEX
 152. Maximum Product Subarray (Array) (DP)
 198. House Robber (Array) (DP)
 279. Perfect Squares (DP)
+300. Longest Increasing Subsequence (Array) (DP)
+322. Coin Change (DP)
 
 
 *LL: Linked-Lists
@@ -1208,6 +1210,122 @@ CHALLENGES INDEX
 #     print(num_squares(n=n))
 
 #     'This solution cleared 96% of the test cases, the actual DP solution didnt made sense to me'
+
+'''300. Longest Increasing Subsequence'''
+# def x():
+
+#     # Input
+#     # Case 1
+#     nums = [10,9,2,5,3,7,101,18]
+#     # Output: 4
+
+#     # Case 2
+#     nums = [0,1,0,3,2,3]
+#     # Output: 4
+
+#     # Case 3
+#     nums = nums = [7,7,7,7,7,7,7]
+#     # Output: 1
+
+
+#     'DP Solution'
+#     def lengthOfLIS(nums: list[int]) -> int:    
+        
+#         # Handle corner case
+#         if not nums:
+#             return 0        
+
+#         # Initialize the dp array
+#         dp = [1] * len(nums)
+
+#         # Iterate through the elements of the list, starting from the second
+#         for i in range(1, len(nums)):
+
+#             for j in range(i):
+
+#                 if nums[i] > nums[j]:
+#                     dp[i] = max(dp[i], dp[j]+1)
+
+#         return max(dp)
+
+#     'Done'
+
+'''322. Coin Change'''
+# def x():
+
+#     # Input
+#     # Case 1
+#     coins = [1,2,5]
+#     amount = 11
+#     # Output: 3
+
+#     # Case 2
+#     coins = [2]
+#     amount = 3
+#     # Output: -1
+
+#     # Custome Case
+#     coins = [186,419,83,408]
+#     amount = 6249
+#     # Output: 20
+
+
+#     'My Approach (Greedy approach)'
+#     def coin_change(coins:list[int], amount: int) -> int:
+
+#         # Handle Corner Case
+#         if not amount:
+#             return 0
+        
+#         # Sort the coins decreasingly
+#         coins = sorted(coins, reverse=True)
+
+#         # Initialize the coins counter
+#         result = 0
+
+#         # Iterate through
+#         for coin in coins:
+
+#             if coin <= amount:
+
+#                 result += amount // coin
+#                 amount %= coin
+            
+#             if not amount:
+#                 return result
+        
+#         # If the execution get to this point, it means it was not an exact number of coins for the total of the amount
+#         return -1
+
+#     # Testing
+#     print(coin_change(coins=coins, amount=amount))
+
+#     'Note: This is a Greedy approach and only met up 27% of test cases'
+
+
+#     'DP Approach'
+#     def coin_change(coins:list[int], amount: int) -> int:
+
+#         # DP INITIALIZATION
+#         # Initialize the dp array
+#         dp = [float('inf')] * (amount+1)
+
+#         # Initialize the base case: 0 coins for amount 0
+#         dp[0] = 0
+
+#         # DP TRANSITION
+#         for coin in coins:
+
+#             for x in range(coin, amount+1):
+#                 dp[x] = min(dp[x], dp[x-coin] + 1)
+
+#         # Return result
+#         return dp[amount] if dp[amount] != float('inf') else -1
+
+#     # Testing
+#     print(coin_change(coins=coins, amount=amount))
+
+#     'Done'
 
 
 

@@ -8,6 +8,8 @@ CHALLENGES INDEX
 215. Kth Largest Element in an Array (Array) (Heap) (DQ) (Sorting)
 218. The Skyline Problem (Heaps) (DQ)
 240. Search a 2D Matrix II (Matrix) (DQ) (BS)
+315. Count of Smaller Numbers After Self - Partially solved (Array) (DQ)
+395. Longest Substring with At Least K Repeating Characters (SW) (RC) (DQ)
 
 
 *LL: Linked-Lists
@@ -441,6 +443,196 @@ CHALLENGES INDEX
 #     print(search_matrix(matrix=matrix,target=target))
 
 #     'done'
+
+'''315. Count of Smaller Numbers After Self'''
+# def x():
+
+#     # Input
+#     # Case 1
+#     nums = [5,2,6,1]
+#     # Output: [2,1,1,0]
+
+#     # Case 1
+#     nums = [-1,-1]
+#     # Output: [0,0]
+
+
+#     'My Approach (Brute forcing)'
+#     def count_smaller(nums: list[int]) -> list[int]:
+
+#         # Handle corner case
+#         if len(nums) == 1:
+#             return [0]
+        
+
+#         # Set the min value of the group
+#         min_num = min(nums)
+        
+
+#         # Initialize the result holder
+#         result = []
+
+#         for x,num in enumerate(nums):
+
+#             # corner case: if the number is the smallest of the group or the right most one, no smaller numbers after it
+#             if num == min_num or num == nums[-1]:
+#                 result.append(0)
+            
+#             else:
+
+#                 # Define a sublist with all elements to the right of the current one
+#                 sublist = nums[x+1:]
+
+#                 # Count how many of those are smaller than the current one
+#                 count = len([x for x in sublist if x<num])
+
+#                 # Add that result to the holder
+#                 result.append(count)
+                
+#         return result
+        
+#     # Testing
+#     print(count_smaller(nums=nums))
+
+#     'Note: This approach met up to 79% o the cases'
+
+'''395. Longest Substring with At Least K Repeating Characters'''
+# def x():
+
+#     # Input
+#     # Case 1
+#     s, k = "aaabb", 3
+#     # Output: 3 / The longest substring is "aaa", as 'a' is repeated 3 times.
+
+#     # Case 2
+#     s, k = "ababbc", 2
+#     # Output: 5 / The longest substring is "aaa", as 'a' is repeated 3 times.
+
+
+#     '''
+#     My approach
+
+#         Intuition:
+            
+#             Brute forcing:
+
+#                 - Import the Counter class from collections.
+#                 - Initialize a max_len counter in 0 to hold the max len of a valid substring according to the requirements of k.
+#                 - Starting from the len(s) down to k, check in a range, all the substrings of all those different sizes and
+#                     with Counter's help check is the minimum freq is at least k,
+#                         if it does: Refresh the max_len counter.
+#                         if it doesn't: check the rests of the substrings.
+#     '''
+
+#     from collections import Counter
+
+#     def longestSubstring(s: str, k: int) -> int:
+
+#         # Initialize the max counter
+#         max_len = 0
+
+#         # Capture the len of s
+#         l = len(s)
+
+#         # Handle the corner case: len(s) < k
+#         if l < k:
+#             return max_len
+
+#         # Check all possibles valid substrings
+#         for i in range(k-1, l):
+
+#             for j in range(l-i):
+
+#                 # Create the possible valid substring
+#                 substring = s[j:j+i+1]
+
+#                 # Create a counter from the substring
+#                 subs_counter = Counter(substring)
+
+#                 # Capture the minimum freq of the caracters present
+#                 subs_min_freq = min(subs_counter.values())
+
+#                 # Update the counter only if the minimum is at least k in size
+#                 max_len = len(substring) if subs_min_freq >= k else max_len
+
+
+#         # Return what's un the max counter
+#         return max_len
+
+#     # Testing
+#     print(longestSubstring(s=s, k=k))
+
+#     'Note: This approach met the 87% of cases but with large input breaks. I will rethink the loop to make it go from the largest to the lowest limit, that should save some runtime.'
+
+
+#     'My 2nd approach'
+#     from collections import Counter
+
+#     def longestSubstring(s: str, k: int) -> int:
+
+#         # Capture the len of s
+#         l = len(s)
+
+#         # Handle the corner case: len(s) < k
+#         if l < k:
+#             return 0
+
+#         # Check all possibles valid substrings
+#         for i in range(l-1, k-2, -1):
+
+#             if i != -1:
+
+#                 for j in range(l-i):
+                            
+#                     # Create the possible valid substring
+#                     substring = s[j:j+i+1]
+
+#                     # Create a counter from the substring
+#                     subs_counter = Counter(substring)
+
+#                     # Capture the minimum freq of the caracters present
+#                     subs_min_freq = min(subs_counter.values())
+
+#                     # If the min freq found is at least k, that's the longest valid substring possible
+#                     if subs_min_freq >= k:
+#                         return len(substring)
+
+#         # Return 0
+#         return 0
+
+#     # Testing
+#     print(longestSubstring(s=s, k=k))
+
+#     'Note: Unfortunately my second approach had the same performance.'
+
+
+#     'Divide and Conquer approach'
+#     from collections import Counter
+
+#     def longestSubstring(s: str, k: int) -> int:
+
+#         # Base case
+#         if len(s) == 0 or len(s) < k:
+#             return 0
+
+#         # Count the frequency of eachcharacter in the string
+#         counter = Counter(s)
+
+#         # Iterate through the string and split at a character that doesn't meet the frequency requirement
+#         for i, char in enumerate(s):
+
+#             if counter[char] < k:
+
+#                 # Split and recursively process the left and right substrings
+#                 left_part = longestSubstring(s[:i], k)
+#                 right_part = longestSubstring(s[i+1:], k)
+
+#                 return max(left_part, right_part)
+
+#         # If there's no splits, means that the entire substring is valid
+#         return len(s)
+
+#     'Done'
 
 
 

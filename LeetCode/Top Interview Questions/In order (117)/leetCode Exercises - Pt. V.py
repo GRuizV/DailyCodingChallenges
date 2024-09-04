@@ -1,25 +1,27 @@
 '''
 CHALLENGES INDEX
 
-297. Serialize and Deserialize Binary Tree (BFS)
-300. Longest Increasing Subsequence (DP)
-315. Count of Smaller Numbers After Self - Partially solved
+297. Serialize and Deserialize Binary Tree (BFS) (Tree)
+300. Longest Increasing Subsequence (Array) (DP)
+315. Count of Smaller Numbers After Self - Partially solved (Array) (DQ)
 322. Coin Change (DP)
-326. Power of Three (RC)
-328. Odd Even Linked List
+326. Power of Three (RC) (Others)
+328. Odd Even Linked List (LL)
 329. Longest Increasing Path in a Matrix (Matrix) (DFS) (MEM) (RC)
-334. Increasing Triplet Subsequence (GRE)
-344. Reverse String (TP)
-350. Intersection of Two Arrays II (TP)
+334. Increasing Triplet Subsequence (Array) (GRE)
 341. Flatten Nested List Iterator (DFS)
-347. Top K Frequent Elements (Heaps) (Sorting)
+344. Reverse String (TP)
+347. Top K Frequent Elements (Array) (Heaps) (Sorting)
+350. Intersection of Two Arrays II (Array) (TP)
 378. Kth Smallest Element in a Sorted Matrix (Matrix) (Heaps)
-380. Insert Delete GetRandom O(1)
-384. Shuffle an Array
+380. Insert Delete GetRandom O(1) (Hash Table) (Others)
+384. Shuffle an Array (Array) (Others)
 395. Longest Substring with At Least K Repeating Characters (SW) (RC) (DQ)
-454. 4Sum II (Arrays)
+454. 4Sum II (Arrays) (Others)
 
 
+*LL: Linked-Lists
+*BS: Binary Search
 *DP: Dynamic Programming
 *RC: Recursion
 *TP: Two-pointers
@@ -29,6 +31,13 @@ CHALLENGES INDEX
 *MEM: Memoization
 *GRE: Greedy
 *DQ: Divide and Conquer
+*BT: Backtracking
+*BFS & DFS: Breadth-First Search & Depth-First Search
+*Arrays, Hash Tables & Matrices
+*Sorting
+*Heaps, Stacks & Queues
+*Graphs & Trees
+*Others
 
 (17)
 '''
@@ -793,6 +802,77 @@ CHALLENGES INDEX
 
 #     'Done'
 
+'''341. Flatten Nested List Iterator'''
+# def x():
+
+#     # Base
+#     """
+#     This is the interface that allows for creating nested lists.
+#     You should not implement it, or speculate about its implementation
+#     """
+
+#     class NestedInteger:
+#        def isInteger(self) -> bool:
+#            """
+#            @return True if this NestedInteger holds a single integer, rather than a nested list.
+#            """
+
+#        def getInteger(self) -> int:
+#            """
+#            @return the single integer that this NestedInteger holds, if it holds a single integer
+#            Return None if this NestedInteger holds a nested list
+#            """
+
+#        def getList(self) -> None: #[NestedInteger] is the actual expected return
+#            """
+#            @return the nested list that this NestedInteger holds, if it holds a nested list
+#            Return None if this NestedInteger holds a single integer
+#            """
+
+#     # Input
+#     # Case 1
+#     nested_list = [[1,0],2,[1,1]]
+#     # Output: [1,1,2,1,1]
+
+#     # Case 2
+#     nested_list = [1,[4,[6]]]
+#     # Output: [1,4,6]
+
+
+#     'The Solution'
+#     class NestedIterator:
+
+#         def __init__(self, nestedList: list[NestedInteger]):
+        
+#             # Initialize the stack with the reversed nested list
+#             self.stack = nestedList[::-1]
+        
+#         def next(self) -> int:
+
+#             # The next element must be an integer, just pop and return it
+#             return self.stack.pop().getInteger()
+        
+#         def hasNext(self) -> bool:
+
+#             # While there are elements in the stack and the top element is an Integer to be returned
+#             while self.stack:
+                
+#                 # Peek at the top element
+#                 top = self.stack[-1]
+                
+#                 # If it's an integer, we're done
+#                 if top.isInteger():
+#                     return True
+                
+#                 # Otherwise, it's a list, pop it and push its contents onto the stack
+#                 self.stack.pop()
+#                 self.stack.extend(top.getList()[::-1])
+            
+#             # If the stack is empty, return False
+#             return False
+
+#     'Done'
+
 '''344. Reverse String'''
 # def x():
 
@@ -809,6 +889,59 @@ CHALLENGES INDEX
 
 #             left += 1
 #             right -= 1
+
+#     'Done'
+
+'''347. Top K Frequent Elements'''
+# def x():
+
+#     # Input
+#     # Case 1
+#     nums = [1,2,2,1]
+#     k = 2
+#     # Output: [1,2]
+
+#     # Case 2
+#     nums = [1]
+#     k = 1
+#     # Output: [1]
+
+
+#     '''
+#     My approach
+
+#         Intuition:
+            
+#         Ideas' pool:
+#             + A Counter function approach:
+#                 - Call a Counter on the input and sort by freq, return in order.
+
+#             + A Heap approach:
+#                 - ...    
+#     '''
+
+#     def topKFrequent(nums: list[int], k: int) -> list[int]:
+
+#         # Create the result list holder
+#         result = []
+
+#         # Import Counter
+#         from collections import Counter
+
+#         #  Transform the input into a list sorted by freq
+#         nums = sorted(Counter(nums).items(), key=lambda x: x[1], reverse=True)
+
+#         # Populate the result accordingly
+#         for i in range(k):
+#             result.append(nums[i][0])
+
+#         # Return the result
+#         return result
+
+#     # Testing
+#     print(topKFrequent(nums=nums, k=k))
+
+#     'Note: This approach worked beating submissions only 20% in Runtime and 61% in Memory'
 
 #     'Done'
 
@@ -893,130 +1026,6 @@ CHALLENGES INDEX
 
 #     # Testing
 #     print(intersect(nums1=nums1, nums2=nums2))
-
-#     'Done'
-
-'''341. Flatten Nested List Iterator'''
-# def x():
-
-#     # Base
-#     """
-#     This is the interface that allows for creating nested lists.
-#     You should not implement it, or speculate about its implementation
-#     """
-
-#     class NestedInteger:
-#        def isInteger(self) -> bool:
-#            """
-#            @return True if this NestedInteger holds a single integer, rather than a nested list.
-#            """
-
-#        def getInteger(self) -> int:
-#            """
-#            @return the single integer that this NestedInteger holds, if it holds a single integer
-#            Return None if this NestedInteger holds a nested list
-#            """
-
-#        def getList(self) -> None: #[NestedInteger] is the actual expected return
-#            """
-#            @return the nested list that this NestedInteger holds, if it holds a nested list
-#            Return None if this NestedInteger holds a single integer
-#            """
-
-#     # Input
-#     # Case 1
-#     nested_list = [[1,0],2,[1,1]]
-#     # Output: [1,1,2,1,1]
-
-#     # Case 2
-#     nested_list = [1,[4,[6]]]
-#     # Output: [1,4,6]
-
-
-#     'The Solution'
-#     class NestedIterator:
-
-#         def __init__(self, nestedList: list[NestedInteger]):
-        
-#             # Initialize the stack with the reversed nested list
-#             self.stack = nestedList[::-1]
-        
-#         def next(self) -> int:
-
-#             # The next element must be an integer, just pop and return it
-#             return self.stack.pop().getInteger()
-        
-#         def hasNext(self) -> bool:
-
-#             # While there are elements in the stack and the top element is an Integer to be returned
-#             while self.stack:
-                
-#                 # Peek at the top element
-#                 top = self.stack[-1]
-                
-#                 # If it's an integer, we're done
-#                 if top.isInteger():
-#                     return True
-                
-#                 # Otherwise, it's a list, pop it and push its contents onto the stack
-#                 self.stack.pop()
-#                 self.stack.extend(top.getList()[::-1])
-            
-#             # If the stack is empty, return False
-#             return False
-
-#     'Done'
-
-'''347. Top K Frequent Elements'''
-# def x():
-
-#     # Input
-#     # Case 1
-#     nums = [1,2,2,1]
-#     k = 2
-#     # Output: [1,2]
-
-#     # Case 2
-#     nums = [1]
-#     k = 1
-#     # Output: [1]
-
-
-#     '''
-#     My approach
-
-#         Intuition:
-            
-#         Ideas' pool:
-#             + A Counter function approach:
-#                 - Call a Counter on the input and sort by freq, return in order.
-
-#             + A Heap approach:
-#                 - ...    
-#     '''
-
-#     def topKFrequent(nums: list[int], k: int) -> list[int]:
-
-#         # Create the result list holder
-#         result = []
-
-#         # Import Counter
-#         from collections import Counter
-
-#         #  Transform the input into a list sorted by freq
-#         nums = sorted(Counter(nums).items(), key=lambda x: x[1], reverse=True)
-
-#         # Populate the result accordingly
-#         for i in range(k):
-#             result.append(nums[i][0])
-
-#         # Return the result
-#         return result
-
-#     # Testing
-#     print(topKFrequent(nums=nums, k=k))
-
-#     'Note: This approach worked beating submissions only 20% in Runtime and 61% in Memory'
 
 #     'Done'
 
@@ -1472,4 +1481,16 @@ CHALLENGES INDEX
 #         return count
 
 #     'Done'
+
+
+
+
+
+
+
+
+
+
+
+
 
