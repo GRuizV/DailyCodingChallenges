@@ -24,6 +24,15 @@ CHALLENGES INDEX
 134. Gas Station (Array) (GRE)
 152. Maximum Product Subarray (Array) (DP)
 162. Find Peak Element (Array)
+179. Largest Number (Array) (Sorting) (GRE)
+189. Rotate Array (Array) (TP)
+198. House Robber (Array) (DP)
+204. Count Primes (Array) (Others)
+215. Kth Largest Element in an Array (Array) (Heap) (DQ) (Sorting)
+238. Product of Array Except Self (PS)
+239. Sliding Window Maximum (Array) (SW)
+283. Move Zeroes (Array) (TP)
+287. Find the Duplicate Number (FCD) (Array) (TP)
 
 
 *Hash Tables
@@ -36,12 +45,18 @@ CHALLENGES INDEX
 138. Copy List with Random Pointer (Hash Table) (LL)
 146. LRU Cache (Hash Table)
 166. Fraction to Recurring Decimal (Hash Table) (Others)
+202. Happy Number (Hash Table) (TP) (Others)
+208. Implement Trie (Hast Table) (Tree)
 
 
 *Matrices
 54. Spiral Matrix (Matrix)  
 79. Word Search (Matrix) (BT)
 130. Surrounded Regions (Matrix) (BFS) (DFS)
+200. Number of Islands (Matrix) (DFS)
+212. Word Search II (Array) (DFS) (BT) (Matrix)
+240. Search a 2D Matrix II (Matrix) (DQ) (BS)
+289. Game of Life (Matrix)
 
 
 *Others
@@ -55,16 +70,6 @@ CHALLENGES INDEX
 149. Max Points on a Line (Other)
 171. Excel Sheet Column Number (Others)
 172. Factorial Trailing Zeroes (Others)
-
-
-
-
-
-
-
-
-
-
 
 
 *LL: Linked-Lists
@@ -1632,6 +1637,652 @@ CHALLENGES INDEX
 
 #     'Notes: ChatGPT helped me understanding the conditions and guided through the solution'
 
+'''179. Largest Number'''
+# def x():
+
+#     # Input
+#     # Case 1
+#     nums = [20,1]
+#     # Output: "201"
+
+#     # Case 2
+#     nums = [3,30,34,5,9]
+#     # Output: "9534330"
+
+#     # Custom Case
+#     nums = [8308,8308,830]
+#     # Output: "83088308830"
+
+
+#     'My 1st Approach'
+#     def largestNumber(nums: list[int]) -> str: 
+
+#         nums = [str(x) for x in nums]
+    
+#         res = sorted(nums, key= lambda x: int(x[0]), reverse=True)  
+
+
+#         # Mergesort
+#         def mergesort(seq: list) -> list:
+
+#             if len(seq) <= 1:
+#                 return seq
+
+#             mid = len(seq)//2
+
+#             left_side, right_side = seq[:mid], seq[mid:]
+
+#             left_side = mergesort(left_side)
+#             right_side = mergesort(right_side)
+
+#             return merge(left=left_side, right=right_side)
+
+#         # Auxiliary merge for Mergesort
+#         def merge(left: list, right: list) -> list:
+
+#             res = []
+#             zeros = []
+#             i = j = 0
+
+#             while i < len(left) and j < len(right):
+
+#                 if left[i][-1] == '0':
+#                     zeros.append(left[i])
+#                     i+=1
+
+#                 elif right[j][-1] == '0':
+#                     zeros.append(right[j])
+#                     j+=1
+                
+#                 elif left[i][0] == right[j][0]:
+
+#                     if left[i]+right[j] > right[j]+left[i]:
+#                         res.append(left[i])
+#                         i+=1
+
+#                     else:
+#                         res.append(right[j])
+#                         j+=1                
+
+#                 elif int(left[i][0]) > int(right[j][0]):
+#                     res.append(left[i])
+#                     i+=1
+                
+#                 else:
+#                     res.append(right[j])
+#                     j+=1
+            
+
+#             while i < len(left):
+#                 res.append(left[i])
+#                 i+=1
+
+            
+#             while j < len(right):
+#                 res.append(right[j])
+#                 j+=1
+
+
+#             # Deal with the elements with '0' as last digit
+#             zeros.sort(key=lambda x: int(x), reverse=True)
+
+#             return res+zeros          
+
+#         result = mergesort(seq=res)
+        
+#         return ''.join(result)
+
+#     # Testing
+#     print(largestNumber(nums=nums))
+
+#     'Note: This approach cleared 57% of cases '
+
+
+#     'My 2nd Approach'
+#     def largestNumber(nums: list[int]) -> str: 
+
+#         res = [str(x) for x in nums]    
+#         # res = sorted(nums, key= lambda x: int(x[0]), reverse=True)  
+
+#         # Mergesort
+#         def mergesort(seq: list) -> list:
+
+#             if len(seq) <= 1:
+#                 return seq
+
+#             mid = len(seq)//2
+
+#             left_side, right_side = seq[:mid], seq[mid:]
+
+#             left_side = mergesort(left_side)
+#             right_side = mergesort(right_side)
+
+#             return merge(left=left_side, right=right_side)
+
+#         # Auxiliary merge for Mergesort
+#         def merge(left: list, right: list) -> list:
+
+#             res = []        
+#             i = j = 0
+
+#             while i < len(left) and j < len(right):
+
+#                 if left[i]+right[j] > right[j]+left[i]:
+#                     res.append(left[i])
+#                     i += 1
+
+#                 else:
+#                     res.append(right[j])
+#                     j += 1
+            
+#             while i < len(left):
+#                 res.append(left[i])
+#                 i += 1
+                            
+#             while j < len(right):
+#                 res.append(right[j])
+#                 j += 1
+
+#             return res        
+
+#         result = mergesort(seq=res)
+        
+#         return ''.join(result)
+
+#     # Testing
+#     print(largestNumber(nums=nums))
+
+#     'Note: This one did it!'
+
+'''189. Rotate Array'''
+# def x():
+
+#     'Input'
+#     # Case 1
+#     nums, k = [1,2,3,4,5,6,7], 3
+#     # Output: [5,6,7,1,2,3,4]
+
+#     # Case 2
+#     nums, k = [-1,-100,3,99], 2
+#     # Output: [3,99,-1,-100]
+
+#     # My approach
+#     def rotate(nums: list[int], k: int) -> None:
+
+#         if len(nums) == 1:
+#             return
+        
+#         rot = k % len(nums)
+
+#         dic = {k:v for k, v in enumerate(nums)}
+
+#         for i in range(len(nums)):
+
+#             n_idx = (i+rot)%len(nums)
+#             nums[n_idx] = dic[i]
+
+#     'Note:It actually worked!'
+
+'''198. House Robber'''
+# def x():
+
+#     # Input
+#     # Case 1
+#     nums = [1,2,3,1]
+#     # Output: 4
+
+#     # Case 2
+#     nums = [2,7,9,3,1]
+#     # Output: 12
+
+#     # Custom Case
+#     nums = [2,1,1,2]
+#     # Output: 12
+
+
+#     'DP Approach / space: O(n)'
+#     def rob(nums: list[int]) -> int:
+        
+#         # Handling corner cases
+#         if len(nums) == 1:
+#             return nums[0]
+        
+#         # Initializing the aux array
+#         dp = [0] * len(nums)
+#         dp[0] = nums[0]
+#         dp[1] = max(dp[0], nums[1])
+
+#         for i in range(2, len(nums)):
+
+#             dp[i] = max(dp[i-1], dp[i-2] + nums[i])
+
+#         return dp[-1]
+
+#     # Testing
+#     print(rob(nums=nums))
+                    
+#     'Note: This could be done in O(1) space'
+
+        
+#     'DS Approach / space: O(1)'
+#     def rob(nums: list[int]) -> int:
+        
+#         # Handling corner cases
+#         if len(nums) == 1:
+#             return nums[0]
+        
+#         # Initializing the aux array
+#         prev_rob = 0
+#         max_rob = 0
+
+#         for num in nums:
+
+#             temp = max(max_rob, prev_rob + num)
+#             prev_rob = max_rob
+#             max_rob = temp
+        
+#         return max_rob
+
+#     # Testing
+#     print(rob(nums=nums))
+
+#     'Done'
+
+'''204. Count Primes'''
+# def x():
+
+#     # Input
+#     # Case 1
+#     n = 10
+#     # Output: 4 (2,3,5,7)
+
+#     # Custom Case
+#     n = 30
+#     # Output: 4 (2,3,5,7)
+
+
+#     '''
+#     My Approach
+
+#         Intuition
+#             - Application of Eratosthenes Sieve
+#     '''
+
+#     def countPrimes(n: int) -> int:
+
+#         # Handling corner cases
+#         if n in range(3):
+#             return 0 
+        
+            
+#         primes, non_primes = [], []
+
+#         for num in range(2, n):
+
+#             primes.append(num) if num not in non_primes else None
+
+#             non_primes.extend(x for x in range(num*num, n, num))
+        
+#         return len(primes)
+
+#     # Testing
+#     print(countPrimes(n=n))
+
+#     '''
+#     Note: This solution works well for data input in low scales (Worked for 26% of the cases), for big numbers could be quite time complex.
+
+#     After researching a modified version of the Sieve is the way to go, instead of appending numbers to later count them, creating a boolean list to only mark
+#     the multiples of other primes is more time and space efficient than storing the actual numbers.
+
+#         But the real hit here is that we will curb the loop of marking the multiples to the square root of the parameter given, because is safe to assume that after the square root
+#         other numbers will pretty much be multiples of the range before the SR.
+
+#     '''
+
+#     'Another Approach'
+#     def countPrimes(n:int) -> int:
+
+#         if n <= 2:
+#             return 0
+
+#         primes = [True]*n
+
+#         primes[0] = primes[1] = False
+
+#         for i in range(2, int(n**0.5)+1):
+
+#             if primes[i]:
+
+#                 for j in range(i*i, n, i):
+#                     primes[j] = False
+        
+#         return sum(primes)
+
+#     'Note:This one did it!'
+
+'''215. Kth Largest Element in an Array'''
+# def x():
+
+#     'Solution'
+#     import heapq
+
+#     def findKthLargest(self, nums: list[int], k: int) -> int:
+#             heap = nums[:k]
+#             heapq.heapify(heap)
+            
+#             for num in nums[k:]:
+#                 if num > heap[0]:
+#                     heapq.heappop(heap)
+#                     heapq.heappush(heap, num)
+            
+#             return heap[0]
+
+#     'Done'
+
+'''238. Product of Array Except Self'''
+# def x():
+
+#     # Input
+#     # Case 1
+#     nums = [1,2,3,4]
+#     # Output: [24,12,8,6]
+
+#     # Case 2
+#     nums = [-1,1,0,-3,3]
+#     # Output: [0,0,9,0,0]
+
+
+#     'My Approach / Brute forcing'
+#     from math import prod
+
+#     def product_except_self(nums:list[int]) -> list[int]:
+
+#         res = []
+
+#         for i in range(len(nums)):
+#             res.append(prod(nums[:i]+nums[i+1:]))
+
+#         return res
+
+#     # Testing
+#     print(product_except_self(nums=nums))
+
+#     'Note: This solution suffices 75% of test cases, but resulted inefficient with large inputs'
+
+
+#     'My Approach v2 - (Trying to carry the result - pseudo-prefix sum)'
+#     from math import prod
+
+#     def product_except_self(nums:list[int]) -> list[int]:
+
+#         res = []
+#         nums_prod = prod(nums)
+
+#         for i in range(len(nums)):
+
+#             elem = nums_prod//nums[i] if nums[i] != 0 else prod(nums[:i]+nums[i+1:])
+#             res.append(elem)
+
+
+#         return res
+
+#     # Testing
+#     print(product_except_self(nums=nums))
+
+#     'Note: It worked and beated 85% in time compl. and 74% in memory compl.'
+
+
+#     '''
+#     Preffix-Suffix product Approach - Customary
+
+#     Intuition:
+#         - The core idea of this approach is to build an array of the carrying product of all elements from left to right (Preffix)
+#             and build another more array with the sabe but from right to left (suffix).
+
+#         - After having that by combining those products but element by element, the preffix from 0 to n-1 indexed and the suffix from n-1 to 0 indexed
+#             and EXCLUDING the current index (i) in the final traversal, the 'self' element is explicitly excluded from the product.
+#     '''
+
+#     from itertools import accumulate
+#     import operator
+
+#     def product_except_self(nums:list[int]) -> list[int]:
+
+#         res = []
+
+#         # Populate both preffix and suffix
+#         preffix = list(accumulate(nums, operator.mul))
+#         suffix = list(accumulate(reversed(nums), operator.mul))[::-1]
+
+
+#         # Combine the results
+#         for i in range(len(preffix)):
+
+#             if 0 < i < len(preffix)-1:
+#                 res.append(preffix[i-1]*suffix[i+1])
+            
+#             elif i == 0:
+#                 res.append(suffix[i+1])
+
+#             else:
+#                 res.append(preffix[i-1])
+        
+#         return res
+
+#     # Testing
+#     print(product_except_self(nums=nums))
+
+#     'Done'
+
+'''239. Sliding Window Maximum'''
+# def x():
+
+#     # Input
+#     # Case 1
+#     nums = [1,3,-1,-3,5,3,6,7]
+#     k = 3
+#     # Output: [3,3,5,5,6,7]
+
+#     # Case 2
+#     nums = [1]
+#     k = 1
+#     # Output: [1]
+
+#     # Cusom Case
+#     nums = [1,3,-1,-3,5,3,6,7]
+#     k = 3
+#     # Output: [3,3,5,5,6,7]
+
+
+#     'My approach'
+#     def max_sliding_window(nums:list[int], k:int) -> list[int]:
+
+#         if len(nums) == 1:
+#             return nums
+        
+#         if k == len(nums):
+#             return [max(nums)]
+
+
+#         result = []
+
+#         for i in range(len(nums)-k+1):
+#             result.append(max(nums[i:i+k]))
+
+#         return result
+
+#     # Testing
+#     print(max_sliding_window(nums=nums, k=k))
+
+#     'Note: This approach cleared 73% of test cases, but breaks with large inputs'
+
+
+#     'Monotonically Decreacing Queue'
+#     def max_sliding_window(nums:list[int], k:int) -> list[int]:
+
+#         import collections
+
+#         output = []
+#         deque = collections.deque() # nums
+#         left = right = 0
+
+#         while right < len(nums):
+
+#             # Pop smaller values from de deque
+#             while deque and nums[deque[-1]] < nums[right]:
+#                 deque.pop()
+
+#             deque.append(right)
+
+#             # remove the left val from the window
+#             if left > deque[0]:
+#                 deque.popleft()
+
+#             if (right+1) >= k:
+#                 output.append(nums[deque[0]])
+#                 left += 1
+            
+#             right += 1
+
+#         return output
+
+#     # Testing
+#     print(max_sliding_window(nums=nums, k=k))
+
+#     'done'
+
+'''283. Move Zeroes'''
+# def x():
+
+#     # Input
+#     # Case 1
+#     nums = [0,1,0,3,12]
+#     # Output: [1,3,12,0,0]
+
+#     # Case 2
+#     nums = [0]
+#     # Output: [0]
+
+#     # Custom Case
+#     nums = [2,3,4,0,5,6,8,0,1,0,0,0,9]
+#     # Output: [0]
+
+
+#     '''
+#     My Approach
+
+#         Intuition:
+#             - Create a new list as a buffer to hold every item in the initial order
+#             - Separate the buffer into non-zeroes and zeroes different list and joint them together.
+#             - Replace each value of the original list with the order or the buffer list.
+
+#         This solution is more memory expensive than one with a Two-pointer approach, but let's try it
+#     '''
+
+#     def move_zeroes(nums:list[int]) -> None:
+
+#         # Handle corner case
+#         if len(nums) == 1:
+#             return nums
+    
+#         # Create the buffers to separate the non-zeroes to the zeroes
+#         non_zeroes, zeroes = [x for x in nums if x != 0],[x for x in nums if x == 0]
+
+#         # Join the buffers into one single list
+#         buffer = non_zeroes + zeroes
+
+#         # Modify the original input with the buffer's order
+#         for i in range(len(nums)):
+#             nums[i] = buffer[i]
+    
+#     # Testing
+#     move_zeroes(nums=nums)
+#     print(nums)
+
+#     'Note: This solution was accepted and beated submissions by 37% in runtime and 87% in memory'
+
+
+#     'Two-pointers Approach'
+#     def move_zeroes(nums:list[int]) -> None:
+
+#         # Initialize the left pointer
+#         l = 0
+
+#         # Iterate with the right pointer through the elements of nums
+#         for r in range(len(nums)):
+
+#             if nums[r] != 0:
+
+#                 nums[r], nums[l] = nums[l], nums[r]
+
+#                 l += 1
+
+#     # Testing
+#     move_zeroes(nums=nums)
+#     print(nums)
+
+#     'Done'
+
+'''287. Find the Duplicate Number'''
+# def x():
+
+#     # Input
+#     # Case 1
+#     nums = [1,3,4,2,2]
+#     # Output: 2
+
+#     # Case 2
+#     nums = [3,1,3,4,2]
+#     # Output: 3
+
+#     # Custom Case
+#     nums = [3,3,3,3,3]
+#     # Output: 3
+
+#     'My approach'
+
+#     def find_duplicate(nums:list[int]) -> int:
+
+#         for num in nums:
+
+#             if nums.count(num) != 1:
+#                 return num
+    
+#     # Testing
+#     print(find_duplicate(nums=nums))
+
+#     'Note: This approach cleared 92% of cases but breaks with larger inputs'
+
+
+#     'Hare & Tortoise Approach'
+#     def find_duplicate(nums:list[int]) -> int:
+
+#         # Initialize two pointers directing to the first element in the list
+#         slow = fast = nums[0]
+
+#         # Iterate until they coincide (They' found each other in the cycle)
+#         while True:
+#             slow = nums[slow]
+#             fast = nums[nums[fast]]
+            
+#             if slow == fast:
+#                 break
+        
+#         # Reset the slow to the begining of the list, so they an meet at the repeating number
+#         slow = nums[0]
+
+#         # Iterate again but at same pace, they will eventually meet at the repeated number
+#         while slow != fast:
+#             slow = nums[slow]
+#             fast = nums[fast]
+
+#         return fast
+
+#     # Testing
+#     print(find_duplicate(nums=nums))
+
+#     'Done'
+
 
 
 
@@ -2547,6 +3198,171 @@ CHALLENGES INDEX
 
 #     '''Note: The final solution were based on understanding how long division works and when to capture the moment when is repeating the remainders'''
 
+'''202. Happy Number'''
+# def x():
+
+#     # Input
+#     # Case 1
+#     n = 19
+#     # Output: True
+
+#     # Case 2
+#     n = 2
+#     # Output: False
+
+#     # Custom Case
+#     n = 18
+#     # Output: False
+
+
+#     '''
+#     My Approach
+    
+#         Intuition (Recursive)
+            
+#             - Recursively separate the digits and check the sum of their squares compared to 1.
+#                 - If the stackoverflow is reached, return False.            
+#     '''
+
+#     def isHappy(n:int) -> bool:
+
+#         def aux(m:int) -> bool:
+
+#             num = [int(x)**2 for x in str(m)]
+#             num = sum(num)
+
+#             if num == 1:
+#                 return True
+            
+#             return aux(m=num)
+        
+#         try:
+#             res = aux(m=n)
+
+#             if res:
+#                 return True
+        
+#         except RecursionError as e:        
+#             return False
+
+#     # Testing
+#     print(isHappy(n=n))
+
+#     'This approach may work but it exceed time limit: only met 4% of cases'
+
+
+#     '''
+#     Set Approach
+
+#     There are mainly two ways of solving this: The set approach and the Floyd's Cycle detection algorithm
+
+#         - The set approach: Use a set to save the seen numbers and if you end up in one of them, you entered a cycle
+#         - The Floyd's Cycle Detection Algorithm: Similar to the case of catching a cycle in a linked list with two pointers: Slow and Fast.
+#     '''
+
+#     'Set Approach'
+#     def isHappy(n:int) -> bool:
+
+#         def getNum(m:int)->int:
+#             return sum(int(x)**2 for x in str(m))
+
+#         seen = set()
+
+#         while n != 1 and n not in seen:
+#             seen.add(n)
+#             n = getNum(n)
+        
+#         return n == 1
+
+#     # Testing
+#     print(isHappy(n=n))
+
+
+#     'FDC Approach'
+#     def isHappy(n:int) -> bool:
+
+#         def getNum(m:int)->int:
+#             return sum(int(x)**2 for x in str(m))
+
+#         slow = n
+#         fast = getNum(n)
+
+#         while fast != 1 and slow != fast:
+#             slow = getNum(slow)
+#             fast = getNum(getNum(fast))
+        
+#         return fast == 1
+
+#     # Testing
+#     print(isHappy(n=n))
+
+#     'Done'
+
+'''208. Implement Trie (Prefix Tree)'''
+# def x():
+
+#     # Implementation
+#     class TrieNode:
+
+#         def __init__(self, is_word=False):
+#             self.values = {}
+#             self.is_word = is_word
+
+#     'Solution'
+#     class Trie:
+
+#         def __init__(self):
+#             self.root = TrieNode()
+    
+
+#         def insert(self, word: str) -> None:
+
+#             node = self.root
+
+#             for char in word:
+
+#                 if char not in node.values:
+#                     node.values[char] = TrieNode()
+                
+#                 node = node.values[char]
+
+#             node.is_word = True
+
+
+#         def search(self, word: str) -> bool:
+            
+#             node = self.root
+
+#             for char in word:          
+                        
+#                 if char not in node.values:
+#                     return False
+                
+#                 node = node.values[char]
+            
+#             return node.is_word
+
+
+#         def startsWith(self, prefix: str) -> bool:
+            
+#             node = self.root
+
+#             for char in prefix:
+
+#                 if char not in node.values:
+#                     return False
+                
+#                 node = node.values[char]
+            
+#             return True
+
+#     # Testing
+#     new_trie = Trie()
+#     new_trie.insert('Carrot')
+#     print(new_trie.startsWith('Car'))  
+
+#     'Done'
+
 
 
 
@@ -2883,6 +3699,615 @@ CHALLENGES INDEX
 #     solve(board)
 
 #     'Done'
+
+'''200. Number of Islands'''
+# def x():
+
+#     # Input
+#     # Case 1
+#     grid = [
+#       ["1","1","1","1","0"],
+#       ["1","1","0","1","0"],
+#       ["1","1","0","0","0"],
+#       ["0","0","0","0","0"]
+#     ]
+#     # Ouput: 1
+
+#     # Case 2
+#     grid = [
+#       ["1","1","0","0","0"],
+#       ["1","1","0","0","0"],
+#       ["0","0","1","0","0"],
+#       ["0","0","0","1","1"]
+#     ]
+#     # Ouput: 3
+
+#     # Custom Case
+#     grid = [
+#         ["1","0"]
+#         ]
+#     # Ouput: 1
+
+
+#     'My BFS Approach'
+#     def numIslands(grid:list[list[str]]) -> int:
+        
+#         if len(grid) == 1:
+#             return len([x for x in grid[0] if x =='1'])
+
+#         # Create the 'lands' coordinates
+#         coord = []
+
+#         # Collecting the 'lands' coordinates
+#         for i, row in enumerate(grid):
+#             coord.extend((i, j) for j, value in enumerate(row) if value == '1')
+
+
+#         # Create the groups holder
+#         islands = []
+#         used = set()
+
+
+#         # BFS Definition
+#         def bfs(root:tuple) -> list:
+
+#             queue = [root]
+#             curr_island = []
+
+#             while queue:
+
+#                 land = queue.pop(0)
+#                 x, y = land[0], land[1]
+                
+#                 if grid[x][y] == '1' and (land not in curr_island and land not in used):
+
+#                     curr_island.append(land)
+                
+#                     # Define next lands to search
+#                     if x == 0:
+#                         if y == 0:
+#                             next_lands = [(x+1,y),(x,y+1)]
+                        
+#                         elif y < len(grid[0])-1:
+#                             next_lands = [(x+1,y),(x,y-1),(x,y+1)]
+                        
+#                         else:
+#                             next_lands = [(x+1,y),(x,y-1)]
+                    
+#                     elif x < len(grid)-1:
+#                         if y == 0:
+#                             next_lands = [(x-1,y),(x+1,y),(x,y+1)]
+                        
+#                         elif y < len(grid[0])-1:
+#                             next_lands = [(x-1,y),(x+1,y),(x,y-1),(x,y+1)]
+                        
+#                         else:
+#                             next_lands = [(x-1,y),(x+1,y),(x,y-1)]
+                    
+#                     else:
+#                         if y == 0:
+#                             next_lands = [(x-1,y),(x,y+1)]
+                        
+#                         elif y < len(grid[0])-1:
+#                             next_lands = [(x-1,y),(x,y-1),(x,y+1)]
+                        
+#                         else:
+#                             next_lands = [(x-1,y),(x,y-1)]
+                                    
+#                     # List the next lands to visit
+#                     for next_land in next_lands:
+
+#                         if next_land not in curr_island:
+
+#                             queue.append(next_land)
+
+#             return curr_island
+            
+
+#         # Checking all the 1s in the grid
+#         for elem in coord:
+
+#             if elem not in used:
+
+#                 island = bfs(elem)
+
+#                 islands.append(island)
+#                 used.update(set(island))
+        
+#         return len(islands)
+
+#     # Testing
+#     print(numIslands(grid=grid))
+    
+#     'Note: This could be done way simplier'
+
+
+#     'Simplified & Corrected BFS Approach'
+#     def numIslands(grid:list[list[str]]) -> int:
+
+#         if not grid:
+#             return 0
+
+#         num_islands = 0
+#         directions = [(1,0),(-1,0),(0,1),(0,-1)]
+
+#         for i in range(len(grid)):
+
+#             for j in range(len(grid[0])):
+
+#                 if grid[i][j] == '1':
+
+#                     num_islands += 1
+
+#                     queue = [(i,j)]
+
+#                     while queue:
+
+#                         x, y = queue.pop(0)
+
+#                         if 0 <= x < len(grid) and 0 <= y < len(grid[0]) and grid[x][y] == '1':
+
+#                             grid[x][y] = '0'    # Mark as visited
+
+#                             for dx, dy in directions:
+
+#                                 queue.append((x + dx, y + dy))
+        
+#         return num_islands
+
+#     'Done'
+
+'''212. Word Search II'''
+# def x():
+
+#     # Input
+#     # Case 1
+#     board = [["o","a","a","n"],["e","t","a","e"],["i","h","k","r"],["i","f","l","v"]]
+#     words = ["oath","pea","eat","rain"]
+#     # Output: ["eat","oath"]
+
+#     # Case 2
+#     board = [["a","b"],["c","d"]], 
+#     words = ["abcb"]
+#     # Output: []
+
+#     # Custom Case
+#     board = [["a","b"],["c","d"]], 
+#     words = ["abcb"]
+#     # Output: []
+
+
+#     '''
+#     My Approach
+    
+#         Intuiton:
+
+#             - Based on the 'Word Seach I' backtracking solution, I will try to emulate the same but
+#                 since now there are multiple word to lookout for, I will rely on a Trie implementation
+#                 to look out for prefixes to optimize the process.
+
+#                 And to try to make it work, I will pull the first letter of each word and only start
+#                 the searches from those positions, so, roughly the plan is:
+
+#                 1. Collect the coordinates of the first letter from each of the word and store them in a dict
+#                     as {'word': coordinates[(x,y)]}, if a word has no coordinates and it means it won't be found
+#                     in the matrix, so it won't be in Trie.
+                
+#                 2. Initiate the Trie with the words with coordinates.
+
+#                 3. Iterate through each of the words, and iterate for each pair of coordinates to look out for that word,
+#                     if found, add it to a result list if don't pass to the next pair of coordinates, and so on for each word.
+                
+#                 4. Return the found words.
+#     '''
+
+#     'ACTUAL CODE'
+#     # TRIE IMPLEMENTATION
+
+#     # TrieNode Definition
+#     class TrieNode:
+
+#         def __init__(self):
+#             self.values = {}
+#             self.is_word = False
+
+
+#     # Trie DS Definition
+#     class Trie:
+
+#         def __init__(self):
+#             self.root = TrieNode()
+        
+#         def insert(self, word:str) -> None:
+
+#             curr_node = self.root
+
+#             for char in word:
+
+#                 if char not in curr_node.values:
+#                     curr_node.values[char] = TrieNode()
+                
+#                 curr_node = curr_node.values[char]
+            
+#             curr_node.is_word = True
+
+#         def search(self, word:str) -> bool:
+
+#             curr_node = self.root
+
+#             for char in word:
+
+#                 if char not in curr_node.values:
+#                     return False
+                
+#                 curr_node = curr_node.values[char]
+
+#             return curr_node.is_word
+
+#         def stars_with(self, prefix:str) -> bool:
+
+#             curr_node = self.root
+
+#             for char in prefix:
+
+#                 if char not in curr_node.values:
+#                     return False
+                
+#                 curr_node = curr_node.values[char]
+
+#             return True
+
+#     'Actual Solution'
+#     def findWords(board: list[list[str]], words: list[str]) -> list[str]:
+
+#         import copy
+
+#         #AUX BACKTRACK FUNC DEF
+#         def backtrack(i:int, j:int, k:str) -> bool:
+
+#             if new_trie.search(k):
+#                 return True
+                    
+#             if not new_trie.stars_with(k):
+#                 return False
+            
+#             temp = board[i][j]
+#             board[i][j] = '.'
+
+#             #1
+#             if 0<i<len(board)-1 and 0<j<len(board[0])-1:
+#                 if backtrack(i+1, j, k+board[i+1][j]) or backtrack(i-1, j, k+board[i-1][j]) or backtrack(i, j+1, k+board[i][j+1]) or backtrack(i, j-1, k+board[i][j-1]):        
+#                     return True
+            
+#             #2
+#             elif 0 == i and 0 == j:
+#                 if backtrack(i+1, j, k+board[i+1][j]) or backtrack(i, j+1, k+board[i][j+1]):        
+#                     return True
+                
+#             #3
+#             elif 0 == i and 0<j<len(board[0])-1:
+#                 if backtrack(i+1, j, k+board[i+1][j]) or backtrack(i, j+1, k+board[i][j+1]) or backtrack(i, j-1, k+board[i][j-1]):        
+#                     return True
+            
+#             #4
+#             elif len(board)-1 == i and len(board[0])-1 == j:
+#                 if backtrack(i-1, j, k+board[i-1][j]) or backtrack(i, j-1, k+board[i][j-1]):        
+#                     return True
+            
+#             #5
+#             elif 0<i<len(board)-1 and 0 == j:
+#                 if backtrack(i+1, j, k+board[i+1][j]) or backtrack(i-1, j, k+board[i-1][j]) or backtrack(i, j+1, k+board[i][j+1]):        
+#                     return True
+                
+#             #6
+#             elif 0<i<len(board)-1 and len(board[0])-1 == j:
+#                 if backtrack(i+1, j, k+board[i+1][j]) or backtrack(i-1, j, k+board[i-1][j]) or backtrack(i, j-1, k+board[i][j-1]):        
+#                     return True
+            
+#             #7
+#             elif len(board)-1 == i and 0 == j:
+#                 if backtrack(i-1, j, k+board[i-1][j]) or backtrack(i, j+1, k+board[i][j+1]):        
+#                     return True
+            
+#             #8
+#             elif len(board)-1 == i and 0<j<len(board[0])-1:
+#                 if backtrack(i-1, j, k+board[i-1][j]) or backtrack(i, j+1, k+board[i][j+1]) or backtrack(i, j-1, k+board[i][j-1]):        
+#                     return True
+
+#             #9
+#             elif len(board)-1 == i and len(board[0])-1 == j:
+#                 if backtrack(i-1, j, k+board[i-1][j]) or backtrack(i, j-1, k+board[i][j-1]):        
+#                     return True
+
+
+#             board[i][j] = temp
+
+#             return False 
+        
+
+#         # COLLECT FIRST LETTER COORDINATES FOR EACH WORD
+#         words_dict = {}
+
+#         for word in words:
+
+#             coordinates = []
+
+#             for i,row in enumerate(board):
+#                 coordinates.extend([(i,j) for j,elem in enumerate(row) if board[i][j] == word[0]])
+
+#             if coordinates:
+#                 words_dict[word] = coordinates
+
+
+#         # INITIATE THE TRIE
+#         new_trie = Trie()
+
+#         for word in words_dict.keys():
+#             new_trie.insert(word)
+
+#         x = 0
+
+#         result = []
+
+#         # ITERATE THE DICT
+#         for word in words_dict:
+
+#             temp_board = copy.deepcopy(board)
+
+#             for i,j in words_dict[word]:
+
+#                 if backtrack(i, j, word[0]):
+
+#                     result.append(word)
+#                     board = temp_board
+
+#         return result
+
+#     # Testing
+#     print(findWords(board=board, words=words))
+
+#     '''
+#     Notes:
+#         My solution and approach wasn't that far. The logic was correct, the execution was the one to fail.
+#         My version of the solution tends to get redundant and can't handle efficiently larger inputs
+#     '''
+
+#     # TrieNode Definition
+#     class TrieNode:
+
+#         def __init__(self):
+#             self.values = {}
+#             self.is_word = False
+
+#     # Trie DS Definition
+#     class Trie:
+
+#         def __init__(self):
+#             self.root = TrieNode()
+        
+#         def insert(self, word:str) -> None:
+
+#             curr_node = self.root
+
+#             for char in word:
+#                 if char not in curr_node.values:
+#                     curr_node.values[char] = TrieNode()            
+#                 curr_node = curr_node.values[char]
+            
+#             curr_node.is_word = True
+
+#     'Actual Solution'
+#     def findWords(board: list[list[str]], words: list[str]) -> list[str]:
+
+#         # Build the Trie
+#         trie = Trie()
+
+#         for word in words:
+#             trie.insert(word)
+        
+#         # Auxiliary vars
+#         rows, cols = len(board), len(board[0])
+#         result = set()
+#         visited = set()
+
+#         #Aux DFS Func
+#         def dfs(node:TrieNode, i:int, j:str, path:str) -> None:
+
+#             if i<0 or i>=rows or j<0 or j>=cols or (i,j) in visited or board[i][j] not in node.values:
+#                 return
+            
+#             visited.add((i,j))
+#             node = node.values[board[i][j]]
+#             path += board[i][j]
+
+#             if node.is_word:
+#                 result.add(path)
+#                 node.is_word = False    # To avoid duplicate results
+
+#             # Explore neighbors in 4 directions (up, down, left, right)
+#             for x, y in [(i-1,j),(i+1,j),(i,j-1),(i,j+1)]:
+#                 dfs(node, x, y, path)
+            
+#             visited.remove((i,j))        
+
+#         # Traverse the board
+#         for i in range(rows):
+#             for j in range(cols):
+#                 dfs(trie.root, i, j, '')        
+
+#         return result
+
+#     'Done'
+
+'''240. Search a 2D Matrix II'''
+# def x():
+
+#     # Input
+#     # Case 1
+#     matrix = [[1,4,7,11,15],[2,5,8,12,19],[3,6,9,16,22],[10,13,14,17,24],[18,21,23,26,30]]
+#     target = 5
+#     # Output: True
+
+#     # Case 2
+#     matrix = [[1,4,7,11,15],[2,5,8,12,19],[3,6,9,16,22],[10,13,14,17,24],[18,21,23,26,30]]
+#     target = 20
+#     # Output: False
+
+
+#     '''
+#     My Approach
+
+#         Intuition:
+
+#             - Iterativelly search in the first row of the matrix if the value is in there by a belonging test
+#                 - If the value is in the element, break and return True / else, pop that element from the matrix
+#                 - Transpose the matrix and start over until there's no more elements in the matrix
+#             - If the loop reaches the last element of the matrix, return False
+#     '''
+
+#     def search_matrix(matrix:list[list[int]], target: int) -> bool:
+
+#         m = len(matrix)
+#         n = len(matrix[0])
+
+#         # Handle the corner case
+#         if n == m == 1:
+#             return target == matrix[0][0]
+
+#         while matrix:
+
+#             # print(matrix)
+
+#             element = matrix.pop(0)
+
+#             if target in element:
+#                 return True
+            
+#             matrix = [list(x) for x in zip(*matrix)]
+        
+#         return False
+
+#     # Testing
+#     print(search_matrix(matrix=matrix,target=target))
+
+#     '''Note: This approach doesn't worked because dinamically changing the data structure mess in how python checks membership'''
+
+
+#     'Binary search approach'
+#     def search_matrix(matrix:list[list[int]], target: int) -> bool:
+
+#         m = len(matrix)
+#         n = len(matrix[0])
+
+#         # Handle the corner case
+#         if n == m == 1:
+#             return target == matrix[0][0]
+
+#         row, col = m-1, 0   # Start the search from the bottom left corner
+
+#         while row >= 0 and col < n:
+
+#             element = matrix[row][col]
+
+#             if element == target:
+#                 return True
+            
+#             elif element > target:
+#                 row -= 1
+                    
+#             else:
+#                 col += 1
+        
+#         return False
+
+#     # Testing
+#     print(search_matrix(matrix=matrix,target=target))
+
+#     'done'
+
+'''289. Game of Life'''
+# def x():
+
+#     # Input
+#     # Case 1
+#     board = [[0,1,0],[0,0,1],[1,1,1],[0,0,0]]
+#     # Output: [[0,0,0],[1,0,1],[0,1,1],[0,1,0]]
+
+#     # Case 2
+#     board = [[1,1],[1,0]]
+#     # Output: [[1,1],[1,1]]
+    
+
+#     '''
+#     My Approach
+
+#         Intuition:
+#             - Create a 'result matrix' filled with 0s with the size of the original one.
+#             - Create a auxiliary function that evaluates all the neighbors to collect the number of 1s to apply the rule.
+#                 + In the neighbors evaluation since there are 1s and 0s, to avoid more looping I will sum up to get the number of living cells.
+#             - Populate the result matrix according to the rules.
+#     '''
+
+#     def game_of_life(board:list[list[int]]) -> None:
+
+#         # Set the matrix dimentions
+#         m,n = len(board),len(board[0])
+
+#         # Define the holder matrix
+#         holder = [[0]*n for _ in range(m)]
+
+#         # Define the directions of the neighbors
+#         directions = [(-1,-1),(-1,0),(-1,1),(0,-1),(0,1),(1,-1),(1,0),(1,1)]
+
+#         # Iterate to evaluate each of the cells of the original board
+#         for i in range(m):
+
+#             for j in range(n):
+
+#                 # Define the actual neighbors
+#                 neighbors = [ board[i+dx][j+dy] for dx, dy in directions if 0 <= i+dx < m and 0 <= j+dy < n ]
+
+#                 # Evalue the number of live neighbors
+#                 neighbors = sum(neighbors)
+
+#                 # APPLY THE RULES
+#                 if board[i][j] == 1:
+                    
+#                     # 1. Any live cell with fewer than two live neighbors dies as if caused by under-population.
+#                     if neighbors < 2:
+#                         holder[i][j] = 0    # Update the holder matrix in the exact position with the result of the rule apply
+                    
+#                     # 2. Any live cell with two or three live neighbors lives on to the next generation.
+#                     elif 2 <= neighbors <= 3:
+#                         holder[i][j] = 1
+                    
+#                     # 3. Any live cell with more than three live neighbors dies, as if by over-population.
+#                     elif neighbors > 3:
+#                         holder[i][j] = 0
+
+#                 else:
+#                     # 4. Any dead cell with exactly three live neighbors becomes a live cell, as if by reproduction.
+#                     if neighbors == 3:
+#                         holder[i][j] = 1
+
+
+#         # Prepare the output: Modify the original board according to the result of the game
+#         for i in range(m):
+#             for j in range(n):
+#                 board[i][j] = holder[i][j] 
+
+
+#     # Testing
+#     for i in range(len(board)):
+#         print(board[i])
+
+#     game_of_life(board=board)
+#     print()
+
+#     for i in range(len(board)):
+#         print(board[i])
+
+#     'Done: My approach worked and beated 72% of submissions in runtime and 35% in space.'
 
 
 

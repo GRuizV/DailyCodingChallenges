@@ -7,6 +7,9 @@ CHALLENGES INDEX
 56. Merge Intervals (Array) (Sorting)
 75. Sort Colors (Array) (TP) (Sorting)
 88. Merge Sorted Array (Array) (TP) (Sorting)
+179. Largest Number (Array) (Sorting) (GRE)
+215. Kth Largest Element in an Array (Array) (Heap) (DQ) (Sorting)
+295. Find Median from Data Stream (Heap) (Sorting)
 
 
 *LL: Linked-Lists
@@ -497,6 +500,277 @@ CHALLENGES INDEX
 #     # Testing
 #     merge(nums1,m,nums2,n)
 #     print(nums1)
+
+'''179. Largest Number'''
+# def x():
+
+#     # Input
+#     # Case 1
+#     nums = [20,1]
+#     # Output: "201"
+
+#     # Case 2
+#     nums = [3,30,34,5,9]
+#     # Output: "9534330"
+
+#     # Custom Case
+#     nums = [8308,8308,830]
+#     # Output: "83088308830"
+
+
+#     'My 1st Approach'
+#     def largestNumber(nums: list[int]) -> str: 
+
+#         nums = [str(x) for x in nums]
+    
+#         res = sorted(nums, key= lambda x: int(x[0]), reverse=True)  
+
+
+#         # Mergesort
+#         def mergesort(seq: list) -> list:
+
+#             if len(seq) <= 1:
+#                 return seq
+
+#             mid = len(seq)//2
+
+#             left_side, right_side = seq[:mid], seq[mid:]
+
+#             left_side = mergesort(left_side)
+#             right_side = mergesort(right_side)
+
+#             return merge(left=left_side, right=right_side)
+
+#         # Auxiliary merge for Mergesort
+#         def merge(left: list, right: list) -> list:
+
+#             res = []
+#             zeros = []
+#             i = j = 0
+
+#             while i < len(left) and j < len(right):
+
+#                 if left[i][-1] == '0':
+#                     zeros.append(left[i])
+#                     i+=1
+
+#                 elif right[j][-1] == '0':
+#                     zeros.append(right[j])
+#                     j+=1
+                
+#                 elif left[i][0] == right[j][0]:
+
+#                     if left[i]+right[j] > right[j]+left[i]:
+#                         res.append(left[i])
+#                         i+=1
+
+#                     else:
+#                         res.append(right[j])
+#                         j+=1                
+
+#                 elif int(left[i][0]) > int(right[j][0]):
+#                     res.append(left[i])
+#                     i+=1
+                
+#                 else:
+#                     res.append(right[j])
+#                     j+=1
+            
+
+#             while i < len(left):
+#                 res.append(left[i])
+#                 i+=1
+
+            
+#             while j < len(right):
+#                 res.append(right[j])
+#                 j+=1
+
+
+#             # Deal with the elements with '0' as last digit
+#             zeros.sort(key=lambda x: int(x), reverse=True)
+
+#             return res+zeros          
+
+#         result = mergesort(seq=res)
+        
+#         return ''.join(result)
+
+#     # Testing
+#     print(largestNumber(nums=nums))
+
+#     'Note: This approach cleared 57% of cases '
+
+
+#     'My 2nd Approach'
+#     def largestNumber(nums: list[int]) -> str: 
+
+#         res = [str(x) for x in nums]    
+#         # res = sorted(nums, key= lambda x: int(x[0]), reverse=True)  
+
+#         # Mergesort
+#         def mergesort(seq: list) -> list:
+
+#             if len(seq) <= 1:
+#                 return seq
+
+#             mid = len(seq)//2
+
+#             left_side, right_side = seq[:mid], seq[mid:]
+
+#             left_side = mergesort(left_side)
+#             right_side = mergesort(right_side)
+
+#             return merge(left=left_side, right=right_side)
+
+#         # Auxiliary merge for Mergesort
+#         def merge(left: list, right: list) -> list:
+
+#             res = []        
+#             i = j = 0
+
+#             while i < len(left) and j < len(right):
+
+#                 if left[i]+right[j] > right[j]+left[i]:
+#                     res.append(left[i])
+#                     i += 1
+
+#                 else:
+#                     res.append(right[j])
+#                     j += 1
+            
+#             while i < len(left):
+#                 res.append(left[i])
+#                 i += 1
+                            
+#             while j < len(right):
+#                 res.append(right[j])
+#                 j += 1
+
+#             return res        
+
+#         result = mergesort(seq=res)
+        
+#         return ''.join(result)
+
+#     # Testing
+#     print(largestNumber(nums=nums))
+
+#     'Note: This one did it!'
+
+'''215. Kth Largest Element in an Array'''
+# def x():
+
+#     'Solution'
+#     import heapq
+
+#     def findKthLargest(self, nums: list[int], k: int) -> int:
+#             heap = nums[:k]
+#             heapq.heapify(heap)
+            
+#             for num in nums[k:]:
+#                 if num > heap[0]:
+#                     heapq.heappop(heap)
+#                     heapq.heappush(heap, num)
+            
+#             return heap[0]
+
+#     'Done'
+
+'''295. Find Median from Data Stream'''
+# def x():
+
+#     # Input
+#     # Case 1
+#     commands = ["MedianFinder", "addNum", "addNum", "findMedian", "addNum", "findMedian"]
+#     inputs = [[], 1, 2, [], 3, []]
+#     # Output: [None, None, None, 1.5, None, 2.0]
+
+#     # Case 2
+#     commands = ["MedianFinder","addNum","findMedian","addNum","findMedian","addNum","findMedian","addNum","findMedian","addNum","findMedian"]
+#     inputs = [[],-1,[],-2,[],-3,[],-4,[],-5,[]]
+#     # Output: [None, None, -1.0, None, -1.5, None, -2.0, None, -2.5, None, -3.0]
+
+
+#     'My approach'
+#     import heapq
+
+#     class MedianFinder:
+
+#         def __init__(self):
+#             self.nums = []      
+
+#         def addNum(self, num: int) -> None:
+
+#             # heapq.heappush(self.nums, num)
+#             # heapq.heapify(self.nums)
+
+#             self.nums.append(num)
+#             self.nums.sort()
+            
+
+#         def findMedian(self) -> float:
+
+#             nums_len = len(self.nums)
+
+#             if nums_len % 2 == 0:
+#                 mid1, mid2 = nums_len//2-1, nums_len//2
+#                 return (self.nums[mid1]+self.nums[mid2])/2
+            
+#             else:            
+#                 mid = nums_len//2
+#                 return self.nums[mid]
+
+#     # Testing
+#     obj = MedianFinder()
+
+#     for idx, command in enumerate(commands):
+
+#         if command == 'addNum':
+#             print(obj.addNum(inputs[idx]))
+        
+#         elif command == 'findMedian':
+#             print(obj.findMedian())
+
+
+#     'Note: This solution met 95% of cases but sorting in every addition cauases inefficiencies'
+
+
+#     'Heaps approach'
+#     import heapq
+
+#     class MedianFinder:
+
+#         def __init__(self):
+#             self.small = []  # Max-heap (inverted values)
+#             self.large = []  # Min-heap
+
+#         def addNum(self, num: int) -> None:
+
+#             # Add to max-heap (invert to simulate max-heap)
+#             heapq.heappush(self.small, -num)
+            
+#             # Balance the heaps
+#             if self.small and self.large and (-self.small[0] > self.large[0]):
+#                 heapq.heappush(self.large, -heapq.heappop(self.small))
+            
+#             # Ensure the sizes of the heaps differ by at most 1
+#             if len(self.small) > len(self.large) + 1:
+#                 heapq.heappush(self.large, -heapq.heappop(self.small))
+
+#             if len(self.large) > len(self.small):
+#                 heapq.heappush(self.small, -heapq.heappop(self.large))
+
+#         def findMedian(self) -> float:
+
+#             # If the heaps are of equal size, median is the average of the tops
+#             if len(self.small) == len(self.large):
+#                 return (-self.small[0] + self.large[0]) / 2
+            
+#             # Otherwise, the median is the top of the max-heap
+#             return -self.small[0]
+
+#     'Done'
 
 
 

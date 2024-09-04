@@ -16,6 +16,8 @@ CHALLENGES INDEX
 139. Word Break (DP)
 140. Word Break II (DP) (BT)
 152. Maximum Product Subarray (Array) (DP)
+198. House Robber (Array) (DP)
+279. Perfect Squares (DP)
 
 
 *LL: Linked-Lists
@@ -38,9 +40,7 @@ CHALLENGES INDEX
 *Others
 
 
-
 (XX)
-
 '''
 
 
@@ -1066,6 +1066,148 @@ CHALLENGES INDEX
 #     print(maxProduct(nums=input))
 
 #     'Done'
+
+'''198. House Robber'''
+# def x():
+
+#     # Input
+#     # Case 1
+#     nums = [1,2,3,1]
+#     # Output: 4
+
+#     # Case 2
+#     nums = [2,7,9,3,1]
+#     # Output: 12
+
+#     # Custom Case
+#     nums = [2,1,1,2]
+#     # Output: 12
+
+
+#     'DP Approach / space: O(n)'
+#     def rob(nums: list[int]) -> int:
+        
+#         # Handling corner cases
+#         if len(nums) == 1:
+#             return nums[0]
+        
+#         # Initializing the aux array
+#         dp = [0] * len(nums)
+#         dp[0] = nums[0]
+#         dp[1] = max(dp[0], nums[1])
+
+#         for i in range(2, len(nums)):
+
+#             dp[i] = max(dp[i-1], dp[i-2] + nums[i])
+
+#         return dp[-1]
+
+#     # Testing
+#     print(rob(nums=nums))
+                    
+#     'Note: This could be done in O(1) space'
+
+        
+#     'DS Approach / space: O(1)'
+#     def rob(nums: list[int]) -> int:
+        
+#         # Handling corner cases
+#         if len(nums) == 1:
+#             return nums[0]
+        
+#         # Initializing the aux array
+#         prev_rob = 0
+#         max_rob = 0
+
+#         for num in nums:
+
+#             temp = max(max_rob, prev_rob + num)
+#             prev_rob = max_rob
+#             max_rob = temp
+        
+#         return max_rob
+
+#     # Testing
+#     print(rob(nums=nums))
+
+#     'Done'
+
+'''279. Perfect Squares'''
+# def x():
+
+#     # Input
+#     # Case 1
+#     n = 12
+#     # Output: 3 (4+4+4)
+
+#     # Case 2
+#     n = 13
+#     # Output: 2 (4+9)
+
+#     # Custom case
+#     n = 43
+#     # Output: 3 
+
+#     # Custom case
+#     n = 67
+#     # Output: 3 
+
+
+#     '''
+#     My Approach
+
+#         Intuition:
+#             - Build the possible addends (Each number that its 2nd power is less than n).
+#             - Reverse the addends (To have them from bigger to smaller).
+#             - Iteratively check from bigger to smaller how many addends can be grouped to sum up using modulo and division.
+#                 + If a division if the group is still short reach the n, go to the next addend to fill up.
+#             - When the group is completed, start the process over but starting from the next addend.
+#                 The last group will always be the largest, since it consists of a groups of 1's.
+#             - Return the count of the shortest group.
+#     '''
+
+#     def num_squares(n:int) -> int:
+
+#         # Define the holder of the groups
+#         result = []
+
+#         # Define the holder and the indext to populate the addends
+#         addends = []
+#         i = 1
+
+#         # Populate the addends / ex: [1, 4, 9]
+#         while i*i <= n:
+#             addends.append(i*i)
+#             i += 1
+
+#         # Reverse the addends
+#         addends = addends[::-1]
+
+#         # Form the groups
+#         for i in range(len(addends)):
+
+#             group = []
+
+#             for j in range(i, len(addends)):
+
+#                 if sum(group) == n:
+#                     break
+            
+#                 if (n-sum(group))/addends[j] >= 1:                
+#                     group += ([addends[j]] * ((n-sum(group))//addends[j]))
+            
+#             result.append(group) if len(group) != n else None
+
+#         # Sort the groups from the shortest to the largest
+#         result.sort(key=len)
+
+#         #return the shortest
+#         return len(result[0])
+
+#     # Testing
+#     print(num_squares(n=n))
+
+#     'This solution cleared 96% of the test cases, the actual DP solution didnt made sense to me'
 
 
 

@@ -5,6 +5,9 @@ CHALLENGES INDEX
 53. Maximum Subarray (Array) (DQ) (DP)
 105. Construct Binary Tree from Preorder and Inorder Traversal (DQ) (Tree)
 108. Convert Sorted Array to Binary Search Tree (DQ) (Tree)
+215. Kth Largest Element in an Array (Array) (Heap) (DQ) (Sorting)
+218. The Skyline Problem (Heaps) (DQ)
+240. Search a 2D Matrix II (Matrix) (DQ) (BS)
 
 
 *LL: Linked-Lists
@@ -22,7 +25,6 @@ CHALLENGES INDEX
 
 
 (XX)
-
 '''
 
 
@@ -260,6 +262,185 @@ CHALLENGES INDEX
 
 #     'Done'
 
+'''215. Kth Largest Element in an Array'''
+# def x():
+
+#     'Solution'
+#     import heapq
+
+#     def findKthLargest(self, nums: list[int], k: int) -> int:
+#             heap = nums[:k]
+#             heapq.heapify(heap)
+            
+#             for num in nums[k:]:
+#                 if num > heap[0]:
+#                     heapq.heappop(heap)
+#                     heapq.heappush(heap, num)
+            
+#             return heap[0]
+
+#     'Done'
+
+'''218. The Skyline Problem'''
+# def x():
+
+#     '''
+#     Explanation of the Code
+
+#         Events Creation:
+
+#             For each building, two events are created: entering ((left, -height, right)) and exiting ((right, height, 0)).
+        
+#         Sorting Events:
+
+#             Events are sorted first by x-coordinate. If x-coordinates are the same, entering events are processed before exiting events. For entering events with the same x-coordinate, taller buildings are processed first.
+        
+#         Processing Events:
+
+#             A max-heap (live_heap) keeps track of the current active buildings' heights. Heights are stored as negative values to use Python's min-heap as a max-heap.
+#             When processing each event, heights are added to or removed from the heap as needed.
+#             If the maximum height changes (top of the heap), a key point is added to the result.
+        
+#         This approach efficiently manages the skyline problem by leveraging sorting and a max-heap to dynamically track the highest building at each critical point.
+#     '''
+
+#     from heapq import heappush, heappop, heapify
+
+#     def getSkyline(buildings: list[list[int]]) -> list[list[int]]:
+            
+#         # Create events for entering and exiting each building
+#         events = []
+
+#         for left, right, height in buildings:
+#             events.append((left, -height, right))  # Entering event
+#             events.append((right, height, 0))     # Exiting event
+        
+
+#         # Sort events: primarily by x coordinate, then by height
+#         events.sort()
+        
+
+#         # Max-heap to store the current active buildings
+#         result = []
+#         live_heap = [(0, float('inf'))]  # (height, end)
+
+
+#         # Process each event
+#         for x, h, r in events:
+
+#             if h < 0:  # Entering event
+#                 heappush(live_heap, (h, r))
+
+#             else:  # Exiting event
+                
+#                 # Remove the building height from the heap
+#                 for i in range(len(live_heap)):
+#                     if live_heap[i][1] == x:
+#                         live_heap[i] = live_heap[-1]  # Replace with last element
+#                         live_heap.pop()  # Remove last element
+#                         heapify(live_heap)  # Restore heap property
+#                         break
+            
+#             # Ensure the heap is valid
+#             while live_heap[0][1] <= x:
+#                 heappop(live_heap)
+            
+#             # Get the current maximum height
+#             max_height = -live_heap[0][0]
+            
+#             # If the current maximum height changes, add the key point
+#             if not result or result[-1][1] != max_height:
+#                 result.append([x, max_height])
+                    
+#         return result
+
+#     'Done'
+
+'''240. Search a 2D Matrix II'''
+# def x():
+
+#     # Input
+#     # Case 1
+#     matrix = [[1,4,7,11,15],[2,5,8,12,19],[3,6,9,16,22],[10,13,14,17,24],[18,21,23,26,30]]
+#     target = 5
+#     # Output: True
+
+#     # Case 2
+#     matrix = [[1,4,7,11,15],[2,5,8,12,19],[3,6,9,16,22],[10,13,14,17,24],[18,21,23,26,30]]
+#     target = 20
+#     # Output: False
+
+
+#     '''
+#     My Approach
+
+#         Intuition:
+
+#             - Iterativelly search in the first row of the matrix if the value is in there by a belonging test
+#                 - If the value is in the element, break and return True / else, pop that element from the matrix
+#                 - Transpose the matrix and start over until there's no more elements in the matrix
+#             - If the loop reaches the last element of the matrix, return False
+#     '''
+
+#     def search_matrix(matrix:list[list[int]], target: int) -> bool:
+
+#         m = len(matrix)
+#         n = len(matrix[0])
+
+#         # Handle the corner case
+#         if n == m == 1:
+#             return target == matrix[0][0]
+
+#         while matrix:
+
+#             # print(matrix)
+
+#             element = matrix.pop(0)
+
+#             if target in element:
+#                 return True
+            
+#             matrix = [list(x) for x in zip(*matrix)]
+        
+#         return False
+
+#     # Testing
+#     print(search_matrix(matrix=matrix,target=target))
+
+#     '''Note: This approach doesn't worked because dinamically changing the data structure mess in how python checks membership'''
+
+
+#     'Binary search approach'
+#     def search_matrix(matrix:list[list[int]], target: int) -> bool:
+
+#         m = len(matrix)
+#         n = len(matrix[0])
+
+#         # Handle the corner case
+#         if n == m == 1:
+#             return target == matrix[0][0]
+
+#         row, col = m-1, 0   # Start the search from the bottom left corner
+
+#         while row >= 0 and col < n:
+
+#             element = matrix[row][col]
+
+#             if element == target:
+#                 return True
+            
+#             elif element > target:
+#                 row -= 1
+                    
+#             else:
+#                 col += 1
+        
+#         return False
+
+#     # Testing
+#     print(search_matrix(matrix=matrix,target=target))
+
+#     'done'
 
 
 

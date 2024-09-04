@@ -10,6 +10,11 @@ CHALLENGES INDEX
 124. Binary Tree Maximum Path Sum (DP) (Tree) (DFS)
 127. Word Ladder (Hast Table) (BFS)
 130. Surrounded Regions (Matrix) (BFS) (DFS)
+200. Number of Islands (Matrix) (DFS)
+207. Course Schedule (DFS) (Topological Sort)
+210. Course Schedule II (DFS) (Topological Sort)
+212. Word Search II (Array) (DFS) (BT) (Matrix)
+230. Kth Smallest Element in a BST (Heap) (DFS) (Tree)
 
 
 *LL: Linked-Lists
@@ -936,6 +941,776 @@ CHALLENGES INDEX
 
 #     # Testing
 #     solve(board)
+
+#     'Done'
+
+'''200. Number of Islands'''
+# def x():
+
+#     # Input
+#     # Case 1
+#     grid = [
+#       ["1","1","1","1","0"],
+#       ["1","1","0","1","0"],
+#       ["1","1","0","0","0"],
+#       ["0","0","0","0","0"]
+#     ]
+#     # Ouput: 1
+
+#     # Case 2
+#     grid = [
+#       ["1","1","0","0","0"],
+#       ["1","1","0","0","0"],
+#       ["0","0","1","0","0"],
+#       ["0","0","0","1","1"]
+#     ]
+#     # Ouput: 3
+
+#     # Custom Case
+#     grid = [
+#         ["1","0"]
+#         ]
+#     # Ouput: 1
+
+
+#     'My BFS Approach'
+#     def numIslands(grid:list[list[str]]) -> int:
+        
+#         if len(grid) == 1:
+#             return len([x for x in grid[0] if x =='1'])
+
+#         # Create the 'lands' coordinates
+#         coord = []
+
+#         # Collecting the 'lands' coordinates
+#         for i, row in enumerate(grid):
+#             coord.extend((i, j) for j, value in enumerate(row) if value == '1')
+
+
+#         # Create the groups holder
+#         islands = []
+#         used = set()
+
+
+#         # BFS Definition
+#         def bfs(root:tuple) -> list:
+
+#             queue = [root]
+#             curr_island = []
+
+#             while queue:
+
+#                 land = queue.pop(0)
+#                 x, y = land[0], land[1]
+                
+#                 if grid[x][y] == '1' and (land not in curr_island and land not in used):
+
+#                     curr_island.append(land)
+                
+#                     # Define next lands to search
+#                     if x == 0:
+#                         if y == 0:
+#                             next_lands = [(x+1,y),(x,y+1)]
+                        
+#                         elif y < len(grid[0])-1:
+#                             next_lands = [(x+1,y),(x,y-1),(x,y+1)]
+                        
+#                         else:
+#                             next_lands = [(x+1,y),(x,y-1)]
+                    
+#                     elif x < len(grid)-1:
+#                         if y == 0:
+#                             next_lands = [(x-1,y),(x+1,y),(x,y+1)]
+                        
+#                         elif y < len(grid[0])-1:
+#                             next_lands = [(x-1,y),(x+1,y),(x,y-1),(x,y+1)]
+                        
+#                         else:
+#                             next_lands = [(x-1,y),(x+1,y),(x,y-1)]
+                    
+#                     else:
+#                         if y == 0:
+#                             next_lands = [(x-1,y),(x,y+1)]
+                        
+#                         elif y < len(grid[0])-1:
+#                             next_lands = [(x-1,y),(x,y-1),(x,y+1)]
+                        
+#                         else:
+#                             next_lands = [(x-1,y),(x,y-1)]
+                                    
+#                     # List the next lands to visit
+#                     for next_land in next_lands:
+
+#                         if next_land not in curr_island:
+
+#                             queue.append(next_land)
+
+#             return curr_island
+            
+
+#         # Checking all the 1s in the grid
+#         for elem in coord:
+
+#             if elem not in used:
+
+#                 island = bfs(elem)
+
+#                 islands.append(island)
+#                 used.update(set(island))
+        
+#         return len(islands)
+
+#     # Testing
+#     print(numIslands(grid=grid))
+    
+#     'Note: This could be done way simplier'
+
+
+#     'Simplified & Corrected BFS Approach'
+#     def numIslands(grid:list[list[str]]) -> int:
+
+#         if not grid:
+#             return 0
+
+#         num_islands = 0
+#         directions = [(1,0),(-1,0),(0,1),(0,-1)]
+
+#         for i in range(len(grid)):
+
+#             for j in range(len(grid[0])):
+
+#                 if grid[i][j] == '1':
+
+#                     num_islands += 1
+
+#                     queue = [(i,j)]
+
+#                     while queue:
+
+#                         x, y = queue.pop(0)
+
+#                         if 0 <= x < len(grid) and 0 <= y < len(grid[0]) and grid[x][y] == '1':
+
+#                             grid[x][y] = '0'    # Mark as visited
+
+#                             for dx, dy in directions:
+
+#                                 queue.append((x + dx, y + dy))
+        
+#         return num_islands
+
+#     'Done'
+
+'''207. Course Schedule'''
+# def x():
+
+#     # Input
+#     # Case 1
+#     numCourses = 2
+#     prerequisites = [[1,0]]
+#     # Output: True
+
+#     # Case 2
+#     numCurses = 2
+#     prerequisites = [[1,0], [0,1]]
+#     # Output: False
+
+
+#     'DFS Approach'
+#     def canFinish(numCourses:int, prerequisites: list[list[int]]) -> bool:
+
+#         # Create the graph
+#         preMap = {course:[] for course in range(numCourses)}
+
+#         # Populate the graph
+#         for crs, pre in prerequisites:
+#             preMap[crs].append(pre)
+
+#         # Create a visit (set) to check the current branch visited (to detect cycles)
+#         visit_set = set()
+
+#         # Define the DFS func
+#         def dfs(node):
+
+#             # Base case where is a cylce
+#             if node in visit_set:
+#                 return False
+            
+#             # Base case where not prerequisites
+#             if preMap[node] == []:
+#                 return True
+            
+#             visit_set.add(node)
+
+#             for prereq in preMap[node]:
+                
+#                 if not dfs(prereq):
+#                     return False
+
+#             visit_set.remove(node)
+#             preMap[prereq] = [] # As it passes, then cleared the list in case is a prereq of something else
+#             return True
+        
+#         courses = sorted(set(x for pair in prerequisites for x in pair))
+
+#         for crs in courses:        
+#             if not dfs(crs):
+#                 return False
+        
+#         return True
+
+#     # Testing
+#     print(canFinish(numCourses, prerequisites))
+
+#     'Done'
+
+'''210. Course Schedule II'''
+# def x():
+
+#     # Input
+#     # Case 1
+#     numCourses = 2
+#     prerequisites = [[0,1]]
+#     # Output: True
+
+#     # Case 2
+#     numCourses = 4
+#     prerequisites = [[1,0],[2,0],[3,1],[3,2]]
+#     # Output: [0,1,2,3] or [0,2,1,3]
+
+#     # Case 3
+#     numCourses = 1
+#     prerequisites = []
+#     # Output: [0]
+
+#     # Custom Case
+#     numCourses = 3
+#     prerequisites = [[1,0]]
+#     # Output: [0]
+
+
+#     'My approach'
+#     def findOrder(numCourses:int, prerequisites: list[list[int]]) -> list[int]:
+
+#         # Handling corner case
+#         if not prerequisites:
+#             return [x for x in range(numCourses)]
+        
+#         # Create the graph as an Adjacency list
+#         pre_map = {course:[] for course in range(numCourses)}
+
+#         # Populate the graph
+#         for crs, pre in prerequisites:
+#             pre_map[crs].append(pre)
+
+#         # Create the visit set to watch for cycles
+#         visit_set = set()
+
+#         # Create the path in which the order of the courses will be stored
+#         path = []
+
+#         # Define the recursive dfs func
+#         def dfs(course):
+
+#             # If we get to a course we already pass through, means we're in a Cycle
+#             if course in visit_set:
+#                 return False
+
+#             # If we get to a course that has no prerequisites, means we can take it
+#             if pre_map[course] == []:
+
+#                 path.append(course) if course not in path else None
+
+#                 return True
+            
+#             visit_set.add(course)   # Mark the course as visited
+
+#             # Check if the course's prerequisites are available to take
+#             for prereq in pre_map[course]:
+                
+#                 if dfs(prereq) is False:
+#                     return False
+                
+#             visit_set.remove(course)
+#             pre_map[course] = []
+#             path.append(course)  # Build the path backwards
+
+#             return True
+
+
+#         # # Create a list with all the courses available
+#         # courses = sorted(set(x for pair in prerequisites for x in pair))
+
+
+#         # Run through all the courses
+#         for crs in range(numCourses):
+#             if dfs(crs) is False:
+#                 return []
+            
+#         return path
+
+#     # Testing
+#     print(findOrder(numCourses=numCourses, prerequisites=prerequisites))
+
+#     'Note: It worked based on the first case version'
+
+'''212. Word Search II'''
+# def x():
+
+#     # Input
+#     # Case 1
+#     board = [["o","a","a","n"],["e","t","a","e"],["i","h","k","r"],["i","f","l","v"]]
+#     words = ["oath","pea","eat","rain"]
+#     # Output: ["eat","oath"]
+
+#     # Case 2
+#     board = [["a","b"],["c","d"]], 
+#     words = ["abcb"]
+#     # Output: []
+
+#     # Custom Case
+#     board = [["a","b"],["c","d"]], 
+#     words = ["abcb"]
+#     # Output: []
+
+
+#     '''
+#     My Approach
+    
+#         Intuiton:
+
+#             - Based on the 'Word Seach I' backtracking solution, I will try to emulate the same but
+#                 since now there are multiple word to lookout for, I will rely on a Trie implementation
+#                 to look out for prefixes to optimize the process.
+
+#                 And to try to make it work, I will pull the first letter of each word and only start
+#                 the searches from those positions, so, roughly the plan is:
+
+#                 1. Collect the coordinates of the first letter from each of the word and store them in a dict
+#                     as {'word': coordinates[(x,y)]}, if a word has no coordinates and it means it won't be found
+#                     in the matrix, so it won't be in Trie.
+                
+#                 2. Initiate the Trie with the words with coordinates.
+
+#                 3. Iterate through each of the words, and iterate for each pair of coordinates to look out for that word,
+#                     if found, add it to a result list if don't pass to the next pair of coordinates, and so on for each word.
+                
+#                 4. Return the found words.
+#     '''
+
+#     'ACTUAL CODE'
+#     # TRIE IMPLEMENTATION
+
+#     # TrieNode Definition
+#     class TrieNode:
+
+#         def __init__(self):
+#             self.values = {}
+#             self.is_word = False
+
+
+#     # Trie DS Definition
+#     class Trie:
+
+#         def __init__(self):
+#             self.root = TrieNode()
+        
+#         def insert(self, word:str) -> None:
+
+#             curr_node = self.root
+
+#             for char in word:
+
+#                 if char not in curr_node.values:
+#                     curr_node.values[char] = TrieNode()
+                
+#                 curr_node = curr_node.values[char]
+            
+#             curr_node.is_word = True
+
+#         def search(self, word:str) -> bool:
+
+#             curr_node = self.root
+
+#             for char in word:
+
+#                 if char not in curr_node.values:
+#                     return False
+                
+#                 curr_node = curr_node.values[char]
+
+#             return curr_node.is_word
+
+#         def stars_with(self, prefix:str) -> bool:
+
+#             curr_node = self.root
+
+#             for char in prefix:
+
+#                 if char not in curr_node.values:
+#                     return False
+                
+#                 curr_node = curr_node.values[char]
+
+#             return True
+
+#     'Actual Solution'
+#     def findWords(board: list[list[str]], words: list[str]) -> list[str]:
+
+#         import copy
+
+#         #AUX BACKTRACK FUNC DEF
+#         def backtrack(i:int, j:int, k:str) -> bool:
+
+#             if new_trie.search(k):
+#                 return True
+                    
+#             if not new_trie.stars_with(k):
+#                 return False
+            
+#             temp = board[i][j]
+#             board[i][j] = '.'
+
+#             #1
+#             if 0<i<len(board)-1 and 0<j<len(board[0])-1:
+#                 if backtrack(i+1, j, k+board[i+1][j]) or backtrack(i-1, j, k+board[i-1][j]) or backtrack(i, j+1, k+board[i][j+1]) or backtrack(i, j-1, k+board[i][j-1]):        
+#                     return True
+            
+#             #2
+#             elif 0 == i and 0 == j:
+#                 if backtrack(i+1, j, k+board[i+1][j]) or backtrack(i, j+1, k+board[i][j+1]):        
+#                     return True
+                
+#             #3
+#             elif 0 == i and 0<j<len(board[0])-1:
+#                 if backtrack(i+1, j, k+board[i+1][j]) or backtrack(i, j+1, k+board[i][j+1]) or backtrack(i, j-1, k+board[i][j-1]):        
+#                     return True
+            
+#             #4
+#             elif len(board)-1 == i and len(board[0])-1 == j:
+#                 if backtrack(i-1, j, k+board[i-1][j]) or backtrack(i, j-1, k+board[i][j-1]):        
+#                     return True
+            
+#             #5
+#             elif 0<i<len(board)-1 and 0 == j:
+#                 if backtrack(i+1, j, k+board[i+1][j]) or backtrack(i-1, j, k+board[i-1][j]) or backtrack(i, j+1, k+board[i][j+1]):        
+#                     return True
+                
+#             #6
+#             elif 0<i<len(board)-1 and len(board[0])-1 == j:
+#                 if backtrack(i+1, j, k+board[i+1][j]) or backtrack(i-1, j, k+board[i-1][j]) or backtrack(i, j-1, k+board[i][j-1]):        
+#                     return True
+            
+#             #7
+#             elif len(board)-1 == i and 0 == j:
+#                 if backtrack(i-1, j, k+board[i-1][j]) or backtrack(i, j+1, k+board[i][j+1]):        
+#                     return True
+            
+#             #8
+#             elif len(board)-1 == i and 0<j<len(board[0])-1:
+#                 if backtrack(i-1, j, k+board[i-1][j]) or backtrack(i, j+1, k+board[i][j+1]) or backtrack(i, j-1, k+board[i][j-1]):        
+#                     return True
+
+#             #9
+#             elif len(board)-1 == i and len(board[0])-1 == j:
+#                 if backtrack(i-1, j, k+board[i-1][j]) or backtrack(i, j-1, k+board[i][j-1]):        
+#                     return True
+
+
+#             board[i][j] = temp
+
+#             return False 
+        
+
+#         # COLLECT FIRST LETTER COORDINATES FOR EACH WORD
+#         words_dict = {}
+
+#         for word in words:
+
+#             coordinates = []
+
+#             for i,row in enumerate(board):
+#                 coordinates.extend([(i,j) for j,elem in enumerate(row) if board[i][j] == word[0]])
+
+#             if coordinates:
+#                 words_dict[word] = coordinates
+
+
+#         # INITIATE THE TRIE
+#         new_trie = Trie()
+
+#         for word in words_dict.keys():
+#             new_trie.insert(word)
+
+#         x = 0
+
+#         result = []
+
+#         # ITERATE THE DICT
+#         for word in words_dict:
+
+#             temp_board = copy.deepcopy(board)
+
+#             for i,j in words_dict[word]:
+
+#                 if backtrack(i, j, word[0]):
+
+#                     result.append(word)
+#                     board = temp_board
+
+#         return result
+
+#     # Testing
+#     print(findWords(board=board, words=words))
+
+#     '''
+#     Notes:
+#         My solution and approach wasn't that far. The logic was correct, the execution was the one to fail.
+#         My version of the solution tends to get redundant and can't handle efficiently larger inputs
+#     '''
+
+#     # TrieNode Definition
+#     class TrieNode:
+
+#         def __init__(self):
+#             self.values = {}
+#             self.is_word = False
+
+#     # Trie DS Definition
+#     class Trie:
+
+#         def __init__(self):
+#             self.root = TrieNode()
+        
+#         def insert(self, word:str) -> None:
+
+#             curr_node = self.root
+
+#             for char in word:
+#                 if char not in curr_node.values:
+#                     curr_node.values[char] = TrieNode()            
+#                 curr_node = curr_node.values[char]
+            
+#             curr_node.is_word = True
+
+#     'Actual Solution'
+#     def findWords(board: list[list[str]], words: list[str]) -> list[str]:
+
+#         # Build the Trie
+#         trie = Trie()
+
+#         for word in words:
+#             trie.insert(word)
+        
+#         # Auxiliary vars
+#         rows, cols = len(board), len(board[0])
+#         result = set()
+#         visited = set()
+
+#         #Aux DFS Func
+#         def dfs(node:TrieNode, i:int, j:str, path:str) -> None:
+
+#             if i<0 or i>=rows or j<0 or j>=cols or (i,j) in visited or board[i][j] not in node.values:
+#                 return
+            
+#             visited.add((i,j))
+#             node = node.values[board[i][j]]
+#             path += board[i][j]
+
+#             if node.is_word:
+#                 result.add(path)
+#                 node.is_word = False    # To avoid duplicate results
+
+#             # Explore neighbors in 4 directions (up, down, left, right)
+#             for x, y in [(i-1,j),(i+1,j),(i,j-1),(i,j+1)]:
+#                 dfs(node, x, y, path)
+            
+#             visited.remove((i,j))        
+
+#         # Traverse the board
+#         for i in range(rows):
+#             for j in range(cols):
+#                 dfs(trie.root, i, j, '')        
+
+#         return result
+
+#     'Done'
+
+'''230. Kth Smallest Element in a BST'''
+# def x():
+
+#     # Base
+#     # Definition for a binary tree node.
+#     class TreeNode:
+#         def __init__(self, val=0, left=None, right=None):
+#             self.val = val
+#             self.left = left
+#             self.right = right
+
+#     # Case 1
+#     tree_layout = [3,1,4,None,2]
+#     one, four = TreeNode(val=1, right=TreeNode(val=2)), TreeNode(val=4)
+#     root = TreeNode(val=3, left=one, right=four)
+#     k = 1
+#     # Output: 1
+
+#     # Case 2
+#     tree_layout = [5,3,6,2,4,None,None,1]
+#     three, six = TreeNode(val=3, left=TreeNode(val=2, left=TreeNode(val=1)), right=TreeNode(val=4)), TreeNode(val=6)
+#     root = TreeNode(val=5, left=three, right=six)
+#     k = 3
+#     # Output: 3
+
+#     # Custom Case
+#     tree_layout = [5,3,6,2,4,None,None,1]
+#     three, six = TreeNode(val=3, left=TreeNode(val=2, left=TreeNode(val=1)), right=TreeNode(val=4)), TreeNode(val=6)
+#     root = TreeNode(val=5, left=three, right=six)
+#     k = 3
+#     # Output: 3
+
+
+#     '''
+#     My Aprroach
+   
+#         Intuition:
+#             - Traverse the Tree with preorder to extract the values
+#             - Create a Max heap of length k and go through the rest of the elements (mantaining the heap property).
+#             - Return the first element of the heap.
+#     '''
+
+#     def kth_smallest(root: TreeNode,k: int) -> int:
+
+#         # Define Aux Inorder traversal func
+#         def inorder(root: TreeNode, path:list) -> list:
+
+#             if root:
+
+#                 node = root
+
+#                 inorder(root=node.left, path=path)
+#                 path.append(node.val)
+#                 inorder(root=node.right, path=path)
+
+#                 return path
+
+#         tree_list = inorder(root=root, path=[])
+
+#         tree_list.sort()
+
+#         return tree_list[k-1]
+
+#     # Testing
+#     print(kth_smallest(root=root, k=k))
+
+#     '''Notes: 
+#     - This approach works perfectly, and it beated 37% of solutions in Runtime and 80% in space.
+        
+#         Complexity:
+#         - Time complexity: O(nlogn).
+#         - Space Complexity: O(n).
+
+#     Now, if no sorting func is required to be used, below will be that version.
+#     '''
+
+
+#     'Without Sorting Approach'
+#     import heapq
+
+#     def kth_smallest(root: TreeNode,k: int) -> int:
+
+#         # Define Aux Inorder traversal func
+#         def inorder(root: TreeNode, path:list) -> list:
+
+#             if root:
+
+#                 node = root
+
+#                 inorder(root=node.left, path=path)
+#                 path.append(node.val)
+#                 inorder(root=node.right, path=path)
+
+#                 return path
+
+#         # Extract the tree nodes values in a list
+#         tree_list = inorder(root=root, path=[])
+
+
+#         # Make a min-heap out of the tree_list up to the 'k' limit
+#         heap = tree_list[:k]
+#         heapq.heapify(heap)
+
+#         # Iterate through each element in the tree_list starting from 'k' up to len(tree_list)
+#         for num in tree_list[k:]:
+
+#             if num < heap[0]:
+#                 heapq.heappop(heap)
+#                 heapq.heappush(heap, num)
+        
+#         return heap[-1] # The result is the last element of the min-heap, since it was length k, and the last is the kth
+
+#     # Testing
+#     print(kth_smallest(root=root, k=k))
+
+#     '''Notes: 
+#     - This approach also worked smoothly, and it consequentially reduced its performance
+#         beating only 6% of solutions in Runtime and it maintains the 80% in space.
+        
+#         Complexity:
+#         - Time complexity: O(n+(n-k)logk).
+#         - Space Complexity: O(n).
+
+#     Now, what if I don't traverse the elements (O(n)) and later I traverse up to k?
+#         Would it be possible to order the heap while traversing the tree?.
+#     '''
+
+#     'Another enhanced solution'
+#     import heapq
+
+#     def kth_smallest(root: TreeNode, k: int) -> int:
+
+#         # Define the heap with 'inf' as it first element (To be pushed later on)
+#         heap = [float('inf')]
+
+#         # Define Aux Inorder traversal func
+#         def inorder(root: TreeNode) -> None:
+
+#             if root:
+
+#                 node = root
+
+#                 inorder(root=node.left)
+
+#                 if len(heap) == k:
+
+#                     if node.val < heap[0]:
+#                         heapq.heappop(heap)
+#                         heapq.heappush(heap, node.val)
+#                         pass
+                
+#                 else:
+#                     heap.append(node.val)
+
+
+#                 inorder(root=node.right)
+        
+#         inorder(root=root)
+        
+#         return heap[-1] # The result is the last element of the min-heap, since it was length k, and the last is the kth
+
+#     # Testing
+#     print(kth_smallest(root=root, k=k))
+
+#     '''Notes: 
+#     - This approach also worked smoothly, and it actually beated the first approach in performance,
+#         beating 57% of solutions in Runtime and it maintains the 80% in space.
+        
+#         Complexity:
+#         - Time complexity: O(nlogk).
+#         - Space Complexity: O(n+k).
+
+#     That was a great exercise, now what is the customary solution for this?.
+#         Quick answer: Simply inorderlt traverse the tree up to k, since is a Binary Search Tree, it was already sorted.
+#     '''
 
 #     'Done'
 

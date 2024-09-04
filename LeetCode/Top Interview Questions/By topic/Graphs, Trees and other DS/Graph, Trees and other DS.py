@@ -10,6 +10,10 @@ CHALLENGES INDEX
 108. Convert Sorted Array to Binary Search Tree (DQ) (Tree)
 116. Populating Next Right Pointers in Each Node (BFS) (DFS) (Tree)
 124. Binary Tree Maximum Path Sum (DP) (Tree) (DFS)
+207. Course Schedule (DFS) (Topological Sort)
+208. Implement Trie (Hash Table) (Tree)
+210. Course Schedule II (DFS) (Topological Sort)
+230. Kth Smallest Element in a BST (Heap) (DFS) (Tree)
 
 
 *LL: Linked-Lists
@@ -779,6 +783,417 @@ CHALLENGES INDEX
 #     print(maxPathSum(root))
 
 #     'Done'
+
+'''207. Course Schedule'''
+# def x():
+
+#     # Input
+#     # Case 1
+#     numCourses = 2
+#     prerequisites = [[1,0]]
+#     # Output: True
+
+#     # Case 2
+#     numCurses = 2
+#     prerequisites = [[1,0], [0,1]]
+#     # Output: False
+
+
+#     'DFS Approach'
+#     def canFinish(numCourses:int, prerequisites: list[list[int]]) -> bool:
+
+#         # Create the graph
+#         preMap = {course:[] for course in range(numCourses)}
+
+#         # Populate the graph
+#         for crs, pre in prerequisites:
+#             preMap[crs].append(pre)
+
+#         # Create a visit (set) to check the current branch visited (to detect cycles)
+#         visit_set = set()
+
+#         # Define the DFS func
+#         def dfs(node):
+
+#             # Base case where is a cylce
+#             if node in visit_set:
+#                 return False
+            
+#             # Base case where not prerequisites
+#             if preMap[node] == []:
+#                 return True
+            
+#             visit_set.add(node)
+
+#             for prereq in preMap[node]:
+                
+#                 if not dfs(prereq):
+#                     return False
+
+#             visit_set.remove(node)
+#             preMap[prereq] = [] # As it passes, then cleared the list in case is a prereq of something else
+#             return True
+        
+#         courses = sorted(set(x for pair in prerequisites for x in pair))
+
+#         for crs in courses:        
+#             if not dfs(crs):
+#                 return False
+        
+#         return True
+
+#     # Testing
+#     print(canFinish(numCourses, prerequisites))
+
+#     'Done'
+
+'''208. Implement Trie (Prefix Tree)'''
+# def x():
+
+#     # Implementation
+#     class TrieNode:
+
+#         def __init__(self, is_word=False):
+#             self.values = {}
+#             self.is_word = is_word
+
+#     'Solution'
+#     class Trie:
+
+#         def __init__(self):
+#             self.root = TrieNode()
+    
+
+#         def insert(self, word: str) -> None:
+
+#             node = self.root
+
+#             for char in word:
+
+#                 if char not in node.values:
+#                     node.values[char] = TrieNode()
+                
+#                 node = node.values[char]
+
+#             node.is_word = True
+
+
+#         def search(self, word: str) -> bool:
+            
+#             node = self.root
+
+#             for char in word:          
+                        
+#                 if char not in node.values:
+#                     return False
+                
+#                 node = node.values[char]
+            
+#             return node.is_word
+
+
+#         def startsWith(self, prefix: str) -> bool:
+            
+#             node = self.root
+
+#             for char in prefix:
+
+#                 if char not in node.values:
+#                     return False
+                
+#                 node = node.values[char]
+            
+#             return True
+
+#     # Testing
+#     new_trie = Trie()
+#     new_trie.insert('Carrot')
+#     print(new_trie.startsWith('Car'))  
+
+#     'Done'
+
+'''210. Course Schedule II'''
+# def x():
+
+#     # Input
+#     # Case 1
+#     numCourses = 2
+#     prerequisites = [[0,1]]
+#     # Output: True
+
+#     # Case 2
+#     numCourses = 4
+#     prerequisites = [[1,0],[2,0],[3,1],[3,2]]
+#     # Output: [0,1,2,3] or [0,2,1,3]
+
+#     # Case 3
+#     numCourses = 1
+#     prerequisites = []
+#     # Output: [0]
+
+#     # Custom Case
+#     numCourses = 3
+#     prerequisites = [[1,0]]
+#     # Output: [0]
+
+
+#     'My approach'
+#     def findOrder(numCourses:int, prerequisites: list[list[int]]) -> list[int]:
+
+#         # Handling corner case
+#         if not prerequisites:
+#             return [x for x in range(numCourses)]
+        
+#         # Create the graph as an Adjacency list
+#         pre_map = {course:[] for course in range(numCourses)}
+
+#         # Populate the graph
+#         for crs, pre in prerequisites:
+#             pre_map[crs].append(pre)
+
+#         # Create the visit set to watch for cycles
+#         visit_set = set()
+
+#         # Create the path in which the order of the courses will be stored
+#         path = []
+
+#         # Define the recursive dfs func
+#         def dfs(course):
+
+#             # If we get to a course we already pass through, means we're in a Cycle
+#             if course in visit_set:
+#                 return False
+
+#             # If we get to a course that has no prerequisites, means we can take it
+#             if pre_map[course] == []:
+
+#                 path.append(course) if course not in path else None
+
+#                 return True
+            
+#             visit_set.add(course)   # Mark the course as visited
+
+#             # Check if the course's prerequisites are available to take
+#             for prereq in pre_map[course]:
+                
+#                 if dfs(prereq) is False:
+#                     return False
+                
+#             visit_set.remove(course)
+#             pre_map[course] = []
+#             path.append(course)  # Build the path backwards
+
+#             return True
+
+
+#         # # Create a list with all the courses available
+#         # courses = sorted(set(x for pair in prerequisites for x in pair))
+
+
+#         # Run through all the courses
+#         for crs in range(numCourses):
+#             if dfs(crs) is False:
+#                 return []
+            
+#         return path
+
+#     # Testing
+#     print(findOrder(numCourses=numCourses, prerequisites=prerequisites))
+
+#     'Note: It worked based on the first case version'
+
+'''230. Kth Smallest Element in a BST'''
+# def x():
+
+#     # Base
+#     # Definition for a binary tree node.
+#     class TreeNode:
+#         def __init__(self, val=0, left=None, right=None):
+#             self.val = val
+#             self.left = left
+#             self.right = right
+
+#     # Case 1
+#     tree_layout = [3,1,4,None,2]
+#     one, four = TreeNode(val=1, right=TreeNode(val=2)), TreeNode(val=4)
+#     root = TreeNode(val=3, left=one, right=four)
+#     k = 1
+#     # Output: 1
+
+#     # Case 2
+#     tree_layout = [5,3,6,2,4,None,None,1]
+#     three, six = TreeNode(val=3, left=TreeNode(val=2, left=TreeNode(val=1)), right=TreeNode(val=4)), TreeNode(val=6)
+#     root = TreeNode(val=5, left=three, right=six)
+#     k = 3
+#     # Output: 3
+
+#     # Custom Case
+#     tree_layout = [5,3,6,2,4,None,None,1]
+#     three, six = TreeNode(val=3, left=TreeNode(val=2, left=TreeNode(val=1)), right=TreeNode(val=4)), TreeNode(val=6)
+#     root = TreeNode(val=5, left=three, right=six)
+#     k = 3
+#     # Output: 3
+
+
+#     '''
+#     My Aprroach
+   
+#         Intuition:
+#             - Traverse the Tree with preorder to extract the values
+#             - Create a Max heap of length k and go through the rest of the elements (mantaining the heap property).
+#             - Return the first element of the heap.
+#     '''
+
+#     def kth_smallest(root: TreeNode,k: int) -> int:
+
+#         # Define Aux Inorder traversal func
+#         def inorder(root: TreeNode, path:list) -> list:
+
+#             if root:
+
+#                 node = root
+
+#                 inorder(root=node.left, path=path)
+#                 path.append(node.val)
+#                 inorder(root=node.right, path=path)
+
+#                 return path
+
+#         tree_list = inorder(root=root, path=[])
+
+#         tree_list.sort()
+
+#         return tree_list[k-1]
+
+#     # Testing
+#     print(kth_smallest(root=root, k=k))
+
+#     '''Notes: 
+#     - This approach works perfectly, and it beated 37% of solutions in Runtime and 80% in space.
+        
+#         Complexity:
+#         - Time complexity: O(nlogn).
+#         - Space Complexity: O(n).
+
+#     Now, if no sorting func is required to be used, below will be that version.
+#     '''
+
+
+#     'Without Sorting Approach'
+#     import heapq
+
+#     def kth_smallest(root: TreeNode,k: int) -> int:
+
+#         # Define Aux Inorder traversal func
+#         def inorder(root: TreeNode, path:list) -> list:
+
+#             if root:
+
+#                 node = root
+
+#                 inorder(root=node.left, path=path)
+#                 path.append(node.val)
+#                 inorder(root=node.right, path=path)
+
+#                 return path
+
+#         # Extract the tree nodes values in a list
+#         tree_list = inorder(root=root, path=[])
+
+
+#         # Make a min-heap out of the tree_list up to the 'k' limit
+#         heap = tree_list[:k]
+#         heapq.heapify(heap)
+
+#         # Iterate through each element in the tree_list starting from 'k' up to len(tree_list)
+#         for num in tree_list[k:]:
+
+#             if num < heap[0]:
+#                 heapq.heappop(heap)
+#                 heapq.heappush(heap, num)
+        
+#         return heap[-1] # The result is the last element of the min-heap, since it was length k, and the last is the kth
+
+#     # Testing
+#     print(kth_smallest(root=root, k=k))
+
+#     '''Notes: 
+#     - This approach also worked smoothly, and it consequentially reduced its performance
+#         beating only 6% of solutions in Runtime and it maintains the 80% in space.
+        
+#         Complexity:
+#         - Time complexity: O(n+(n-k)logk).
+#         - Space Complexity: O(n).
+
+#     Now, what if I don't traverse the elements (O(n)) and later I traverse up to k?
+#         Would it be possible to order the heap while traversing the tree?.
+#     '''
+
+#     'Another enhanced solution'
+#     import heapq
+
+#     def kth_smallest(root: TreeNode, k: int) -> int:
+
+#         # Define the heap with 'inf' as it first element (To be pushed later on)
+#         heap = [float('inf')]
+
+#         # Define Aux Inorder traversal func
+#         def inorder(root: TreeNode) -> None:
+
+#             if root:
+
+#                 node = root
+
+#                 inorder(root=node.left)
+
+#                 if len(heap) == k:
+
+#                     if node.val < heap[0]:
+#                         heapq.heappop(heap)
+#                         heapq.heappush(heap, node.val)
+#                         pass
+                
+#                 else:
+#                     heap.append(node.val)
+
+
+#                 inorder(root=node.right)
+        
+#         inorder(root=root)
+        
+#         return heap[-1] # The result is the last element of the min-heap, since it was length k, and the last is the kth
+
+#     # Testing
+#     print(kth_smallest(root=root, k=k))
+
+#     '''Notes: 
+#     - This approach also worked smoothly, and it actually beated the first approach in performance,
+#         beating 57% of solutions in Runtime and it maintains the 80% in space.
+        
+#         Complexity:
+#         - Time complexity: O(nlogk).
+#         - Space Complexity: O(n+k).
+
+#     That was a great exercise, now what is the customary solution for this?.
+#         Quick answer: Simply inorderlt traverse the tree up to k, since is a Binary Search Tree, it was already sorted.
+#     '''
+
+#     'Done'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

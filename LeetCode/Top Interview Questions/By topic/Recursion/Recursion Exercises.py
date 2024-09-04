@@ -4,6 +4,8 @@ CHALLENGES INDEX
 2. Add Two Numbers (LL) (RC)
 21. Merge Two Sorted Lists (LL) (RC)
 50. Pow(x, n) (RC)
+206. Reverse Linked List (LL) (RC)
+234. Palindrome Linked List (LL) (RC) (TP)
 
 
 *LL: Linked-Lists
@@ -18,10 +20,15 @@ CHALLENGES INDEX
 *GRE: Greedy
 *DQ: Divide and Conquer
 *BT: Backtracking
+*BFS & DFS: Breadth-First Search & Depth-First Search
+*Arrays, Hash Tables & Matrices
+*Sorting
+*Heaps, Stacks & Queues
+*Graphs & Trees
+*Others
 
 
 (XX)
-
 '''
 
 
@@ -307,6 +314,227 @@ CHALLENGES INDEX
 #         This solution takes advantage of the property x^(2n) = (x^2)^n, 
 #         saving a lot of time reducing in half the calculations each time the exponent is even.
 #     '''
+
+'''206. Reverse Linked List'''
+# def x():
+
+#     # Base 
+#     # Definition for singly-linked list.
+#     class ListNode:
+#         def __init__(self, val=0, next=None):
+#             self.val = val
+#             self.next = next
+
+#     # Input
+#     # Case 1
+#     head_layout = [1,2,3,4,5]
+#     head = ListNode(val=1)
+#     two, three, four, five = ListNode(2), ListNode(3), ListNode(4), ListNode(5),
+#     head.next, two.next, three.next, four.next = two, three, four, five
+#     # Output: [5,4,3,2,1]
+
+#     # Case 2
+#     head_layout = [1,2]
+#     head, two, = ListNode(1), ListNode(2)
+#     head.next = two
+#     # Output: [2,1]
+
+#     # Case 3
+#     head_layout = []
+#     head = None
+#     # Output: []
+
+
+#     'Solution'
+#     def reverseList(head:ListNode) -> ListNode:
+        
+#         # Initialize node holders
+#         prev = None
+#         curr = head    
+
+#         while curr:
+#             next_node = curr.next
+#             curr.next = prev
+#             prev = curr
+#             curr = next_node       
+        
+#         return prev
+
+
+#     def rec_reverseList(head:ListNode) -> ListNode:
+        
+#         # Base case
+#         if not head or not head.next:
+#             return head   
+
+#         # Recursive Call
+#         new_head = rec_reverseList(head.next)
+
+#         # Reversing the list
+#         head.next.next = head
+#         head.next = None
+
+#         return new_head
+
+#     'Done'
+
+'''234. Palindrome Linked List'''
+# def x():
+
+#     # Base
+#     # Definition for singly-linked list.
+#     class ListNode:
+#         def __init__(self, val=0, next=None):
+#             self.val = val
+#             self.next = next
+
+#     # Input
+#     # Case 1
+#     head_layout = [1,2,2,1]
+#     head = ListNode(val=1, next=ListNode(val=2, next=ListNode(val=2, next=ListNode(val=1))))
+#     # Output: True
+
+#     # Case 2
+#     head_layout = [1,2]
+#     head = ListNode(val=1, next=ListNode(val=2))
+#     # Output: False
+
+#     # Custom Case
+#     head_layout = [1,0,0]
+#     head = ListNode(val=1, next=ListNode(val=0, next=ListNode(val=0)))
+#     # Output: False
+
+
+#     '''
+#     My Approach (Brute forcing)
+
+#         Intuition:
+#             - Traverse the list collecting the values.
+#             - Return the test that the values collected are equal to their reverse.
+#     '''
+
+#     def is_palindrome(head:ListNode) -> bool:
+        
+#         # Define values holder
+#         visited = []    
+
+#         # Traverse the list
+#         while head:
+            
+#             visited.append(head.val)
+
+#             head = head.next
+
+#         return visited == visited[::-1]
+
+#     # Testing
+#     print(is_palindrome(head=head))
+
+#     '''Note: 
+#         This is the most "direct" way to solve it, but there are two more way to solve this same challenge
+#         One involves recursion/backtracking and the other solve the problem with O(1) of space complexity, while this and
+#         The recursive approaches consumes O(n).'''
+
+
+#     '''
+#     Recursive Approach
+
+#         Intuition:
+#             - Make a pointer to the head of the llist (will be used later).
+#             - Define the Auxiliary recursive function:
+#                 + This function will go in depth through the list and when it hits the end,
+#                     it will start to go back in the call stack (which is virtually traversing the list backwards).
+#                 + When the reverse traversing starts compare each node with the pointer defined at the begining and if they have equal values
+#                     it means up to that point the palindrome property exist, otherwise, return False.
+#                 + If the loop finishes, it means the whole list is palindromic.
+#             - return True.
+#     '''
+#     class Solution:
+
+#         def __init__(self) -> None:
+#             pass
+
+#         def is_palindrome(self, head:ListNode) -> bool:
+
+#             self.front_pointer = head
+
+#             def rec_traverse(current_node:ListNode) -> bool:
+
+#                 if current_node is not None:
+                    
+#                     if not rec_traverse(current_node.next):
+#                         return False
+                    
+#                     if self.front_pointer.val != current_node.val:
+#                         return False
+                
+#                     self.front_pointer = self.front_pointer.next
+
+#                 return True
+            
+#             return rec_traverse(head)
+    
+#     # Testing
+#     solution = Solution()
+#     print(solution.is_palindrome(head=head))
+
+#     'Note: The solution as a -standalone function- is more complex than as a class method'
+
+
+#     '''
+#     Iterative Approach / Memory-efficient
+
+#         Intuition:
+#             - Use a two-pointer approach to get to the middle of the list.
+#             - Reverse the next half (from the 'slow' pointer) of the llist.
+#             - Initiate a new pointer to the actual head of the llist and in a loop (while 'the prev node')
+#                 compare the two pointer up until they are different or the 'prev' node gets to None.
+#             - If the loop finishes without breaking, return 'True'.
+#     '''
+
+#     def is_palindrome(head:ListNode) -> bool:
+
+#         # Hanlde corner cases:
+#         if not head or not head.next:
+#             return True
+        
+
+#         # Traverse up to the middle of the llist
+#         slow = fast = head
+
+#         while fast and fast.next:
+#             slow = slow.next
+#             fast = fast.next.next
+
+        
+#         # Reverse the remaining half of the llist
+#         prev = None
+
+#         while slow:
+#             next_node = slow.next
+#             slow.next = prev
+#             prev = slow
+#             slow = next_node
+
+
+#         # Compare the reversed half with the actual first half of the llist
+#         left, right = head, prev
+
+#         while right:
+
+#             if left.val != right.val:
+#                 return False
+            
+#             left, right = left.next, right.next
+
+        
+#         # If it didn't early end then means the llist is palindromic
+#         return True
+
+#     # Testing
+#     print(is_palindrome(head=head))
+    
+#     'Done'
 
 
 

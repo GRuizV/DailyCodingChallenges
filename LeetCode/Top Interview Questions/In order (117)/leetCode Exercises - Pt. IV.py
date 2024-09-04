@@ -1,31 +1,31 @@
 '''
 CHALLENGES INDEX
 
-179. Largest Number
-189. Rotate Array (TP)
-198. House Robber (DS)
-200. Number of Islands (Matrix) (BFS) (DFS)
-202. Happy Number (FCD) (TP)
-204. Count Primes
-206. Reverse Linked List
-207. Course Schedule (DFS)
-210. Course Schedule II (DFS)
-208. Implement Trie (Prefix Tree)
-212. Word Search II (DFS)
-215. Kth Largest Element in an Array (Heaps)
-218. The Skyline Problem (Heaps)
+179. Largest Number (Array) (Sorting) (GRE)
+189. Rotate Array (Array) (TP)
+198. House Robber (Array) (DP)
+200. Number of Islands (Matrix) (DFS)
+202. Happy Number (Hash Table) (TP) (Others)
+204. Count Primes (Array) (Others)
+206. Reverse Linked List (LL) (RC)
+207. Course Schedule (DFS) (Topological Sort)
+208. Implement Trie (Hash Table) (Tree)
+210. Course Schedule II (DFS) (Topological Sort)
+212. Word Search II (Array) (DFS) (BT) (Matrix)
+215. Kth Largest Element in an Array (Array) (Heap) (DQ) (Sorting)
+218. The Skyline Problem (Heap) (DQ)
 227. Basic Calculator II (Stack)
-230. Kth Smallest Element in a BST (RC) (Heaps) or (Stack)
-234. Palindrome Linked List - Opt: (RC) + (TP) or (TP)
-237. Delete Node in a Linked List
+230. Kth Smallest Element in a BST (Heap) (DFS) (Tree)
+234. Palindrome Linked List (LL) (RC) (TP)
+237. Delete Node in a Linked List (LL)
 238. Product of Array Except Self (PS)
-239. Sliding Window Maximum
-240. Search a 2D Matrix II
+239. Sliding Window Maximum (Array) (SW)
+240. Search a 2D Matrix II (Matrix) (DQ) (BS)
 279. Perfect Squares (DP)
-283. Move Zeroes (TP)
-287. Find the Duplicate Number (FCD)
+283. Move Zeroes (Array) (TP)
+287. Find the Duplicate Number (FCD) (Array) (TP)
 289. Game of Life (Matrix)
-295. Find Median from Data Stream (Heaps)
+295. Find Median from Data Stream (Heap) (Sorting)
 
 
 *LL: Linked-Lists
@@ -757,6 +757,71 @@ CHALLENGES INDEX
 
 #     'Done'
 
+'''208. Implement Trie (Prefix Tree)'''
+# def x():
+
+#     # Implementation
+#     class TrieNode:
+
+#         def __init__(self, is_word=False):
+#             self.values = {}
+#             self.is_word = is_word
+
+#     'Solution'
+#     class Trie:
+
+#         def __init__(self):
+#             self.root = TrieNode()
+    
+
+#         def insert(self, word: str) -> None:
+
+#             node = self.root
+
+#             for char in word:
+
+#                 if char not in node.values:
+#                     node.values[char] = TrieNode()
+                
+#                 node = node.values[char]
+
+#             node.is_word = True
+
+
+#         def search(self, word: str) -> bool:
+            
+#             node = self.root
+
+#             for char in word:          
+                        
+#                 if char not in node.values:
+#                     return False
+                
+#                 node = node.values[char]
+            
+#             return node.is_word
+
+
+#         def startsWith(self, prefix: str) -> bool:
+            
+#             node = self.root
+
+#             for char in prefix:
+
+#                 if char not in node.values:
+#                     return False
+                
+#                 node = node.values[char]
+            
+#             return True
+
+#     # Testing
+#     new_trie = Trie()
+#     new_trie.insert('Carrot')
+#     print(new_trie.startsWith('Car'))  
+
+#     'Done'
+
 '''210. Course Schedule II'''
 # def x():
 
@@ -846,71 +911,6 @@ CHALLENGES INDEX
 #     print(findOrder(numCourses=numCourses, prerequisites=prerequisites))
 
 #     'Note: It worked based on the first case version'
-
-'''208. Implement Trie (Prefix Tree)'''
-# def x():
-
-#     # Implementation
-#     class TrieNode:
-
-#         def __init__(self, is_word=False):
-#             self.values = {}
-#             self.is_word = is_word
-
-#     'Solution'
-#     class Trie:
-
-#         def __init__(self):
-#             self.root = TrieNode()
-    
-
-#         def insert(self, word: str) -> None:
-
-#             node = self.root
-
-#             for char in word:
-
-#                 if char not in node.values:
-#                     node.values[char] = TrieNode()
-                
-#                 node = node.values[char]
-
-#             node.is_word = True
-
-
-#         def search(self, word: str) -> bool:
-            
-#             node = self.root
-
-#             for char in word:          
-                        
-#                 if char not in node.values:
-#                     return False
-                
-#                 node = node.values[char]
-            
-#             return node.is_word
-
-
-#         def startsWith(self, prefix: str) -> bool:
-            
-#             node = self.root
-
-#             for char in prefix:
-
-#                 if char not in node.values:
-#                     return False
-                
-#                 node = node.values[char]
-            
-#             return True
-
-#     # Testing
-#     new_trie = Trie()
-#     new_trie.insert('Carrot')
-#     print(new_trie.startsWith('Car'))  
-
-#     'Done'
 
 '''212. Word Search II'''
 # def x():

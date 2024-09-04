@@ -5,6 +5,9 @@ CHALLENGES INDEX
 55. Jump Game (Array) (DP) (GRE)
 122. Best Time to Buy and Sell Stock II (Array) (DP) (GRE)
 134. Gas Station (Array) (GRE)
+179. Largest Number (Array) (Sorting) (GRE)
+215. Kth Largest Element in an Array (Array) (Heap) (DQ) (Sorting)
+218. The Skyline Problem (Heaps) (DQ)
 
 
 *LL: Linked-Lists
@@ -28,7 +31,6 @@ CHALLENGES INDEX
 
 
 (XX)
-
 '''
 
 
@@ -346,6 +348,257 @@ CHALLENGES INDEX
 #     print(canCompleteCircuit(gas=gas, cost=cost))
 
 #     'Note: This simplified version prooved to be more efficient'
+
+'''179. Largest Number'''
+# def x():
+
+#     # Input
+#     # Case 1
+#     nums = [20,1]
+#     # Output: "201"
+
+#     # Case 2
+#     nums = [3,30,34,5,9]
+#     # Output: "9534330"
+
+#     # Custom Case
+#     nums = [8308,8308,830]
+#     # Output: "83088308830"
+
+
+#     'My 1st Approach'
+#     def largestNumber(nums: list[int]) -> str: 
+
+#         nums = [str(x) for x in nums]
+    
+#         res = sorted(nums, key= lambda x: int(x[0]), reverse=True)  
+
+
+#         # Mergesort
+#         def mergesort(seq: list) -> list:
+
+#             if len(seq) <= 1:
+#                 return seq
+
+#             mid = len(seq)//2
+
+#             left_side, right_side = seq[:mid], seq[mid:]
+
+#             left_side = mergesort(left_side)
+#             right_side = mergesort(right_side)
+
+#             return merge(left=left_side, right=right_side)
+
+#         # Auxiliary merge for Mergesort
+#         def merge(left: list, right: list) -> list:
+
+#             res = []
+#             zeros = []
+#             i = j = 0
+
+#             while i < len(left) and j < len(right):
+
+#                 if left[i][-1] == '0':
+#                     zeros.append(left[i])
+#                     i+=1
+
+#                 elif right[j][-1] == '0':
+#                     zeros.append(right[j])
+#                     j+=1
+                
+#                 elif left[i][0] == right[j][0]:
+
+#                     if left[i]+right[j] > right[j]+left[i]:
+#                         res.append(left[i])
+#                         i+=1
+
+#                     else:
+#                         res.append(right[j])
+#                         j+=1                
+
+#                 elif int(left[i][0]) > int(right[j][0]):
+#                     res.append(left[i])
+#                     i+=1
+                
+#                 else:
+#                     res.append(right[j])
+#                     j+=1
+            
+
+#             while i < len(left):
+#                 res.append(left[i])
+#                 i+=1
+
+            
+#             while j < len(right):
+#                 res.append(right[j])
+#                 j+=1
+
+
+#             # Deal with the elements with '0' as last digit
+#             zeros.sort(key=lambda x: int(x), reverse=True)
+
+#             return res+zeros          
+
+#         result = mergesort(seq=res)
+        
+#         return ''.join(result)
+
+#     # Testing
+#     print(largestNumber(nums=nums))
+
+#     'Note: This approach cleared 57% of cases '
+
+
+#     'My 2nd Approach'
+#     def largestNumber(nums: list[int]) -> str: 
+
+#         res = [str(x) for x in nums]    
+#         # res = sorted(nums, key= lambda x: int(x[0]), reverse=True)  
+
+#         # Mergesort
+#         def mergesort(seq: list) -> list:
+
+#             if len(seq) <= 1:
+#                 return seq
+
+#             mid = len(seq)//2
+
+#             left_side, right_side = seq[:mid], seq[mid:]
+
+#             left_side = mergesort(left_side)
+#             right_side = mergesort(right_side)
+
+#             return merge(left=left_side, right=right_side)
+
+#         # Auxiliary merge for Mergesort
+#         def merge(left: list, right: list) -> list:
+
+#             res = []        
+#             i = j = 0
+
+#             while i < len(left) and j < len(right):
+
+#                 if left[i]+right[j] > right[j]+left[i]:
+#                     res.append(left[i])
+#                     i += 1
+
+#                 else:
+#                     res.append(right[j])
+#                     j += 1
+            
+#             while i < len(left):
+#                 res.append(left[i])
+#                 i += 1
+                            
+#             while j < len(right):
+#                 res.append(right[j])
+#                 j += 1
+
+#             return res        
+
+#         result = mergesort(seq=res)
+        
+#         return ''.join(result)
+
+#     # Testing
+#     print(largestNumber(nums=nums))
+
+#     'Note: This one did it!'
+
+'''215. Kth Largest Element in an Array'''
+# def x():
+
+#     'Solution'
+#     import heapq
+
+#     def findKthLargest(self, nums: list[int], k: int) -> int:
+#             heap = nums[:k]
+#             heapq.heapify(heap)
+            
+#             for num in nums[k:]:
+#                 if num > heap[0]:
+#                     heapq.heappop(heap)
+#                     heapq.heappush(heap, num)
+            
+#             return heap[0]
+
+#     'Done'
+
+'''218. The Skyline Problem'''
+# def x():
+
+#     '''
+#     Explanation of the Code
+
+#         Events Creation:
+
+#             For each building, two events are created: entering ((left, -height, right)) and exiting ((right, height, 0)).
+        
+#         Sorting Events:
+
+#             Events are sorted first by x-coordinate. If x-coordinates are the same, entering events are processed before exiting events. For entering events with the same x-coordinate, taller buildings are processed first.
+        
+#         Processing Events:
+
+#             A max-heap (live_heap) keeps track of the current active buildings' heights. Heights are stored as negative values to use Python's min-heap as a max-heap.
+#             When processing each event, heights are added to or removed from the heap as needed.
+#             If the maximum height changes (top of the heap), a key point is added to the result.
+        
+#         This approach efficiently manages the skyline problem by leveraging sorting and a max-heap to dynamically track the highest building at each critical point.
+#     '''
+
+#     from heapq import heappush, heappop, heapify
+
+#     def getSkyline(buildings: list[list[int]]) -> list[list[int]]:
+            
+#         # Create events for entering and exiting each building
+#         events = []
+
+#         for left, right, height in buildings:
+#             events.append((left, -height, right))  # Entering event
+#             events.append((right, height, 0))     # Exiting event
+        
+
+#         # Sort events: primarily by x coordinate, then by height
+#         events.sort()
+        
+
+#         # Max-heap to store the current active buildings
+#         result = []
+#         live_heap = [(0, float('inf'))]  # (height, end)
+
+
+#         # Process each event
+#         for x, h, r in events:
+
+#             if h < 0:  # Entering event
+#                 heappush(live_heap, (h, r))
+
+#             else:  # Exiting event
+                
+#                 # Remove the building height from the heap
+#                 for i in range(len(live_heap)):
+#                     if live_heap[i][1] == x:
+#                         live_heap[i] = live_heap[-1]  # Replace with last element
+#                         live_heap.pop()  # Remove last element
+#                         heapify(live_heap)  # Restore heap property
+#                         break
+            
+#             # Ensure the heap is valid
+#             while live_heap[0][1] <= x:
+#                 heappop(live_heap)
+            
+#             # Get the current maximum height
+#             max_height = -live_heap[0][0]
+            
+#             # If the current maximum height changes, add the key point
+#             if not result or result[-1][1] != max_height:
+#                 result.append([x, max_height])
+                    
+#         return result
+
+#     'Done'
 
 
 

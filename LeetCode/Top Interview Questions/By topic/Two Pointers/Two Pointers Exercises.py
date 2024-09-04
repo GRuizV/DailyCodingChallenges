@@ -11,6 +11,11 @@ CHALLENGES INDEX
 141. Linked List Cycle (TP) (LL)
 148. Sort List (TP) (LL)
 160. Intersection of Two Linked Lists (TP) (LL)
+189. Rotate Array (Array) (TP)
+202. Happy Number (Hash Table) (TP) (Others)
+234. Palindrome Linked List (LL) (RC) (TP)
+283. Move Zeroes (Array) (TP)
+287. Find the Duplicate Number (FCD) (Array) (TP)
 
 
 *LL: Linked-Lists
@@ -34,7 +39,6 @@ CHALLENGES INDEX
 
 
 (XX)
-
 '''
 
 
@@ -713,6 +717,425 @@ CHALLENGES INDEX
 #         meet at the intersection node after traversing both lists respectviely or otherwise they will be 'None'
 #         at same time after the second lap of the respective lists.
 # '''
+
+'''189. Rotate Array'''
+# def x():
+
+#     'Input'
+#     # Case 1
+#     nums, k = [1,2,3,4,5,6,7], 3
+#     # Output: [5,6,7,1,2,3,4]
+
+#     # Case 2
+#     nums, k = [-1,-100,3,99], 2
+#     # Output: [3,99,-1,-100]
+
+#     # My approach
+#     def rotate(nums: list[int], k: int) -> None:
+
+#         if len(nums) == 1:
+#             return
+        
+#         rot = k % len(nums)
+
+#         dic = {k:v for k, v in enumerate(nums)}
+
+#         for i in range(len(nums)):
+
+#             n_idx = (i+rot)%len(nums)
+#             nums[n_idx] = dic[i]
+
+#     'Note:It actually worked!'
+
+'''202. Happy Number'''
+# def x():
+
+#     # Input
+#     # Case 1
+#     n = 19
+#     # Output: True
+
+#     # Case 2
+#     n = 2
+#     # Output: False
+
+#     # Custom Case
+#     n = 18
+#     # Output: False
+
+
+#     '''
+#     My Approach
+    
+#         Intuition (Recursive)
+            
+#             - Recursively separate the digits and check the sum of their squares compared to 1.
+#                 - If the stackoverflow is reached, return False.            
+#     '''
+
+#     def isHappy(n:int) -> bool:
+
+#         def aux(m:int) -> bool:
+
+#             num = [int(x)**2 for x in str(m)]
+#             num = sum(num)
+
+#             if num == 1:
+#                 return True
+            
+#             return aux(m=num)
+        
+#         try:
+#             res = aux(m=n)
+
+#             if res:
+#                 return True
+        
+#         except RecursionError as e:        
+#             return False
+
+#     # Testing
+#     print(isHappy(n=n))
+
+#     'This approach may work but it exceed time limit: only met 4% of cases'
+
+
+#     '''
+#     Set Approach
+
+#     There are mainly two ways of solving this: The set approach and the Floyd's Cycle detection algorithm
+
+#         - The set approach: Use a set to save the seen numbers and if you end up in one of them, you entered a cycle
+#         - The Floyd's Cycle Detection Algorithm: Similar to the case of catching a cycle in a linked list with two pointers: Slow and Fast.
+#     '''
+
+#     'Set Approach'
+#     def isHappy(n:int) -> bool:
+
+#         def getNum(m:int)->int:
+#             return sum(int(x)**2 for x in str(m))
+
+#         seen = set()
+
+#         while n != 1 and n not in seen:
+#             seen.add(n)
+#             n = getNum(n)
+        
+#         return n == 1
+
+#     # Testing
+#     print(isHappy(n=n))
+
+
+#     'FDC Approach'
+#     def isHappy(n:int) -> bool:
+
+#         def getNum(m:int)->int:
+#             return sum(int(x)**2 for x in str(m))
+
+#         slow = n
+#         fast = getNum(n)
+
+#         while fast != 1 and slow != fast:
+#             slow = getNum(slow)
+#             fast = getNum(getNum(fast))
+        
+#         return fast == 1
+
+#     # Testing
+#     print(isHappy(n=n))
+
+#     'Done'
+
+'''234. Palindrome Linked List'''
+# def x():
+
+#     # Base
+#     # Definition for singly-linked list.
+#     class ListNode:
+#         def __init__(self, val=0, next=None):
+#             self.val = val
+#             self.next = next
+
+#     # Input
+#     # Case 1
+#     head_layout = [1,2,2,1]
+#     head = ListNode(val=1, next=ListNode(val=2, next=ListNode(val=2, next=ListNode(val=1))))
+#     # Output: True
+
+#     # Case 2
+#     head_layout = [1,2]
+#     head = ListNode(val=1, next=ListNode(val=2))
+#     # Output: False
+
+#     # Custom Case
+#     head_layout = [1,0,0]
+#     head = ListNode(val=1, next=ListNode(val=0, next=ListNode(val=0)))
+#     # Output: False
+
+
+#     '''
+#     My Approach (Brute forcing)
+
+#         Intuition:
+#             - Traverse the list collecting the values.
+#             - Return the test that the values collected are equal to their reverse.
+#     '''
+
+#     def is_palindrome(head:ListNode) -> bool:
+        
+#         # Define values holder
+#         visited = []    
+
+#         # Traverse the list
+#         while head:
+            
+#             visited.append(head.val)
+
+#             head = head.next
+
+#         return visited == visited[::-1]
+
+#     # Testing
+#     print(is_palindrome(head=head))
+
+#     '''Note: 
+#         This is the most "direct" way to solve it, but there are two more way to solve this same challenge
+#         One involves recursion/backtracking and the other solve the problem with O(1) of space complexity, while this and
+#         The recursive approaches consumes O(n).'''
+
+
+#     '''
+#     Recursive Approach
+
+#         Intuition:
+#             - Make a pointer to the head of the llist (will be used later).
+#             - Define the Auxiliary recursive function:
+#                 + This function will go in depth through the list and when it hits the end,
+#                     it will start to go back in the call stack (which is virtually traversing the list backwards).
+#                 + When the reverse traversing starts compare each node with the pointer defined at the begining and if they have equal values
+#                     it means up to that point the palindrome property exist, otherwise, return False.
+#                 + If the loop finishes, it means the whole list is palindromic.
+#             - return True.
+#     '''
+#     class Solution:
+
+#         def __init__(self) -> None:
+#             pass
+
+#         def is_palindrome(self, head:ListNode) -> bool:
+
+#             self.front_pointer = head
+
+#             def rec_traverse(current_node:ListNode) -> bool:
+
+#                 if current_node is not None:
+                    
+#                     if not rec_traverse(current_node.next):
+#                         return False
+                    
+#                     if self.front_pointer.val != current_node.val:
+#                         return False
+                
+#                     self.front_pointer = self.front_pointer.next
+
+#                 return True
+            
+#             return rec_traverse(head)
+    
+#     # Testing
+#     solution = Solution()
+#     print(solution.is_palindrome(head=head))
+
+#     'Note: The solution as a -standalone function- is more complex than as a class method'
+
+
+#     '''
+#     Iterative Approach / Memory-efficient
+
+#         Intuition:
+#             - Use a two-pointer approach to get to the middle of the list.
+#             - Reverse the next half (from the 'slow' pointer) of the llist.
+#             - Initiate a new pointer to the actual head of the llist and in a loop (while 'the prev node')
+#                 compare the two pointer up until they are different or the 'prev' node gets to None.
+#             - If the loop finishes without breaking, return 'True'.
+#     '''
+
+#     def is_palindrome(head:ListNode) -> bool:
+
+#         # Hanlde corner cases:
+#         if not head or not head.next:
+#             return True
+        
+
+#         # Traverse up to the middle of the llist
+#         slow = fast = head
+
+#         while fast and fast.next:
+#             slow = slow.next
+#             fast = fast.next.next
+
+        
+#         # Reverse the remaining half of the llist
+#         prev = None
+
+#         while slow:
+#             next_node = slow.next
+#             slow.next = prev
+#             prev = slow
+#             slow = next_node
+
+
+#         # Compare the reversed half with the actual first half of the llist
+#         left, right = head, prev
+
+#         while right:
+
+#             if left.val != right.val:
+#                 return False
+            
+#             left, right = left.next, right.next
+
+        
+#         # If it didn't early end then means the llist is palindromic
+#         return True
+
+#     # Testing
+#     print(is_palindrome(head=head))
+    
+#     'Done'
+
+'''283. Move Zeroes'''
+# def x():
+
+#     # Input
+#     # Case 1
+#     nums = [0,1,0,3,12]
+#     # Output: [1,3,12,0,0]
+
+#     # Case 2
+#     nums = [0]
+#     # Output: [0]
+
+#     # Custom Case
+#     nums = [2,3,4,0,5,6,8,0,1,0,0,0,9]
+#     # Output: [0]
+
+
+#     '''
+#     My Approach
+
+#         Intuition:
+#             - Create a new list as a buffer to hold every item in the initial order
+#             - Separate the buffer into non-zeroes and zeroes different list and joint them together.
+#             - Replace each value of the original list with the order or the buffer list.
+
+#         This solution is more memory expensive than one with a Two-pointer approach, but let's try it
+#     '''
+
+#     def move_zeroes(nums:list[int]) -> None:
+
+#         # Handle corner case
+#         if len(nums) == 1:
+#             return nums
+    
+#         # Create the buffers to separate the non-zeroes to the zeroes
+#         non_zeroes, zeroes = [x for x in nums if x != 0],[x for x in nums if x == 0]
+
+#         # Join the buffers into one single list
+#         buffer = non_zeroes + zeroes
+
+#         # Modify the original input with the buffer's order
+#         for i in range(len(nums)):
+#             nums[i] = buffer[i]
+    
+#     # Testing
+#     move_zeroes(nums=nums)
+#     print(nums)
+
+#     'Note: This solution was accepted and beated submissions by 37% in runtime and 87% in memory'
+
+
+#     'Two-pointers Approach'
+#     def move_zeroes(nums:list[int]) -> None:
+
+#         # Initialize the left pointer
+#         l = 0
+
+#         # Iterate with the right pointer through the elements of nums
+#         for r in range(len(nums)):
+
+#             if nums[r] != 0:
+
+#                 nums[r], nums[l] = nums[l], nums[r]
+
+#                 l += 1
+
+#     # Testing
+#     move_zeroes(nums=nums)
+#     print(nums)
+
+#     'Done'
+
+'''287. Find the Duplicate Number'''
+# def x():
+
+#     # Input
+#     # Case 1
+#     nums = [1,3,4,2,2]
+#     # Output: 2
+
+#     # Case 2
+#     nums = [3,1,3,4,2]
+#     # Output: 3
+
+#     # Custom Case
+#     nums = [3,3,3,3,3]
+#     # Output: 3
+
+#     'My approach'
+
+#     def find_duplicate(nums:list[int]) -> int:
+
+#         for num in nums:
+
+#             if nums.count(num) != 1:
+#                 return num
+    
+#     # Testing
+#     print(find_duplicate(nums=nums))
+
+#     'Note: This approach cleared 92% of cases but breaks with larger inputs'
+
+
+#     'Hare & Tortoise Approach'
+#     def find_duplicate(nums:list[int]) -> int:
+
+#         # Initialize two pointers directing to the first element in the list
+#         slow = fast = nums[0]
+
+#         # Iterate until they coincide (They' found each other in the cycle)
+#         while True:
+#             slow = nums[slow]
+#             fast = nums[nums[fast]]
+            
+#             if slow == fast:
+#                 break
+        
+#         # Reset the slow to the begining of the list, so they an meet at the repeating number
+#         slow = nums[0]
+
+#         # Iterate again but at same pace, they will eventually meet at the repeated number
+#         while slow != fast:
+#             slow = nums[slow]
+#             fast = nums[fast]
+
+#         return fast
+
+#     # Testing
+#     print(find_duplicate(nums=nums))
+
+#     'Done'
 
 
 
