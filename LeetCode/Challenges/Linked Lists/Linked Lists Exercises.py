@@ -15,6 +15,7 @@ CHALLENGES INDEX
 328. Odd Even Linked List (LL)
 
 24. Swap Nodes in Pairs (LL)
+25. Reverse Nodes in k-Group (LL)
 
 
 *LL: Linked-Lists
@@ -37,7 +38,7 @@ CHALLENGES INDEX
 *Others
 
 
-(12)
+(14)
 '''
 
 
@@ -1322,6 +1323,227 @@ CHALLENGES INDEX
 #     print(swapPairs(head=head))
 
 #     '''Note: Done'''
+
+'''25. Reverse Nodes in k-Group'''
+# def x():
+
+#     from typing import Optional
+
+#     # Base
+#     # Definition for singly-linked list.
+#     class ListNode:
+#         def __init__(self, val=0, next=None):
+#             self.val = val
+#             self.next = next
+
+#     # Input
+#     # Case 1
+#     head = ListNode(1, next=ListNode(2,next=ListNode(3,next=ListNode(4, next=ListNode(5)))))
+#     k = 2
+#     # Output: [2,1,4,3,5]
+
+#     # Case 2
+#     head = ListNode(1, next=ListNode(2,next=ListNode(3,next=ListNode(4, next=ListNode(5)))))
+#     k = 3
+#     # Output: [3,2,1,4,5]
+
+
+#     '''
+#     My Approach
+
+#         Intuition:
+
+#             - Handle Corner Cases
+#             - Define an auxiliary LList reverse function.  
+#             - Capture the head of the list in a 'new_head' node.  
+
+#             within a while True loop
+#             - Traverse the nodes from the 'new_head' node up to k position and count how many node there are.
+#                 - Break case: if current is None.
+#             - Capture the node in position k (1-indexed) and the node next to it as 'next_node'.
+#             - Point the kth node to None.
+#             - Redefine the 'new_head' node as the result of passing 'new_head' node to the aux func.
+#             - Traverse again the list from 'new_head' to k and point the kth node to the 'next_node'.
+#             - Redefine the 'new_head' to be the 'next_node' node.
+
+#             - Return the head node.
+
+#     '''
+
+#     # Aux reversal function
+#     def reverse_ll(head: Optional[ListNode]) -> Optional[ListNode]:
+
+#         # Define a dummy node initilized in 'None'
+#         prev = None
+
+#         # Capture the 'head' node and the node next to it
+#         curr = head
+        
+#         # Iterate thru the llist while 'curr' node is not none
+#         while curr:
+            
+#             # Capture the node next to the current
+#             next_node = curr.next
+
+#             # Point the curr node 'next' pointer to the dummy
+#             curr.next = prev
+
+#             # Modify the dummy to be the current 'curr' node
+#             prev = curr
+
+#             # Modify 'curr' to be the current 'next_node' node
+#             curr = next_node
+
+#         # Return the 'dummy' since is the new 'head' of the llist
+#         return prev
+    
+#     # Actual solution
+#     def reverseKGroup(head: Optional[ListNode], k: int) -> Optional[ListNode]:
+
+#         # Handle Corner case: If an empty LL is passed, return None
+#         if not head:
+#             return
+        
+#         # Handle Corner case: If k=1, then no reverse takes place
+#         if k==1:
+#             return head
+
+#         # Create a dummy node to ease head operations
+#         dummy = ListNode(0)
+#         dummy.next = head
+
+#         # The 'Prev' node point to the node before the reversed group
+#         prev = dummy
+
+#         # Modify the LL
+#         while True:
+
+#             # Define a node to traverse the list up to k and the counter
+#             curr = prev.next
+#             count = 0          
+
+#             # Traverse the list to find the kth node
+#             while curr and count < k:
+#                 curr = curr.next
+#                 count += 1
+
+#             # Break Case: If we have fewer than k nodes (if count < k)
+#             if count < k: 
+#                 break
+
+#             # Start reversing the k nodes
+#             curr = prev.next # Starting point for the reverse
+#             next_node = curr.next # Next node to reverse
+
+#             # Reverse k nodes
+#             for _ in range(1,k):
+
+#                 temp = next_node.next
+#                 next_node.next = prev.next
+#                 prev.next = next_node
+#                 curr.next = temp
+
+#                 next_node = temp
+
+#             # Move 'prev' to the end of the reversed group  
+#             prev = curr
+
+#         # Return the result holder
+#         return dummy.next
+
+#     # Testing the main func
+#     node = reverseKGroup(head=head, k=k)
+
+
+#     # # Testing the aux func
+#     # node = reverse_ll(head=head)
+
+#     while node:
+#         print(node.val, end=', ')
+#         node = node.next
+
+#     '''
+#     Notes: 
+#         - Originally my intention was to solve the challenge with the reversal method in reverse_ll that
+#             reverses the list all at one and leaves unconnected the reversed part so far to the rest of the
+#             list in each iteration and only makes sense at the end of the reversal, but while revising the challenge
+#             there was another way to reorder the list dynamically and that method will be explained below.
+
+#             that way of solving the challenge was more clear to be understood than the initially planned.
+
+#         - Either way, my intention to actually solve this would be functional with the solution at the bottom.
+#     '''
+
+#     # Dynamically reordering function
+#     def reverse_list_reorder(head: Optional[ListNode]) -> Optional[ListNode]:
+
+#         # Edge case: If the list is empty or has only one node, return as is
+#         if not head or not head.next:
+#             return head
+
+#         # Dummy node to simplify pointer adjustments
+#         dummy = ListNode(0)
+#         dummy.next = head
+
+#         # Start pointers
+#         prev = dummy
+#         curr = head
+#         next_node = curr.next
+
+#         # Loop to reorder and reverse the list
+#         while next_node:
+#             temp = next_node.next       # Keep track of the next node after next_node
+#             next_node.next = prev.next  # Move next_node to the front
+#             prev.next = next_node       # Point prev to the newly moved node
+#             curr.next = temp            # Connect curr to the rest of the list
+#             next_node = temp            # Move to the next node in the original order
+
+#         return dummy.next
+    
+
+#     # Initial plan fixed and tested
+#     def reverse_k_group(head: Optional[ListNode], k: int) -> Optional[ListNode]:
+
+#         # Check if there are at least k nodes left to reverse
+#         def has_k_nodes(curr: ListNode, k: int) -> bool:
+#             count = 0
+#             while curr and count < k:
+#                 curr = curr.next
+#                 count += 1
+#             return count == k
+
+#         # Define the pointers
+#         dummy = ListNode(0)
+#         dummy.next = head
+#         prev = dummy
+
+#         # Alter the list
+#         while has_k_nodes(prev.next, k):
+
+#             # Capure the start and the a node to capture the end of the group
+#             start = prev.next
+#             end = prev
+
+#             # get to the end of the group
+#             for _ in range(k):
+#                 end = end.next
+
+#             next_group = end.next   # Capture the rest of the list after the group
+#             end.next = None         # Temporarily detach the k-group
+
+#             # Reverse the current k-group using reverse_ll
+#             reversed_group = reverse_ll(start)
+
+#             # Reconnect the reversed group
+#             prev.next = reversed_group
+#             start.next = next_group
+
+#             # Move prev to the end of the reversed group
+#             prev = start
+
+#         return dummy.next
+        
+#     'Done'
 
 
 
