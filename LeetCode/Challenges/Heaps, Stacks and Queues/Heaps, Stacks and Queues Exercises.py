@@ -14,6 +14,8 @@ CHALLENGES INDEX
 347. Top K Frequent Elements (Array) (Heaps) (Sorting)
 378. Kth Smallest Element in a Sorted Matrix (Matrix) (Heaps)
 
+32. Longest Valid Parentheses (Stack) (DP)
+
 
 *LL: Linked-Lists
 *BS: Binary Search
@@ -34,7 +36,7 @@ CHALLENGES INDEX
 *Graphs & Trees
 *Others
 
-(12)
+(13)
 '''
 
 
@@ -46,9 +48,9 @@ CHALLENGES INDEX
 #     s = '()[]{}'    # True
 #     s = '(]'    # False
 #     s = '([({[]{}}())])'    # True
-#     s = '([({[)]{}}())])'    # False
-#     s = '))'    # False
-#     s = '(('    # False
+#     # s = '([({[)]{}}())])'    # False
+#     # s = '))'    # False
+#     # s = '(('    # False
 
 #     # My approach
 #     def isValid(s):
@@ -1067,6 +1069,138 @@ CHALLENGES INDEX
 #     'Note: This solution worked, it has a time complexity of O(klogn) and beated submissions by 50% in Runtime and 34% in Memory.'
 
 #     'Done'
+
+
+
+
+'''32. Longest Valid Parentheses'''
+# def x():
+
+#     from typing import Optional
+
+#     # Input
+#     # # Case 1
+#     # s = "(()"
+#     # # Output: 2
+
+#     # Case 2
+#     s = ")()())"
+#     # Output: 4
+    
+#     # # Case 3
+#     # s = ""
+#     # # Output: 0
+           
+#     # # Custom Case
+#     # s = "()"
+#     # # Output: 0
+
+#     '''
+#     My Approach (Stack)
+
+#         Intuition:
+            
+#             Based on what I learnt in the '20. Valid Parentheses' past leetcode challenge, I will try to modify it 
+#             to make it work for this use case.
+#     '''
+
+#     def longestValidParentheses(s: str) -> int:
+
+#         # Define the max string length holder
+#         max_len = 0
+
+#         # Handle Corner case: Empty string
+#         if not s:
+#             return max_len
+        
+#         # Initialize the variables to work with
+#         stack = list(s)     # Generate a stack with the full input
+#         temp = []           # Create a temp holder to check parentheses validity
+#         temp_count = 0      # Create a temporary count to keep record of the running longest valid parentheses before uptading max_len
+
+#         # Go thru the string character by character from right to left
+#         while stack:
+
+#             popped = stack.pop(-1)
+
+#             # If the last popped char is a closing one, store it in the temp holder
+#             if stack and popped == ')':
+#                 temp.insert(0,popped)
+            
+#             else:
+#                 # If the last stored char doens't match with the recently popped, means not a valid parentheses and the subtring to the right won't count for the next valid parenthesis, so update the running count and max count and reset the running count
+#                 if not stack or not temp or popped == ')':
+#                     max_len = max(max_len, temp_count)  # Update the max count to hold the max between the current max and the running max
+#                     temp_count = 0                      # Reset the running count to start fresh a new count for the remaining string
+#                     temp.clear()                        # Clear up the temp holder to star anew the running count            
+                
+#                 # Otherwise is a valid match
+#                 else:
+#                     temp_count += 2     # Add 2 to the temporary count, since '()' counts for 2
+#                     temp = temp[1:]     # Take out the valid closing char from the temp holder   
+
+#         # Return 'max_len'
+#         return max_len
+
+#     # Testing
+#     print(longestValidParentheses(s=s))
+
+#     '''
+#     Note:     
+#         This approach only solve 54% of test cases and has some issues managing the stack, opening parentheses and the frequency of the temp holders resetting.
+#         Apparently there is a better way to manage this by tracking the string indices based on the same stack idea.
+                
+#     '''
+
+
+
+#     '''
+#     Optimized Approach (Stack)
+
+#         Explanation of the new approach:
+
+#             1. Using a stack of indices: We store the index of the last unmatched closing parenthesis ')' or the index of an unmatched opening parenthesis '('. This helps us calculate the length of valid substrings efficiently.
+
+#             2. Initializing with -1: This handles the edge case where the string starts with a valid sequence. By initializing the stack with -1, we can easily calculate the length of the first valid substring.
+
+#             3. Tracking indices, not characters: Instead of managing the characters directly, we work with the indices of parentheses. 
+#                 This allows us to calculate the lengths of valid substrings by subtracting the index of the last unmatched parenthesis from the current index.
+
+#             4. Calculating valid substring lengths: Each time a valid pair of parentheses is found (when the stack is not empty after popping), the length of the valid substring is i - stack[-1], 
+#                 where i is the current index and stack[-1] is the index of the last unmatched parenthesis.
+
+#             5. Edge cases: When encountering an unmatched closing parenthesis, we push its index onto the stack to handle any future valid subsequences that might occur after it.
+#     '''
+
+#     def longestValidParentheses(s: str) -> int:
+
+#         # Initialize a stack with -1 to handle edge cases
+#         stack = [-1]
+#         max_len = 0
+
+#         # Traverse the string
+#         for i, char in enumerate(s):
+
+#             if char == '(':
+#                 # Push the index of the opening parenthesis
+#                 stack.append(i)
+
+#             else:
+#                 # Pop the stack for a closing parenthesis
+#                 stack.pop()
+
+#                 if not stack:
+#                     # If the stack is empty, push the current index
+#                     stack.append(i)
+
+#                 else:
+#                     # Calculate the length of the valid substring
+#                     max_len = max(max_len, i - stack[-1])
+        
+#         return max_len
+
+#     # Testing
+#     print(longestValidParentheses(s=s))
 
 
 
