@@ -41,6 +41,8 @@ CHALLENGES INDEX
 384. Shuffle an Array (Array) (Others)
 454. 4Sum II (Arrays) (Others)
 
+31. Next Permutation (Array) (TP)
+
 
 *LL: Linked-Lists
 *BS: Binary Search
@@ -62,7 +64,7 @@ CHALLENGES INDEX
 *Others
 
 
-(39)
+(40)
 '''
 
 
@@ -2837,6 +2839,166 @@ CHALLENGES INDEX
 #         return count
 
 #     'Done'
+
+
+
+
+'''31. Next Permutation'''
+# def x():
+
+#     from typing import List
+
+#     # Input
+#     # Case 1
+#     nums = [1,2,3]
+#     # Output: [1,3,2]
+
+#     # Case 2
+#     nums = [3,2,1]
+#     # Output: [1,2,3]
+
+#     # Case 3
+#     nums = [1,1,5]
+#     # Output: [1,5,1]
+
+#     # Custom Case
+#     nums = [6,7,5,3,5,6,2,9,1,2,7,0,9]
+#     # Output: [5,1,1]
+
+
+#     '''
+#     My Approach (Brute forcing)
+
+#         Intuition:
+            
+#             - The permutation position in the result of the iterable from the permutations generated from Permutation function from itertools module.
+#             - Find the next permutation. 
+#                 if the permutation is the last one, get the begining one with modulo operator applied to the index retrived.
+#             - Modify the actual 'nums' and return.
+#     '''
+
+#     def nextPermutation(nums: List[int]) -> None:
+
+#         # Handle Corner case: 1-element input
+#         if len(nums) == 1:
+#             return 
+        
+#         # Import itertools 'permutation
+#         from itertools import permutations
+
+#         # Capute the current nums as a tuple
+#         curr = tuple(nums)
+
+#         # Sort lexicographically the input
+#         nums.sort()
+
+#         # Generate a list of the lexicographically ordered permutations of nums
+#         perm = sorted(set(permutations(nums)))
+
+#         # Capture the index of the next permutation 'nums' in curr variable
+#         idx = (perm.index(curr) + 1) % len(perm) # Is bounded at 'len(perm)' to get the 1st perm in case the current perm is the last one
+
+#         # Get the next permutation called from the permutations list and the idx
+#         next_perm = perm[idx]
+
+#         # Modify the current permutation (nums) with the items of the next one
+#         for i in range(len(nums)):
+#             nums[i] = next_perm[i]
+
+
+#     # Testing
+#     print(f'''Initial permutation: {nums}''')
+
+#     nextPermutation(nums=nums)
+    
+#     print(f'''Next permutation: {nums}''')
+
+#     '''
+#     Notes: 
+#         This approach works but exceeded time limit at 24% of test cases. Since it need to generate all
+#          the permutarions of an iterable to continue and finish, its time complexity is O(n!) factorial (making it
+#          practically unfeasible)
+
+#         The actual O(n) solutions is based on a 'cleaver observation' of how permutations behave and a two pointers approach.          
+#     '''
+
+
+#     '''Optmized Solution'''
+
+#     def nextPermutation(nums: List[int]) -> None:
+
+#         # Step 1: Find the first decreasing element
+#         n = len(nums)
+#         i = n - 2
+
+#         while i >= 0 and nums[i] >= nums[i + 1]:
+#             i -= 1
+        
+#         if i >= 0:  # If there is a valid i (the array isn't entirely in descending order)
+
+#             # Step 2: Find the next larger element in the suffix
+#             j = n - 1
+
+#             while nums[j] <= nums[i]:
+#                 j -= 1
+
+#             # Swap the elements
+#             nums[i], nums[j] = nums[j], nums[i]
+        
+#         # Step 3: Reverse the suffix starting from i + 1
+#         left, right = i + 1, n - 1
+#         while left < right:
+#             nums[left], nums[right] = nums[right], nums[left]
+#             left += 1
+#             right -= 1
+
+#     '''
+#     Explanation
+
+#         Key Insight: Finding the First Decreasing Element
+
+#             Why? When looking for the "next permutation", the challenge is essentially asking: "How can we slightly increase the current permutation, so that we get the next smallest possible one?"
+
+#             * If you look at a permutation, the part at the end is typically in descending order when you've reached the last possible permutation for that segment.
+#             * For example, in [2, 3, 1], the last part [3, 1] is in descending order.
+#             * In lexicographical order, permutations tend to increase at the last possible point. So, we need to find where to make that increase.
+            
+#             Step 1: Find the first decreasing element
+
+#                 - Starting from the end, scan the list from right to left to find the first index i where nums[i] < nums[i + 1].
+#                 - This is the point where we can "increase" the permutation. Everything after this point is already the largest possible permutation of that suffix.
+#                 - Example: For [1, 3, 2], you find that nums[0] = 1 is less than nums[1] = 3, so i = 0. We want to increase the value at i.
+
+#             Step 2: Finding the Next Larger Element
+
+#                 Now that we’ve identified the point (i) where we can "increase" the permutation, the next step is to find the smallest possible number to swap with nums[i] to form the next permutation.
+
+#                 Why? We want to change the permutation minimally, so we need to find the smallest number in the suffix that is greater than nums[i].
+
+#                 Step 2: Find the next larger element in the suffix:
+
+#                     - Scan the right part of the list (after i) to find the smallest element that is larger than nums[i].
+#                     - This is because we want to "increase" the permutation as little as possible.
+#                     - Example: In [1, 3, 2], nums[0] = 1, and the smallest element larger than 1 is 2 (at index 2), so we swap nums[0] with nums[2].
+                
+#                 After the swap, the list becomes [2, 3, 1]. Notice how this is larger than [1, 3, 2] but still close to it.
+
+#             Step 3: Reverse the Suffix
+            
+#                 Now, the reason for this part is subtle but important.
+
+#                 Why reverse the suffix?
+
+#                 * After swapping nums[i] with the next larger element, the portion of the list after i is still in descending order. This descending part was previously the largest possible permutation of those numbers, but now that we’ve made a swap, we need to reset it to the smallest possible permutation.
+#                 * To get the smallest possible permutation of the suffix, we just need to reverse it. This gives us the next lexicographically smallest order after the swap.
+                
+#                 Example:
+
+#                     - After swapping, we have [2, 3, 1]. The part after i = 0 is [3, 1], which is in descending order.
+#                     - To get the next permutation, we reverse [3, 1] to make it [1, 3].
+#                     - The final result is [2, 1, 3], which is the next permutation after [1, 3, 2] in lexicographical order.
+
+#     '''
 
 
 
