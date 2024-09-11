@@ -10,6 +10,8 @@ CHALLENGES INDEX
 140. Word Break II (DP) (BT)
 212. Word Search II (Array) (DFS) (BT) (Matrix)
 
+39. Combination Sum (Array) (BT)
+
 
 *LL: Linked-Lists
 *BS: Binary Search
@@ -31,7 +33,7 @@ CHALLENGES INDEX
 *Others
 
 
-(8)
+(9)
 '''
 
 
@@ -854,6 +856,107 @@ CHALLENGES INDEX
 #         return result
 
 #     'Done'
+
+
+
+
+'''39. Combination Sum'''
+# def x():
+
+#     from typing import List
+
+#     # Input
+#     # Case 1
+#     candidates = [2,3,6,7]
+#     target = 7
+#     # Output: [[2,2,3],[7]]
+    
+#     # Case 2
+#     candidates = [2,3,5]
+#     target = 8
+#     # Output: [[2,2,2,2],[2,3,3],[3,5]]
+    
+#     # Case 3
+#     candidates = [2]
+#     target = 1
+#     # Output: []
+
+
+#     '''
+#     Explanation
+
+#         Backtracking Strategy:
+
+#             * Start with an empty combination.
+#             * Explore each number in the candidates list, adding it to the combination.
+#             * If the sum exceeds target, stop exploring further for that combination (backtrack).
+#             * If the sum equals target, you've found a valid combination, so add it to the result.
+#             * If the sum is still less than target, continue exploring by using the same number again (because we can reuse numbers).
+
+#         Explanation:
+
+#             1. Sorting: We sort the candidates array. This isn't strictly necessary but helps to optimize the solution. 
+#                 By sorting, we can stop early when a number exceeds the remaining target.
+
+#             2. Backtracking Function (backtrack):
+
+#                 - remaining: This is the remaining sum we need to reach the target.
+#                 - combination: The current combination of numbers we are considering.
+#                 - start: This tells us from which index in candidates to start exploring. This is important to avoid using numbers that come before the current index
+#                  (thus ensuring we don't generate duplicate combinations).
+            
+#             3. For loop: We loop through each candidate starting from the start index. If the current candidate is greater than the remaining sum, we stop 
+#                 (because adding it would exceed the target).
+
+#             4. Recursive Call: For each valid candidate, we add it to the combination and call backtrack recursively, reducing the target by the value of the candidate.
+
+#             5. Backtracking Step: After returning from the recursive call, we remove the last added candidate from the combination to explore other possibilities 
+#                 (this is the backtracking part).
+
+#     '''
+
+#     def combinationSum(candidates: List[int], target: int) -> List[List[int]]:
+
+#         result = []
+
+#         # Helper function to perform backtracking
+#         def backtrack(remaining, combination, start):
+
+#             # Base case: if remaining target is 0, add the combination to the result
+#             if remaining == 0:
+#                 result.append(list(combination))
+#                 return
+            
+#             # Explore all candidates starting from 'start' index
+#             for i in range(start, len(candidates)):
+
+#                 # If the current candidate exceeds the remaining target, we stop
+#                 if candidates[i] > remaining:
+#                     break
+                
+#                 # Choose the current candidate and add it to the combination
+#                 combination.append(candidates[i])
+                
+#                 # Recursively call backtrack with the reduced target, and the same index
+#                 # (because we can reuse the same number)
+#                 backtrack(remaining - candidates[i], combination, i)
+                
+#                 # Backtrack by removing the last added candidate from the combination
+#                 combination.pop()
+
+#         # Sort the candidates to help with early stopping
+#         candidates.sort()
+        
+#         # Start backtracking with the entire list of candidates
+#         backtrack(target, [], 0)
+
+#         return result
+
+#     # Testing
+#     print(combinationSum(candidates=candidates, target=target))
+
+#     '''Note: Done'''
+
 
 
 
