@@ -43,6 +43,7 @@ CHALLENGES INDEX
 
 31. Next Permutation (Array) (TP)
 39. Combination Sum (Array) (BT)
+41. First Missing Positive (Array)
 
 
 *LL: Linked-Lists
@@ -65,7 +66,7 @@ CHALLENGES INDEX
 *Others
 
 
-(41)
+(42)
 '''
 
 
@@ -3098,6 +3099,91 @@ CHALLENGES INDEX
 
 #     '''Note: Done'''
 
+'''41. First Missing Positive'''
+# def x():
+
+#     from typing import List
+
+#     # Input
+#     # Case 1
+#     nums = [1,2,0]
+#     # Output: 3
+
+#     # Case 2
+#     nums = [3,4,-1,1]
+#     # Output: 2
+    
+#     # Case 3
+#     nums = [7,8,9,11,12]
+#     # Output: 1
+
+
+#     '''
+#     Naive Approach
+
+#         1. Remove all negative numbers and zeros (since they aren't relevant).
+#         2. Sort the array and then look for the first number that's not where it should be.
+#     '''
+
+#     def firstMissingPositive(nums: List[int]) -> int:
+
+#         # Step 1: Filter out non-positive numbers and zeros
+#         nums = [num for num in nums if num > 0]
+        
+#         # Step 2: Sort the filtered positive numbers
+#         nums.sort()
+        
+#         # Step 3: Check for the first missing positive integer
+#         missing = 1  # The smallest missing positive integer starts at 1
+        
+#         for num in nums:
+#             # If we find the current missing positive in the list, increment it
+#             if num == missing:
+#                 missing += 1
+                
+#         # Step 4: Return the first missing positive integer
+#         return missing
+
+#     # Testing
+#     print(firstMissingPositive(nums=nums))
+
+#     '''Note: It actually works pretty well, it beat other submissions by 77% in Runtime and 96% in Memory, 
+#         but, it takes O(nlogn) time to be solved and the challenge asks for O(n) time'''
+
+
+
+
+#     '''
+#     Optimal Approach (Index Mapping)
+
+#         1. We treat the array as if it were a hash map where the index i should ideally hold the value i+1.
+#         2. We rearrange the array in-place to move each number x to its correct position, i.e., x should be placed at index x-1
+#         3. After rearranging, we scan through the array to find the first index i where nums[i] != i+1. This index corresponds to the first missing positive.
+#     '''
+
+#     def firstMissingPositive(nums: List[int]) -> int:
+
+#         n = len(nums)
+    
+#         # Step 1: Rearrange the numbers to their correct positions
+#         for i in range(n):
+
+#             # Keep swapping nums[i] with nums[nums[i] - 1] until it's either out of range or already in its correct position.
+#             while 1 <= nums[i] <= n and nums[nums[i] - 1] != nums[i]:
+
+#                 # Swap nums[i] with nums[nums[i] - 1]
+#                 nums[nums[i] - 1], nums[i] = nums[i], nums[nums[i] - 1]
+
+#         # Step 2: Find the first missing positive
+#         for i in range(n):
+#             if nums[i] != i + 1:
+#                 return i + 1
+        
+#         # If all numbers are in their correct positions, the first missing positive
+#         # is len(nums) + 1
+#         return n + 1
+    
+#     '''Notes: Done'''
 
 
 
