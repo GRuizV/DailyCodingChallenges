@@ -24,6 +24,7 @@ CHALLENGES INDEX
 32. Longest Valid Parentheses (Stack) (DP)
 
 
+
 *LL: Linked-Lists
 *BS: Binary Search
 *DP: Dynamic Programming
@@ -44,7 +45,7 @@ CHALLENGES INDEX
 *Others
 
 
-(20)
+(21)
 '''
 
 
@@ -1460,6 +1461,125 @@ CHALLENGES INDEX
 
 #     # Testing
 #     print(longestValidParentheses(s=s))
+
+'''45. Jump Game II'''
+# def x():
+
+#     from typing import Optional
+
+#     # Input
+#     # Case 1
+#     nums = [2,3,1,1,4]
+#     # Output: 2 
+
+#     # Case 2
+#     nums = [2,3,0,1,4]
+#     # Output: 2
+    
+#     # Custom Case
+#     nums = [1,2,1,1,1]
+#     # Output: 1
+
+#     '''
+#     My Approach - (Greedy)
+
+#         Intuition:
+            
+#             - Initialize a jumps count in 1. (Because is a given that at least one jump must be done in any other than the corner case)
+#             - In a while loop evaluate each option given by the next nums[i] element and pick the biggest.
+#             - Return the number of jumps counted.
+#     '''
+
+#     def jump(nums: list[int]) -> int:
+
+#         # Handle corner case: one-element input
+#         if len(nums) == 1:
+#             return 0
+        
+#         # Initilize a jump counter and a position holder
+#         jumps = 1
+#         pos = 0
+
+#         # Traverse through the input elements
+#         while pos < len(nums) - 1:
+            
+#             # Collect the possible next step with their respective positions
+#             elems = []
+#             for idx, num in enumerate(nums[ pos+1 : pos+nums[pos]+1 ], start=pos+1):
+#                 elems.append((idx, num))
+
+#             # Check if the last position is among the possibilities
+#             pos_possibilities = [i[0] for i in elems]
+
+#             if len(nums)-1 in pos_possibilities:
+#                 return jumps
+
+#             # Go to the position of the biggest possible jump / If the next possible have the same jump capacity get the farther
+#             pos = max(elems, key=lambda x: x[1])[0]
+
+#             # Add one jump to the counter
+#             jumps += 1
+
+#         # Return the jumps counter
+#         return jumps
+
+
+#     # Testing
+#     # print(jump(nums = nums))
+
+#     '''Note: This approach gets to solve 27% of test cases but the issue comes when two possible next steps have the same jump capacity, there, my logic breaks'''
+
+
+#     '''
+#     Greedy Approach Refined
+
+#         Explanation
+            
+#             - Variables:
+
+#                 *jumps: This keeps track of how many jumps you make.
+#                 *farthest: The farthest index you can reach from the current position.
+#                 current_end: The boundary of the current jump, i.e., how far you can go with the current number of jumps.
+            
+#             - Logic:
+
+#                 * You iterate through the list and update farthest to track the farthest position you can reach from any position within the current range.
+#                 * Whenever you reach current_end, it means you must make a jump, so you increase the jumps counter and set current_end to farthest.
+#                 * You stop if current_end reaches or exceeds the last index because you know you can jump directly to the end.
+#     '''  
+
+#     def jump(nums: list[int]) -> bool:
+
+#         # Handle corner case: single element input
+#         if len(nums) == 1:
+#             return 0
+        
+#         # Initialize variables
+#         jumps = 0  # Number of jumps
+#         farthest = 0  # The farthest point that can be reached
+#         current_end = 0  # The farthest point within the current jump range
+        
+#         # Traverse the array, but we don't need to check the last element
+#         for i in range(len(nums) - 1):
+
+#             # Update the farthest point that can be reached
+#             farthest = max(farthest, i + nums[i])
+            
+#             # If we reach the end of the current jump's range, we must make a new jump
+#             if i == current_end:
+
+#                 jumps += 1
+#                 current_end = farthest  # Update the range of the next jump
+                
+#                 # If the farthest we can reach is the last index or beyond, we can stop
+#                 if current_end >= len(nums) - 1:
+#                     break
+        
+#         return jumps
+
+        
+#     # Testing
+#     print(jump(nums = nums))
 
 
 
