@@ -10,6 +10,8 @@ CHALLENGES INDEX
 289. Game of Life (Matrix)
 
 
+
+
 *LL: Linked-Lists
 *BS: Binary Search
 *DP: Dynamic Programming
@@ -30,7 +32,7 @@ CHALLENGES INDEX
 *Others
 
 
-(7)
+(8)
 '''
 
 
@@ -972,6 +974,10 @@ CHALLENGES INDEX
 
 #     'Done: My approach worked and beated 72% of submissions in runtime and 35% in space.'
 
+
+
+
+'dd'
 
 
 
