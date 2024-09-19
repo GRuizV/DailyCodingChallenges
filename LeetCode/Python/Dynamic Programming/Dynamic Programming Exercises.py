@@ -22,7 +22,7 @@ CHALLENGES INDEX
 322. Coin Change (DP)
 
 32. Longest Valid Parentheses (Stack) (DP)
-
+64. Minimum Path Sum (Matrix) (DP)
 
 
 *LL: Linked-Lists
@@ -45,7 +45,7 @@ CHALLENGES INDEX
 *Others
 
 
-(21)
+(22)
 '''
 
 
@@ -230,6 +230,92 @@ CHALLENGES INDEX
 #     print(maxSubArray(nums))
 
 #     'Notes: Apparently it was a classic problem'
+
+'55. Jump Game'
+# def x():
+
+#     # Input
+#     # Case 1
+#     nums = [2,3,1,1,4]
+#     # Output: True
+
+#     # Case 2
+#     nums = [3,2,1,0,4]
+#     # Output: False
+
+#     # Custom Case
+#     nums = [2,0,0]
+#     # Output: 
+
+#     '''
+#     My Approach
+
+#         Intuition - Brute Force:
+
+#             - I will check item by item to determine if the end of the list is reachable
+
+#     '''
+#     def canJump(nums:list[int]) -> bool:
+
+#         # Corner case: nums.lenght = 1 / nums[0] = 0
+#         if len(nums) == 1 and nums[0] == 0:
+#             return True
+        
+#         idx = 0
+
+#         while True:
+
+#             idx += nums[idx]
+
+#             if idx >= len(nums)-1:
+#                 return True
+            
+#             if nums[idx] == 0 and idx < len(nums)-1:
+#                 return False
+            
+#     # Testing
+#     print(canJump(nums))
+
+#     'Notes: This solution suffice 91,2% of the case'
+
+
+#     'Backtrack Approach'
+#     def canJump(nums: list[int]) -> bool:
+
+#         # Handle corner case: One-element input
+#         if len(nums) == 1:
+#             return True  
+
+#         # Start at num[-2] since nums[-1] is given
+#         backtrack_index = len(nums)-2 
+
+#         # At nums[-2] we only need to jump 1 to get to nums[-1]
+#         jump = 1  
+
+#         # Iterate through the element backwards
+#         while backtrack_index > 0:
+
+#             # If we can get to the nearest lily pad
+#             if nums[backtrack_index] >= jump:
+
+#                 #now we have a new nearest lily pad
+#                 jump = 1 
+
+#             # Else the jump is one bigger than before
+#             else:               
+#                 jump += 1 
+
+#             # Move one backwards
+#             backtrack_index -= 1
+        
+#         #Now that we know the nearest jump to nums[0], we can finish
+#         if jump <= nums[0]: 
+#             return True
+        
+#         else:
+#             return False 
+
+#     'Notes: Right now I am not that interested in learning bactktracking, that will be for later'
 
 '62. Unique Paths'
 # def x():
@@ -1580,6 +1666,130 @@ CHALLENGES INDEX
         
 #     # Testing
 #     print(jump(nums = nums))
+
+'''64. Minimum Path Sum'''
+# def x():
+
+#     from typing import Optional
+
+#     # Input
+#     # Case 1
+#     grid = [[1,3,1],[1,5,1],[4,2,1]]
+#     # Output: 7
+
+#     # Case 2
+#     grid = [[1,2,3],[4,5,6]]
+#     # Output: 12
+
+#     '''
+#     My Approach (Dynamic Programming)
+
+#         Intuition:
+            
+#             - Initialize a 'result' grid of dimentions m+1, n+1 and initilize the first row and the first column of each rown in 201*.
+#             - Start traversing 'result' from result[1][1] and the operation will be to assign that cell: max( grid[i-1][j-1]+result[i][j-1], grid[i][j]+result[i-1][j1] )
+#                 Except for the result[1][1], which will be assigned result[0][0]
+#             - Return result[-1][-1] which will contain the shortest path to get there.
+
+#             *201 is assigned as the value above the contrain '0 <= grid[i][j] <= 200', to say 'don't select this one'
+#     '''
+
+#     def minPathSum(grid: list[list[int]]) -> int:
+
+#         # Capture the input dimentions
+#         m, n = len(grid), len(grid[0])
+
+#         # Handle Corner case: 1x1 input
+#         if m == n == 1:
+#             return grid[0][0]
+        
+#         # Handle Corner case: 1xn input
+#         if m == 1:
+#             return sum(grid[0])
+        
+#         # Handle Corner case: mx1 input
+#         if m == 1:
+#             return sum([x[0] for x in grid])
+        
+
+#         # Initialize the result grid holder
+#         result = [[0]*(n+1) for _ in range(m+1)]
+
+#         # Set the first row to 201
+#         for col in range(len(result[0])):
+#             result[0][col] = 201
+        
+#         # Set the first column to 201
+#         for row in range(len(result)):
+#             result[row][0] = 201
+
+#         # Traverse the 'result' grid starting from [1][1]
+#         for i in range(1, len(result)):
+#             for j in range(1, len(result[0])):
+
+#                 if j == i == 1:
+#                     result[i][j] = grid[i-1][j-1]
+
+#                 else:
+#                     result[i][j] = min( grid[i-1][j-1]+result[i][j-1], grid[i-1][j-1]+result[i-1][j] )
+
+#         # Return the last cell which is the one containing the shortest path
+#         return result[-1][-1]
+
+#     # Testing
+#     print(minPathSum(grid=grid))
+
+#     '''Note: My approach solved 96% of testcases'''
+
+
+#     '''
+#     My Approach (Dynamic Programming) - Correction
+           
+#         The initial idea was not wrong, but initializing with extra row and column could lead to miscalculations. 
+#         So the 'result' holder will initialize only with the size of the grid and operation will be:
+#             - For the first row: only summing up itself with the cell at the left.
+#             - For the first column: only summing up itself with the cell at the top.
+#             - For the rest of the result grid: Sum as planned.
+#     '''
+
+
+#     def minPathSum(grid: list[list[int]]) -> int:
+
+#         # Capture the input dimentions
+#         m, n = len(grid), len(grid[0])
+
+#         # Handle Corner case: 1x1 input
+#         if m == n == 1:
+#             return grid[0][0]
+
+
+#         # Initialize the result grid holder
+#         result = [[0]*(n) for _ in range(m)]
+
+#         # Initilize the top left cell of the result grid
+#         result[0][0] = grid[0][0]
+
+
+#         # Traverse the first row
+#         for col in range(1, len(result[0])):
+#             result[0][col] = result[0][col-1] + grid[0][col]
+        
+#         # Traverse the first column
+#         for row in range(1, len(result)):
+#             result[row][0] = result[row-1][0] + grid[row][0]
+
+#         # Traverse the rest of 'result' grid starting from [1][1]
+#         for i in range(1, len(result)):
+#             for j in range(1, len(result[0])):
+#                 result[i][j] = min( grid[i][j]+result[i][j-1], grid[i][j]+result[i-1][j] )
+
+#         # Return the last cell which is the one containing the shortest path
+#         return result[-1][-1]
+
+#     # Testing
+#     print(minPathSum(grid=grid))
+
+#     '''Notes: Done!'''
 
 
 
