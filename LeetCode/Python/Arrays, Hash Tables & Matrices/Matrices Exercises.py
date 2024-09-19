@@ -9,7 +9,7 @@ CHALLENGES INDEX
 240. Search a 2D Matrix II (Matrix) (DQ) (BS)
 289. Game of Life (Matrix)
 
-
+51. N-Queens (Matrix) (BT)
 
 
 *LL: Linked-Lists
@@ -32,7 +32,7 @@ CHALLENGES INDEX
 *Others
 
 
-(8)
+(9)
 '''
 
 
@@ -977,7 +977,114 @@ CHALLENGES INDEX
 
 
 
-'dd'
+'''51. N-Queens'''
+# def x():
+
+#     from typing import Optional
+
+#     # Input
+#     # Case 1
+#     n = 4
+#     # Output: [
+#     #   [".Q..","...Q","Q...","..Q."],
+#     #   ["..Q.","Q...","...Q",".Q.."]
+#     # ]
+
+#     # Case 2
+#     n = 1
+#     # Output: [Q]
+    
+#     # Case 2
+#     n = 9
+#     # Output: [Q]
+
+#     '''
+#     Explanation
+        
+#         The "N-Queens" problem is a classic example of a backtracking algorithm challenge. In this problem, you are asked to place N queens on an N x N chessboard 
+#         such that no two queens attack each other. Queens can attack other queens that are in the same row, column, or diagonal.
+
+        
+#         Problem breakdown
+
+#             1. You need to place N queens on an N x N board.
+#             2. No two queens can be placed on the same row, column, or diagonal.
+#             3. The goal is to return all possible arrangements that satisfy the above conditions.
+
+        
+#         Approach: Backtracking
+            
+#             We will solve this using backtracking, which is an algorithmic technique for solving constraint satisfaction problems. 
+#             The idea is to place queens one by one and check for validity at each step. If a solution is found, we record it; otherwise, 
+#             we backtrack and try different placements.
+        
+        
+#         Steps:
+
+#             1. Place Queens Row by Row: Start placing queens from the first row to the last. At each row, try placing a queen in each column, one by one, and check if it’s a valid position.
+
+#             2. Check for Conflicts: After placing a queen, check whether it’s under attack from previously placed queens (i.e., check if there is a conflict in columns or diagonals).
+
+#             3. Backtrack: If a conflict is found, remove the queen and try placing it in a different column. If no valid position exists in a row, backtrack to the previous row and move that queen.
+
+#             4. Store Valid Solutions: When all queens are placed successfully, store the board configuration.
+#     '''
+
+#     def solveNQueens(n):
+
+#         def is_valid(board, row, col):
+
+#             # Check the column
+#             for i in range(row):
+#                 if board[i] == col:
+#                     return False
+                
+#             # Check the diagonal (left-up)
+#             for i, j in zip(range(row-1, -1, -1), range(col-1, -1, -1)):
+#                 if board[i] == j:
+#                     return False
+                
+#             # Check the diagonal (right-up)
+#             for i, j in zip(range(row-1, -1, -1), range(col+1, n)):
+#                 if board[i] == j:
+#                     return False
+                
+#             return True
+
+
+#         def backtrack(row, board, solutions):
+
+#             if row == n:
+
+#                 # If all queens are placed, convert the board to the required output format
+#                 solutions.append(["." * col + "Q" + "." * (n - col - 1) for col in board])
+#                 return
+            
+#             for col in range(n):
+
+#                 if is_valid(board, row, col):
+                    
+#                     board[row] = col
+#                     backtrack(row + 1, board, solutions)
+#                     board[row] = -1  # Backtrack
+
+
+#         # Initialize board and solutions list
+#         solutions = []
+#         board = [-1] * n  # Keeps track of queen's position in each row
+#         backtrack(0, board, solutions)
+
+#         return solutions
+
+
+#     # Testing
+#     solution = solveNQueens(n=n)
+#     print(f'# of Solution: {len(solution)}')
+#     for i in solution[1]:
+#         print(i)
+
+#     '''Note: Done'''
+
 
 
 
