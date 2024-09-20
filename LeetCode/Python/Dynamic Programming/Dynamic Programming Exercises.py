@@ -22,6 +22,7 @@ CHALLENGES INDEX
 322. Coin Change (DP)
 
 32. Longest Valid Parentheses (Stack) (DP)
+45. Jump Game II (Array) (GRE) (DP)
 64. Minimum Path Sum (Matrix) (DP)
 
 
@@ -245,7 +246,7 @@ CHALLENGES INDEX
 
 #     # Custom Case
 #     nums = [2,0,0]
-#     # Output: 
+#     # Output: True
 
 #     '''
 #     My Approach
@@ -279,43 +280,42 @@ CHALLENGES INDEX
 #     'Notes: This solution suffice 91,2% of the case'
 
 
-#     'Backtrack Approach'
-#     def canJump(nums: list[int]) -> bool:
+#     '''
+#     Greedy Approach
 
-#         # Handle corner case: One-element input
-#         if len(nums) == 1:
-#             return True  
+#         The idea behind the greedy solution is to keep track of the furthest point that you can reach as you iterate through the array. 
+#         If at any point the current index is greater than the furthest point you can reach, it means you can't reach this position and therefore, you can't reach the last index.
 
-#         # Start at num[-2] since nums[-1] is given
-#         backtrack_index = len(nums)-2 
+#         Steps:
 
-#         # At nums[-2] we only need to jump 1 to get to nums[-1]
-#         jump = 1  
+#             1. Initialize a variable maxReach to 0. This variable keeps track of the furthest index you can reach.
+            
+#             2. Iterate through the array:
+#                 - At each index i, check if i is greater than maxReach. If it is, it means you can't reach this index, so return False.
 
-#         # Iterate through the element backwards
-#         while backtrack_index > 0:
+#                 - Update maxReach as the maximum of its current value and i + nums[i], which represents the furthest you can reach from the current index.
 
-#             # If we can get to the nearest lily pad
-#             if nums[backtrack_index] >= jump:
+#             3. If you complete the loop without returning False, it means you can reach the last index, so return True.
+    
+#     '''
 
-#                 #now we have a new nearest lily pad
-#                 jump = 1 
+#     def canJump(nums):
 
-#             # Else the jump is one bigger than before
-#             else:               
-#                 jump += 1 
-
-#             # Move one backwards
-#             backtrack_index -= 1
+#         maxReach = 0
         
-#         #Now that we know the nearest jump to nums[0], we can finish
-#         if jump <= nums[0]: 
-#             return True
-        
-#         else:
-#             return False 
+#         for i in range(len(nums)):
 
-#     'Notes: Right now I am not that interested in learning bactktracking, that will be for later'
+#             if i > maxReach:
+#                 return False
+            
+#             maxReach = max(maxReach, i + nums[i])
+        
+#         return True
+    
+#     # Testing
+#     print(canJump(nums=nums))
+
+#     '''Notes: Done'''
 
 '62. Unique Paths'
 # def x():
@@ -1549,123 +1549,123 @@ CHALLENGES INDEX
 #     print(longestValidParentheses(s=s))
 
 '''45. Jump Game II'''
-# def x():
+def x():
 
-#     from typing import Optional
+    from typing import Optional
 
-#     # Input
-#     # Case 1
-#     nums = [2,3,1,1,4]
-#     # Output: 2 
+    # Input
+    # Case 1
+    nums = [2,3,1,1,4]
+    # Output: 2 
 
-#     # Case 2
-#     nums = [2,3,0,1,4]
-#     # Output: 2
+    # Case 2
+    nums = [2,3,0,1,4]
+    # Output: 2
     
-#     # Custom Case
-#     nums = [1,2,1,1,1]
-#     # Output: 1
+    # Custom Case
+    nums = [1,2,1,1,1]
+    # Output: 1
 
-#     '''
-#     My Approach - (Greedy)
+    '''
+    My Approach - (Greedy)
 
-#         Intuition:
+        Intuition:
             
-#             - Initialize a jumps count in 1. (Because is a given that at least one jump must be done in any other than the corner case)
-#             - In a while loop evaluate each option given by the next nums[i] element and pick the biggest.
-#             - Return the number of jumps counted.
-#     '''
+            - Initialize a jumps count in 1. (Because is a given that at least one jump must be done in any other than the corner case)
+            - In a while loop evaluate each option given by the next nums[i] element and pick the biggest.
+            - Return the number of jumps counted.
+    '''
 
-#     def jump(nums: list[int]) -> int:
+    def jump(nums: list[int]) -> int:
 
-#         # Handle corner case: one-element input
-#         if len(nums) == 1:
-#             return 0
+        # Handle corner case: one-element input
+        if len(nums) == 1:
+            return 0
         
-#         # Initilize a jump counter and a position holder
-#         jumps = 1
-#         pos = 0
+        # Initilize a jump counter and a position holder
+        jumps = 1
+        pos = 0
 
-#         # Traverse through the input elements
-#         while pos < len(nums) - 1:
+        # Traverse through the input elements
+        while pos < len(nums) - 1:
             
-#             # Collect the possible next step with their respective positions
-#             elems = []
-#             for idx, num in enumerate(nums[ pos+1 : pos+nums[pos]+1 ], start=pos+1):
-#                 elems.append((idx, num))
+            # Collect the possible next step with their respective positions
+            elems = []
+            for idx, num in enumerate(nums[ pos+1 : pos+nums[pos]+1 ], start=pos+1):
+                elems.append((idx, num))
 
-#             # Check if the last position is among the possibilities
-#             pos_possibilities = [i[0] for i in elems]
+            # Check if the last position is among the possibilities
+            pos_possibilities = [i[0] for i in elems]
 
-#             if len(nums)-1 in pos_possibilities:
-#                 return jumps
+            if len(nums)-1 in pos_possibilities:
+                return jumps
 
-#             # Go to the position of the biggest possible jump / If the next possible have the same jump capacity get the farther
-#             pos = max(elems, key=lambda x: x[1])[0]
+            # Go to the position of the biggest possible jump / If the next possible have the same jump capacity get the farther
+            pos = max(elems, key=lambda x: x[1])[0]
 
-#             # Add one jump to the counter
-#             jumps += 1
+            # Add one jump to the counter
+            jumps += 1
 
-#         # Return the jumps counter
-#         return jumps
-
-
-#     # Testing
-#     # print(jump(nums = nums))
-
-#     '''Note: This approach gets to solve 27% of test cases but the issue comes when two possible next steps have the same jump capacity, there, my logic breaks'''
+        # Return the jumps counter
+        return jumps
 
 
-#     '''
-#     Greedy Approach Refined
+    # Testing
+    # print(jump(nums = nums))
 
-#         Explanation
+    '''Note: This approach gets to solve 27% of test cases but the issue comes when two possible next steps have the same jump capacity, there, my logic breaks'''
+
+
+    '''
+    Greedy Approach Refined
+
+        Explanation
             
-#             - Variables:
+            - Variables:
 
-#                 *jumps: This keeps track of how many jumps you make.
-#                 *farthest: The farthest index you can reach from the current position.
-#                 current_end: The boundary of the current jump, i.e., how far you can go with the current number of jumps.
+                *jumps: This keeps track of how many jumps you make.
+                *farthest: The farthest index you can reach from the current position.
+                current_end: The boundary of the current jump, i.e., how far you can go with the current number of jumps.
             
-#             - Logic:
+            - Logic:
 
-#                 * You iterate through the list and update farthest to track the farthest position you can reach from any position within the current range.
-#                 * Whenever you reach current_end, it means you must make a jump, so you increase the jumps counter and set current_end to farthest.
-#                 * You stop if current_end reaches or exceeds the last index because you know you can jump directly to the end.
-#     '''  
+                * You iterate through the list and update farthest to track the farthest position you can reach from any position within the current range.
+                * Whenever you reach current_end, it means you must make a jump, so you increase the jumps counter and set current_end to farthest.
+                * You stop if current_end reaches or exceeds the last index because you know you can jump directly to the end.
+    '''  
 
-#     def jump(nums: list[int]) -> bool:
+    def jump(nums: list[int]) -> bool:
 
-#         # Handle corner case: single element input
-#         if len(nums) == 1:
-#             return 0
+        # Handle corner case: single element input
+        if len(nums) == 1:
+            return 0
         
-#         # Initialize variables
-#         jumps = 0  # Number of jumps
-#         farthest = 0  # The farthest point that can be reached
-#         current_end = 0  # The farthest point within the current jump range
+        # Initialize variables
+        jumps = 0  # Number of jumps
+        farthest = 0  # The farthest point that can be reached
+        current_end = 0  # The farthest point within the current jump range
         
-#         # Traverse the array, but we don't need to check the last element
-#         for i in range(len(nums) - 1):
+        # Traverse the array, but we don't need to check the last element
+        for i in range(len(nums) - 1):
 
-#             # Update the farthest point that can be reached
-#             farthest = max(farthest, i + nums[i])
+            # Update the farthest point that can be reached
+            farthest = max(farthest, i + nums[i])
             
-#             # If we reach the end of the current jump's range, we must make a new jump
-#             if i == current_end:
+            # If we reach the end of the current jump's range, we must make a new jump
+            if i == current_end:
 
-#                 jumps += 1
-#                 current_end = farthest  # Update the range of the next jump
+                jumps += 1
+                current_end = farthest  # Update the range of the next jump
                 
-#                 # If the farthest we can reach is the last index or beyond, we can stop
-#                 if current_end >= len(nums) - 1:
-#                     break
+                # If the farthest we can reach is the last index or beyond, we can stop
+                if current_end >= len(nums) - 1:
+                    break
         
-#         return jumps
+        return jumps
 
         
-#     # Testing
-#     print(jump(nums = nums))
+    # Testing
+    print(jump(nums = nums))
 
 '''64. Minimum Path Sum'''
 # def x():

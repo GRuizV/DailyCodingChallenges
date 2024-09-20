@@ -103,7 +103,7 @@ CHALLENGES INDEX
 
 #     # Custom Case
 #     nums = [2,0,0]
-#     # Output: 
+#     # Output: True
 
 #     '''
 #     My Approach
@@ -137,34 +137,42 @@ CHALLENGES INDEX
 #     'Notes: This solution suffice 91,2% of the case'
 
 
-#     'Backtrack Approach'
-#     def canJump(nums: list[int]) -> bool:
+#     '''
+#     Greedy Approach
 
-#         if len(nums)==1:
-#             return True  
+#         The idea behind the greedy solution is to keep track of the furthest point that you can reach as you iterate through the array. 
+#         If at any point the current index is greater than the furthest point you can reach, it means you can't reach this position and therefore, you can't reach the last index.
 
-#         #Start at num[-2] since nums[-1] is given
-#         backtrack_index = len(nums)-2 
-#         #At nums[-2] we only need to jump 1 to get to nums[-1]
-#         jump =1  
+#         Steps:
 
-#         while backtrack_index>0:
-#             #We can get to the nearest lily pad
-#             if nums[backtrack_index]>=jump: 
-#                 #now we have a new nearest lily pad
-#                 jump=1 
-#             else:
-#                 #Else the jump is one bigger than before
-#                 jump+=1 
-#             backtrack_index-=1
+#             1. Initialize a variable maxReach to 0. This variable keeps track of the furthest index you can reach.
+            
+#             2. Iterate through the array:
+#                 - At each index i, check if i is greater than maxReach. If it is, it means you can't reach this index, so return False.
+
+#                 - Update maxReach as the maximum of its current value and i + nums[i], which represents the furthest you can reach from the current index.
+
+#             3. If you complete the loop without returning False, it means you can reach the last index, so return True.
+    
+#     '''
+
+#     def canJump(nums):
+
+#         maxReach = 0
         
-#         #Now that we know the nearest jump to nums[0], we can finish
-#         if jump <=nums[0]: 
-#             return True
-#         else:
-#             return False 
+#         for i in range(len(nums)):
 
-#     'Notes: Right now I am not that interested in learning bactktracking, that will be for later'
+#             if i > maxReach:
+#                 return False
+            
+#             maxReach = max(maxReach, i + nums[i])
+        
+#         return True
+    
+#     # Testing
+#     print(canJump(nums=nums))
+
+#     '''Notes: Done'''
 
 '''122. Best Time to Buy and Sell Stock II'''
 # def x():
