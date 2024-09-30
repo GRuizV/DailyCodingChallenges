@@ -24,6 +24,8 @@ CHALLENGES INDEX
 32. Longest Valid Parentheses (Stack) (DP)
 45. Jump Game II (Array) (GRE) (DP)
 64. Minimum Path Sum (Matrix) (DP)
+72. Edit Distance (DP)
+
 
 
 *LL: Linked-Lists
@@ -46,7 +48,7 @@ CHALLENGES INDEX
 *Others
 
 
-(22)
+(23)
 '''
 
 
@@ -1549,123 +1551,123 @@ CHALLENGES INDEX
 #     print(longestValidParentheses(s=s))
 
 '''45. Jump Game II'''
-def x():
+# def x():
 
-    from typing import Optional
+#     from typing import Optional
 
-    # Input
-    # Case 1
-    nums = [2,3,1,1,4]
-    # Output: 2 
+#     # Input
+#     # Case 1
+#     nums = [2,3,1,1,4]
+#     # Output: 2 
 
-    # Case 2
-    nums = [2,3,0,1,4]
-    # Output: 2
+#     # Case 2
+#     nums = [2,3,0,1,4]
+#     # Output: 2
     
-    # Custom Case
-    nums = [1,2,1,1,1]
-    # Output: 1
+#     # Custom Case
+#     nums = [1,2,1,1,1]
+#     # Output: 1
 
-    '''
-    My Approach - (Greedy)
+#     '''
+#     My Approach - (Greedy)
 
-        Intuition:
+#         Intuition:
             
-            - Initialize a jumps count in 1. (Because is a given that at least one jump must be done in any other than the corner case)
-            - In a while loop evaluate each option given by the next nums[i] element and pick the biggest.
-            - Return the number of jumps counted.
-    '''
+#             - Initialize a jumps count in 1. (Because is a given that at least one jump must be done in any other than the corner case)
+#             - In a while loop evaluate each option given by the next nums[i] element and pick the biggest.
+#             - Return the number of jumps counted.
+#     '''
 
-    def jump(nums: list[int]) -> int:
+#     def jump(nums: list[int]) -> int:
 
-        # Handle corner case: one-element input
-        if len(nums) == 1:
-            return 0
+#         # Handle corner case: one-element input
+#         if len(nums) == 1:
+#             return 0
         
-        # Initilize a jump counter and a position holder
-        jumps = 1
-        pos = 0
+#         # Initilize a jump counter and a position holder
+#         jumps = 1
+#         pos = 0
 
-        # Traverse through the input elements
-        while pos < len(nums) - 1:
+#         # Traverse through the input elements
+#         while pos < len(nums) - 1:
             
-            # Collect the possible next step with their respective positions
-            elems = []
-            for idx, num in enumerate(nums[ pos+1 : pos+nums[pos]+1 ], start=pos+1):
-                elems.append((idx, num))
+#             # Collect the possible next step with their respective positions
+#             elems = []
+#             for idx, num in enumerate(nums[ pos+1 : pos+nums[pos]+1 ], start=pos+1):
+#                 elems.append((idx, num))
 
-            # Check if the last position is among the possibilities
-            pos_possibilities = [i[0] for i in elems]
+#             # Check if the last position is among the possibilities
+#             pos_possibilities = [i[0] for i in elems]
 
-            if len(nums)-1 in pos_possibilities:
-                return jumps
+#             if len(nums)-1 in pos_possibilities:
+#                 return jumps
 
-            # Go to the position of the biggest possible jump / If the next possible have the same jump capacity get the farther
-            pos = max(elems, key=lambda x: x[1])[0]
+#             # Go to the position of the biggest possible jump / If the next possible have the same jump capacity get the farther
+#             pos = max(elems, key=lambda x: x[1])[0]
 
-            # Add one jump to the counter
-            jumps += 1
+#             # Add one jump to the counter
+#             jumps += 1
 
-        # Return the jumps counter
-        return jumps
-
-
-    # Testing
-    # print(jump(nums = nums))
-
-    '''Note: This approach gets to solve 27% of test cases but the issue comes when two possible next steps have the same jump capacity, there, my logic breaks'''
+#         # Return the jumps counter
+#         return jumps
 
 
-    '''
-    Greedy Approach Refined
+#     # Testing
+#     # print(jump(nums = nums))
 
-        Explanation
+#     '''Note: This approach gets to solve 27% of test cases but the issue comes when two possible next steps have the same jump capacity, there, my logic breaks'''
+
+
+#     '''
+#     Greedy Approach Refined
+
+#         Explanation
             
-            - Variables:
+#             - Variables:
 
-                *jumps: This keeps track of how many jumps you make.
-                *farthest: The farthest index you can reach from the current position.
-                current_end: The boundary of the current jump, i.e., how far you can go with the current number of jumps.
+#                 *jumps: This keeps track of how many jumps you make.
+#                 *farthest: The farthest index you can reach from the current position.
+#                 current_end: The boundary of the current jump, i.e., how far you can go with the current number of jumps.
             
-            - Logic:
+#             - Logic:
 
-                * You iterate through the list and update farthest to track the farthest position you can reach from any position within the current range.
-                * Whenever you reach current_end, it means you must make a jump, so you increase the jumps counter and set current_end to farthest.
-                * You stop if current_end reaches or exceeds the last index because you know you can jump directly to the end.
-    '''  
+#                 * You iterate through the list and update farthest to track the farthest position you can reach from any position within the current range.
+#                 * Whenever you reach current_end, it means you must make a jump, so you increase the jumps counter and set current_end to farthest.
+#                 * You stop if current_end reaches or exceeds the last index because you know you can jump directly to the end.
+#     '''  
 
-    def jump(nums: list[int]) -> bool:
+#     def jump(nums: list[int]) -> bool:
 
-        # Handle corner case: single element input
-        if len(nums) == 1:
-            return 0
+#         # Handle corner case: single element input
+#         if len(nums) == 1:
+#             return 0
         
-        # Initialize variables
-        jumps = 0  # Number of jumps
-        farthest = 0  # The farthest point that can be reached
-        current_end = 0  # The farthest point within the current jump range
+#         # Initialize variables
+#         jumps = 0  # Number of jumps
+#         farthest = 0  # The farthest point that can be reached
+#         current_end = 0  # The farthest point within the current jump range
         
-        # Traverse the array, but we don't need to check the last element
-        for i in range(len(nums) - 1):
+#         # Traverse the array, but we don't need to check the last element
+#         for i in range(len(nums) - 1):
 
-            # Update the farthest point that can be reached
-            farthest = max(farthest, i + nums[i])
+#             # Update the farthest point that can be reached
+#             farthest = max(farthest, i + nums[i])
             
-            # If we reach the end of the current jump's range, we must make a new jump
-            if i == current_end:
+#             # If we reach the end of the current jump's range, we must make a new jump
+#             if i == current_end:
 
-                jumps += 1
-                current_end = farthest  # Update the range of the next jump
+#                 jumps += 1
+#                 current_end = farthest  # Update the range of the next jump
                 
-                # If the farthest we can reach is the last index or beyond, we can stop
-                if current_end >= len(nums) - 1:
-                    break
+#                 # If the farthest we can reach is the last index or beyond, we can stop
+#                 if current_end >= len(nums) - 1:
+#                     break
         
-        return jumps
+#         return jumps
 
         
-    # Testing
-    print(jump(nums = nums))
+#     # Testing
+#     print(jump(nums = nums))
 
 '''64. Minimum Path Sum'''
 # def x():
@@ -1790,6 +1792,90 @@ def x():
 #     print(minPathSum(grid=grid))
 
 #     '''Notes: Done!'''
+
+'''72. Edit Distance'''
+# def x():
+
+#     from typing import Optional
+
+#     # Input
+#     # Case 1
+#     word1 = "horse" 
+#     word2 = "ros"
+#     # Output: 3
+
+#     # # Case 2
+#     # word1 = "intention" 
+#     # word2 = "execution"
+#     # # Output: 5
+
+#     '''
+#     Dynamic Programming Approach:
+        
+#         The key idea is to use a 2D DP table where dp[i][j] represents the minimum number of operations required to convert the first i characters of word1 to the first j characters of word2.
+
+#         Steps:
+            
+#             1. Initialization:
+
+#                 If one of the strings is empty, the only option is to insert all characters from the other string.
+#                 Thus, dp[i][0] = i and dp[0][j] = j.
+            
+#             2. State Transition:
+
+#                 If word1[i-1] == word2[j-1], no operation is needed, so dp[i][j] = dp[i-1][j-1].
+
+#                 Otherwise, consider the three possible operations:
+                
+#                     * Insert: dp[i][j-1] + 1
+#                     * Delete: dp[i-1][j] + 1
+#                     * Replace: dp[i-1][j-1] + 1
+                    
+#                     Take the minimum of these three operations: dp[i][j] = min(insert, delete, replace).
+            
+#             3. Final Answer:
+
+#                 The value at dp[m][n] will give you the minimum number of operations required, where m is the length of word1 and n is the length of word2.
+#     '''
+
+#     def minDistance(word1: str, word2: str) -> int:
+
+#         # Capture each word length
+#         m, n = len(word1), len(word2)
+        
+#         # initialize the dp matrix
+#         dp = [[0]*(n+1) for _ in range(m+1)]
+        
+#         # Fill the first column
+#         for i in range(1, m+1):
+#             dp[i][0] = i
+        
+#         # fill the first row
+#         for j in range(1, n+1):
+#             dp[0][j] = j
+
+#         # Populate the rest of the matrix
+#         for i in range(1, m+1):
+#             for j in range(1, n+1):
+
+#                 if word1[i-1] == word2[j-1]:
+#                     dp[i][j] = dp[i-1][j-1]    # No operation needed
+                
+#                 else:
+#                     dp[i][j] = min(
+#                         dp[i-1][j-1] + 1,   # Replace Operation
+#                         dp[i][j-1] + 1,   # Insert Operation
+#                         dp[i-1][j] + 1,   # Delete Operation
+#                     )
+               
+#         # Return the last cell which will contain the minimum number of operations
+#         return dp[-1][-1]
+
+#     # Testing
+#     print(minDistance(word1=word1, word2=word2))
+
+#     '''Note: Done'''
+
 
 
 

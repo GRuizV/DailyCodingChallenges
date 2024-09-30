@@ -26,37 +26,7 @@ CHALLENGES TAGS
 'xxx'
 '''xxx'''
 def x():
-
-    from typing import Optional
-
-    # Input
-    # Case 1
-    head = []
-    # Output: [2,1,4,3]
-
-    '''
-    My Approach
-
-        Intuition:
-            
-            -...
-    '''
-
-    def x() -> int:
-
-        # Handle Corner case: ...
-        if not head:
-            return
-                
-        # Return ...
-        return 
-
-    # Testing
-    print(x())
-
-    '''Note: Done'''
-
-
+    
     from typing import Optional
 
     # Base
