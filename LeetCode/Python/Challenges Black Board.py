@@ -29,17 +29,10 @@ def x():
     
     from typing import Optional
 
-    # Base
-    # Definition for singly-linked list.
-    class ListNode:
-        def __init__(self, val=0, next=None):
-            self.val = val
-            self.next = next
-
     # Input
     # Case 1
-    head = ListNode(1, next=ListNode(2,next=ListNode(3,next=ListNode(4))))
-    # Output: [2,1,4,3]
+    head = None
+    # Output: None
 
     '''
     My Approach

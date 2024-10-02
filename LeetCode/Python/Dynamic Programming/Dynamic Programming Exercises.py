@@ -24,7 +24,7 @@ CHALLENGES INDEX
 32. Longest Valid Parentheses (Stack) (DP)
 45. Jump Game II (Array) (GRE) (DP)
 64. Minimum Path Sum (Matrix) (DP)
-72. Edit Distance (DP)
+72. Edit Distance (DP) 'Levenshtein Distance'
 
 
 

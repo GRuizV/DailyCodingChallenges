@@ -11,6 +11,7 @@ CHALLENGES INDEX
 
 51. N-Queens (Matrix) (BT)
 64. Minimum Path Sum (Matrix) (DP)
+74. Search a 2D Matrix (BS) (Matrix)
 
 
 *LL: Linked-Lists
@@ -33,7 +34,7 @@ CHALLENGES INDEX
 *Others
 
 
-(10)
+(11)
 '''
 
 
@@ -1210,6 +1211,71 @@ CHALLENGES INDEX
 
 #     '''Notes: Done!'''
 
+'''74. Search a 2D Matrix'''
+# def x():
+    
+#     from typing import Optional
+
+#     # Input
+#     # Case 1
+#     matrix = [[1,3,5,7],[10,11,16,20],[23,30,34,60]]
+#     target = 3
+#     # Output: True
+
+#     # Case 2
+#     matrix = [[1,3,5,7],[10,11,16,20],[23,30,34,60]]
+#     target = 13
+#     # Output: False
+
+#     '''
+#     My Approach
+
+#        Apply the Binary Search idea on a matrix.
+                        
+#     '''
+
+#     def searchMatrix(matrix: list[list[int]], target: int) -> bool:
+
+#         # Handle Corner case: Target out of boundaries
+#         if target < matrix[0][0] or target > matrix[-1][-1]:
+#             return False
+        
+#         # Define the two pointers to binary search the target
+#         low, high = 0, len(matrix)
+
+#         # Start the binary search
+#         while low < high:
+
+#             # Define the mid pointer
+#             mid = (low + high) // 2
+
+#             # If the target is present in the middle element
+#             if target in matrix[mid]:
+#                 return True
+            
+#             # If the item is greater than the last item of the middle element
+#             elif target > matrix[mid][-1]:
+
+#                 # Redefine the low pointer
+#                 low = mid + 1
+            
+#             # If the item is smaller than the first item of the middle element
+#             elif target < matrix[mid][0]:
+
+#                 # Redefine the high pointer
+#                 high = mid
+            
+#             # If no condition is met, return False
+#             else:
+#                 return False
+
+#         # If the item was not found in the loop, it means it not present in the matrix
+#         return False
+
+#     # Testing
+#     print(searchMatrix(matrix=matrix, target=target))
+
+#     '''Note: It worked right away! the results were: 6.27% in Runtime & 92.27% in Memory'''
 
 
 
