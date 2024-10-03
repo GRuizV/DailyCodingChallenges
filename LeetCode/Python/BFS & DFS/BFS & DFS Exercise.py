@@ -19,6 +19,10 @@ CHALLENGES INDEX
 329. Longest Increasing Path in a Matrix (Matrix) (DFS) (MEM) (RC)
 341. Flatten Nested List Iterator (DFS)
 
+114. Flatten Binary Tree to Linked List (LL) (DFS) (Tree)
+
+
+
 
 *LL: Linked-Lists
 *BS: Binary Search
@@ -40,7 +44,7 @@ CHALLENGES INDEX
 *Others
 
 
-(17)
+(18)
 '''
 
 
@@ -2074,6 +2078,137 @@ CHALLENGES INDEX
 #             return False
 
 #     'Done'
+
+
+
+
+'''114. Flatten Binary Tree to Linked List'''
+# def x():
+    
+#     from typing import Optional
+
+#     # Definition for a binary tree node
+#     class TreeNode:
+#         def __init__(self, val=0, left=None, right=None):
+#             self.val = val
+#             self.left = left
+#             self.right = right
+
+#     # Input
+#     # Case 1
+#     tree = [1,2,5,3,4,None,6]
+#     root = TreeNode(val=1, 
+#                     left=TreeNode(val=2,
+#                                   left=TreeNode(val=3),
+#                                   right=TreeNode(val=4)),
+#                     right=TreeNode(val=5,
+#                                    right=TreeNode(val=6))
+#                     )
+#     # Output: [1,null,2,null,3,null,4,null,5,null,6]
+
+#     '''
+#     My Approach
+
+#         Intuition:
+            
+#             - Handle Corner Case: No Node passed
+           
+#             - Create a 'dummy' head pointer into which the linked list will be built
+#                 and a 'curr' pointer that will be located to in the 'right' pointer of the dummy.
+            
+#             - Define a preorder traversal function: 
+#                 *This function will add each node to the curr's 'right' pointer.
+#                 *And will also move the 'curr' pointer to the right to be located at the just added node.
+
+#             - Reassign 'root' to the dummy's 'right' pointer
+#     '''
+
+#     'O(n) Approach'
+#     def flatten(root: Optional[TreeNode]) -> None:
+
+#         # Handle Corner case: ...
+#         if not root:
+#             return None
+                
+#         ll_layout = []
+
+#         # Preorder traversal function definition
+#         def preorder(node:TreeNode) -> None:
+
+#             if not node:
+#                 return    
+
+#             ll_layout.append(node)
+#             preorder(node=node.left)
+#             preorder(node=node.right)
+        
+
+#         preorder(node=root)
+
+
+#         for i in range(len(ll_layout)-1):
+
+#             curr = ll_layout[i]
+#             curr.left = None
+#             curr.right = ll_layout[i+1]
+               
+    
+#     # Testing
+#     print(flatten(root=root))
+        
+
+
+#     'Optimized O(1) Space Solution'
+#     def flatten(root: Optional[TreeNode]) -> None:
+
+#         # Handle Corner case: No node passed
+#         if not root:
+#             return None
+                
+        
+#         # Create a mutable container for curr so that changes are shared
+#         curr = [None]  # Using a list to hold the current pointer
+        
+
+#         # Preorder traversal function definition
+#         def preorder(node:TreeNode) -> None:
+
+#             if not node:
+#                 return
+           
+#             # Flatten the current node
+#             if curr[0]:  # If curr[0] exists, link it to the current node
+#                 curr[0].right = node
+#                 curr[0].left = None
+
+#             # Move curr to the current node
+#             curr[0] = node
+            
+#             # Save the right subtree before recursion (because we modify the right pointer)
+#             right_subtree = node.right
+            
+#             # Traverse left subtree first (preorder)
+#             preorder(node.left)
+            
+#             # Traverse right subtree last
+#             preorder(right_subtree)
+        
+#         # Traverse the root with the preorder function
+#         preorder(node=root)
+
+
+#     # Testing
+#     print(flatten(root=root))
+    
+
+#     '''
+#     Note: 
+       
+#        - Within a recursion inmutable object can not be affected out of the function, since Python creates a copy of them to work locally, the workaround here is to work with mutables (a list).
+
+#        - The right sub-tree must be saved because is the next recursive call the right pointer will be modified and when it rolls back, the remaining right part will be lost otherwise.
+    
+#     '''
 
 
 
