@@ -14,6 +14,9 @@ CHALLENGES INDEX
 208. Implement Trie (Hast Table) (Tree)
 380. Insert Delete GetRandom O(1) (Hash Table) (Others)
 
+142. Linked List Cycle II (Hash Table) (LL) (TP) (FCD)
+
+
 
 *LL: Linked-Lists
 *BS: Binary Search
@@ -35,7 +38,7 @@ CHALLENGES INDEX
 *Others
 
 
-(12)
+(13)
 '''
 
 
@@ -1214,6 +1217,130 @@ CHALLENGES INDEX
 #             print(obj.getRandom())
 
 #     'Done'
+
+
+
+
+'''142. Linked List Cycle II'''
+# def x():
+    
+#     from typing import Optional
+
+#     # Definition for singly-linked list.
+#     class ListNode:
+#         def __init__(self, x):
+#             self.val = x
+#             self.next = None
+
+#     # Input
+#     # Case 1
+#     head_layout = [3,2,0,-4]
+#     head = ListNode(3)
+#     two = ListNode(2)
+#     three = ListNode(0)
+#     four = ListNode(-4)
+#     head.next, two.next, three.next, four.next = two, three, four, two
+#     # Output: Node in position 1
+
+#     # # Case 2
+#     # head_layout = [1,2]
+#     # head = ListNode(1)
+#     # two = ListNode(2)
+#     # head.next, two.next = two, head
+#     # # Output: Node in position 0
+    
+#     # Custom Case
+#     head_layout = [1,2]
+#     head = ListNode(1)
+#     two = ListNode(2)
+#     head.next, two.next = None, None
+#     # Output: Node in position 0
+
+#     '''
+#     My Approach (Hash Table Approach)
+
+#         Intuition:
+            
+#             - Create a Hash Table that stores each node while traversing the list as key and the node pointed by its 
+#                 'next' attribute as its value.
+
+#                 Check Membership of each value to be added, 
+                    
+#                     if it's already in the hash table, return that value as result.
+#                     if the value is None, then return None as no cycle is in that list.
+#     '''
+
+#     def detectCycle(head: Optional[ListNode]) -> Optional[ListNode]:
+
+#         # Create the Hash Table holder
+#         nodes = {}
+
+#         # Initialize a node in head to traverse the list
+#         curr = head
+
+#         while curr:
+
+#             if curr.next in nodes:
+
+#                 # If the node pointed by 'next' is already in the table, that's the begining of the cylce
+#                 return curr.next
+            
+#             # Add the node to the holder
+#             nodes[curr] = curr.next
+
+#             # Move up to the next node
+#             curr = curr.next
+        
+#         # If the loop finishes it means there was no cycle
+#         return None
+
+#     # Testing
+#     print(detectCycle(head=head).val)
+
+
+#     '''Note: This approach worked but it consumes O(n) memory, and is asked if could be done in O(1). Runtime: 12%; Memory: 8%'''
+
+
+
+
+#     '''
+#     My Approach (FCD/Tortoise and Hare Approach)
+
+#         To reach the O(1) Memory
+#         Intuition:
+            
+#             Build the Totroise and Hare cycle detection .
+#     '''
+
+#     def detectCycle(head: Optional[ListNode]) -> Optional[ListNode]:
+
+#         # Initialize both pointers to the beginning of the list
+#         slow, fast = head, head
+
+#         # Traverse the LList
+#         while fast and fast.next:
+
+#             slow = slow.next
+#             fast = fast.next.next
+
+#             # If slow and fast meet, a cycle exists
+#             if slow == fast:
+
+#                 # Move slow pointer back to head and move both pointers one step at a time
+#                 slow = head
+
+#                 while slow != fast:
+#                     slow = slow.next
+#                     fast = fast.next
+
+#                 # Return the node where they meet, i.e., the cycle's starting point
+#                 return slow
+
+#         # If the loop finishes without a meeting point, there is no cycle
+#         return None
+
+#     # Testing
+#     print(detectCycle(head=head))
 
 
 
