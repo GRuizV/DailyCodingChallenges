@@ -6,6 +6,7 @@ CHALLENGES INDEX
 240. Search a 2D Matrix II (Matrix) (DW) (BS)
 
 74. Search a 2D Matrix (BS) (Matrix)
+153. Find Minimum in Rotated Sorted Array (Array) (BS)
 
 
 *LL: Linked-Lists
@@ -28,7 +29,7 @@ CHALLENGES INDEX
 *Others
 
 
-(4)
+(5)
 '''
 
 
@@ -310,6 +311,112 @@ def binary_search(low, high, condition):
 #     print(searchMatrix(matrix=matrix, target=target))
 
 #     '''Note: It worked right away! the results were: 6.27% in Runtime & 92.27% in Memory'''
+
+'''153. Find Minimum in Rotated Sorted Array'''
+# def x():
+    
+#     from typing import Optional
+
+#     # Input
+#     # Case 1
+#     nums = [3,4,5,1,2]
+#     # Output: 1
+
+#     # Case 2
+#     nums = [4,5,6,7,0,1,2]
+#     # Output: 0
+
+#     # Case 3
+#     nums = [11,13,15,17]
+#     # Output: 11
+    
+#     # Custom Case
+#     nums = [2,1]
+#     # Output: 1
+
+#     '''
+#     My Approach (Binary Search)
+
+#         Intuition:
+            
+#             - Create two pointers, 'left' & 'right', initialized in the first and the last element respectivelly.
+
+#                 In a while loop while nums[left] > nums[right]:
+
+#                     - Create a 'mid' pointer calculated by: (left + right) // 2
+                    
+#                     - Create two subarrays: nums[left : mid+1] & nums[mid : left+1]
+
+#                     - If: the element in nums[mid] is greater than the one to the left and smaller than the one to the right, that's the minimum
+
+#                     - Elif: in the first subarray the first element is smaller than its last, the minimum value is in the other subarray
+#                         but if it's not, then the minimum is in the first subarray:
+
+#                             - Redefine left and right according to where is located the minimum and let the loop start over.
+#     '''
+
+#     def findMin(nums: list[int]) -> int:
+
+#         # Define the 'left' and 'right' pointers
+#         left, right = 0, len(nums)-1
+
+#         # Check the input in a while loop
+#         while nums[left] > nums[right]:
+
+#             mid = (left + right) // 2
+
+#             # if the mid element is lower that its neighbors, that's the minimum
+#             if nums[mid] < nums[right] and nums[mid] < nums[left]:
+#                 return nums[mid]
+            
+#             sub1 = nums[left : mid+1]
+#             sub2 = nums[mid : right+1]
+
+#             # If the first subarray is sorted, then the minimum is located in the second
+#             if sub1[0] < sub1[-1]:
+#                 left = nums.index(sub2[0])  # lsit.index could be used since the elements in the array are unique
+#                 right = nums.index(sub2[-1])
+            
+#             # Otherwise, the minimum is located in the first subarray
+#             else:
+#                 left = nums.index(sub1[0])
+#                 right = nums.index(sub1[-1])
+        
+#         # If the loop ends (or never occurred) the element in 'left' is the minimum
+#         return nums[left]
+
+#     # Testing
+#     print(findMin(nums=nums))
+
+#     '''Note: This approach solved 50% of test cases but it breaks in the case where nums=[2,1]'''
+
+#     '''
+#     Revised approach
+#     '''
+
+#     def findMin(nums: list[int]) -> int:
+
+#         # Define the 'left' and 'right' pointers
+#         left, right = 0, len(nums)-1
+
+#         # Check the input in a while loop
+#         while left < right:
+
+#             mid = (left + right) // 2
+
+#             # if the mid element is greater than its right neighbor, the minimum is at its right, so redefine left
+#             if nums[mid] > nums[right]:
+#                 left = mid + 1
+
+#             # Otherwise, the minimum is located in the left side, so redefine right
+#             else:
+#                 right = mid
+        
+#         # If the loop ends (or never occurred) the element in 'left' is the minimum
+#         return nums[left]
+
+#     # Testing
+#     print(findMin(nums=nums))
 
 
 
