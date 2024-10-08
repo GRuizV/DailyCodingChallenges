@@ -20,7 +20,7 @@ CHALLENGES INDEX
 341. Flatten Nested List Iterator (DFS)
 
 114. Flatten Binary Tree to Linked List (LL) (DFS) (Tree)
-
+199. Binary Tree Right Side View (Tree) (DFS) (RC)
 
 
 
@@ -44,7 +44,7 @@ CHALLENGES INDEX
 *Others
 
 
-(18)
+(19)
 '''
 
 
@@ -2210,6 +2210,137 @@ CHALLENGES INDEX
     
 #     '''
 
+'''199. Binary Tree Right Side View'''
+# def x():
+    
+#     from typing import Optional
+
+#     # Definition for a binary tree node.
+#     class TreeNode:
+#         def __init__(self, val=0, left=None, right=None):
+#             self.val = val
+#             self.left = left
+#             self.right = right
+
+#     # Input
+#     # Case 1
+#     tree = [1,2,3,None,5,None,4]
+#     root = TreeNode(val=1,
+#                     left=TreeNode(val=2,
+#                                   right=TreeNode(val=5)),
+#                     right=TreeNode(val=3,
+#                                    right=TreeNode(val=4))                    
+#                     )
+#     # Output: [1,3,4]
+
+#     # Case 2
+#     tree = [1,None,3]
+#     root = TreeNode(val=1, right=TreeNode(val=3))
+#     # Output: [1,3]
+
+#     # Case 3
+#     tree = []
+#     root = None
+#     # Output: []
+
+#     # Custom Case
+#     tree = [1,2,3,4]
+#     root = TreeNode(val=1,
+#                     left=TreeNode(val=2,
+#                                   left=TreeNode(val=4)),
+#                     right=TreeNode(val=3)
+#                     )
+#     # Output: [1,2]
+
+#     '''
+#     My Approach (DFS)
+
+#         Intuition:
+            
+#             - Handle corner case: No Input, return an empty list.
+#             - Create a nodes values holder named 'result' to be returned once the tree is processed.
+#             - Create a nodes holder named 'stack' and with the root node as its only element.
+#             - In a while loop - whit condition while 'stack exists':
+#                 * Add the value of the node to 'result'.
+#                 * Add the current node right pointer content to 'stack' if there is one.
+#                     + Otherwhise: add the left node to the stack.
+#             - Return 'result'.
+#     '''
+
+#     def rightSideView(root: Optional[TreeNode]) -> list[int]:
+
+#         # Handle Corner case: return an empty list if no root is passed
+#         if not root:
+#             return []
+        
+#         # Create a nodes values holder named 'result'
+#         result = []
+
+#         # Create a nodes holder named 'stack'
+#         stack = [root]
+
+#         # Process the Tree
+#         while stack:
+
+#             # Pop the last element contained in the stack
+#             node = stack.pop()
+
+#             if node:
+
+#                 # Add the value of the node to 'result'
+#                 result.append(node.val)
+
+#                 # Add the current node right pointer content to 'stack' if there is one, Otherwhise add the left node to the stack
+#                 stack.append(node.right) if node.right else stack.append(node.left)
+        
+#         # Return 'result'
+#         return result
+
+#     # Testing
+#     # print(rightSideView(root=root))
+
+#     '''Note: This approach met 73% of the test cases'''
+
+
+
+
+#     'Recursive Approach'
+#     def rightSideView(root: Optional[TreeNode]) -> list[int]:
+
+#         # Handle Corner case: return an empty list if no root is passed
+#         if not root:
+#             return []
+        
+#         # Create a nodes values holder named 'result'
+#         result = []
+
+#         # Define the recursive DFS function
+#         def dfs(node:TreeNode, depth:int) -> None:
+
+#             # Base case
+#             if not node:
+#                 return
+            
+#             # If is the first time we visit this level, add the node's value
+#             if depth == len(result):
+#                 result.append(node.val)
+
+#             # Recursively call the dfs on the right side of the subtree to prioritize the right part of it
+#             dfs(node=node.right, depth=depth+1)
+
+#             # Recursively call the dfs on the left side of the subtree to make sure all level are visited.
+#             dfs(node=node.left, depth=depth+1)
+
+#         # Run the function
+#         dfs(node=root, depth=0)
+
+#         # Return 'result'
+#         return result
+
+#     # Testing
+#     print(rightSideView(root=root))
+
+#     'Note: Done!'
 
 
 
