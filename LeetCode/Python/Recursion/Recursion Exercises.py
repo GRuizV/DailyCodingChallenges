@@ -11,6 +11,7 @@ CHALLENGES INDEX
 395. Longest Substring with At Least K Repeating Characters (SW) (RC) (DQ)
 
 199. Binary Tree Right Side View (Tree) (DFS) (RC)
+394. Decode String (RC) (Stack)
 
 
 *LL: Linked-Lists
@@ -33,7 +34,7 @@ CHALLENGES INDEX
 *Others
 
 
-(9)
+(10)
 '''
 
 
@@ -985,6 +986,161 @@ CHALLENGES INDEX
 #     print(rightSideView(root=root))
 
 #     'Note: Done!'
+
+'''394. Decode String'''
+# def x():
+    
+#     from typing import Optional
+
+#     # Input
+#     # Case 1
+#     s = "3[a]2[bc]"
+#     # Output: "aaabcbc"
+    
+#     # Case 2
+#     s = "3[a2[c]]"
+#     # Output: "accaccacc"
+    
+#     # Case 3
+#     s = "2[abc]3[cd]ef"
+#     # Output: "abcabccdcdcdef"
+
+#     '''
+#     Recursive Solution
+
+#         Explanation:
+
+#             - Digit Processing:
+#                 * When we encounter a digit, we calculate the full number, which is k.
+#                 * Then, i is incremented to skip the digit characters.
+            
+#             - Recursive Call for Nested Strings:
+#                 * After encountering [, we call the helper function recursively to decode the substring within the brackets.
+#                 * The recursive call returns the decoded substring and the updated position i after the closing bracket ].
+            
+#             - Concatenation:
+#                 * The decoded string is then repeated k times and concatenated to the result.
+            
+#             - Bracket Management:
+#                 * If we encounter a ], it means we've completed processing this section, so we return the result and the updated position i.
+#     '''
+
+#     def decodeString(s: str) -> str:
+
+#         # Helper function with an index tracker
+#         def helper(i):
+
+#             result = ""
+
+#             while i < len(s):
+
+#                 if s[i].isdigit():
+
+#                     # Extract the number (can be more than one digit)
+#                     k = 0
+#                     while s[i].isdigit():
+#                         k = k * 10 + int(s[i])
+#                         i += 1
+
+#                     # Skip the '[' character
+#                     i += 1
+                    
+#                     # Decode the substring within the brackets by calling helper recursively
+#                     decoded_string, i = helper(i)
+                    
+#                     # Repeat and add to the result
+#                     result += k * decoded_string
+                    
+#                 elif s[i] == ']':
+
+#                     # End of this recursive call
+#                     return result, i + 1
+                
+#                 else:
+                    
+#                     # Regular characters, just add them to the result
+#                     result += s[i]
+#                     i += 1
+            
+#             return result, i
+    
+#         # Start the recursive decoding
+#         decoded_string, _ = helper(0)
+
+#         return decoded_string
+
+#     # Testing
+#     # print(decodeString(s=s))
+
+    
+    
+    
+#     '''
+#     Iterative Solution (Stack)
+
+#         Explanation:
+
+#             - Digit Processing:
+#                 * Similar to the recursive approach, this part extracts numbers. If the number is multi-digit, it handles that correctly.
+#                 * The number is pushed onto count_stack.
+            
+#             - Handling [:
+#                 * When encountering [, push the current result onto result_stack and reset result to build a new substring for this nested level.
+            
+#             - Handling ]:
+#                 * When encountering ], pop from count_stack to get how many times to repeat result, and from result_stack to get the previous string context.
+#                 * Update result by appending the repeated substring to the last saved result.
+            
+#             - Character Handling:
+#                 * Characters are added to result as they are encountered, building up the decoded string layer by layer.
+#     '''
+
+#     def decodeString(s: str) -> str:
+
+#         # Stacks for numbers and results
+#         count_stack = []
+#         result_stack = []
+#         result = ""
+#         i = 0
+
+#         while i < len(s):
+
+#             if s[i].isdigit():
+
+#                 # Calculate the full number, which may be more than one digit
+#                 k = 0
+#                 while i < len(s) and s[i].isdigit():
+#                     k = k * 10 + int(s[i])
+#                     i += 1
+
+#                 count_stack.append(k)
+            
+#             elif s[i] == '[':
+                
+#                 # Push the current result to the stack and reset it for new nested level
+#                 result_stack.append(result)
+#                 result = ""
+#                 i += 1
+
+#             elif s[i] == ']':
+                
+#                 # Pop the last count and repeat the current result that many times
+#                 repeat_times = count_stack.pop()
+#                 last_result = result_stack.pop()
+#                 result = last_result + result * repeat_times
+#                 i += 1
+
+#             else:
+                
+#                 # Regular characters, just add to the result
+#                 result += s[i]
+#                 i += 1
+
+#         return result
+
+#     # Testing
+#     print(decodeString(s=s))
+
 
 
 
