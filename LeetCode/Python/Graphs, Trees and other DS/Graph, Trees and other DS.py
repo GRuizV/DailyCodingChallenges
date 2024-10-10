@@ -18,6 +18,7 @@ CHALLENGES INDEX
 
 114. Flatten Binary Tree to Linked List (LL) (DFS) (Tree)
 199. Binary Tree Right Side View (Tree) (DFS) (RC)
+226. Invert Binary Tree (Tree) (DFS)
 
 
 
@@ -40,8 +41,28 @@ CHALLENGES INDEX
 *Graphs & Trees
 *Others
 
-(16)
+(17)
 '''
+
+# Base Definition of TreeNode & Tree Print Func
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+def pretty_print_bst(node:TreeNode, prefix="", is_left=True):
+
+    if not node:
+        return
+
+    if node.right is not None:
+        pretty_print_bst(node.right, prefix + ("│   " if is_left else "    "), False)
+
+    print(prefix + ("└── " if is_left else "┌── ") + str(node.val))
+
+    if node.left is not None:
+        pretty_print_bst(node.left, prefix + ("    " if is_left else "│   "), True)
 
 
 '98. Validate Binary Search Tree' 
@@ -1604,6 +1625,93 @@ CHALLENGES INDEX
 
 #     'Note: Done!'
 
+'''226. Invert Binary Tree'''
+# def x():
+    
+#     from typing import Optional
+
+#     # Input
+#     # Case 1
+#     root = [4,2,7,1,3,6,9]
+#     root = TreeNode(val=4,
+#                     left=TreeNode(val=2,
+#                         left=TreeNode(val=1),
+#                         right=TreeNode(val=3)),                    
+#                     right=TreeNode(val=7,
+#                         left=TreeNode(val=6),
+#                         right=TreeNode(val=9))
+#                     )
+#     # Output: [4,7,2,9,6,3,1]
+
+#     # Case 2
+#     root = [2,1,3]
+#     root = TreeNode(val=2,
+#                     left=TreeNode(val=1),                    
+#                     right=TreeNode(val=3)
+#                     )
+#     # Output: [2,3,1]
+
+#     '''
+#     My Approach (DFS)
+
+#         Intuition:
+            
+#             - Handle corner case: If no node is passed, return None.
+#             - Create a stack with the root node as its only value.
+#             - In a While loop, while stack exists:
+                
+#                 + Create a 'node' holder to receive the return of stack.pop()
+#                 + If 'node' is not none:
+
+#                     * Create a 'next_rsubtree' holder to save the left side of the tree that will go in the right pointer of 'node'.
+#                     * Reassign the 'left' pointer of 'node' to hold the 'node.right' content.
+#                     * Reassign the 'right' pointer of 'node' to hold the 'next_rsubtree' content.
+#                     * Append node.left, node.right into 'stack'.
+            
+#             - Return 'root'
+
+            
+#     '''
+
+#     def invertTree(root: Optional[TreeNode]) -> Optional[TreeNode]:
+
+#         # Handle Corner case: If no node is passed, return None
+#         if not root:
+#             return None
+        
+#         # Create a stack with the root node as its only value
+#         stack = [root]
+
+#         # Process the tree
+#         while stack:
+
+#             #  Create a 'node' holder to receive the stack popped item
+#             node = stack.pop()
+
+#             # If 'node' is not none
+#             if node:
+                
+#                 # Create a 'next_rsubtree' holder to save the left side of the tree that will go in the right pointer of 'node'
+#                 next_rsubtree = node.left
+
+#                 # Reassign the 'left' pointer of 'node' to hold the 'node.right' content
+#                 node.left = node.right
+
+#                 # Reassign the 'right' pointer of 'node' to hold the 'next_rsubtree' content
+#                 node.right = next_rsubtree
+
+#                 # Append node.left, node.right into 'stack'
+#                 stack.extend([node.left, node.right])
+        
+#         # Return root
+#         return root
+
+#     # Testing
+    
+#     print(pretty_print_bst(node=root),end="\n\n\n")
+#     print(pretty_print_bst(node=invertTree(root=root)))
+
+#     '''Note: Done'''
 
 
 

@@ -57,6 +57,31 @@ def x():
     '''Note: Done'''
 
 
+# In case is a Tree Challenge
+# Definition for a binary tree node.
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+def pretty_print_bst(node:TreeNode, prefix="", is_left=True):
+
+    if not node:
+        return
+
+    if node.right is not None:
+        pretty_print_bst(node.right, prefix + ("│   " if is_left else "    "), False)
+
+    print(prefix + ("└── " if is_left else "┌── ") + str(node.val))
+
+    if node.left is not None:
+        pretty_print_bst(node.left, prefix + ("    " if is_left else "│   "), True)
+
+
+
+
+
 
 x()
 
