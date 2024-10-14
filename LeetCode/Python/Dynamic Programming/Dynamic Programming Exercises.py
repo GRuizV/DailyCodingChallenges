@@ -25,6 +25,7 @@ CHALLENGES INDEX
 45. Jump Game II (Array) (GRE) (DP)
 64. Minimum Path Sum (Matrix) (DP)
 72. Edit Distance (DP) 'Levenshtein Distance'
+416. Partition Equal Subset Sum (Array) (DP)
 
 
 
@@ -48,7 +49,7 @@ CHALLENGES INDEX
 *Others
 
 
-(23)
+(24)
 '''
 
 
@@ -1873,6 +1874,75 @@ CHALLENGES INDEX
 
 #     # Testing
 #     print(minDistance(word1=word1, word2=word2))
+
+#     '''Note: Done'''
+
+'''416. Partition Equal Subset Sum'''
+# def x():
+    
+#     from typing import Optional
+
+#     # Input
+#     # Case 1
+#     nums = [1,5,11,5]
+#     # Output: true // The array can be partitioned as [1, 5, 5] and [11].
+
+#     # Case 2
+#     nums = [1,2,3,5]
+#     # Output: False // The array cannot be partitioned into equal sum subsets.
+        
+#     '''
+#     Solution
+
+#         Explanation:
+            
+#             The idea here is to determine if it's possible to find a subset of the array that sums to half of the total sum of the array. 
+#             If we can find such a subset, then the remaining elements will also sum to half, satisfying the requirement of two equal subsets.
+
+#             1. Calculate the Total Sum: Start by finding the sum of all elements in the array. If the total sum is odd, return False because it's impossible to split an odd number into two equal integers.
+
+#             2. Target Sum: If the sum is even, then half of the sum will be our target sum. Let's call this 'target = total_sum / 2'.
+
+#             3. Dynamic Programming Array: Use a boolean DP array where dp[i] represents whether it's possible to achieve a subset sum of i. 
+#                 Initialize dp[0] = True, because a sum of zero is always achievable with an empty subset.
+
+#             4. Filling the DP Array:
+
+#                 For each number in the array, iterate through possible subset sums (from target down to the number itself) in reverse.
+#                 For each subset sum i, set dp[i] to True if dp[i - num] is True.
+#                 This way, you're building up possibilities to achieve each subset sum up to the target.
+
+#             5. Result: Finally, if dp[target] is True, then a subset with sum equal to target exists, so return True. Otherwise, return False.
+#     '''
+
+#     def canPartition(nums: list[int]) -> bool:
+
+#         # Calculate total sum of the array
+#         total_sum = sum(nums)
+
+#         # Handle Corner case: If the half of the sum of all items is odd, directly return False.
+#         if total_sum % 2 != 0:
+#             return False
+                
+#         # We are looking for a subset with sum equal to half of the total sum
+#         target = total_sum // 2
+        
+#         # Initialize a DP array where dp[i] is True if subset sum i can be achieved
+#         dp = [False] * (target + 1)
+#         dp[0] = True  # Base case: zero sum is always achievable with an empty subset
+        
+#         # Update the DP array based on the numbers in the list
+#         for num in nums:
+            
+#             # Traverse the DP array from target to num in reverse to avoid reuse within the same iteration
+#             for i in range(target, num - 1, -1):
+#                 dp[i] = dp[i] or dp[i - num]
+        
+#         # Our answer is whether we can achieve exactly 'target' as a subset sum
+#         return dp[target]
+
+#     # Testing
+#     print(canPartition(nums=nums))
 
 #     '''Note: Done'''
 
