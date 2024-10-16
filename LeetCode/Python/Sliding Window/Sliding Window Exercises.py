@@ -6,6 +6,9 @@ CHALLENGES INDEX
 239. Sliding Window Maximum (Array) (SW)
 395. Longest Substring with At Least K Repeating Characters (SW) (RC) (DQ)
 
+438. Find All Anagrams in a String (Hash-Table) (SW)
+
+
 
 *LL: Linked-Lists
 *BS: Binary Search
@@ -24,7 +27,7 @@ CHALLENGES INDEX
 *Heaps, Stacks & Queues
 *Graphs, Trees & Binary Trees
 
-(4)
+(5)
 '''
 
 
@@ -422,6 +425,153 @@ CHALLENGES INDEX
 #         return len(s)
 
 #     'Done'
+
+
+
+
+
+'''438. Find All Anagrams in a String'''
+# def x():
+    
+#     from typing import Optional
+
+#     # Input
+#     # Case 1
+#     s = "cbaebabacd"
+#     p = "abc"
+#     # Output: [0,6]
+
+#     # Case 2
+#     s = "abab"
+#     p = "ab"
+#     # Output: [0,1,2]
+
+#     '''
+#     My Approach (Brute forcing)
+
+#         Intuition:
+            
+#             - Generate all possible permutations of characters in 'p' stored in a list holder.
+#             - Create a 'ref' Hash-Table, with the first letter of each combination as key and a list* as value
+#                 * This list will hold all combinations starting with its respective key
+#             - Create a 'result' list holder, that will contain the indexes where an anagram appears.
+#             - Iterate from 0 to (len(s)-len(p)) in a sliding window to validate for each s[i:i+len(p)] if s[i] is in 'ref'
+#                 + if it does, the if s[i:i+len(p)-1] is in ref{s[i]}:
+#                         + if it does, add i to 'result'
+#     '''
+
+#     from itertools import permutations
+
+#     def findAnagrams(s: str, p: str) -> list[int]:
+
+#         # Generate all possible permutations of 'p'
+#         perms = [''.join(perm) for perm in permutations(p)]
+        
+#         # Create a reference Hash-Table containing all possible anagrams of 'p'
+#         ref = {}
+
+#         # Populate 'ref'
+#         for per in perms:
+
+#             # The first character will be the key and if doesn't exist yet within 'ref', create it.
+#             if per[0] not in ref:   
+#                 ref[per[0]] = []
+            
+#             # Add the permutation to its repective list in 'ref'
+#             ref[per[0]].append(per)
+
+
+#         # Create a result holder containing the occurrences indexes
+#         result = []
+
+#         # Traverse 's'
+#         for i in range(len(s)-len(p)+1):
+            
+#             # If the initial character is a key in 'ref'
+#             if s[i] in ref:
+                
+#                 elem = s[i:i+len(p)]
+
+#                 # if the current slice (window) is in the key's list within 'ref'
+#                 if elem in ref[s[i]]:
+
+#                     # Add the index to result
+#                     result.append(i)
+
+#         # Return result
+#         return result
+
+#     # Testing
+#     print(findAnagrams(s=s, p=p))
+
+#     '''Note: My solution only met 31% of testcases'''
+
+
+
+
+#     '''
+#     Sliding Window Solution:
+
+#         Explanation:
+            
+#             1. Use two frequency counters (dictionaries) for:
+
+#                 * p_count: to store the frequency of characters in p.
+#                 * window_count: to store the frequency of characters in the current window of s.
+            
+#             2. Slide a window of length len(p) across s. For each position:
+
+#                 * Add the new character at the end of the window.
+#                 * Remove the character that is no longer in the window.
+#                 * Check if the current window has the same character frequencies as p_count.
+           
+#             3. If the frequency counts match, then the current window is an anagram of p, and you add the start index of the window to result.
+#     '''
+
+#     from collections import Counter
+
+#     def findAnagrams(s: str, p: str) -> list[int]:
+       
+#         # Initialize result list
+#         result = []
+
+#         # Frequency counter for characters in p
+#         p_count = Counter(p)
+
+#         # Frequency counter for the current window in s
+#         window_count = Counter()
+
+#         # Length of the target anagram (p)
+#         k = len(p)
+        
+#         # Slide over the string s
+#         for i in range(len(s)):
+
+#             # Add the current character to the window counter
+#             window_count[s[i]] += 1
+
+#             # Remove the leftmost character from the window counter if window is larger than k
+#             if i >= k:
+
+#                 # Leftmost character to remove
+#                 left_char = s[i - k]
+
+#                 if window_count[left_char] == 1:
+#                     del window_count[left_char]
+                
+#                 else:
+#                     window_count[left_char] -= 1
+
+#             # Compare window counter with p counter
+#             if window_count == p_count:
+                
+#                 # If they are equal, add the starting index of the window to the result
+#                 result.append(i - k + 1)
+
+#         return result
+    
+#     '''Note: Done'''
+
 
 
 
