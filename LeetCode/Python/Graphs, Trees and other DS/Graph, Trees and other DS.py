@@ -19,6 +19,7 @@ CHALLENGES INDEX
 114. Flatten Binary Tree to Linked List (LL) (DFS) (Tree)
 199. Binary Tree Right Side View (Tree) (DFS) (RC)
 226. Invert Binary Tree (Tree) (DFS)
+543. Diameter of Binary Tree (Tree)
 
 
 
@@ -41,7 +42,7 @@ CHALLENGES INDEX
 *Graphs & Trees
 *Others
 
-(17)
+(18)
 '''
 
 # Base Definition of TreeNode & Tree Print Func
@@ -1710,6 +1711,84 @@ def pretty_print_bst(node:TreeNode, prefix="", is_left=True):
     
 #     print(pretty_print_bst(node=root),end="\n\n\n")
 #     print(pretty_print_bst(node=invertTree(root=root)))
+
+#     '''Note: Done'''
+
+'''543. Diameter of Binary Tree'''
+# def x():
+    
+#     from typing import Optional
+
+#     # Input
+#     # Case 1
+#     root = [1,2,3,4,5]
+#     root = TreeNode(val=1,
+#                         left=TreeNode(val=2,
+#                             left=TreeNode(val=4),
+#                             right=TreeNode(val=5)),
+#                         right=TreeNode(val=3)
+#     )
+#     # Output: 3 // 3 is the length of the path [4,2,1,3] or [5,2,1,3]
+
+#     # # Case 2
+#     # root = [1,2]
+#     # root = TreeNode(val=1, left=TreeNode(val=2))
+#     # # Output: 1
+
+
+#     '''
+#     Soluion (Global Diameter)
+
+#         Explanation:
+            
+#             1. Global Variable:
+
+#                 - We use a list global_diameter = [0] to store the maximum diameter found. This allows us to modify it from within the recursive height function.
+                
+#             2. Recursive height Function:
+
+#                 - For each node, we recursively compute the height of its left and right subtrees.
+#                 - After computing the left and right heights, we update the global diameter as 'left_height + right_height'.
+#                     This is because the longest path that passes through this node would go down its left and right children.
+                
+#             3. Return the Height:
+
+#                 - The height function returns 1 + max(left_height, right_height), which is the height of the node itself plus the maximum height of its children.
+                
+#             4. Final Output:
+
+#                 After the recursive traversal, the global_diameter contains the maximum diameter found in the tree.
+#     '''
+
+#     def diameterOfBinaryTree(root: Optional[TreeNode]) -> int:
+
+#         # Initiliaze the global diameter contained in a list
+#         global_diameter = [0]
+
+#         # Define the recursive 'height' function
+#         def height(node:TreeNode) -> int:
+            
+#             if not node:
+#                 return 0
+            
+#             # Calculate the height of both left and right subtree
+#             left_height = height(node=node.left)
+#             right_height = height(node=node.right)
+
+#             # Update the global diamenter
+#             global_diameter[0] = max(global_diameter[0], left_height + right_height)
+
+#             # Return the current node height
+#             return 1 + max(left_height, right_height)
+
+#         # Call the height function onto the input
+#         height(node=root)
+                
+#         # Return the global diameter
+#         return global_diameter[0]
+
+#     # Testing
+#     print(diameterOfBinaryTree(root=root))
 
 #     '''Note: Done'''
 
