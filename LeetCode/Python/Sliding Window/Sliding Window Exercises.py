@@ -7,6 +7,7 @@ CHALLENGES INDEX
 395. Longest Substring with At Least K Repeating Characters (SW) (RC) (DQ)
 
 438. Find All Anagrams in a String (Hash-Table) (SW)
+AgileEngine: Minimal Balls Move (SW)
 
 
 
@@ -27,7 +28,7 @@ CHALLENGES INDEX
 *Heaps, Stacks & Queues
 *Graphs, Trees & Binary Trees
 
-(5)
+(6)
 '''
 
 
@@ -572,6 +573,45 @@ CHALLENGES INDEX
     
 #     '''Note: Done'''
 
+'AgileEngine: Minimal Balls Move'
+# def min_moves_balls(buckets: str) -> int:
+
+#     # Step 1: Count number of balls ('B')
+#     ball_count = buckets.count('B')
+    
+#     # Corner case: No balls
+#     if ball_count == 0:
+#         return 0  # No balls, no moves needed
+    
+#     # Corner case: No enought spaces
+#     if ball_count > buckets.count('.'):
+#         return -1  # It's impossible to arrange with valid spacing
+    
+#     # Step 2: Initialize sliding window
+#     start_index = 0
+#     end_index = 2 * ball_count - 2  # Window size (the '-2' actually is just '-1' but since it'll be an index)
+#     min_shifts = ball_count  # Start with max possible shifts
+    
+#     # Step 3: Slide the window across the string
+#     while end_index < len(buckets):
+        
+#         ball_correct_pos = 0
+#         window = buckets[start_index:end_index+1]   #This line is just to follow through the solution to understand it
+        
+#         # Count balls in correct positions (with gaps of 2 between them)
+#         for i in range(start_index, end_index + 1, 2):
+#             if buckets[i] == 'B':
+#                 ball_correct_pos += 1
+        
+#         # Calculate the number of shifts needed for this window
+#         shifts = ball_count - ball_correct_pos
+#         min_shifts = min(min_shifts, shifts)
+        
+#         # Move the window
+#         start_index += 1
+#         end_index += 1
+    
+#     return min_shifts
 
 
 
