@@ -15,7 +15,8 @@ CHALLENGES INDEX
 380. Insert Delete GetRandom O(1) (Hash Table) (Others)
 
 142. Linked List Cycle II (Hash Table) (LL) (TP) (FCD)
-438. Find All Anagrams in a String (Hash-Table) (SW)
+438. Find All Anagrams in a String (SW) (Hash Table)
+567. Permutation in String (SW) (Hash Table)
 
 
 
@@ -39,7 +40,7 @@ CHALLENGES INDEX
 *Others
 
 
-(14)
+(15)
 '''
 
 
@@ -1484,6 +1485,71 @@ CHALLENGES INDEX
 #         return result
     
 #     '''Note: Done'''
+
+'''567. Permutation in String'''
+# def x():
+    
+#     from typing import Optional
+
+#     # Input
+#     # Case 1
+#     s1 = "ab"
+#     s2 = "eidbaooo"
+#     # Output: True
+
+#     # Case 2
+#     s1 = "ab"
+#     s2 = "eidboaoo"
+#     # Output: False
+    
+#     # Custome Case
+#     s1 = "adc"
+#     s2 = "dcda"
+#     # Output: False
+
+#     '''
+#     My Approach (Sliding Window) (Hash Table)
+
+#         Intuition:
+            
+#             - Handle corner case: if len(s1) > len(s2): False
+#             - Create a counter of 's1'.
+#             - Iterate through 's2' in a window of len(s1):
+#                 + For each loop, create a counter with de window.
+#                 + If this window counter is the same of the s1 counter, return True.
+#             - If the code gets to finish the loop it means it didn't find a permutation of s1, return False.
+#     '''
+#     from collections import Counter
+
+#     def checkInclusion(s1: str, s2: str) -> bool:
+
+#         # Get the first string length
+#         k = len(s1)
+
+#         # Handle Corner case: first string bigger than the second
+#         if k > len(s2):
+#             return False
+        
+#         # Create a 's1' counter
+#         s1_counter = Counter(s1)
+
+#         # Traverse 's2'
+#         for i in range(len(s2)-k+1):
+
+#             # Create the temporary counter
+#             temp_counter = Counter(s2[i:i+k])
+
+#             # Check if the two counters coincide
+#             if temp_counter == s1_counter:
+#                 return True
+
+#         # Return False if the loop ends
+#         return False
+
+#     # Testing
+#     print(checkInclusion(s1=s1, s2=s2))
+
+#     '''Note: This solution worked and beated submissions by 20% Runtime and 35% Memory'''
 
 
 
