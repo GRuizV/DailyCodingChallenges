@@ -7,6 +7,7 @@ CHALLENGES INDEX
 
 74. Search a 2D Matrix (BS) (Matrix)
 153. Find Minimum in Rotated Sorted Array (Array) (BS)
+704. Binary Search (BS)
 
 
 *LL: Linked-Lists
@@ -29,7 +30,7 @@ CHALLENGES INDEX
 *Others
 
 
-(5)
+(6)
 '''
 
 
@@ -418,6 +419,73 @@ def binary_search(low, high, condition):
 #     # Testing
 #     print(findMin(nums=nums))
 
+'''704. Binary Search'''
+# def x():
+    
+#     from typing import Optional
+
+#     # Input
+#     # Case 1
+#     nums = [-1,0,3,5,9,12]
+#     target = 9
+#     # Output: 4
+
+#     # # Case 2
+#     # nums = [-1,0,3,5,9,12]
+#     # target = 2
+#     # # Output: -1
+
+#     # # Custom Case
+#     # nums = [-1,0,3,5,9,12]
+#     # target = 2
+#     # # Output: -1
+
+#     '''
+#     My Approach (Binary Search)
+
+#         Intuition:
+            
+#             Note: Since the array is already sorted ascendingly, the binary search works perfectly.
+
+#             - Initialize 'left' and 'right' pointers in 0 and len(nums) respectively.
+#             - In a while loop with the condition of 'left <= right':
+#                 + Initialize a pointer 'mid' as '(left+right)//2'.
+#                 + If nums[mid] == target:
+#                     * Return mid
+#                 + Elif nums[mid] > target:
+#                     * right = mid
+#                 + Else:
+#                     * left = mid + 1
+#             - if the loop finishes it means the target is not in 'nums', hence return -1
+
+#     '''
+
+#     def search(nums: list[int], target: int) -> int:
+
+#         # Initialize 'left' and 'right' pointers
+#         left, right = 0, len(nums)
+
+#         # Process the array
+#         while left < right:
+
+#             mid = (left + right) // 2
+
+#             if nums[mid] == target:
+#                 return mid
+            
+#             elif nums[mid] > target:
+#                 right = mid
+            
+#             else:
+#                 left = mid + 1
+                   
+#         # Return -1 if the loop didn't find the target
+#         return -1
+
+#     # Testing
+#     print(search(nums=nums, target=target))
+
+#     '''Note: worked as expected'''
 
 
 
