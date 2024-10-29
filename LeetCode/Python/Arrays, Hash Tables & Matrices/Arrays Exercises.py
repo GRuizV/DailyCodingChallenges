@@ -48,6 +48,7 @@ CHALLENGES INDEX
 153. Find Minimum in Rotated Sorted Array (Array) (BS)
 416. Partition Equal Subset Sum (Array) (DP)
 560. Subarray Sum Equals K (Array) (PS)
+739. Daily Temperatures (Array) (Stack) [Monotonic Stack]
 
 
 *LL: Linked-Lists
@@ -70,7 +71,7 @@ CHALLENGES INDEX
 *Others
 
 
-(46)
+(47)
 '''
 
 
@@ -3563,6 +3564,69 @@ CHALLENGES INDEX
 
 #     # Testing
 #     print(subarraySum(nums=nums,k=k))
+
+#     '''Note: Done'''
+
+'''739. Daily Temperatures'''
+# def x():
+    
+#     from typing import Optional
+
+#     # Input
+#     # Case 1
+#     temperatures = [73,74,75,71,69,72,76,73]
+#     # Output: [1,1,4,2,1,1,0,0]
+
+#     # Case 2
+#     temperatures = [30,40,50,60]
+#     # Output: [1,1,1,0]
+
+#     # Case 3
+#     temperatures = [30,60,90]
+#     # Output: [1,1,0]
+
+
+#     '''
+#     Solution (Monotonic Stack)
+
+#         Explanation:
+            
+#             1. Initialize a Stack: Start by creating an empty stack that will hold the indices of days with temperatures that haven't yet found a warmer day.
+
+#             2. Traverse from Left to Right: For each day's temperature, check if it's higher than the temperature at the index stored on top of the stack.
+
+#                 - If it is, it means we've found a "warmer day" for all indices in the stack with lower temperatures.
+#                 - Pop from the stack, calculate the difference in indices (i.e., days until a warmer temperature), and store it in the result array.
+            
+#             3. Store the Result: If the current day's temperature is not warmer than the temperature at the top index in the stack, push the current day's index onto the stack and continue.
+
+#             4. End of Loop: By the end of the loop, any remaining indices in the stack represent days that don't have a warmer day after them, so they'll remain 0 in the result array (default value).
+#     '''
+
+#     def dailyTemperatures(temperatures: list[int]) -> list[int]:
+        
+#         # Capture the length of the input
+#         n = len(temperatures)
+
+#         # Initialize the stacks
+#         result = [0]*n
+#         stack = []
+
+#         # Process the input
+#         for i in range(n):
+
+#             while stack and temperatures[i] > temperatures[stack[-1]]:
+
+#                 prev_day = stack.pop()
+#                 result[prev_day] = i - prev_day
+
+#             stack.append(i)
+                
+#         # Return the processed result holder
+#         return result
+
+#     # Testing
+#     print(dailyTemperatures(temperatures=temperatures))
 
 #     '''Note: Done'''
 
