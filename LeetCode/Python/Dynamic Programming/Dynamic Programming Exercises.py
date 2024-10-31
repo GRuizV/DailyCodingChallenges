@@ -26,6 +26,7 @@ CHALLENGES INDEX
 64. Minimum Path Sum (Matrix) (DP)
 72. Edit Distance (DP) 'Levenshtein Distance'
 416. Partition Equal Subset Sum (Array) (DP)
+1143. Longest Common Subsequence (DP)
 
 
 
@@ -49,7 +50,7 @@ CHALLENGES INDEX
 *Others
 
 
-(24)
+(25)
 '''
 
 
@@ -1943,6 +1944,65 @@ CHALLENGES INDEX
 
 #     # Testing
 #     print(canPartition(nums=nums))
+
+#     '''Note: Done'''
+
+'''1143. Longest Common Subsequence'''
+# def x():
+    
+#     from typing import Optional
+
+#     # Input
+#     # Case 1
+#     text1 = "abcde"
+#     text2 = "ace" 
+#     # Output: 3
+
+#     # Case 2
+#     text1 = "abc"
+#     text2 = "abc" 
+#     # Output: 3
+
+#     # Case 3
+#     text1 = "abc"
+#     text2 = "def" 
+#     # Output: 0
+
+#     '''
+#     My Approach (Dynamic Programming)
+
+#         Intuition:
+#             - Capture input lengths.
+#             - Make a dp matrix of [range(n+1)]x[range(m+1)].
+#             - Traverse the matrix in a nested for loop that will go from (1, m+1) and (1, n+1):
+#                 + if text1[i-1] == text2[j-1], dp[i][j] = dp[i-1][j-1] + 1
+#                 + else, dp[i][j] = max(dp[i-1][j],dp[i][j-1])
+#             - Return the last cell of the matrix
+#     '''
+
+#     def lcs(text1: str, text2: str) -> int:
+
+#         # Capture input lengths
+#         m,n = len(text1), len(text2)
+
+#         # Initialize the dp matrix
+#         dp = [[0]*(n+1) for _ in range(m+1)]
+        
+#         # Traverse both string char by char
+#         for i in range(1, m+1):
+#             for j in range(1, n+1):
+                
+#                 if text1[i-1] == text2[j-1]:
+#                     dp[i][j] = dp[i-1][j-1] + 1
+                
+#                 else:
+#                     dp[i][j] = max(dp[i-1][j], dp[i][j-1])
+        
+#         # Return the last matrix cell
+#         return dp[-1][-1]
+
+#     # Testing
+#     print(lcs(text1=text1, text2=text2))
 
 #     '''Note: Done'''
 
