@@ -22,6 +22,7 @@ CHALLENGES INDEX
 114. Flatten Binary Tree to Linked List (LL) (DFS) (Tree)
 199. Binary Tree Right Side View (Tree) (DFS) (RC)
 226. Invert Binary Tree (Tree) (DFS)
+994. Rotting Oranges (Matrix) (BFS)
 
 
 
@@ -45,7 +46,7 @@ CHALLENGES INDEX
 *Others
 
 
-(20)
+(21)
 '''
 
 # Base Definition of TreeNode & Tree Print Func
@@ -2452,6 +2453,177 @@ def pretty_print_bst(node:TreeNode, prefix="", is_left=True):
 #     print(pretty_print_bst(node=invertTree(root=root)))
 
 #     '''Note: Done'''
+
+'''994. Rotting Oranges'''
+# def x():
+    
+#     from typing import Optional
+
+#     # Input
+#     # Case 1
+#     grid = [[2,1,1],[1,1,0],[0,1,1]]
+#     # Output: 4
+
+#     # Case 2
+#     grid = [[2,1,1],[0,1,1],[1,0,1]]
+#     # Output: -1
+
+#     # Case 3
+#     grid = [[0,2]]
+#     # Output: 0
+    
+#     # Custom Case
+#     grid = [[1,2]]
+#     # Output: 1
+
+#     '''
+#     My Approach (BFS)
+
+#         Intuition:
+            
+#             - Flatten the input matrix to have the individual elements of it.
+#             - Handle corner case: No fresh oranges, return 0
+#             - Handle corner case: No rotten oranges, return -1
+
+#             - Collect all fresh oranges with not adjacent neighbors.
+#             - if there's any, Handle corner case: fresh orange with no adjacent neighbors, return -1.
+
+#             - Initialize a 'minutes' counter in 0.
+#             - Collect all rotten oranges coordinates in a queue 'nodes'.
+
+#             - In a while loop [while 'nodes' exists]:
+#                 + Create a list holder 'new_nodes'.
+#                 + Pop the first element of nodes.
+#                 + Append all its adjacent neighbors that are fresh oranges in 'neighbors'.
+#                 + if 'nodes' is empty: add 1 to minutes and extend 'nodes' to 'neighbors.
+            
+#             - return 'minutes'
+#     '''
+
+#     def orangesRotting(grid: list[list[int]]) -> int:
+        
+#         # Capture grid dimentions
+#         m,n = len(grid), len(grid[0])
+
+#         # Flatten the input matrix
+#         elems = [elem for row in grid for elem in row]
+
+#         # Handle corner case: No fresh oranges
+#         if 1 not in elems:
+#             return 0
+
+#         # Define coordinates differentials
+#         diff = [(1,0),(-1,0),(0,1),(0,-1)]
+
+#         # Collect all fresh oranges with rotten oranges as neighbors.  
+#         for i in range(m):
+#             for j in range(n):
+
+#                 if grid[i][j]==1:  
+
+#                     fresh = [grid[i+dx][j+dy] for dx,dy in diff if 0<=i+dx<m and 0<=j+dy<n]
+                    
+#                     if sum(fresh) == 0:
+#                         return -1
+
+#         # Initialize minutes counter in 0
+#         minutes = 0
+
+#         # Collect all rotten oranges coordinates
+#         queue = [(i,j) for i in range(n) for j in range(m) if grid[i][j]==2]
+
+#         # Define the newly rotten oranges holder
+#         new_nodes = []  
+
+#         while queue:
+
+#             # Pop the first rotten orange in the queue
+#             node = queue.pop(0)
+                
+#             # Collect each rotten oraange fresh orange neighbor
+#             neighbors = [(node[0]+dx, node[1]+dy) for dx, dy in diff if 0<=node[0]+dx<m and 0<=node[1]+dy<n and grid[node[0]+dx][node[1]+dy]==1]
+
+#             # Root each fresh orange neighbor
+#             for elem in neighbors:
+#                 grid[elem[0]][elem[1]] = 2
+            
+#             # Pass the neigbors into the new_nodes holders
+#             new_nodes.extend(neighbors)
+
+#             if not queue and new_nodes:
+#                 # Add a new minute to the minute counter
+#                 minutes += 1
+
+#                 # Update the queue
+#                 queue.extend(new_nodes)
+
+#                 # Reset new_nodes
+#                 new_nodes.clear()        
+ 
+#         # Return minutes
+#         return minutes
+
+#     # Testing
+#     print(orangesRotting(grid=grid))
+
+#     '''Note: This solution only met 97% of test cases, it didn't handled correctly the remaining cases'''
+
+#     '''
+#     Corrected Solution
+#     '''
+
+#     def orangesRotting(self, grid: list[list[int]]) -> int:
+        
+#         from collections import deque
+
+#         # Grid dimensions
+#         m, n = len(grid), len(grid[0])
+
+#         # Initialize queue with all initially rotten oranges and count fresh oranges
+#         queue = deque()
+#         fresh_count = 0
+
+#         for i in range(m):
+#             for j in range(n):
+#                 if grid[i][j] == 2:
+#                     queue.append((i, j))  # Rotten orange coordinates
+#                 elif grid[i][j] == 1:
+#                     fresh_count += 1  # Count of fresh oranges
+
+#         # Edge case: No fresh oranges to begin with
+#         if fresh_count == 0:
+#             return 0
+
+#         # Coordinate differentials for the four adjacent directions
+#         directions = [(1, 0), (-1, 0), (0, 1), (0, -1)]
+
+#         # BFS processing
+#         minutes = 0
+
+#         while queue:
+
+#             # Process each level of BFS (each minute)
+#             for _ in range(len(queue)):
+                
+#                 x, y = queue.popleft()
+
+#                 # Rot adjacent fresh oranges
+#                 for dx, dy in directions:
+
+#                     nx, ny = x + dx, y + dy
+
+#                     # Check bounds and if the orange is fresh
+#                     if 0 <= nx < m and 0 <= ny < n and grid[nx][ny] == 1:
+#                         grid[nx][ny] = 2  # Mark as rotten
+#                         fresh_count -= 1  # Decrement fresh orange count
+#                         queue.append((nx, ny))  # Add newly rotten orange to queue
+
+#             # Increment minutes after processing each level
+#             if queue:  # Only increment if there are still oranges rotting in the next minute
+#                 minutes += 1
+
+#         # If there are fresh oranges left, return -1, otherwise return minutes
+#         return minutes if fresh_count == 0 else -1
 
 
 
