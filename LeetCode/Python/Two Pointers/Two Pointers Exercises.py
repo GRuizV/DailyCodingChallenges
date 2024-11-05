@@ -370,37 +370,68 @@ CHALLENGES INDEX
 #     # Output: [1]
 
 
-#     'Solution'
+#     'My Approach'
 #     def merge(nums1, m, nums2, n):
 
-#         if m == 0:
-#             for i in range(n):
-#                 nums1[i] = nums2[i]
+#         i, j = 0, 0
+#         res = []
 
-#         elif n != 0:
+#         while i < m and j < n:
 
-#             m = n = 0
+#             if nums1[i] < nums2[j]:            
+#                 res.append(nums1[i])
+#                 i+=1
+            
+#             else:
+#                 res.append(nums2[j])
+#                 j += 1
+        
+#         while i < m:        
+#             res.append(nums1[i])
+#             i+=1
 
-#             while n < len(nums2):
+#         while j < n:        
+#             res.append(nums2[j])
+#             j+=1
 
-#                 if nums2[n] < nums1[m]:
 
-#                     nums1[:m], nums1[m+1:] = nums1[:m] + [nums2[n]], nums1[m:-1]
-
-#                     n += 1
-#                     m += 1
-                
-#                 else:
-
-#                     if all([x==0 for x in nums1[m:]]):
-#                         nums1[m] = nums2[n]
-#                         n += 1
-                        
-#                     m += 1
+#         for i in range(len(res)):
+#             nums1[i] = res[i]
 
 #     # Testing
-#     merge(nums1,m,nums2,n)
+#     merge(nums1=nums1, nums2=nums2, m=m, n=n)
 #     print(nums1)
+
+#     'Notes: This solution works but holds more memory than I know it could be, so lets try'
+
+
+#     'Optimized Approach (Two-Pointers)'
+#     def merge(nums1, nums2, m, n) -> None:
+
+#         p1, p2, p = m-1, n-1, m+n-1
+        
+#         while p1 >= 0 and p2 >= 0:
+
+#             if nums1[p1] > nums2[p2]:            
+#                 nums1[p] = nums1[p1]
+#                 p1 -= 1
+            
+#             else:
+#                 nums1[p] = nums2[p2]
+#                 p2 -= 1
+            
+#             p -= 1
+    
+#         while p2 >= 0:
+#             nums1[p] = nums2[p2]
+#             p2 -= 1
+#             p -= 1 
+
+#     # Testing
+#     merge(nums1=nums1, nums2=nums2, m=m, n=n)
+#     print(nums1)
+
+#     'Notes: There it is!'
 
 '''125. Valid Palindrome'''
 # def x():
