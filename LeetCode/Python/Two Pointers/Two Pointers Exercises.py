@@ -21,6 +21,7 @@ CHALLENGES INDEX
 
 31. Next Permutation (Array) (TP)
 142. Linked List Cycle II (Hash Table) (LL) (TP) (FCD)
+27. Remove Element (Array) (TP)
 
 
 *LL: Linked-Lists
@@ -43,7 +44,7 @@ CHALLENGES INDEX
 *Others
 
 
-(19)
+(20)
 '''
 
 
@@ -1526,6 +1527,86 @@ CHALLENGES INDEX
 
 #     # Testing
 #     print(detectCycle(head=head))
+
+'''27. Remove Element'''
+# def x():
+    
+#     from typing import Optional
+
+#     # Input
+#     # Case 1
+#     nums = [3,2,2,3]
+#     val = 3
+#     # Output: 2
+
+#     # Case 2
+#     nums = [0,1,2,2,3,0,4,2]
+#     val = 2
+#     # Output: 5
+
+#     '''
+#     My Approach (Two-Pointers)
+
+#         The idea is to traverse while sorting the array as requested to achieve at least O(n) time complexity.
+
+#         Intuition:
+            
+#             - Handle corner case: return 0 if len(nums) == 0.
+#             - Handle corner case: return len(nums) if val not in nums.
+
+#             - Create two pointers 'p1', 'p2', initilized in 0 and 1 respectively.
+#             - In a While Loop (p2 < len(nums)):
+#                 + if p1 and p2 are equal to val, move p2 to the right (p2 += 1).
+#                 + elif p1 is equal to val, 
+#                     * interchage the values nums[p1] and nums[p2]
+#                     * move both pointer to the right (p1, += 1, p2 += 1)
+#                 + else,
+#                     * move p1 to the right (p1 += 1)
+            
+#             - Return the index in p1 that will be the total amount of elements different than val up to p1 if nums[p1] is val,
+#                 Otherwise, return p1+1, since is a 0-based indexing and from 0 to p1 will be elements distinct to val.
+#                     (return p1 + 1 if nums[p1] != val else p1)
+#     '''
+
+#     def removeElement(nums: list[int], val: int) -> int:
+
+#         # Handle Corner case: len(nums) == 0
+#         if len(nums) == 0:
+#             return 0
+        
+#         # Handle Corner case: val not in nums
+#         if val not in nums:
+#             return len(nums)
+        
+
+#         # Create two pointers 'p1', 'p2'
+#         p1, p2 = 0, 1
+
+#         # Process nums
+#         while p2 < len(nums):
+
+#             if nums[p1] == val and nums[p2] == val:                
+#                 p2 += 1
+            
+#             elif nums[p1] == val:
+#                 nums[p1], nums[p2] = nums[p2], nums[p1]
+#                 p1 += 1
+#                 p2 += 1
+            
+#             elif nums[p1] != val and nums[p2] != val:                
+#                 p1 += 1
+#                 p2 += 1
+
+#             else:
+#                 p1 += 1        
+        
+#         # Return p1 or p1 + 1
+#         return p1 + 1 if nums[p1] != val else p1
+
+#     # Testing
+#     print(removeElement(nums=nums, val=val))
+
+#     '''Note: Done'''
 
 
 
