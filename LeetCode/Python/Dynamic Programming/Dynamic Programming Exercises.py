@@ -27,6 +27,7 @@ CHALLENGES INDEX
 72. Edit Distance (DP) 'Levenshtein Distance'
 416. Partition Equal Subset Sum (Array) (DP)
 1143. Longest Common Subsequence (DP)
+392. Is Subsequence (TP) (DP)
 
 
 
@@ -50,7 +51,7 @@ CHALLENGES INDEX
 *Others
 
 
-(25)
+(26)
 '''
 
 
@@ -2006,6 +2007,92 @@ CHALLENGES INDEX
 
 #     '''Note: Done'''
 
+'''392. Is Subsequence'''
+# def x():
+    
+#     from typing import Optional
+
+#     # Input
+#     # Case 1
+#     s = "abc"
+#     t = "ahbgdc"
+#     # Output: true
+
+#     # Case 2
+#     s = "axc"
+#     t = "ahbgdc"
+#     # Output: false
+
+#     '''
+#     My Approach (Dynamic Programming)
+
+#         Intuition:
+            
+#             - Here the same principle of the LCS algorithm is exactly the same but the returning statement it won't be
+#                 the return the length of the longest common subsequence, but to compare that to the length of 's' which
+#                 should be the same to say that s is a subsequence of t.
+#     '''
+
+#     def isSubsequence(s: str, t: str) -> bool:
+
+#         # Handle Corner case: t being shorter tha s
+#         if len(t) < len(s):
+#             return False
+        
+#         # Handle Corner case: s is equal to t
+#         if s == t:
+#             return True
+        
+#         m, n = len(s), len(t)
+
+#         dp = [[0]*(n+1) for _ in range(m+1)]
+
+#         for i in range(1, m+1):
+#             for j in range(1, n+1):
+
+#                 if s[i-1] == t[j-1]: 
+#                     dp[i][j] = dp[i-1][j-1] + 1
+                
+#                 else:
+#                     dp[i][j] = max(dp[i][j-1], dp[i-1][j])
+        
+#         return len(s) == dp[-1][-1]
+
+
+#     # Testing
+#     print(isSubsequence(s=s, t=t))
+
+#     '''Note: Done'''
+
+    
+#     '''
+#     My Approach (Two Pointers)
+
+#         Intuition:
+            
+#             - Simply iterate and move over both inputs.
+#     '''
+
+#     def isSubsequence(s: str, t: str) -> bool:
+
+#         # Initilize both pointers to 0
+#         p1, p2 = 0, 0
+
+#         # Iterate through both inputs at same time
+#         while p1 < len(s) and p2 < len(t):
+
+#             if s[p1] == t[p2]:
+#                 p1 += 1
+            
+#             p2 += 1       
+        
+#         return p1 == len(s)
+
+
+#     # Testing
+#     print(isSubsequence(s=s, t=t))
+
+#     '''Note: Done'''
 
 
 
