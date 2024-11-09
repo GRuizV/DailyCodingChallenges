@@ -8,6 +8,7 @@ CHALLENGES INDEX
 74. Search a 2D Matrix (BS) (Matrix)
 153. Find Minimum in Rotated Sorted Array (Array) (BS)
 704. Binary Search (BS)
+167. Two Sum II - Input Array Is Sorted (BS)
 
 
 *LL: Linked-Lists
@@ -30,7 +31,7 @@ CHALLENGES INDEX
 *Others
 
 
-(6)
+(7)
 '''
 
 
@@ -487,6 +488,53 @@ def binary_search(low, high, condition):
 
 #     '''Note: worked as expected'''
 
+'''167. Two Sum II - Input Array Is Sorted'''
+# def x():
+    
+#     from typing import Optional
+
+#     # Input
+#     # Case 1
+#     numbers = [2,7,11,15]
+#     target = 9
+#     # Output: [1,2]
+
+#     # Case 2
+#     numbers = [2,3,4]
+#     target = 6
+#     # Output: [1,3]
+
+#     # Case 3
+#     numbers = [3,24,50,79,88,150,345]
+#     target = 200
+#     # Output: [4,6]
+
+#     '''
+#     Solution
+#     '''
+
+#     def twoSum(numbers: list[int], target: int) -> list[int]:
+
+#         left, right = 0, len(numbers)-1
+
+#         while left < right:
+
+#             curr_sum = numbers[left] + numbers[right]
+
+#             if curr_sum == target:
+#                 return [left+1, right+1]
+            
+#             elif curr_sum > target:
+#                 right -= 1
+            
+#             else:
+#                 left += 1
+
+
+#     # Testing
+#     print(twoSum(numbers=numbers, target=target))
+
+#     '''Note: Done'''
 
 
 
