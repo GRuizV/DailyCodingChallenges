@@ -23,6 +23,7 @@ CHALLENGES INDEX
 142. Linked List Cycle II (Hash Table) (LL) (TP) (FCD)
 27. Remove Element (Array) (TP)
 392. Is Subsequence (TP) (DP)
+11. Container With Most Water (TP)
 
 
 *LL: Linked-Lists
@@ -45,7 +46,7 @@ CHALLENGES INDEX
 *Others
 
 
-(21)
+(22)
 '''
 
 
@@ -1726,6 +1727,111 @@ CHALLENGES INDEX
 #     print(isSubsequence(s=s, t=t))
 
 #     '''Note: Done'''
+
+'''11. Container With Most Water'''
+# def x():
+    
+#     from typing import Optional
+
+#     # Input
+#     # Case 1
+#     height = [1,8,6,2,5,4,8,3,7]
+#     # Output: 49
+
+#     # # Case 2
+#     # height = [1,1]
+#     # # Output: 1
+
+#     '''
+#     My Approach (Two Pointers)
+
+#         Intuition:
+            
+#             -This solution is derived from '42. Trapping Water' leetcode challenge, thefore
+#                 it cointains unnecessary complexity and could be optimized
+#     '''
+
+#     def maxArea(height: list[int]) -> int:
+        
+#         left, right = 0, len(height)-1
+#         left_max, right_max = 0, 0
+#         result = 0
+
+#         while left < right:
+
+#             if height[left] >= left_max:
+#                 left_max = height[left]
+#                 left_max_pos = left
+            
+#             if height[right] >= right_max:
+#                 right_max = height[right]  
+#                 right_max_pos = right
+
+#             new_h = min(left_max, right_max)
+#             new_w = right_max_pos - left_max_pos
+#             new_area = new_h * new_w
+
+#             result = max(result, new_area)
+
+#             if height[left] < height[right]:          
+#                 left += 1
+            
+#             else:
+#                 right -= 1
+
+#         return result 
+
+#     # Testing
+#     print(maxArea(height=height))
+
+#     '''Note: Done'''
+
+
+
+#     '''
+#     Optimized Approach (Two Pointers)
+
+#         Explanation:
+            
+#             1. Initialize Two Pointers:
+
+#                 left starts at the beginning of the array, and right starts at the end of the array.
+            
+#             2. Calculate Area Based on the Shorter Line:
+
+#                 The area of water contained is determined by the shorter of the two lines (height[left] and height[right]) times the width (right - left).
+            
+#             3.Move the Pointer with the Smaller Height:
+
+#                 Move the left pointer to the right if height[left] < height[right], otherwise move the right pointer to the left.
+#                     This is because moving the shorter line maximizes the chance of finding a larger area by potentially encountering a taller line.
+            
+#             4.Update the Result:
+
+#                 At each step, calculate the current area and update the result if the current area is greater than the previous maximum.
+#     '''
+
+#     def maxArea(height: list[int]) -> int:
+        
+#         left, right = 0, len(height)-1
+#         max_area = 0
+
+#         while left < right:
+
+#             new_area = min(height[right], height[left])*(right - left)
+#             max_area = max(max_area, new_area)
+
+#             if height[left] < height[right]:
+#                 left += 1
+
+#             else:
+#                 right -= 1
+
+#         return max_area
+
+#     # Testing
+#     print(maxArea(height=height))
+
 
 
 
