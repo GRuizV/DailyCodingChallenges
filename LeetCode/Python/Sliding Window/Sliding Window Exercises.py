@@ -9,6 +9,7 @@ CHALLENGES INDEX
 438. Find All Anagrams in a String (Hash-Table) (SW)
 AgileEngine: Minimal Balls Move (SW)
 567. Permutation in String (SW) (Hash Table)
+209. Minimum Size Subarray Sum (SW) (Array)
 
 
 
@@ -29,7 +30,7 @@ AgileEngine: Minimal Balls Move (SW)
 *Heaps, Stacks & Queues
 *Graphs, Trees & Binary Trees
 
-(7)
+(8)
 '''
 
 
@@ -679,6 +680,125 @@ AgileEngine: Minimal Balls Move (SW)
 
 #     '''Note: This solution worked and beated submissions by 20% Runtime and 35% Memory'''
 
+'''209. Minimum Size Subarray Sum'''
+# def x():
+    
+#     from typing import Optional
+
+#     # Input
+#     # Case 1
+#     target = 7
+#     nums = [2,3,1,2,4,3]
+#     # Output: 2
+
+#     # Case 2
+#     target = 4
+#     nums = [1,4,4]
+#     # Output: 1
+
+#     # Case 3
+#     target = 11
+#     nums = [1,1,1,1,1,1,1,1]
+#     # Output: 0
+    
+#     # Custom Case
+#     target = 213
+#     nums = [12,28,83,4,25,26,25,2,25,25,25,12]
+#     # Output: 8
+    
+#     '''
+#     My Approach (Sliding Window)
+
+#         Intuition:
+            
+#             - Handle corner case: if the input sum is less than 'target' return 0.
+            
+#             - initialize 'min_len' holder in float('inf').
+
+#             - Initialize a 'window' holding wich will hold the resulting subarray to be evaluated.
+
+#             - Initialize two indices 'l' and 'r' in 0 and '1', that will drive the respective ends of the 'window'.
+
+#             - In a while loop (Until 'l' is less than len(nums)) process the input:
+                
+#                 + if sum(window[l:r]) >= target:
+#                     min_len = min(min_len, len(window[l:r]))
+#                     l += 1
+#                     r = l
+                
+#                 + if sum(window[l:r]) < target:                    
+#                     * r += 1
+            
+#             - retun 0 if min_len == float('inf') else retun min_len
+#     '''
+
+#     def minSubArrayLen(target: int, nums: list[int]) -> int:
+
+#         # Handle Corner case: the input sum is less than 'target' return 0
+#         if sum(nums) < target:
+#             return 0
+  
+#         # initialize 'min_len' holder in float('inf')
+#         min_len = float('inf')
+
+#         # Initialize a 'window' holding wich will hold the resulting subarray to be evaluated.
+#         window = []
+
+#         # Initialize two indices 'l' and 'r' in 0
+#         l = r = 0
+
+#         # Process 'nums'
+#         while l < len(nums):
+
+#             window = nums[l:r]
+
+#             if r > len(nums):
+#                 l += 1
+#                 r = l
+            
+#             else: 
+#                 if sum(window) >= target:
+
+#                     min_len = min(min_len, len(window))
+#                     l += 1
+#                     r = l
+                
+#                 if sum(window) < target:                    
+#                     r += 1
+        
+#         # Return the result
+#         return 0 if min_len == float('inf') else min_len
+
+
+#     # Testing
+#     print(minSubArrayLen(target=target, nums=nums))
+
+#     '''
+#     Notes: 
+#         - In my first attempt, my solution met 85% of testcases, which is great for me given that I'm knowlegdeable regaring Sliding Window technique.
+#     '''
+    
+
+    
+#     '''
+#     Optimized Sliding Window Approach
+#     '''
+
+#     def minSubArrayLen(target: int, nums: list[int]) -> int:
+#         l = 0
+#         window_sum = 0
+#         min_len = float('inf')
+
+#         for r in range(len(nums)):
+#             window_sum += nums[r]
+            
+#             # Shrink the window as much as possible while still meeting the target
+#             while window_sum >= target:
+#                 min_len = min(min_len, r - l + 1)
+#                 window_sum -= nums[l]
+#                 l += 1
+
+#         return 0 if min_len == float('inf') else min_len
 
 
 
