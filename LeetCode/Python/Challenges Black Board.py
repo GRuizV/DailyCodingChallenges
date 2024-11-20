@@ -81,59 +81,7 @@ def pretty_print_bst(node:TreeNode, prefix="", is_left=True):
 
 
 
-'205. Isomorphic Strings (Hash Table)'
-'''205. Isomorphic Strings'''
-def x():
-    
-    from typing import Optional
 
-    # Input
-    # Case 1
-    s = "egg"
-    t = "add"
-    # Output: True
-
-    # # Case 2
-    # s = "foo"
-    # t = "bar"
-    # # Output: False
-
-    # # Case 3
-    # s = "paper"
-    # t = "title"
-    # # Output: True
-
-    '''
-    My Approach
-    '''
-
-    def isIsomorphic(s: str, t: str) -> bool:
-
-        # Capture the number of characters in each string
-        s_set, t_set = set(s), set(t)
-
-        # Handle Corner case: different lengths between sets
-        if len(s_set) != len(t_set):
-            return False
-
-        # Build the dictionary between them
-        dic = {k:v for k,v in zip(s, t)}
-
-        # Initialize a string result holder to build the resulting string to compare
-        result = ''
-        
-        # Build the resulting string based on the characters of 's' translated with the 'dic'
-        for char in s:
-            result += dic[char]
-
-        # Return the comparison of the result string and 't'
-        return result == t
-
-
-    # Testing
-    print(isIsomorphic(s=s, t=t))
-
-    '''Note: Done'''
 
 
 

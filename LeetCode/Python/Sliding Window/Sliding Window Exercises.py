@@ -1,7 +1,7 @@
 '''
 CHALLENGES INDEX
 
-3. Longest Substring Without Repeating Characters (Hash Table) (SW)
+3. Longest Substring Without Repeating Characters (SW)
 76. Minimum Window Substring (Hash Table) (SW)
 239. Sliding Window Maximum (Array) (SW)
 395. Longest Substring with At Least K Repeating Characters (SW) (RC) (DQ)
@@ -37,63 +37,83 @@ AgileEngine: Minimal Balls Move (SW)
 '3. Longest Substring Without Repeating Characters'
 # def x():
 
+#     from typing import Optional
+
+#     # Input
+#     # Case 1
 #     s = "abcabcbb"
+#     # Output: 3
 
+#     # Case 2
+#     s = "bbbbb"
+#     # Output: 1
 
-#     # My solution
-#     substrings = []
+#     # Case 3
+#     s = "pwwkew"
+#     # Output: 3
 
-#     i = 0
+#     '''
+#     My Approach (Sliding Window)
 
-#     while i < len(s):
+#         Intuition:
+            
+#             - Handle corner case: string with no repeated chars, return len(s)
 
-#         sub = str()
+#             - Initialize an empty string holder 'window' to use it to process the input.
 
-#         for char in s[i:]:
+#             - Initialize a s_len integer holder in 0 to keep track of the length of the substrings processed
 
-#             if char in sub:
-#                 substrings.append(sub)
-#                 break
+#             - In a for loop (for char in s):
+                
+#                 + If the current char is already in 'window' enter in a while-True loop:
+                    
+#                     * Redefine the 'window' as 'window[1:]'
+#                     * If the current char is no longer in the window, end the while loop.
 
-#             sub += char
-        
-#         if sub not in substrings:
-#             substrings.append(sub)
-
-#         i += 1
-
-#     # print(substrings)
-
-#     max_sub = max(substrings, key = len) if substrings else 0
-
-#     # print(max_sub)
-
-#     print(max_sub, len(max_sub))
-
-
-#     # Another more efficient solution
+#                 + Update the s_len holder
+            
+#             - Return s_len
+#     '''
 
 #     def lengthOfLongestSubstring(s: str) -> int:
+
+#         # Create a set from the input
+#         s_set = set(s)
+
+#         # Handle Corner case: string with no repeated chars, return len(s)
+#         if len(s_set) == len(s):
+#             return len(s)
+        
+
+#         #  Initialize an empty string holder
+#         window = ''
+
+#         # Initialize a s_len integer holder 
+#         s_len = 0
+
+#         # Process the input
+#         for char in s:
+
+#             if char in window:
+                
+#                 while True:
+                    
+#                     window = window[1:]
+
+#                     if char not in window:
+#                         break
             
-#             n = len(s)
-#             maxLength = 0
-#             charMap = {}
-#             left = 0
-            
-#             for right in range(n):
-
-#                 if s[right] not in charMap or charMap[s[right]] < left:
-#                     charMap[s[right]] = right
-#                     maxLength = max(maxLength, right - left + 1)
-
-#                 else:
-#                     left = charMap[s[right]] + 1
-#                     charMap[s[right]] = right
-            
-#             return maxLength
+#             window += char
+#             s_len = max(s_len, len(window))
 
 
-#     lengthOfLongestSubstring(s)
+#         # Return the integer holder
+#         return s_len
+
+#     # Testing
+#     print(lengthOfLongestSubstring(s=s))
+
+#     '''Note: Done'''
 
 '76. Minimum Window Substring'
 # def x():
