@@ -150,6 +150,45 @@ CHALLENGES INDEX
 
 #     'Notes: Same logic, better executed'
 
+
+
+#     'Revisited Approach (21/11/24)'
+
+#     '''
+#     My Approach (Matrix Handling)
+
+#         Intuition:
+            
+#             - Initialize an empty list 'result' holder.
+
+#             - In a while loop (Until there is still a matrix input):
+#                 + pop and extend to 'result', the first element of the matrix
+#                 + transpose the the existing elements inside the matrix and revert their order.
+            
+#             - Return the result.
+#     '''
+
+#     def spiralOrder(matrix: list[list[int]]) -> list[int]:
+
+#         # Initialize an empty list 'result' holder
+#         result = []
+
+#         # Process the input matrix
+#         while matrix:
+
+#             elems = matrix.pop(0)
+#             result.extend(elems)
+#             matrix = list(zip(*matrix))
+#             matrix = matrix[::-1]
+        
+#         # Return result
+#         return result
+
+#     # Testing
+#     print(spiralOrder(matrix=matrix))
+
+#     '''Note: Done'''
+
 '79. Word Search'
 # def x():
 
