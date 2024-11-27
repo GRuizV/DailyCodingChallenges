@@ -18,6 +18,7 @@ CHALLENGES INDEX
 438. Find All Anagrams in a String (SW) (Hash Table)
 567. Permutation in String (SW) (Hash Table)
 205. Isomorphic Strings (Hash Table)
+49. Group Anagrams (Hash Map)
 
 
 
@@ -41,7 +42,7 @@ CHALLENGES INDEX
 *Others
 
 
-(16)
+(17)
 '''
 
 
@@ -1605,6 +1606,119 @@ CHALLENGES INDEX
 
 #     '''Note: Done'''
 
+'''49. Group Anagrams'''
+# def x():
+    
+#     from typing import Optional
+
+#     # Input
+#     # Case 1
+#     strs = ["eat","tea","tan","ate","nat","bat"]
+#     # Output: [["bat"],["nat","tan"],["ate","eat","tea"]]
+
+#     # # Case 2
+#     # strs = [""]
+#     # # Output: [[""]]
+
+#     '''
+#     My Approach
+
+#         Intuition:
+            
+#             - Handle corner case: Single element list - return directly that element
+
+#             - Initialize a list holder 'result' which will store the grouped anagrams
+
+#             - In a while loop (While strs exists):
+                
+#                 + Initialize a list holder 'anagrams' which will hold all anagrams of one ref.
+#                 + Initialize a 'ref' hold in the first popped element of 'strs'.
+#                 + Append 'ref' to 'anagrams'.
+                                
+#                 + Iterate through the existing strs' elements:  
+
+#                     * if a Counter object of the current element is equal to a Counter object of ref, append it to 'anagrams'.
+                
+#                 + Append 'anagrams' to 'result'
+            
+#             - Return result.
+#     '''
+
+#     from collections import Counter
+
+#     def groupAnagrams(strs: list[str]) -> list[list[str]]:
+
+#         # Handle Corner case: Single element list
+#         if len(strs) == 1:
+#             return [[strs[0]]]
+        
+#         # Create a list holder 'result' which will store the grouped anagrams
+#         result = []
+
+#         # Process the input
+#         while strs:
+
+#             # Initialize a list holder 'anagrams' which will hold all anagrams of one ref
+#             anagrams = []
+
+#             # Initialize a 'ref' hold in the first popped element of 'strs'
+#             ref = strs.pop(0)
+
+#             # Append 'ref' to 'anagrams'
+#             anagrams.append(ref)
+
+#             # While index
+#             i = 0
+
+#             # Iterate through the existing strs' elements
+#             while i < len(strs):
+
+#                 # If both counters are equal, then 'elem' is an anagram of 'ref'
+#                 if Counter(strs[i]) == Counter(ref):
+#                     anagrams.append(strs[i])
+#                     strs.pop(i)
+#                     continue
+                
+#                 i += 1
+            
+#             # Append 'anagrams' to 'result
+#             result.append(anagrams)
+        
+
+#         # Return 'result'
+#         return result
+
+#     # Testing
+#     # print(groupAnagrams(strs=strs))
+
+#     '''Note: This approach works in 88% of testcases, from there on, it exceeded time limit'''
+
+    
+#     '''
+#     Optimized Approach
+#     '''
+
+#     def groupAnagrams(strs: list[str]) -> list[list[str]]:
+
+#         anagrams = {}  # HashMap to store grouped anagrams
+
+#         for word in strs:
+
+#             # Use sorted word as the key
+#             signature = tuple(sorted(word))
+
+#             if signature not in anagrams:
+#                 anagrams[signature] = []
+
+#             anagrams[signature].append(word)
+
+#         # Return grouped anagrams as a list
+#         return list(anagrams.values())
+    
+#     # Testing
+#     print(groupAnagrams(strs=strs))
+
+#     '''Note: Done'''
 
 
 
