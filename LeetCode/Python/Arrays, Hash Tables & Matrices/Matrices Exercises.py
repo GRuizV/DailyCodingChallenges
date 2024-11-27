@@ -13,6 +13,7 @@ CHALLENGES INDEX
 64. Minimum Path Sum (Matrix) (DP)
 74. Search a 2D Matrix (BS) (Matrix)
 994. Rotting Oranges (Matrix) (BFS)
+48. Rotate Image (Matrix)
 
 
 *LL: Linked-Lists
@@ -35,7 +36,7 @@ CHALLENGES INDEX
 *Others
 
 
-(12)
+(13)
 '''
 
 
@@ -1488,6 +1489,48 @@ CHALLENGES INDEX
 #         # If there are fresh oranges left, return -1, otherwise return minutes
 #         return minutes if fresh_count == 0 else -1
 
+'''48. Rotate Image'''
+# def x():
+    
+#     from typing import Optional
+
+#     # Input
+#     # Case 1
+#     matrix = [[1,2,3],[4,5,6],[7,8,9]]
+#     # Output: [[7,4,1],[8,5,2],[9,6,3]]
+
+#     # Case 2
+#     matrix = [[5,1,9,11],[2,4,8,10],[13,3,6,7],[15,14,12,16]]
+#     # Output: [[15,13,2,5],[14,3,4,1],[12,6,8,9],[16,7,10,11]]
+
+
+#     '''
+#     My Approach
+
+#         Intuition:
+            
+#             - Initialize a 'rot_matrix' holder in a listcomp of a reversed list of a zip object of the original matrix unpacked.
+#             - In a for loop (por each row in matrix):
+#                 + Make that row equal to its correspondent 'rot_matrix' element.
+#     '''
+
+#     def rotate(matrix: list[list[int]]) -> None:
+
+#         # Initialize a 'rot_matrix' holder
+#         rot_matrix = [list(elem[::-1]) for elem in zip(*matrix)]
+
+#         # Reassign matrix elemens
+#         for i in range(len(matrix)):
+#             matrix[i] = rot_matrix[i]
+
+                
+
+
+#     # Testing
+#     print(rotate(matrix=matrix))
+#     print(matrix)
+
+#     '''Note: Done'''
 
 
 
