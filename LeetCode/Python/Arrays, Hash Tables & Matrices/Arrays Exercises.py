@@ -1807,6 +1807,21 @@ CHALLENGES INDEX
 
 #     'Note:It actually worked!'
 
+#     'Another more efficient Approach'
+#     def rotate(nums: list[int], k: int) -> None:
+   
+#         if len(nums) == 1 or k == 0:
+#             return
+        
+#         k = k % len(nums)
+
+#         result = nums[-k:]+nums[:-k]
+
+#         for i in range(len(nums)):
+#             nums[i] = result[i]
+    
+#     '''Note: Done!'''
+
 '''198. House Robber'''
 # def x():
 
