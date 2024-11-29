@@ -14,6 +14,7 @@ CHALLENGES INDEX
 74. Search a 2D Matrix (BS) (Matrix)
 994. Rotting Oranges (Matrix) (BFS)
 48. Rotate Image (Matrix)
+73. Set Matrix Zeroes (Matrix)
 
 
 *LL: Linked-Lists
@@ -36,7 +37,7 @@ CHALLENGES INDEX
 *Others
 
 
-(13)
+(14)
 '''
 
 
@@ -1531,6 +1532,57 @@ CHALLENGES INDEX
 #     print(matrix)
 
 #     '''Note: Done'''
+
+'''73. Set Matrix Zeroes'''
+# def x():
+    
+#     from typing import Optional
+
+#     # Input
+#     # Case 1
+#     matrix = [[1,1,1],[1,0,1],[1,1,1]]
+#     # Output: [[1,0,1],[0,0,0],[1,0,1]]
+
+#     # Case 2
+#     matrix = [[0,1,2,0],[3,4,5,2],[1,3,1,5]]
+#     # Output: [[0,0,0,0],[0,4,5,0],[0,3,1,0]]
+ 
+
+#     '''
+#     My Approach
+#     '''
+    
+#     def setZeroes(matrix: list[list[int]]) -> None:
+    
+#         # Collect matrix dimentions
+#         m, n = len(matrix), len(matrix[0])
+
+#         # Collect existing zeros coordinates
+#         zeros = [(i,j) for j in range(n) for i in range(m) if matrix[i][j] == 0]
+
+#         # Process each zero
+#         for z in zeros:
+
+#             # Turn to zero the current zero row elements if they are different from 0
+#             n_zeros = [(z[0],j) for j in range(n) if matrix[z[0]][j] != 0]
+
+#             for nz in n_zeros:
+#                 matrix[nz[0]][nz[1]] = 0
+        
+#             # Turn to zero the current zero column elements if they are different from 0
+#             n_zeros = [(i,z[1]) for i in range(m) if matrix[i][z[1]] != 0]
+
+#             for nz in n_zeros:
+#                 matrix[nz[0]][nz[1]] = 0
+                
+
+
+#     # Testing
+#     print(setZeroes(matrix=matrix))
+#     print(matrix)
+
+#     '''Note: Done'''
+
 
 
 
