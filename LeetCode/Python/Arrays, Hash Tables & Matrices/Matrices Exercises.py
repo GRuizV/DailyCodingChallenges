@@ -7,7 +7,9 @@ CHALLENGES INDEX
 200. Number of Islands (Matrix) (DFS)
 212. Word Search II (Array) (DFS) (BT) (Matrix)
 240. Search a 2D Matrix II (Matrix) (DQ) (BS)
-289. Game of Life (Matrix)
+
+289. Game of Life (Matrix) *DIFFERENTIAL COORDINATES
+
 
 51. N-Queens (Matrix) (BT)
 64. Minimum Path Sum (Matrix) (DP)
@@ -957,60 +959,52 @@ CHALLENGES INDEX
 #             - Populate the result matrix according to the rules.
 #     '''
 
-#     def game_of_life(board:list[list[int]]) -> None:
+#     def gameOfLife(board: list[list[int]]) -> None:
 
-#         # Set the matrix dimentions
-#         m,n = len(board),len(board[0])
+#         # Capture the baord dimentions
+#         m, n = len(board), len(board[0])
 
-#         # Define the holder matrix
-#         holder = [[0]*n for _ in range(m)]
+#         # Create a 'result' holder
+#         result = [[0]*n for _ in range(m)]
 
-#         # Define the directions of the neighbors
-#         directions = [(-1,-1),(-1,0),(-1,1),(0,-1),(0,1),(1,-1),(1,0),(1,1)]
+#         # Initialize the differential coordinates list
+#         diff = [(0,1),(-1,1),(-1,0),(-1,-1),(0,-1),(1,-1),(1,0),(1,1)]
 
-#         # Iterate to evaluate each of the cells of the original board
+#         # Process every cell in the board
 #         for i in range(m):
-
 #             for j in range(n):
 
-#                 # Define the actual neighbors
-#                 neighbors = [ board[i+dx][j+dy] for dx, dy in directions if 0 <= i+dx < m and 0 <= j+dy < n ]
-
-#                 # Evalue the number of live neighbors
-#                 neighbors = sum(neighbors)
-
-#                 # APPLY THE RULES
+#                 # Collecting 'live' neighbors
+#                 neighbors = [board[i+dx][j+dy] for dx, dy in diff if 0<=i+dx<m and 0<=j+dy<n and board[i+dx][j+dy] == 1]
+                
+#                 # Applying the game rules
+#                 # for live cells
 #                 if board[i][j] == 1:
+                
+#                     #   rule #1 & rule #3
+#                     if len(neighbors) < 2 or len(neighbors) > 3:
+#                         result[i][j] = 0
                     
-#                     # 1. Any live cell with fewer than two live neighbors dies as if caused by under-population.
-#                     if neighbors < 2:
-#                         holder[i][j] = 0    # Update the holder matrix in the exact position with the result of the rule apply
-                    
-#                     # 2. Any live cell with two or three live neighbors lives on to the next generation.
-#                     elif 2 <= neighbors <= 3:
-#                         holder[i][j] = 1
-                    
-#                     # 3. Any live cell with more than three live neighbors dies, as if by over-population.
-#                     elif neighbors > 3:
-#                         holder[i][j] = 0
-
+#                     else:
+#                         result[i][j] = 1
+                
+#                 # for dead cells
 #                 else:
-#                     # 4. Any dead cell with exactly three live neighbors becomes a live cell, as if by reproduction.
-#                     if neighbors == 3:
-#                         holder[i][j] = 1
 
+#                     #   rule #4
+#                     if len(neighbors) == 3:
+#                         result[i][j] = 1
 
-#         # Prepare the output: Modify the original board according to the result of the game
+#         # Recreate the next state in the actual board
 #         for i in range(m):
-#             for j in range(n):
-#                 board[i][j] = holder[i][j] 
+#             board[i] =  result[i]
 
 
 #     # Testing
 #     for i in range(len(board)):
 #         print(board[i])
 
-#     game_of_life(board=board)
+#     gameOfLife(board=board)
 #     print()
 
 #     for i in range(len(board)):
