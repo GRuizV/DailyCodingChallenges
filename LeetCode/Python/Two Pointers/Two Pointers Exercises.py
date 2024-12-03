@@ -154,19 +154,30 @@ CHALLENGES INDEX
 # def x():
 
 #     import itertools
+#     from typing import Optional
 
 #     # Input
+#     # Case 1
+#     nums = [-1,0,1,2,-1,-4]
+#     # Output: [[-1,-1,2],[-1,0,1]]
+
+#     # Case 2
+#     nums = [0,1,1]
+#     # Output: []
+
+#     # Case 3
 #     nums = [0,0,0]
+#     # Output: [[0,0,0]]
 
-
-#     # My approach
 
 #     '''
-#     Rationale:
-        
-#         1) Build all combinations caring for the order.
-#         2) Filter down those who met sum(subset) = 0
-#         3) Make sure there is no duplicates & return.
+#     My firts Approach (Brute-forcing)
+
+#         Rationale:
+            
+#             1) Build all combinations caring for the order.
+#             2) Filter down those who met sum(subset) = 0
+#             3) Make sure there is no duplicates & return.
 
 #     '''
 #     comb = list(itertools.combinations(nums,3))
@@ -184,55 +195,137 @@ CHALLENGES INDEX
 
 #     '''
 #     Notes:
-
 #         This solution actually works, but breaks when a big enough input is passed.
 #     '''
 
-#     # Two-Pointers approach solution
-#     def threeSum(self, nums):
-            
-#             nums.sort()
-#             answer = []
-            
-#             # if the inputs have less than 3 items
-#             if len(nums) < 3:
-#                 return answer
-            
-#             for i in range(len(nums)):
+#     '''
+#     My Second Approach (TP)
 
-#                 # Since is a sorted input, if first element is positive, there is no way it'll sum up to 0
-#                 if nums[i] > 0:
-#                     break
+#         Intuition:
+            
+#             - Capture the input length in 'm'.
+
+#             - Sort the input list.
+
+#             - Handle corner case: Return an empty list.
+#                 + If the input sum is different than 0.
+#                 + and (If the first element is greater or equal than 0 or If the last element is smaller than 0)
+
+#             - Initilize a list holder 'result' in an empty list.
+#             - Initialize two pointers 'first' and 'last' in 0.
+
+#             - in a for loop (for i in range(m-2)):
+
+#                 + Assign 'nums[i]' to 'first'
+
+#                 + in a for loop (from j in range(i+1, m-1)):
+
+#                     * Assign 'nums[j]' to 'second'.                    
+#                     * Initialize 'third' in '-(nums[i]+nums[j])'
+
+#                     * if third in nums[j+1:] and [first, second, third] not in 'result':
+#                         - result.append([first, second, third]).
+            
+#             - Return 'result'    
+#     '''
+
+#     def threeSum(nums: list[int]) -> list[list[int]]:
+
+#         # Capture the input length
+#         m = len(nums)
+
+#         # Sort the input list.
+#         nums.sort()        
+        
+#         # Handle Corner case.
+#         if sum(nums) != 0 and (nums[0] == 0 or nums[-1] == 0):
+#             return []
+        
+#         # Initialize a result holder
+#         result = []
+
+#         # Process the input
+#         for i in range(m-2):
+
+#             first = nums[i]
+
+#             for j in range(i+1, m-1):
+
+#                 second = nums[j]
+#                 third = -(nums[i]+nums[j])
+
+#                 if third in nums[j+1:] and [first, second, third] not in result:
+#                     result.append([first, second, third])
                 
-#                 # Apart from the first element, if the following is the same, jump to the next iteration to avoid returning duplicates
-#                 if i > 0 and nums[i] == nums[i - 1]:
-#                     continue
-                
-#                 # Pointers setting    
-#                 low, high = i + 1, len(nums) - 1
+#         # Return result
+#         return result
 
-#                 while low < high:
+#     # Testing
+#     print(threeSum(nums=nums))
 
-#                     s = nums[i] + nums[low] + nums[high]
+#     '''Note: My approach solved 98% of testcases but exceeded time limit'''
 
-#                     if s > 0:
-#                         high -= 1
 
-#                     elif s < 0:
-#                         low += 1
 
-#                     else:
 
-#                         answer.append([nums[i], nums[low], nums[high]])
-#                         lastLowOccurrence, lastHighOccurrence = nums[low], nums[high]
-                        
-#                         while low < high and nums[low] == lastLowOccurrence:
-#                             low += 1
-                        
-#                         while low < high and nums[high] == lastHighOccurrence:
-#                             high -= 1
-            
-#             return answer
+#     '''Optimized Approach'''
+
+#     '''
+#     Explanation
+
+#         1. Sort the array to simplify checking for duplicates and managing the two pointers.
+#         2. Iterate through the array using an index i for the first number.
+#         3. Use two pointers (left and right) to find pairs that sum to the negative of the first number (-nums[i]).
+#         4. Skip duplicates to avoid redundant triplets.        
+#     '''
+
+#     def threeSum(nums: list[int]) -> list[list[int]]:
+
+#     # Sort the input array
+#         nums.sort()
+#         result = []
+#         n = len(nums)
+
+#         # Iterate through the array
+#         for i in range(n - 2):
+
+#             # Skip duplicates for the first number
+#             if i > 0 and nums[i] == nums[i - 1]:
+#                 continue
+
+#             # Initialize two pointers
+#             left, right = i + 1, n - 1
+
+#             while left < right:
+
+#                 # Calculate the current sum
+#                 total = nums[i] + nums[left] + nums[right]
+
+#                 if total == 0:
+                    
+#                     result.append([nums[i], nums[left], nums[right]])
+
+#                     # Move pointers and skip duplicates
+#                     left += 1
+#                     right -= 1
+
+#                     while left < right and nums[left] == nums[left - 1]:
+#                         left += 1
+
+#                     while left < right and nums[right] == nums[right + 1]:
+#                         right -= 1
+
+#                 elif total < 0:
+#                     # Move the left pointer to increase the sum
+#                     left += 1
+
+#                 else:
+#                     # Move the right pointer to decrease the sum
+#                     right -= 1
+
+#         return result
+    
+#     '''Note: Done!'''
 
 '42. Trapping Rain Water'
 # def x():
