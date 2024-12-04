@@ -18,7 +18,8 @@ CHALLENGES INDEX
 438. Find All Anagrams in a String (SW) (Hash Table)
 567. Permutation in String (SW) (Hash Table)
 205. Isomorphic Strings (Hash Table)
-49. Group Anagrams (Hash Map)
+49. Group Anagrams (Hash Table)
+219. Contains Duplicate II (Hash Table)
 
 
 
@@ -42,7 +43,7 @@ CHALLENGES INDEX
 *Others
 
 
-(17)
+(18)
 '''
 
 
@@ -1737,7 +1738,76 @@ CHALLENGES INDEX
 
 #     '''Note: Done'''
 
+'''219. Contains Duplicate II'''
+# def x():
+    
+#     from typing import Optional
 
+#     # Input
+#     # Case 1
+#     nums = [1,2,3,1]
+#     k = 3
+#     # Output: True
+
+#     # Case 2
+#     nums = [1,0,1,1]
+#     k = 1
+#     # Output: True
+
+#     # Case 3
+#     nums = [1,2,3,1,2,3]
+#     k = 2
+#     # Output: False
+
+
+#     '''
+#     My Approach (Hash Map)
+
+#         Intuition:
+            
+#             - Initialize an empty dictionary holder, to later store the values and their indices in it.
+
+#             - In a for loop (for i, val in enumerate(nums)):
+
+#                 + if val not in dic: 
+#                     * add it (dic[val] = i)
+                
+#                 + else:
+#                     * if abs(i-dic[val] <= k):
+#                         - Return True
+#                     * else:
+#                         - Update the dictionary in 'val' (dic[val] = i)
+            
+#             - If the function get to this point, it means no duplicates fulfilling the condition were found, return False
+                
+                
+#     '''
+
+#     def containsNearbyDuplicate(nums: list[int], k: int) -> bool:
+
+#         # Initialize an empty dictionary holder
+#         dic = {}
+
+#         # Process the input
+#         for i, val in enumerate(nums):
+
+#             if val not in dic: 
+#                 dic[val] = i
+            
+#             else:
+#                 if abs(i-dic[val] <= k):
+#                     return True
+                
+#                 else:
+#                     dic[val] = i
+                
+#         # If the function get to this point, it means no duplicates fulfilling the condition were found
+#         return False
+
+#     # Testing
+#     print(containsNearbyDuplicate(nums=nums, k=k))
+
+#     '''Note: This approach worked. Beated submissions by 94% in time and 19% in space'''
 
 
 
