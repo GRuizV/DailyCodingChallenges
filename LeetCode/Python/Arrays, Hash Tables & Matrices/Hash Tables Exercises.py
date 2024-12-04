@@ -970,39 +970,56 @@ CHALLENGES INDEX
 
 
 #     '''
-#     My Approach
-    
-#         Intuition (Recursive)
+#     My Approach (Revisit)
+
+#         Intuition:
             
-#             - Recursively separate the digits and check the sum of their squares compared to 1.
-#                 - If the stackoverflow is reached, return False.            
+#             - Define an auxiliary func 'get_sum' that takes an int input and return the sum of the square of its digits.
+#             - Initialize an empty dict holder 'dic' that will hold integers as keys and the get_sum's results as values.
+#             - Initialize an int holder 'num' at 'n' input
+#             - In a While True:
+#                 + if 'num' in 'dic': Return False
+#                 + Initialize int 'res' holder at get_sum's result
+#                 + if 'res' == 1: Return True
+#                 + Redefine 'num' as 'res'
+
 #     '''
 
 #     def isHappy(n:int) -> bool:
 
-#         def aux(m:int) -> bool:
+#         # Define the auxiliary func
+#         def get_sum(k:int) -> int:
 
-#             num = [int(x)**2 for x in str(m)]
-#             num = sum(num)
+#             digits = [int(elem) for elem in str(k)]            
 
-#             if num == 1:
+#             return sum(dig**2 for dig in digits)
+
+#         # Initialize an empty dict holder 'dic'
+#         dic = {}
+
+#         # Initialize an int holder 'num' at 'n'
+#         num = n
+
+#         # Start the loop
+#         while True:
+            
+#             # If this condition is met, means it entered in a cycle
+#             if num in dic:
+#                 return False
+            
+#             res = get_sum(k=num)
+
+#             # A Happy number
+#             if res == 1:
 #                 return True
             
-#             return aux(m=num)
-        
-#         try:
-#             res = aux(m=n)
+#             # Update dic
+#             dic[num] = res
 
-#             if res:
-#                 return True
-        
-#         except RecursionError as e:        
-#             return False
-
-#     # Testing
-#     print(isHappy(n=n))
-
-#     'This approach may work but it exceed time limit: only met 4% of cases'
+#             # Move over the next num
+#             num = res
+               
+#     'Note: This approach works but could be a bit more memory expensive than the set or the FCD approaches'
 
 
 #     '''
