@@ -598,34 +598,46 @@ CHALLENGES INDEX
 
 
 #     '''
-#     My approach
-#         Intuition
-#             - Corner Case: if is a ascendingly sorted list, return 0.
-            
-#             - Pick the first item and set the profit as the max between the current profit and the difference between the first element
-#             the max value from that item forward.
-            
-#             Do this in a while loop until len(prices) = 1.
+#     My Approach: Revisited (Dynamic Programming)
+
+#             Intuition:
+                
+#                 - Handle corner case: if the input is decreasingly sorted, return 0
+
+#                 - Initialize a int 'profit' holder to store the maximum profit from the prices comparison.
+#                 - Initialize a int 'min_price' holder at prices[0] to store the minimum found price found.
+
+#                 - in a for loop (for price in prices[1:]):
+
+#                     * Update the min_price with min(min_price, price)
+#                     * Update the profit with max(profit, price - min_price)
+
+#                 - Return profit
 #     '''
 
 #     def maxProfit(prices: list[int]) -> int:
 
-#         profit = 0
-
-#         if prices == sorted(prices, reverse=True):
-#             return profit        
-
-#         while len(prices) > 1:
-
-#             purchase = prices.pop(0)
-#             profit = max(profit, max(prices)-purchase)
+#         # Handle Corner case: Decreasing price list
+#         if sorted(prices, reverse=True) == prices:
+#             return 0
         
+#         profit = 0
+#         min_price = prices[0]
+
+#         for price in prices[1:]:
+            
+#             min_price = min(min_price, price)
+#             profit = max(profit, price-min_price)
+
+#         # Return profit
 #         return profit
 
 #     # Testing
 #     print(maxProfit(prices=prices))
 
-#     'This approach met 94% of the results'
+#     'Notes: Done!'
+
+
 
 
 #     '''Kadane's Algorithm'''
