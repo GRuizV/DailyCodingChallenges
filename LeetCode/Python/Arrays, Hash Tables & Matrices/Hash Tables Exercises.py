@@ -20,7 +20,7 @@ CHALLENGES INDEX
 205. Isomorphic Strings (Hash Table)
 49. Group Anagrams (Hash Table)
 219. Contains Duplicate II (Hash Table)
-
+128. Longest Consecutive Sequence (Hash Table) (Array) *[Hash Set / Linear Scan]
 
 
 *LL: Linked-Lists
@@ -43,7 +43,7 @@ CHALLENGES INDEX
 *Others
 
 
-(18)
+(19)
 '''
 
 
@@ -1809,6 +1809,120 @@ CHALLENGES INDEX
 
 #     '''Note: This approach worked. Beated submissions by 94% in time and 19% in space'''
 
+'''128. Longest Consecutive Sequence'''
+# def x():
+    
+#     from typing import Optional
+
+#     # Input
+#     # Case 1
+#     nums = [100,4,200,1,3,2]
+#     # Output: 4
+
+#     # Case 2
+#     nums = [0,3,7,2,5,8,4,6,0,1]
+#     # Output: 9
+
+#     '''
+#     Customary Solution (Hash Set and Linear Scan)
+
+#         Explanation:
+            
+#             1. Use a Hash Set:
+# 	            - Store all numbers in a hash set to allow O(1) lookups.
+            
+#             2. Iterate Through the Array:
+#             	- For each number:
+#                     + Check if it is the start of a sequence (i.e., num - 1 ∉ setnum).
+#                     + If it is the start, determine the length of the sequence by incrementing num checking for consecutive numbers in the set.
+	        
+#             3. Keep track of the maximum sequence length encountered.
+
+#             4. Return the Maximum Length:
+#                 - Once all numbers are processed, the maximum sequence length is returned.
+        
+#     Notes: 
+
+#         - The reason this challenge is grouped under Hash Map (or Dictionary) in many study plans is primarily due to how the Hash Set functions internally.
+#     '''
+
+#     def longestConsecutive(nums: list[int]) -> int:
+       
+#         # Create the input set to consult
+#         num_set = set(nums)
+
+#         # Initialize the result holder in 0
+#         max_len = 0
+        
+#         for num in num_set:
+                        
+#             if num-1 not in num_set:
+
+#                 curr_num = num
+#                 curr_len = 1
+                            
+#                 while curr_num + 1 in num_set:
+
+#                     curr_num += 1
+#                     curr_len += 1
+        
+#                 max_len = max(max_len, curr_len)
+        
+#         # Return the maximum length found
+#         return max_len
+
+#     # # Testing
+#     # print(longestConsecutive(nums=nums))
+
+#     '''Note: This solution works but is a more elegant complete proxy of the fundamental idea if a Hash Table solution'''
+
+
+
+
+#     '''
+#     Primordial Solution (Hash Table)
+#     '''
+
+#     def longestConsecutive(nums: list[int]) -> int:
+       
+#         # Create the input set to consult
+#         num_map = {num:False for num in nums}
+
+#         # Initialize the result holder in 0
+#         max_len = 0
+        
+#         for num in num_map:
+                        
+#             if not num_map[num]:
+
+#                 num_map[num] = True
+#                 curr_len = 1
+                
+#                 # Check the map increasingly
+#                 next_num = num + 1
+#                 while next_num in num_map and not num_map[next_num]:
+
+#                     num_map[next_num] = True
+#                     curr_len += 1
+#                     next_num += 1
+                
+#                 # Check the map decreasingly
+#                 prev_num = num - 1
+#                 while prev_num in num_map and not num_map[prev_num]:
+
+#                     num_map[prev_num] = True
+#                     curr_len += 1
+#                     prev_num -= 1
+        
+#                 max_len = max(max_len, curr_len)
+        
+#         # Return the maximum length found
+#         return max_len
+
+#     # Testing
+#     print(longestConsecutive(nums=nums))
+
+#     '''Note: This solution is commonly not preferred over the Hash Set one due to its complexity and because its verbosity could be confusing'''
 
 
 
