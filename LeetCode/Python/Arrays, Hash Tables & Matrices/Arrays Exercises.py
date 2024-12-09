@@ -859,6 +859,8 @@ CHALLENGES INDEX
 
 '55. Jump Game'
 # def x():
+    
+#     from typing import Optional
 
 #     # Input
 #     # Case 1
@@ -869,78 +871,173 @@ CHALLENGES INDEX
 #     nums = [3,2,1,0,4]
 #     # Output: False
 
-#     # Custom Case
-#     nums = [2,0,0]
-#     # Output: True
-
 #     '''
-#     My Approach
+#     My Approach (DFS)
 
-#         Intuition - Brute Force:
+#         Intuition:
 
-#             - I will check item by item to determine if the end of the list is reachable
+#             - Serialize 'nums' with enumerate in a 's_nums' holder.
+#             - Initialize a list 'stack' initialized in the first element of 's_nums'         
+#             - In a while loop ('stack exists'):
+#                 + Initialize a position holder 'curr' with stack.pop(0).
+#                 + if 'curr' holder first element (item position) added to its second element (item value) reaches the end of the list return True
+#                     if ['curr'[0] + 'curr'[1]] >= len(nums):
+#                         * Return True
+#                 + Extend the stack to all reachable positions ( stack.extend([s_nums[curr[0]+x] for x in range(1, curr[1]+1)]) if curr[0]+x <= len(nums))
 
+#             - If the code gets out of the loop, means the end of the list is out of reach, return False then.
 #     '''
-#     def canJump(nums:list[int]) -> bool:
 
-#         # Corner case: nums.lenght = 1 / nums[0] = 0
-#         if len(nums) == 1 and nums[0] == 0:
-#             return True
-        
-#         idx = 0
+#     def canJump(nums: list[int]) -> bool:
 
-#         while True:
+#         # Serialize 'nums' in 's_nums'
+#         s_nums = [(i,v) for i,v in enumerate(nums)]
 
-#             idx += nums[idx]
-
-#             if idx >= len(nums)-1:
-#                 return True
+#         # Initialize an stack list at the first s_num value
+#         stack = [s_nums[0]]
+    
+#         while stack:
             
-#             if nums[idx] == 0 and idx < len(nums)-1:
+#             curr = stack.pop(0)
+
+#             if curr[0]+curr[1] >= len(nums)-1:
+#                 return True
+           
+#             stack.extend([s_nums[curr[0]+x] for x in range(1, curr[1]+1) if curr[0]+x <= len(nums) and s_nums[curr[0]+x] not in stack] )
+
+#         # Return False if the code gets up to here
+#         return False
+
+#     # Testing
+#     print(canJump(nums = nums))
+
+#     '''Note: DFS only solved 45% of test cases and prooved to be inefficient O(2^n) exponentially complex'''
+
+
+
+
+#     '''
+#     Customary solution (Greedy)
+
+#         Explanation:
+
+#             - Keep track of the farthest index that can be reached.
+#             - If at any point the current index exceeds this farthest index, it means the end of the array is not reachable.
+#     '''
+
+#     def canJump(nums: list[int]) -> bool:
+
+#         # Initialize a int 'max_reachble' holder at 0
+#         max_reachable = 0
+
+#         # Iterate linearly the input
+#         for i, num in enumerate(nums):
+
+#             # If the current index 'i' exceeds the max_reachable, getting to the end is impossible
+#             if i > max_reachable:
 #                 return False
             
+#             # Update the max_reachable with the current index max reachable
+#             max_reachable = max(max_reachable, i+num)
+
+#             # If the max reachable can at least the to the input's end, return True
+#             if max_reachable >= len(nums)-1:
+#                 return True
+
+#         # Return False if the code gets up to here
+#         return False
+
 #     # Testing
-#     print(canJump(nums))
+#     print(canJump(nums = nums))
 
-#     'Notes: This solution suffice 91,2% of the case'
+#     '''Note: This is the most elegant solution of all, solve this in O(n) time and O(1) space'''
+
+
 
 
 #     '''
-#     Greedy Approach
+#     Customary solution (Greedy)
 
-#         The idea behind the greedy solution is to keep track of the furthest point that you can reach as you iterate through the array. 
-#         If at any point the current index is greater than the furthest point you can reach, it means you can't reach this position and therefore, you can't reach the last index.
+#         Explanation:
 
-#         Steps:
+#             - Keep track of the farthest index that can be reached.
+#             - If at any point the current index exceeds this farthest index, it means the end of the array is not reachable.
+#     '''
 
-#             1. Initialize a variable maxReach to 0. This variable keeps track of the furthest index you can reach.
+#     def canJump(nums: list[int]) -> bool:
+
+#         # Initialize a int 'max_reachble' holder at 0
+#         max_reachable = 0
+
+#         # Iterate linearly the input
+#         for i, num in enumerate(nums):
+
+#             # If the current index 'i' exceeds the max_reachable, getting to the end is impossible
+#             if i > max_reachable:
+#                 return False
             
-#             2. Iterate through the array:
-#                 - At each index i, check if i is greater than maxReach. If it is, it means you can't reach this index, so return False.
+#             # Update the max_reachable with the current index max reachable
+#             max_reachable = max(max_reachable, i+num)
 
-#                 - Update maxReach as the maximum of its current value and i + nums[i], which represents the furthest you can reach from the current index.
+#             # If the max reachable can at least the to the input's end, return True
+#             if max_reachable >= len(nums)-1:
+#                 return True
 
-#             3. If you complete the loop without returning False, it means you can reach the last index, so return True.
-    
+#         # Return False if the code gets up to here
+#         return False
+
+#     # Testing
+#     print(canJump(nums = nums))
+
+#     '''Note: This is the most elegant solution of all, solve this in O(n) time and O(1) space'''
+
+
+
+
+#     '''
+#     A DP solution (Dynamic Programming)
+
+#         Explanation:
+
+#             1. Reachability State:
+#                 - Use a boolean array dp where dp[i] is True if the index i is reachable from the starting index.
+            
+#             2. Base Case:
+#                 - The first index dp[0] is always reachable because we start there.
+            
+#             3. Transition:
+#                 - For each index i, if dp[i] is True, then all indices within the range [i+1, i+nums[i]] are also reachable. Update dp[j] to True for all such j.
+            
+#             4. Final Answer:
+#                 - The value at dp[-1] (last index) will tell if the last index is reachable.
 #     '''
 
-#     def canJump(nums):
+#     def canJump(nums: list[int]) -> bool:
 
-#         maxReach = 0
-        
+#         # Initialize boolean DP array
+#         dp = [False]*len(nums)
+
+#         # First item will be always reachable
+#         dp[0] = True
+
+#         # Process the input
 #         for i in range(len(nums)):
 
-#             if i > maxReach:
-#                 return False
-            
-#             maxReach = max(maxReach, i + nums[i])
+#             if dp[i]:
+                
+#                 for j in range(1, nums[i]+1):
+                    
+#                     if i+j < len(nums):
+#                         dp[i+j] = True 
         
-#         return True
-    
-#     # Testing
-#     print(canJump(nums=nums))
+#         # Return the last value of the DP table
+#         return dp[-1]
 
-#     '''Notes: Done'''
+
+#     # Testing
+#     print(canJump(nums = nums))
+
+#     '''Note: This is the most elegant solution of all, solve this in O(n^2) time and O(n) space'''
 
 '75. Sort Colors'
 # def x():
