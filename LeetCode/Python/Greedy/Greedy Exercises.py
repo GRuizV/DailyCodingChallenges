@@ -862,6 +862,7 @@ CHALLENGES INDEX
 
 
 
+
 '''45. Jump Game II'''
 # def x():
 
@@ -870,68 +871,55 @@ CHALLENGES INDEX
 #     # Input
 #     # Case 1
 #     nums = [2,3,1,1,4]
-#     # Output: 2 
+#     # Output: 2
 
 #     # Case 2
 #     nums = [2,3,0,1,4]
 #     # Output: 2
-    
-#     # Custom Case
+
+#     # Custom case
 #     nums = [1,2,1,1,1]
-#     # Output: 1
+#     # Output: 2
+
 
 #     '''
-#     My Approach - (Greedy)
-
-#         Intuition:
-            
-#             - Initialize a jumps count in 1. (Because is a given that at least one jump must be done in any other than the corner case)
-#             - In a while loop evaluate each option given by the next nums[i] element and pick the biggest.
-#             - Return the number of jumps counted.
+#     My Approach (DP Approach)
 #     '''
 
 #     def jump(nums: list[int]) -> int:
-
-#         # Handle corner case: one-element input
-#         if len(nums) == 1:
-#             return 0
         
-#         # Initilize a jump counter and a position holder
-#         jumps = 1
-#         pos = 0
+#         # Capture the input length
+#         n = len(nums)
 
-#         # Traverse through the input elements
-#         while pos < len(nums) - 1:
+#         # Initialize the DP array
+#         dp = [float('inf')] * n
+
+#         # Assign 1 to the first place of dp, since is given that at least must be 1 jump to reach any other place
+#         dp[0] = 0
+
+#         # Process the input
+#         for i in range(n-1):
             
-#             # Collect the possible next step with their respective positions
-#             elems = []
-#             for idx, num in enumerate(nums[ pos+1 : pos+nums[pos]+1 ], start=pos+1):
-#                 elems.append((idx, num))
+#             # # Algorithm's early exit: If the first jump is long enough to reach the input's end
+#             # if i+nums[i] >= n-1:
+#             #     return dp[i]+1
+            
+#             for j in range(1, nums[i]+1):                
+#                 dp[i+j] = min(dp[i+j], dp[i]+1)
 
-#             # Check if the last position is among the possibilities
-#             pos_possibilities = [i[0] for i in elems]
+#         # Return the dp's last position
+#         return dp[-1] 
 
-#             if len(nums)-1 in pos_possibilities:
-#                 return jumps
+#     # # Testing
+#     print(jump(nums=nums))
 
-#             # Go to the position of the biggest possible jump / If the next possible have the same jump capacity get the farther
-#             pos = max(elems, key=lambda x: x[1])[0]
-
-#             # Add one jump to the counter
-#             jumps += 1
-
-#         # Return the jumps counter
-#         return jumps
+#     '''Note: This approach worked, beating submissions in time by 18% and space by 14%'''
 
 
-#     # Testing
-#     # print(jump(nums = nums))
-
-#     '''Note: This approach gets to solve 27% of test cases but the issue comes when two possible next steps have the same jump capacity, there, my logic breaks'''
 
 
 #     '''
-#     Greedy Approach Refined
+#     Greedy Approach
 
 #         Explanation
             
@@ -980,6 +968,11 @@ CHALLENGES INDEX
         
 #     # Testing
 #     print(jump(nums = nums))
+
+
+#     '''Notes: Done'''
+
+
 
 
 
