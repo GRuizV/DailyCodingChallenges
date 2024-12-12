@@ -12,6 +12,8 @@ CHALLENGES INDEX
 295. Find Median from Data Stream (Heap) (Sorting)
 347. Top K Frequent Elements (Array) (Heaps) (Sorting)
 
+274. H-Index (Array) (Sorting)
+
 
 *LL: Linked-Lists
 *BS: Binary Search
@@ -32,7 +34,7 @@ CHALLENGES INDEX
 *Graphs & Trees
 *Others
 
-(10)
+(11)
 '''
 
 
@@ -825,6 +827,108 @@ CHALLENGES INDEX
 #     'Note: This approach worked beating submissions only 20% in Runtime and 61% in Memory'
 
 #     'Done'
+
+
+
+
+'''274. H-Index'''
+# def x():
+    
+#     from typing import Optional
+
+#     # Input
+#     # Case 1
+#     citations = [3,0,6,1,5]
+#     # Output: 3
+
+#     # # Case 2
+#     # citations = [1,3,1]
+#     # # Output: 1
+
+#     '''
+#     My Approach (Sorting Solution)
+
+#         Algorithm:
+            
+#             - Sort the citations array in descending order.
+#             - Iterate through the sorted array, checking for the highest h such that the condition
+#                 citations[i] >= i + 1
+#             - Return the value H
+#     '''
+
+#     def hIndex(citations: list[int]) -> int:
+
+#         # Sort the input descendingly
+#         citations.sort(reverse=True)
+
+#         h = 0
+
+#         # Compare each value with is respective index and keep the count
+#         for i, c in enumerate(citations):
+
+#             if c >= i + 1:
+#                 h = i + 1
+            
+#             else:
+#                 break
+                
+#         # Return h
+#         return h
+
+#     # Testing
+#     # print(hIndex(citations=citations))
+
+#     '''
+#     Note: This solution is easy to implement and understand and it runs at O(nlogn) time and O(1) space.
+    
+#     But there is a more efficient solution in terms of time O(n), the Count-Sort one.
+#     '''
+
+
+
+#     ''' 
+#     Countsort Approach
+    
+#         Explanation:
+
+#             1. Create a bucket array count of size n+1 to store the number of papers with k or more citations.
+#             2. Populate the count array by iterating through the citations.
+#             3. Traverse count in reverse to find the largest h where the cumulative count of papers is ≥ h.
+#     '''
+
+#     def hIndex(citations: list[int]) -> int:
+
+#         # Capture the input's len
+#         n = len(citations)
+
+#         # Initialize the bucket array
+#         count = [0]*(n+1)
+
+#         # Populate the bucket array
+#         for c in citations:
+
+#             if c >= n:
+#                 count[n] += 1
+            
+#             else:
+#                 count[c] += 1
+        
+
+#         # Initialize an int result holder 'total'
+#         total = 0
+        
+#         # Count in reverse the length og the input's range
+#         for h in range(n, -1, -1):
+#             total += count[h]
+
+#             if total >= h:
+#                 return h
+
+#         # If the code gets up to this point, means h index is 0
+#         return 0
+
+#     # Testing
+#     print(hIndex(citations=citations))
 
 
 
