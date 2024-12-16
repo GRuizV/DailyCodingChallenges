@@ -1624,7 +1624,9 @@ CHALLENGES INDEX
 #     'Note: My solution met 85% of the test cases'
 
 
-#     'Another approach'
+
+
+#     'Optimal Greedy approach'
 #     def canCompleteCircuit(gas:list[int], cost:list[int]) -> int:
         
 #         # Handle the corner case
@@ -1648,6 +1650,49 @@ CHALLENGES INDEX
 #     print(canCompleteCircuit(gas=gas, cost=cost))
 
 #     'Note: This simplified version prooved to be more efficient'
+
+
+
+
+#     'Full simulation solution'
+#     def canCompleteCircuit(gas: list[int], cost: list[int]) -> int:
+
+#         # Initialize the result holder at -1
+#         res = -1
+
+#         # Capture the input length
+#         n = len(gas)
+
+#         # Handle corner case: Not enough gas to complete the circuit
+#         if sum(cost) > sum(gas):
+#             return res
+
+#         # Simulate the circuit starting from each station
+#         for i in range(n):
+#             curr_gas = 0
+#             valid_start = True
+
+#             # Simulate the entire circuit
+#             for j in range(n):
+
+#                 station = (i + j) % n  # Circular indexing
+#                 curr_gas += gas[station] - cost[station]
+                
+#                 if curr_gas < 0:
+#                     valid_start = False
+#                     break  # Stop simulation if this start is invalid
+
+#             # If valid_start is True, we found the correct starting station
+#             if valid_start:
+#                 return i
+
+#         # If no valid start is found, return -1
+#         return res
+
+#     # Testing
+#     print(canCompleteCircuit(gas=gas, cost=cost))
+
+#     '''Notes: This version fully simulates how the actual traversal should go, but is still less efficient than the greedy one'''
 
 '''152. Maximum Product Subarray'''
 # def x():
