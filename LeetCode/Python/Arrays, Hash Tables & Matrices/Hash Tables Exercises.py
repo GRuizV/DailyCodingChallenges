@@ -110,81 +110,100 @@ CHALLENGES INDEX
 '13. Roman to Integer'
 # def x():
 
+#     from typing import Optional
+
+#     # Input
+#     # Case 1
+#     s = 'III'
+#     # Output: 3
+
+#     # Case 2
+#     s = 'LVIII'
+#     # Output: 58
+
+#     # Case 3
+#     s = 'MCMXCIV'
+#     # Output: 1994
+    
+#     # Custom Case
+#     s = 'DCXXI'
+#     # Output: 1994
+
 #     '''
-#     Substraction exceptions:
+#     My Approach
+
+#         Substraction exceptions:
 #         - I can be placed before V (5) and X (10) to make 4 and 9. 
 #         - X can be placed before L (50) and C (100) to make 40 and 90. 
 #         - C can be placed before D (500) and M (1000) to make 400 and 900.
 #     '''
 
-#     # Input
-#     s = 'MCMXCIV'
+#     def romanToInt(s: str) -> int:
 
+#         # Aux Dict creation
+#         dic = {'I':1, 'IV':4, 'V':5, 'IX':9, 'X':10, 'XL':40, 'L':50, 'XC':90, 'C':100, 'CD':400, 'D':500, 'CM':900, 'M':1000}
 
-#     # My approach
-#     res = 0
-#     rom_to_int_dic = {'I': 1, 'IV': 4, 'V': 5, 'IX': 9, 'X': 10, 'XL': 40, 'L': 50, 'XC': 90, 'C': 100, 'CD': 400, 'D': 500, 'CM': 900, 'M': 1000, }
+#         # Initialize a Result Holder
+#         res: int = 0
 
+#         # Initialize an Index holder to better handle the positions
+#         i = 0
 
-#     #Substraction Exceptions
-#     if 'IV' in s:
-#         res += rom_to_int_dic['IV']
-#         s = s.replace('IV','')
+#         # Numbers that substract
+#         subs = ('I', 'X', 'C')
 
-#     if 'IX' in s:
-#         res += rom_to_int_dic['IX']
-#         s = s.replace('IX','')
+#         # Process the input
+#         while i < len(s):
 
-#     if 'XL' in s:
-#         res += rom_to_int_dic['XL']
-#         s = s.replace('XL','')
+#             if i == len(s)-1:
+#                 res += dic[s[i]]
+#                 i += 1
+            
+#             else:
 
-#     if 'XC' in s:
-#         res += rom_to_int_dic['XC']
-#         s = s.replace('XC','')
-
-#     if 'CD' in s:
-#         res += rom_to_int_dic['CD']
-#         s = s.replace('CD','')
-
-#     if 'CM' in s:
-#         res += rom_to_int_dic['CM']
-#         s = s.replace('CM','')
-
-#     # Dealing with the Remaining Number
-#     if s:
-#         for chr in s:
-#             res += rom_to_int_dic[chr]
-
-#     else:
-#         print(res)
-
-
-#     print(res)
-
-#     '''
-#     Note: This version works, but there is a more concise way
-#     '''
-
-#     s = 'MCMXCIV'
-
-#     # ChatGPT's Approach
-#     roman_dict = {'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000}
-#     total = 0
-#     prev_value = 0
-
-#     for char in s[::-1]:    #Reverse to simplify the process
+#                 if s[i] in subs and dic[s[i+1]] > dic[s[i]]:
+#                     res += dic[s[i:i+2]]
+#                     i += 2
+                
+#                 else:
+#                     res += dic[s[i]]
+#                     i += 1
         
-#         curr_value = roman_dict[char]
+#         return res
 
-#         if curr_value < prev_value:
-#             total -= curr_value
+
+#     # Testing
+#     print(romanToInt(s=s))
+
+#     '''Note: Done'''
+
+
+
+
+#     '''ChatGPT's Approach'''
+#     def romanToInt(s: str) -> int:
+
+#         roman_dict = {'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000}
+#         total = 0
+#         prev_value = 0
+
+#         for char in s[::-1]:    #Reverse to simplify the process
+            
+#             curr_value = roman_dict[char]
+
+#             if curr_value < prev_value:
+#                 total -= curr_value
+            
+#             else:
+#                 total += curr_value
+#                 prev_value = curr_value
         
-#         else:
-#             total += curr_value
-#             prev_value = curr_value
+#         return total
+    
+#     # Testing
+#     print(romanToInt(s=s))
 
-#     print(total)
+#     '''Note: Done'''
 
 '17. Letter Combinations of a Phone Number'
 # def x():
