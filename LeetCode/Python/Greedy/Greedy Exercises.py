@@ -11,6 +11,8 @@ CHALLENGES INDEX
 334. Increasing Triplet Subsequence (Array) (GRE)
 
 45. Jump Game II (Array) (GRE) (DP)
+12. Integer to Roman (Hash Table) (GRE)
+
 
 
 *LL: Linked-Lists
@@ -33,7 +35,7 @@ CHALLENGES INDEX
 *Others
 
 
-(9)
+(10)
 '''
 
 
@@ -972,9 +974,169 @@ CHALLENGES INDEX
 
 #     '''Notes: Done'''
 
+'''12. Integer to Roman'''
+# def x():
+    
+#     from typing import Optional
+
+#     # Input
+#     # Case 1
+#     num = 3749
+#     # Output: MMMDCCXLIX
+
+#     # Case 2
+#     num = 58
+#     # Output: LVIII
+
+#     # Case 3
+#     num = 1994
+#     # Output: MCMXCIV
+    
+#     # # Custom Case
+#     # num = 0
+#     # # Output: -
+
+#     '''
+#     My Approach
+
+#         Intuition:
+            
+#             - Parse the input by digit in reverse.
+#             - Assign a roman number according to if its units, tens, hundred or thousands
+#             - Revert the order of the result built elements
+#             - Join and return
+#     '''
+
+#     def intToRoman(num: int) -> str:
+
+#         # Parse the input to separate by units, tens, hundreds and thousands but reversed
+#         places = [int(x) for x in str(num)[::-1]]
+
+#         # Initialize a Result Holder
+#         res: list = []
+
+#         # Process the input
+#         for i in range(len(places)):
+
+#             if i == 3:
+#                 res.append('M'*places[i])
+            
+#             else:                                
+#                 if places[i] != 0:
+
+#                     num = places[i]*(10**i)
+#                     first_dig = places[i]
+
+#                     if first_dig in range(1,4):                    
+#                         if i == 0:
+#                             res.append('I'*first_dig)
+
+#                         elif i == 1:
+#                             res.append('X'*first_dig)
+                        
+#                         elif i == 2:
+#                             res.append('C'*first_dig)
+
+
+#                     elif first_dig == 4:
+#                         if i == 0:
+#                             res.append('IV')
+
+#                         elif i == 1:
+#                             res.append('XL')
+                        
+#                         elif i == 2:
+#                             res.append('CD')
+
+
+#                     elif first_dig == 5:
+#                         if i == 0:
+#                             res.append('V')
+
+#                         elif i == 1:
+#                             res.append('L')
+                        
+#                         elif i == 2:
+#                             res.append('D')
+                    
+
+#                     elif first_dig in range(6,9):
+#                         if i == 0:
+#                             res.append('V'+'I'*(first_dig-5))
+
+#                         elif i == 1:
+#                             res.append('L'+'X'*(first_dig-5))
+                        
+#                         elif i == 2:
+#                             res.append('D'+'C'*(first_dig-5))
+
+
+#                     else:
+#                         if i == 0:
+#                             res.append('IX')
+
+#                         elif i == 1:
+#                             res.append('XC')
+                        
+#                         elif i == 2:
+#                             res.append('CM')
+
+#         # Reverse back and join the 'res' holder
+#         res = ''.join(res[::-1])
+        
+#         return res
+
+
+#     # Testing
+#     print(intToRoman(num=num))
+
+#     '''Note: While this approach works, it a bit verbose and could be confusing compared to the Greedy approach'''
 
 
 
+
+#     '''
+#     Greedy Approach
+    
+#         Explanation:
+
+#         Roman Numeral Mapping:
+#             Use a list of tuples to map integer values to their corresponding Roman numeral symbols. The list is ordered from largest to smallest.
+        
+#         Iterate Through the Map:
+#             For each (value, symbol) in the map, repeatedly subtract value from num and append symbol to the result string until num is smaller than value.
+        
+#         Return the Result:
+#             Once all values have been processed, the accumulated result contains the Roman numeral representation.
+#     '''
+
+#     def intToRoman(num: int) -> str:
+
+#         # Define a list of tuples mapping Roman numeral values to their symbols
+#         roman_map = [
+#             (1000, 'M'), (900, 'CM'), (500, 'D'), (400, 'CD'),
+#             (100, 'C'), (90, 'XC'), (50, 'L'), (40, 'XL'),
+#             (10, 'X'), (9, 'IX'), (5, 'V'), (4, 'IV'), (1, 'I')
+#         ]
+        
+#         # Initialize the result
+#         result = ""
+        
+#         # Process the integer
+#         for value, symbol in roman_map:
+
+#             # Append the Roman numeral symbol while the value fits into num
+#             while num >= value:
+#                 result += symbol
+#                 num -= value
+        
+#         return result
+    
+
+#     # Testing
+#     print(intToRoman(num=num))
+
+#     '''Note: Done'''
 
 
 
