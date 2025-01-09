@@ -1366,7 +1366,7 @@ CHALLENGES INDEX
 
 #     #Custom Case
 #     prices = [3,3,5,0,0,3,1,4]
-#     #Output: 0
+#     #Output: 8
 
 
 #     'My approach'
@@ -1412,18 +1412,17 @@ CHALLENGES INDEX
 #     '''Same Kadane's but modified'''
 #     def maxProfit(prices:list[int]) -> int:
 
-#         max = 0 
-#         start = prices[0]
-#         len1 = len(prices)
+#         profit = 0 
+#         min_price = prices[0]
+        
+#         for price in prices[1:]:
 
-#         for i in range(0 , len1):
+#             if min_price < price: 
+#                 profit += price-min_price
 
-#             if start < prices[i]: 
-#                 max += prices[i] - start
+#             min_price = price
 
-#             start = prices[i]
-
-#         return max
+#         return profit
 
 #     # Testing
 #     print(maxProfit(prices=prices))
