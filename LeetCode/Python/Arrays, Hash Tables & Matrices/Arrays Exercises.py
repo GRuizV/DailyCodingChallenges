@@ -51,6 +51,7 @@ CHALLENGES INDEX
 739. Daily Temperatures (Array) (Stack) [Monotonic Stack]
 27. Remove Element (Array) (TP)
 274. H-Index (Array) (Sorting)
+228. Summary Ranges (Array)
 
 
 *LL: Linked-Lists
@@ -73,7 +74,7 @@ CHALLENGES INDEX
 *Others
 
 
-(49)
+(50)
 '''
 
 
@@ -3968,6 +3969,60 @@ CHALLENGES INDEX
 #     # Testing
 #     print(hIndex(citations=citations))
 
+'''228. Summary Ranges'''
+# def x():
+
+#     # Case 1
+#     nums = [0,1,2,4,5,7]
+#     # Output: ["0->2","4->5","7"]
+
+#     # Case 2
+#     nums = [0,2,3,4,6,8,9]
+#     # Output: ["0","2->4","6","8->9"]
+
+#     # Case 5
+#     nums = [0,1,2,3,4,5,6,7,8,9]
+#     # Output: ["0->9"]
+
+#     # Case 6
+#     nums = [0,2,4,6,8]
+#     # Output: ["0","2","4","6","8"]
+
+
+#     def summaryRanges(nums: list[int]) -> list[str]:
+        
+#         # Capture the input's length
+#         n = len(nums)
+
+#         # Initialize a result holder
+#         result = []
+
+#         # Handle Corner Case: no list
+#         if n == 0:
+#             return result
+
+#         # Initialize a 'start' holder at 0
+#         start = 0
+
+#         # Traverse the input
+#         for i in range(1, n+1):
+
+#             if i == n or nums[i] != nums[i-1] + 1:
+
+#                 # Check for a single element range
+#                 if start == i-1:
+#                     result.append(f'{nums[start]}')
+                
+#                 else:
+#                     result.append(f'{nums[start]}->{nums[i-1]}')
+
+#                 start = i
+            
+#         # Return the result
+#         return result
+
+#     #Testing
+#     print(summaryRanges(nums=nums))
 
 
 
