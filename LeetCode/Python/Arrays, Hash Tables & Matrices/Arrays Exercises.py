@@ -956,46 +956,7 @@ CHALLENGES INDEX
 
 
 
-#     '''
-#     Customary solution (Greedy)
-
-#         Explanation:
-
-#             - Keep track of the farthest index that can be reached.
-#             - If at any point the current index exceeds this farthest index, it means the end of the array is not reachable.
-#     '''
-
-#     def canJump(nums: list[int]) -> bool:
-
-#         # Initialize a int 'max_reachble' holder at 0
-#         max_reachable = 0
-
-#         # Iterate linearly the input
-#         for i, num in enumerate(nums):
-
-#             # If the current index 'i' exceeds the max_reachable, getting to the end is impossible
-#             if i > max_reachable:
-#                 return False
-            
-#             # Update the max_reachable with the current index max reachable
-#             max_reachable = max(max_reachable, i+num)
-
-#             # If the max reachable can at least the to the input's end, return True
-#             if max_reachable >= len(nums)-1:
-#                 return True
-
-#         # Return False if the code gets up to here
-#         return False
-
-#     # Testing
-#     print(canJump(nums = nums))
-
-#     '''Note: This is the most elegant solution of all, solve this in O(n) time and O(1) space'''
-
-
-
-
-#     '''
+#     #     '''
 #     A DP solution (Dynamic Programming)
 
 #         Explanation:
