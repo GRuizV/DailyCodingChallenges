@@ -2,7 +2,6 @@
 CHALLENGES INDEX
 
 ARRAYS
-4. Median of Two Sorted Arrays (Array) (BS)
 11. Container With Most Water (Array)
 31. Next Permutation (Array) (TP)
 42. Trapping Rain Water (Array)
@@ -104,19 +103,6 @@ LINKED-LISTS
 328. Odd Even Linked List (LL)
 
 
-RECURSION
-
-
-
-
-
-
-
-
-
-
-
-
 OTHERS
 8. String to Integer (atoi) (Others)
 14. Longest Common Prefix (Others)
@@ -124,12 +110,6 @@ OTHERS
 171. Excel Sheet Column Number (Others)
 172. Factorial Trailing Zeroes (Others)
 XX. Minimal Balls Move (SW) [AgileEngine]
-
-
-
-
-
-
 
 
 
@@ -154,8 +134,80 @@ XX. Minimal Balls Move (SW) [AgileEngine]
 *Others
 
 
-(0)
+(87)
 '''
+
+
+
+
+'ARRAYS'
+
+'11. Container With Most Water'
+# def x():
+
+#     from typing import Optional
+
+#     # Input
+#     # Case 1
+#     height = [1,8,6,2,5,4,8,3,7]
+#     # Output: 49
+
+#     # Case 2
+#     height = [1,1]
+#     # Output: 1
+
+#     # Case 3
+#     height = [4,3,2,1,4]
+#     # Output: 16
+
+#     # Case 4
+#     height = [1,2,1]
+#     # Output: 2
+
+#     # Case 5
+#     height = [1,2,4,3]
+#     # Output: 4
+
+#     '''
+#     My Approach (Two Pointers)
+
+#         Intuition:
+            
+#             - Define two pointers 'left' and 'right' initialized at 0 and len(height)-1 respectively.
+#             - Initialize a 'max_amount' holder at 0 to hold the results.
+#             - In a While Loop (while left < right):
+#                 + Update the max_amount with the max between its current value and the current area [min(left, right)*(right-left)]
+#                 + Update left/right pointers with the condition left+=1 if intervals[left] < intervals[right] else right -= 1
+#             - Return the max_amount
+#     '''
+
+#     def maxArea(height: list[int]) -> int:
+
+#         # Define the two pointers
+#         left, right = 0, len(height)-1
+
+#         # Initialize the result holder
+#         max_amount = 0
+
+#         # Process the input
+#         while left < right:
+
+#             current_water = min(height[left],height[right])*(right-left)
+#             max_amount = max(max_amount, current_water)
+
+#             if height[left] < height[right]:
+#                 left +=1 
+#             else:
+#                 right-=1
+               
+#         # Return the result
+#         return max_amount
+
+#     # Testing
+#     print(maxArea(height=height))
+
+#     '''Note: This solution beated submissions by 77% in Runtime and 95% in Memory'''
+
 
 
 

@@ -207,54 +207,69 @@ CHALLENGES INDEX
 
 '11. Container With Most Water'
 # def x():
+    
+#     from typing import Optional
+
 #     # Input
-#     heights = [1,8,6,2,5,4,8,3,7]
+#     # Case 1
+#     height = [1,8,6,2,5,4,8,3,7]
+#     # Output: 49
 
+#     # Case 2
+#     height = [1,1]
+#     # Output: 1
 
-#     # My Approach
-#     max_area = 0
+#     # Case 3
+#     height = [4,3,2,1,4]
+#     # Output: 16
 
-#     for i in range(len(heights)):
+#     # Case 4
+#     height = [1,2,1]
+#     # Output: 2
 
-#         for j in range(i+1, len(heights)):
-
-#             height = min(heights[i], heights[j])
-#             width = j-i
-#             area = height * width
-
-#             max_area = max(max_area, area)
-
-#     print(max_area)
-
+#     # Case 5
+#     height = [1,2,4,3]
+#     # Output: 4
 
 #     '''
-#     Note:
-#         While this approach works, its complexity goes up to O(n), and is required to be more efficient
+#     My Approach (Two Pointers)
+
+#         Intuition:
+            
+#             - Define two pointers 'left' and 'right' initialized at 0 and len(height)-1 respectively.
+#             - Initialize a 'max_amount' holder at 0 to hold the results.
+#             - In a While Loop (while left < right):
+#                 + Update the max_amount with the max between its current value and the current area [min(left, right)*(right-left)]
+#                 + Update left/right pointers with the condition left+=1 if intervals[left] < intervals[right] else right -= 1
+#             - Return the max_amount
 #     '''
 
+#     def maxArea(height: list[int]) -> int:
 
-#     # Two-pointer solution
+#         # Define the two pointers
+#         left, right = 0, len(height)-1
 
-#     left = 0
-#     right = len(heights)-1
-#     max_area = 0
+#         # Initialize the result holder
+#         max_amount = 0
 
-#     while left < right:
+#         # Process the input
+#         while left < right:
 
-#         h = min(heights[left], heights[right])
-#         width = right - left
-#         area = h * width
+#             current_water = min(height[left],height[right])*(right-left)
+#             max_amount = max(max_amount, current_water)
 
-#         max_area = max(max_area, area)
+#             if height[left] < height[right]:
+#                 left +=1 
+#             else:
+#                 right-=1
+               
+#         # Return the result
+#         return max_amount
 
-#         if heights[left] <= heights [right]:
-#             left += 1
-        
-#         else:
-#             right -= 1
+#     # Testing
+#     print(maxArea(height=height))
 
-
-#     print(max_area)
+#     '''Note: This solution beated submissions by 77% in Runtime and 95% in Memory'''
 
 '15. 3Sum'
 # def x():
