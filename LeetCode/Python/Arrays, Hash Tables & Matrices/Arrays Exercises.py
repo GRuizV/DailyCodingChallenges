@@ -52,6 +52,7 @@ CHALLENGES INDEX
 27. Remove Element (Array) (TP)
 274. H-Index (Array) (Sorting)
 228. Summary Ranges (Array)
+56. Merge Intervals (Array)
 
 
 *LL: Linked-Lists
@@ -74,7 +75,7 @@ CHALLENGES INDEX
 *Others
 
 
-(50)
+(51)
 '''
 
 
@@ -4024,6 +4025,76 @@ CHALLENGES INDEX
 #     #Testing
 #     print(summaryRanges(nums=nums))
 
+'''56. Merge Intervals'''
+# def x():
+    
+#     from typing import Optional
+
+#     # Input
+#     # Case 1
+#     intervals = [[1,3],[2,6],[8,10],[15,18]]
+#     # Output: [[1,6],[8,10],[15,18]]
+
+#     # Case 7
+#     intervals = [[1,4],[0,2],[3,5],[6,7]]
+#     # Output: [[0,5],[6,7]]
+
+#     # Case 88
+#     intervals = [[2,3],[2,2],[3,3],[1,3],[5,7],[2,2],[4,6]]
+#             # [[1, 3], [2, 3], [2, 2], [2, 2], [3, 3], [4, 6], [5, 7]]
+#     # Output: [[1,3],[4,7]]
+
+
+#     '''
+#     My Approach
+
+#         Intuition:
+            
+#             - Handle corner case: Single Item Input.
+#             - Sort the input list by the 'start' of each interval.
+#             - Initialize a 'i' index at 0 to handle the while loop.
+#             - In a While Loop (while i < len(intervals)):
+#                 + if intervals[i][1] >= intervals[i+1][0]:
+#                     - Initialize a new interval 'n_int' at [min(intervals[i][0], intervals[i+1][0]), max(intervals[i][1], intervals[i+1][1])]
+#                     - Redefine intervals as: intervals = [n_int]+intervals[i+2:]
+#                 + Increase i in 1.
+#             - Return 'intervals'.
+                
+#     '''
+
+#     def merge(intervals: list[list[int]]) -> list[list[int]]:
+
+#         # Handle Corner case: Single Item Input
+#         if len(intervals) == 1:
+#             return intervals
+        
+#         # Sort the input list by the 'start' element of each interval.
+#         intervals.sort(key=lambda x: x[0])
+
+#         # Initialize a 'result' holder at the first interval
+#         result = [intervals.pop(0)]
+
+#         # Process the input
+#         for inter in intervals:
+            
+#             if result[-1][1] >= inter[0]:
+
+#                 # Pull the last interval in the result holder
+#                 last = result.pop()
+
+#                 n_int = [min(last[0], inter[0]), max(last[1], inter[1])]
+#                 result.append(n_int)
+            
+#             else:
+#                 result.append(inter)
+        
+#         # Return result
+#         return result
+
+#     # Testing
+#     print(merge(intervals=intervals))
+
+#     '''Note: This approach beated by 74.25% in Runtime, 42.2% in Memory'''
 
 
 
