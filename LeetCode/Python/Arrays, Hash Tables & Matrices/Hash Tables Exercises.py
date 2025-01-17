@@ -128,7 +128,7 @@ CHALLENGES INDEX
     
 #     # Custom Case
 #     s = 'DCXXI'
-#     # Output: 1994
+#     # Output: 621
 
 #     '''
 #     My Approach
@@ -142,7 +142,12 @@ CHALLENGES INDEX
 #     def romanToInt(s: str) -> int:
 
 #         # Aux Dict creation
-#         dic = {'I':1, 'IV':4, 'V':5, 'IX':9, 'X':10, 'XL':40, 'L':50, 'XC':90, 'C':100, 'CD':400, 'D':500, 'CM':900, 'M':1000}
+#         dic = {
+#             'I':1, 'IV':4, 'V':5, 'IX':9, 
+#             'X':10, 'XL':40, 'L':50, 'XC':90,
+#             'C':100, 'CD':400, 'D':500, 'CM':900,
+#             'M':1000
+#             }
 
 #         # Initialize a Result Holder
 #         res: int = 0
