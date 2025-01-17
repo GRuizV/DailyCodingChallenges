@@ -51,9 +51,10 @@ CHALLENGES INDEX
 739. Daily Temperatures (Array) (Stack) [Monotonic Stack]
 27. Remove Element (Array) (TP)
 274. H-Index (Array) (Sorting)
-228. Summary Ranges (Array)
-56. Merge Intervals (Array)
-57. Insert Interval (Array)
+228. Summary Ranges (Array) [Intervals]
+56. Merge Intervals (Array) [Intervals]
+57. Insert Interval (Array) [Intervals]
+452. Minimum Number of Arrows to Burst Balloons (Array) [Intervals]
 
 
 *LL: Linked-Lists
@@ -76,7 +77,7 @@ CHALLENGES INDEX
 *Others
 
 
-(52)
+(53)
 '''
 
 
@@ -4249,6 +4250,161 @@ CHALLENGES INDEX
 #     print(insert(intervals=intervals, newInterval=newInterval))
 
 #     'Notes: Done'
+
+'''452. Minimum Number of Arrows to Burst Balloons'''
+# def x():
+    
+#     from typing import Optional
+
+#     # Input
+#     # Case 1
+#     points = [[10,16],[2,8],[1,6],[7,12]]
+#     # Output: 2
+#     # Explanation: One way is to shoot one arrow for example at x = 6 (bursting the balloons [2,8] and [1,6])
+
+#     # Case 2
+#     points = [[1,2],[3,4],[5,6],[7,8]]
+#     # Output: 4
+#     # Explanation: Since the balloons don't overlap, we only need 4 arrows.
+
+#     # Case 3
+#     points = [[1,2],[2,3],[3,4],[4,5]]
+#     # Output: 2
+#     # Explanation: One way is to shoot one arrow for example at x = 4 (bursting the balloons [1,2] and [3,4])
+
+#     # Case 4
+#     points = [[1,2]]
+#     # Output: 1
+#     # Explanation: You can burst the balloon by shooting the arrow at the end of the balloon.
+
+#     # Case 5
+#     points = [[2,3],[2,3]]
+#     # Output: 1
+#     # Explanation: You can burst the balloon by shooting the arrow at the end of the balloon.
+
+#     # Case 6
+#     points = [[1,2],[1,2],[1,2]]
+#     # Output: 1
+#     # Explanation: You can burst the balloon by shooting the arrow at the end of the balloon.
+
+#     # Case 7
+#     points = [[1,2],[2,3]]
+#     # Output: 1
+#     # Explanation: You can burst the balloon by shooting the arrow at the end of the balloon.
+
+#     # Case 8
+#     points = [[1,2],[2,3],[3,4]]
+#     # Output: 2
+
+#     # Custom Case
+#     points = [[3,9],[7,12],[3,8],[6,8],[9,10],[2,9],[0,9],[3,9],[0,6],[2,8]]
+#             #[(0, 6), (2, 9), (2, 8), (3, 8), (3, 9), (6, 8), (7, 12), (9, 10)]
+#     # Output: 2
+
+
+
+#     '''
+#     My Approach
+
+#         Analysis:
+
+#             - This problem could be rethink as finding the unique point and the overlapping intervals. 
+        
+            
+#         Intuition:
+            
+#             - Make a set out of the input.
+#             - Handle corner case: 1 element input / several elements on the same spot.
+#             - Sort the set to have a ascendingly ordered list by element's first item.
+#             - Initialize a 'visited' holder, to hold the visited ballons initialized in the popped first item of balloons.
+#             - Create an 'arrows' counter initilized in 1.   
+#             - In a forloop (point in points):
+#                 + Initialize a 'last' holder in the last element of 'visited'.
+#                 + if 'last' do not overlap with the current 'point':
+#                     * add 1 up to arrows.
+#                     * append 'point' to 'visited'.
+#                 + else:
+#                     * Redefine 'last' as the overlapping range.
+#                     * Append 'last' to 'visited'.
+#             - Return 'Arrows'.
+
+#     '''
+
+#     def findMinArrowShots(points: list[list[int]]) -> int:
+
+#         # Make a set out of the input
+#         points = set(tuple(elem) for elem in points)
+
+#         # Handle Corner case: element input / several elements on the same spot.
+#         if len(points) == 1:
+#             return 1
+
+#         # Sort the set to have a ascendingly ordered list
+#         points = sorted(points, key=lambda x:x[0])
+
+#         # Initilize a visited holder
+#         visited = [points.pop(0)]
+
+#         # Create an result counter
+#         arrows = 1  # Because if there's at least one element after the corner case guard, at least 1 arrow will be thrown
+
+#         # Process each balloon
+#         for point in points:
+
+#             last = visited[-1]
+
+#             if last[1] < point[0]:
+#                 arrows += 1
+#                 visited.append(point)
+            
+#             else:
+#                 last = [max(last[0], point[0]), min(last[1], point[1])]
+#                 visited.append(last)
+
+#         # Return the arrows counted
+#         return arrows
+
+#     # Testing
+#     print(findMinArrowShots(points=points))
+
+#     '''Note: 
+#         This solves the probelm beating submissions by 7% in Runtime and 6% in Memory. 
+        
+#         Meaning is not as efficient, but there is a more elegant and efficient way to do it.'''
+
+
+
+
+#     '''
+#     Greedy approach
+
+#         Explanation
+            
+#             1. Sort the intervals by their ending points (point[1]).
+#             2. Use a greedy approach to count the minimum number of arrows:
+#                 - Start with the first balloon and shoot an arrow at its end point (point[1]).
+#                 - For every subsequent balloon, if its start point (point[0]) is greater than the current arrow position, shoot a new arrow.
+
+#     '''
+
+#     def findMinArrowShots(points: list[list[int]]) -> int:
+
+#         points.sort(key=lambda x: x[1])
+#         arrows = 1
+#         arrow_pos = points[0][1]
+
+#         for point in points[1:]:
+#             if point[0]> arrow_pos:
+#                 arrows += 1
+#                 arrow_pos = point[1]
+
+#         # Return the arrows counted
+#         return arrows
+
+#     # Testing
+#     # print(findMinArrowShots(points=points))
+
+#     '''Note: This approach beated submissions by 72% in Runtime and 20% in Memory'''
 
 
 
