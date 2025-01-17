@@ -53,6 +53,7 @@ CHALLENGES INDEX
 274. H-Index (Array) (Sorting)
 228. Summary Ranges (Array)
 56. Merge Intervals (Array)
+57. Insert Interval (Array)
 
 
 *LL: Linked-Lists
@@ -75,7 +76,7 @@ CHALLENGES INDEX
 *Others
 
 
-(51)
+(52)
 '''
 
 
@@ -4111,6 +4112,143 @@ CHALLENGES INDEX
 
 #     '''Note: This approach beated by 74.25% in Runtime, 42.2% in Memory'''
 
+'''57. Insert Interval'''
+# def x():
+    
+#     from typing import Optional
+
+#     # Input
+#     # Case 1
+#     intervals = [[1,3],[6,9]]
+#     newInterval = [2,5]
+#     # Output: [[1,5],[6,9]]
+
+#     # Case 2
+#     intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]]
+#     newInterval = [4,8]
+#     # Output: [[1,2],[3,10],[12,16]]
+
+#     # Case 3
+#     intervals = []
+#     newInterval = [5,7]
+#     # Output: [[5,7]]
+
+#     # Case 4
+#     intervals = [[1,5]]
+#     newInterval = [2,3]
+#     # Output: [[1,5]]
+
+#     # Case 5
+#     intervals = [[1,5]]
+#     newInterval = [2,7]
+#     # Output: [[1,7]]
+
+#     # Case 6
+#     intervals = [[1,5]]
+#     newInterval = [6,8]
+#     # Output: [[1,5],[6,8]]
+
+#     # Case 7
+#     intervals = [[1,5]]
+#     newInterval = [0,0]
+#     # Output: [[0,0],[1,5]]
+
+#     # Custom Case
+#     intervals = [[2,6],[7,9]]
+#     newInterval = [15,18]
+#     # Output: [[2,6],[7,9],[15,18]]
+
+
+#     '''
+#     My Approach
+
+#         Intuition:
+            
+#             - Handle Corner Case: Empty intervals.
+#             - Insert the new interval into intervals.
+#             - Sort the intervals by each item first element.  
+#             - Create a result holder initialized in the element popped out from intervals in its first index
+#             - In a for loop (for inter in intervals):
+#                 + Compare the last element of result's last item with the first element of inter, if they overlap, merge them.
+#                 + Otherwise, simply add inter to result.
+#             - Return result.
+#     '''         
+  
+#     def insert(intervals: list[list[int]], newInterval: list[int]) -> list[list[int]]:
+
+#         # Handle Corner case: Empty intervals
+#         if not intervals:
+#             return [newInterval]
+        
+#         intervals.append(newInterval)
+#         intervals.sort(key=lambda x: x[0])
+
+#         # Initialize the 'result' holder in the first interval elements
+#         result = [intervals.pop(0)]
+
+#         for inter in intervals:
+
+#             if result[-1][1] >= inter[0]:
+#                 result[-1] = [min(result[-1][0], inter[0]), max(result[-1][1], inter[1])]
+            
+#             else:
+#                 result.append(inter)     
+               
+#         # Return result
+#         return result
+
+#     # Testing
+#     # print(insert(intervals=intervals, newInterval=newInterval))
+
+#     '''Note: Done'''
+
+
+
+    
+#     '''
+#     Another more elegant solution
+
+#     Intuition:        
+#         - Add all the intervals smaller that the new one.
+#         - Merge all the intervals overlapping with the new one.
+#         - Add any remaining interval.
+#     '''         
+  
+#     def insert(intervals: list[list[int]], newInterval: list[int]) -> list[list[int]]:
+
+#         # Capture the input length
+#         n = len(intervals)
+
+#         # Initialize the result holder and the index
+#         result = []
+#         i = 0
+
+#         # Add all the intervals smaller that the new one.   
+#         while i < n and newInterval[0] > intervals[i][1]:
+#             result.append(intervals[i])
+#             i += 1
+
+#         # Merge all the overlapping intervals
+#         while i < n and newInterval[1] >= intervals[i][0]:
+#             newInterval[0] = min(newInterval[0], intervals[i][0])
+#             newInterval[1] = max(newInterval[1], intervals[i][1])
+#             i += 1
+
+#         # Add the merged intervals
+#         result.append(newInterval)
+
+#         # Add any remaining intervals not processed
+#         while i < n:
+#             result.append(intervals[i])
+#             i+=1
+
+#         # Return result
+#         return result
+
+#     # Testing
+#     print(insert(intervals=intervals, newInterval=newInterval))
+
+#     'Notes: Done'
 
 
 
