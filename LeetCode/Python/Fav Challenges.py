@@ -8,6 +8,8 @@ ARRAYS
     46. Permutations (Array)
     45. Jump Game II (Array) (GRE) (DP)
     55. Jump Game (Array) (DP) (GRE)
+[D] 56. Merge Intervals (Array) [Intervals]
+[D] 57. Insert Interval (Array) [Intervals]
     88. Merge Sorted Array (Array) (TP) (Sorting)
     118. Pascal's Triangle (Array) (DP)
     121. Best Time to Buy and Sell Stock (Array) (DP)
@@ -20,6 +22,7 @@ ARRAYS
     239. Sliding Window Maximum (Array) (SW)
     283. Move Zeroes (Array) (TP)
     287. Find the Duplicate Number (FCD) (Array) (TP)
+[D] 452. Minimum Number of Arrows to Burst Balloons (Array) [Intervals]
     560. Subarray Sum Equals K (Array) (PS)
 
 
@@ -134,7 +137,7 @@ OTHERS
 *Others
 
 
-(87)
+(90)
 '''
 
 
@@ -207,6 +210,371 @@ OTHERS
 #     print(maxArea(height=height))
 
 #     '''Note: This solution beated submissions by 77% in Runtime and 95% in Memory'''
+
+
+'''56. Merge Intervals'''
+# def x():
+    
+#     from typing import Optional
+
+#     # Input
+#     # Case 1
+#     intervals = [[1,3],[2,6],[8,10],[15,18]]
+#     # Output: [[1,6],[8,10],[15,18]]
+
+#     # Case 7
+#     intervals = [[1,4],[0,2],[3,5],[6,7]]
+#     # Output: [[0,5],[6,7]]
+
+#     # Case 88
+#     intervals = [[2,3],[2,2],[3,3],[1,3],[5,7],[2,2],[4,6]]
+#             # [[1, 3], [2, 3], [2, 2], [2, 2], [3, 3], [4, 6], [5, 7]]
+#     # Output: [[1,3],[4,7]]
+
+
+#     '''
+#     My Approach
+
+#         Intuition:
+            
+#             - Handle corner case: Single Item Input.
+#             - Sort the input list by the 'start' of each interval.
+#             - Initialize a 'i' index at 0 to handle the while loop.
+#             - In a While Loop (while i < len(intervals)):
+#                 + if intervals[i][1] >= intervals[i+1][0]:
+#                     - Initialize a new interval 'n_int' at [min(intervals[i][0], intervals[i+1][0]), max(intervals[i][1], intervals[i+1][1])]
+#                     - Redefine intervals as: intervals = [n_int]+intervals[i+2:]
+#                 + Increase i in 1.
+#             - Return 'intervals'.
+                
+#     '''
+
+#     def merge(intervals: list[list[int]]) -> list[list[int]]:
+
+#         # Handle Corner case: Single Item Input
+#         if len(intervals) == 1:
+#             return intervals
+        
+#         # Sort the input list by the 'start' element of each interval.
+#         intervals.sort(key=lambda x: x[0])
+
+#         # Initialize a 'result' holder at the first interval
+#         result = [intervals.pop(0)]
+
+#         # Process the input
+#         for inter in intervals:
+            
+#             if result[-1][1] >= inter[0]:
+
+#                 # Pull the last interval in the result holder
+#                 last = result.pop()
+
+#                 n_int = [min(last[0], inter[0]), max(last[1], inter[1])]
+#                 result.append(n_int)
+            
+#             else:
+#                 result.append(inter)
+        
+#         # Return result
+#         return result
+
+#     # Testing
+#     print(merge(intervals=intervals))
+
+#     '''Note: This approach beated by 74.25% in Runtime, 42.2% in Memory'''
+
+'''57. Insert Interval'''
+# def x():
+    
+#     from typing import Optional
+
+#     # Input
+#     # Case 1
+#     intervals = [[1,3],[6,9]]
+#     newInterval = [2,5]
+#     # Output: [[1,5],[6,9]]
+
+#     # Case 2
+#     intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]]
+#     newInterval = [4,8]
+#     # Output: [[1,2],[3,10],[12,16]]
+
+#     # Case 3
+#     intervals = []
+#     newInterval = [5,7]
+#     # Output: [[5,7]]
+
+#     # Case 4
+#     intervals = [[1,5]]
+#     newInterval = [2,3]
+#     # Output: [[1,5]]
+
+#     # Case 5
+#     intervals = [[1,5]]
+#     newInterval = [2,7]
+#     # Output: [[1,7]]
+
+#     # Case 6
+#     intervals = [[1,5]]
+#     newInterval = [6,8]
+#     # Output: [[1,5],[6,8]]
+
+#     # Case 7
+#     intervals = [[1,5]]
+#     newInterval = [0,0]
+#     # Output: [[0,0],[1,5]]
+
+#     # Custom Case
+#     intervals = [[2,6],[7,9]]
+#     newInterval = [15,18]
+#     # Output: [[2,6],[7,9],[15,18]]
+
+
+#     '''
+#     My Approach
+
+#         Intuition:
+            
+#             - Handle Corner Case: Empty intervals.
+#             - Insert the new interval into intervals.
+#             - Sort the intervals by each item first element.  
+#             - Create a result holder initialized in the element popped out from intervals in its first index
+#             - In a for loop (for inter in intervals):
+#                 + Compare the last element of result's last item with the first element of inter, if they overlap, merge them.
+#                 + Otherwise, simply add inter to result.
+#             - Return result.
+#     '''         
+  
+#     def insert(intervals: list[list[int]], newInterval: list[int]) -> list[list[int]]:
+
+#         # Handle Corner case: Empty intervals
+#         if not intervals:
+#             return [newInterval]
+        
+#         intervals.append(newInterval)
+#         intervals.sort(key=lambda x: x[0])
+
+#         # Initialize the 'result' holder in the first interval elements
+#         result = [intervals.pop(0)]
+
+#         for inter in intervals:
+
+#             if result[-1][1] >= inter[0]:
+#                 result[-1] = [min(result[-1][0], inter[0]), max(result[-1][1], inter[1])]
+            
+#             else:
+#                 result.append(inter)     
+               
+#         # Return result
+#         return result
+
+#     # Testing
+#     # print(insert(intervals=intervals, newInterval=newInterval))
+
+#     '''Note: Done'''
+
+
+
+    
+#     '''
+#     Another more elegant solution
+
+#     Intuition:        
+#         - Add all the intervals smaller that the new one.
+#         - Merge all the intervals overlapping with the new one.
+#         - Add any remaining interval.
+#     '''         
+  
+#     def insert(intervals: list[list[int]], newInterval: list[int]) -> list[list[int]]:
+
+#         # Capture the input length
+#         n = len(intervals)
+
+#         # Initialize the result holder and the index
+#         result = []
+#         i = 0
+
+#         # Add all the intervals smaller that the new one.   
+#         while i < n and newInterval[0] > intervals[i][1]:
+#             result.append(intervals[i])
+#             i += 1
+
+#         # Merge all the overlapping intervals
+#         while i < n and newInterval[1] >= intervals[i][0]:
+#             newInterval[0] = min(newInterval[0], intervals[i][0])
+#             newInterval[1] = max(newInterval[1], intervals[i][1])
+#             i += 1
+
+#         # Add the merged intervals
+#         result.append(newInterval)
+
+#         # Add any remaining intervals not processed
+#         while i < n:
+#             result.append(intervals[i])
+#             i+=1
+
+#         # Return result
+#         return result
+
+#     # Testing
+#     print(insert(intervals=intervals, newInterval=newInterval))
+
+#     'Notes: Done'
+
+'''452. Minimum Number of Arrows to Burst Balloons'''
+# def x():
+    
+#     from typing import Optional
+
+#     # Input
+#     # Case 1
+#     points = [[10,16],[2,8],[1,6],[7,12]]
+#     # Output: 2
+#     # Explanation: One way is to shoot one arrow for example at x = 6 (bursting the balloons [2,8] and [1,6])
+
+#     # Case 2
+#     points = [[1,2],[3,4],[5,6],[7,8]]
+#     # Output: 4
+#     # Explanation: Since the balloons don't overlap, we only need 4 arrows.
+
+#     # Case 3
+#     points = [[1,2],[2,3],[3,4],[4,5]]
+#     # Output: 2
+#     # Explanation: One way is to shoot one arrow for example at x = 4 (bursting the balloons [1,2] and [3,4])
+
+#     # Case 4
+#     points = [[1,2]]
+#     # Output: 1
+#     # Explanation: You can burst the balloon by shooting the arrow at the end of the balloon.
+
+#     # Case 5
+#     points = [[2,3],[2,3]]
+#     # Output: 1
+#     # Explanation: You can burst the balloon by shooting the arrow at the end of the balloon.
+
+#     # Case 6
+#     points = [[1,2],[1,2],[1,2]]
+#     # Output: 1
+#     # Explanation: You can burst the balloon by shooting the arrow at the end of the balloon.
+
+#     # Case 7
+#     points = [[1,2],[2,3]]
+#     # Output: 1
+#     # Explanation: You can burst the balloon by shooting the arrow at the end of the balloon.
+
+#     # Case 8
+#     points = [[1,2],[2,3],[3,4]]
+#     # Output: 2
+
+#     # Custom Case
+#     points = [[3,9],[7,12],[3,8],[6,8],[9,10],[2,9],[0,9],[3,9],[0,6],[2,8]]
+#             #[(0, 6), (2, 9), (2, 8), (3, 8), (3, 9), (6, 8), (7, 12), (9, 10)]
+#     # Output: 2
+
+
+
+#     '''
+#     My Approach
+
+#         Analysis:
+
+#             - This problem could be rethink as finding the unique point and the overlapping intervals. 
+        
+            
+#         Intuition:
+            
+#             - Make a set out of the input.
+#             - Handle corner case: 1 element input / several elements on the same spot.
+#             - Sort the set to have a ascendingly ordered list by element's first item.
+#             - Initialize a 'visited' holder, to hold the visited ballons initialized in the popped first item of balloons.
+#             - Create an 'arrows' counter initilized in 1.   
+#             - In a forloop (point in points):
+#                 + Initialize a 'last' holder in the last element of 'visited'.
+#                 + if 'last' do not overlap with the current 'point':
+#                     * add 1 up to arrows.
+#                     * append 'point' to 'visited'.
+#                 + else:
+#                     * Redefine 'last' as the overlapping range.
+#                     * Append 'last' to 'visited'.
+#             - Return 'Arrows'.
+
+#     '''
+
+#     def findMinArrowShots(points: list[list[int]]) -> int:
+
+#         # Make a set out of the input
+#         points = set(tuple(elem) for elem in points)
+
+#         # Handle Corner case: element input / several elements on the same spot.
+#         if len(points) == 1:
+#             return 1
+
+#         # Sort the set to have a ascendingly ordered list
+#         points = sorted(points, key=lambda x:x[0])
+
+#         # Initilize a visited holder
+#         visited = [points.pop(0)]
+
+#         # Create an result counter
+#         arrows = 1  # Because if there's at least one element after the corner case guard, at least 1 arrow will be thrown
+
+#         # Process each balloon
+#         for point in points:
+
+#             last = visited[-1]
+
+#             if last[1] < point[0]:
+#                 arrows += 1
+#                 visited.append(point)
+            
+#             else:
+#                 last = [max(last[0], point[0]), min(last[1], point[1])]
+#                 visited.append(last)
+
+#         # Return the arrows counted
+#         return arrows
+
+#     # Testing
+#     print(findMinArrowShots(points=points))
+
+#     '''Note: 
+#         This solves the probelm beating submissions by 7% in Runtime and 6% in Memory. 
+        
+#         Meaning is not as efficient, but there is a more elegant and efficient way to do it.'''
+
+
+
+
+#     '''
+#     Greedy approach
+
+#         Explanation
+            
+#             1. Sort the intervals by their ending points (point[1]).
+#             2. Use a greedy approach to count the minimum number of arrows:
+#                 - Start with the first balloon and shoot an arrow at its end point (point[1]).
+#                 - For every subsequent balloon, if its start point (point[0]) is greater than the current arrow position, shoot a new arrow.
+
+#     '''
+
+#     def findMinArrowShots(points: list[list[int]]) -> int:
+
+#         points.sort(key=lambda x: x[1])
+#         arrows = 1
+#         arrow_pos = points[0][1]
+
+#         for point in points[1:]:
+#             if point[0]> arrow_pos:
+#                 arrows += 1
+#                 arrow_pos = point[1]
+
+#         # Return the arrows counted
+#         return arrows
+
+#     # Testing
+#     # print(findMinArrowShots(points=points))
+
+#     '''Note: This approach beated submissions by 72% in Runtime and 20% in Memory'''
 
 
 
@@ -382,107 +750,107 @@ OTHERS
 #     '''Note: Done'''
 
 '''13. Roman to Integer'''
-def x():
+# def x():
 
-    from typing import Optional
+#     from typing import Optional
 
-    # Input
-    # Case 1
-    s = 'III'
-    # Output: 3
+#     # Input
+#     # Case 1
+#     s = 'III'
+#     # Output: 3
 
-    # Case 2
-    s = 'LVIII'
-    # Output: 58
+#     # Case 2
+#     s = 'LVIII'
+#     # Output: 58
 
-    # Case 3
-    s = 'MCMXCIV'
-    # Output: 1994
+#     # Case 3
+#     s = 'MCMXCIV'
+#     # Output: 1994
     
-    # Custom Case
-    s = 'DCXXI'
-    # Output: 621
+#     # Custom Case
+#     s = 'DCXXI'
+#     # Output: 621
 
-    '''
-    My Approach
+#     '''
+#     My Approach
 
-        Substraction exceptions:
-        - I can be placed before V (5) and X (10) to make 4 and 9. 
-        - X can be placed before L (50) and C (100) to make 40 and 90. 
-        - C can be placed before D (500) and M (1000) to make 400 and 900.
-    '''
+#         Substraction exceptions:
+#         - I can be placed before V (5) and X (10) to make 4 and 9. 
+#         - X can be placed before L (50) and C (100) to make 40 and 90. 
+#         - C can be placed before D (500) and M (1000) to make 400 and 900.
+#     '''
 
-    def romanToInt(s: str) -> int:
+#     def romanToInt(s: str) -> int:
 
-        # Aux Dict creation
-        dic = {
-            'I':1, 'IV':4, 'V':5, 'IX':9, 
-            'X':10, 'XL':40, 'L':50, 'XC':90,
-            'C':100, 'CD':400, 'D':500, 'CM':900,
-            'M':1000
-            }
+#         # Aux Dict creation
+#         dic = {
+#             'I':1, 'IV':4, 'V':5, 'IX':9, 
+#             'X':10, 'XL':40, 'L':50, 'XC':90,
+#             'C':100, 'CD':400, 'D':500, 'CM':900,
+#             'M':1000
+#             }
 
-        # Initialize a Result Holder
-        res: int = 0
+#         # Initialize a Result Holder
+#         res: int = 0
 
-        # Initialize an Index holder to better handle the positions
-        i = 0
+#         # Initialize an Index holder to better handle the positions
+#         i = 0
 
-        # Numbers that substract
-        subs = ('I', 'X', 'C')
+#         # Numbers that substract
+#         subs = ('I', 'X', 'C')
 
-        # Process the input
-        while i < len(s):
+#         # Process the input
+#         while i < len(s):
 
-            if i == len(s)-1:
-                res += dic[s[i]]
-                i += 1
+#             if i == len(s)-1:
+#                 res += dic[s[i]]
+#                 i += 1
             
-            else:
+#             else:
 
-                if s[i] in subs and dic[s[i+1]] > dic[s[i]]:
-                    res += dic[s[i:i+2]]
-                    i += 2
+#                 if s[i] in subs and dic[s[i+1]] > dic[s[i]]:
+#                     res += dic[s[i:i+2]]
+#                     i += 2
                 
-                else:
-                    res += dic[s[i]]
-                    i += 1
+#                 else:
+#                     res += dic[s[i]]
+#                     i += 1
         
-        return res
+#         return res
 
 
-    # Testing
-    print(romanToInt(s=s))
+#     # Testing
+#     print(romanToInt(s=s))
 
-    '''Note: Done'''
-
-
+#     '''Note: Done'''
 
 
-    '''ChatGPT's Approach'''
-    def romanToInt(s: str) -> int:
 
-        roman_dict = {'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000}
-        total = 0
-        prev_value = 0
 
-        for char in s[::-1]:    #Reverse to simplify the process
+#     '''ChatGPT's Approach'''
+#     def romanToInt(s: str) -> int:
+
+#         roman_dict = {'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000}
+#         total = 0
+#         prev_value = 0
+
+#         for char in s[::-1]:    #Reverse to simplify the process
             
-            curr_value = roman_dict[char]
+#             curr_value = roman_dict[char]
 
-            if curr_value < prev_value:
-                total -= curr_value
+#             if curr_value < prev_value:
+#                 total -= curr_value
             
-            else:
-                total += curr_value
-                prev_value = curr_value
+#             else:
+#                 total += curr_value
+#                 prev_value = curr_value
         
-        return total
+#         return total
     
-    # Testing
-    print(romanToInt(s=s))
+#     # Testing
+#     print(romanToInt(s=s))
 
-    '''Note: Done'''
+#     '''Note: Done'''
 
 
 
