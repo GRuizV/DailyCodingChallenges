@@ -45,45 +45,88 @@ CHALLENGES INDEX
 '20. Valid Parentheses'
 # def x():
 
-#     # input / Case - expected result
-#     s = '()'    # True
-#     s = '()[]{}'    # True
-#     s = '(]'    # False
-#     s = '([({[]{}}())])'    # True
-#     # s = '([({[)]{}}())])'    # False
-#     # s = '))'    # False
-#     # s = '(('    # False
+#     from typing import Optional
 
-#     # My approach
-#     def isValid(s):
+#     # Input
+#     # Case 1
+#     s = "()"
+#     # Output: True
 
-#         stack = list(s)
-#         temp = []
-#         dic = {'(': ')', '[':']', '{':'}'}  
+#     # Case 2
+#     s = "()[]{}"
+#     # Output: True
 
-#         while True:
+#     # Case 3
+#     s = "(]"
+#     # Output: False
 
-#             if len(stack) == 0 and len(temp) != 0:
-#                 return False
+#     # Case 4
+#     s = "([])"
+#     # Output: True
 
-#             popped = stack.pop(-1)
+#     # Custom Case
+#     s = "))"
+#     # Output: False
 
-#             if popped in '([{':
-                
-#                 if len(temp) == 0 or temp[0] != dic[popped]:
-#                     return False
-                                
-#                 else:                
-#                     temp = temp[1:]
+#     '''
+#     My Approach (Stack)
 
+#         Intuition:
+            
+#             - Hanlde corner case: If input string length is not even
+#             - Initialize a 'stack' holder to store the closing parenthesis.
+#             - Initialize a 'par' dictionary at each opening parentesis char as key and its correspondent closing as value.
+#             - Iterate from right to left:
+#                 + Pop each element.
+#                 + if the element is a closing parenthesis inserted as first value in 'stack'.
+#                 + else:
+#                     + The first 'stack' element should correspond (with 'par's help) to the last popped, if it doesn't:
+#                         * Return False
+#                         * Otherwise, pop the first element of 'stack' and continue the iterations.
+            
+#             - If the code gets to this point, return True.
+
+#     '''
+
+#     def isValid(s: str) -> bool:
+        
+#         # Turn the input into a list
+#         s = list(s)
+
+#         # Handle Corner case: Odd lengthed input
+#         if len(s)%2 != 0:
+#             return False
+        
+#         # Initialize a 'stack' holder to store the closing parenthesis.
+#         stack = []
+
+#         # Initialize a 'par' dictionary
+#         par = {
+#             '(':')',
+#             '{':'}',
+#             '[':']',
+#         }
+
+#         for i in range(len(s)-1,-1,-1):
+
+#             char = s[i]
+
+#             if char in ')}]':
+#                 stack.insert(0, char)
+            
 #             else:
-#                 temp.insert(0,popped)
 
-#             if len(stack) == 0 and len(temp)==0:
-#                 return True  
+#                 if not stack or par[char] != stack[0]:
+#                     return False
+
+#                 else:
+#                     stack.pop(0)
+
+#         # Return True if it gets to this point
+#         return True if not stack else False
 
 #     # Testing
-#     print(isValid(s))
+#     print(isValid(s=s))
 
 #     'Notes: it works!'
 

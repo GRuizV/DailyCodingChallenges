@@ -80,7 +80,7 @@ DYNAMIC PROGRAMMING
 
 
 HEAPS, STACKS & QUEUES
-    20. Valid Parentheses (Stack)
+[D] 20. Valid Parentheses (Stack)
     150. Evaluate Reverse Polish Notation (Stack)
     155. Min Stack (Stack)
     227. Basic Calculator II (Stack)
@@ -583,6 +583,7 @@ OTHERS
 
 
 
+
 'HASH TABLES'
 
 '''12. Integer to Roman'''
@@ -859,6 +860,95 @@ OTHERS
 
 
 
+'HEAPS, STACKS & QUEUES'
+
+'20. Valid Parentheses'
+# def x():
+
+#     from typing import Optional
+
+#     # Input
+#     # Case 1
+#     s = "()"
+#     # Output: True
+
+#     # Case 2
+#     s = "()[]{}"
+#     # Output: True
+
+#     # Case 3
+#     s = "(]"
+#     # Output: False
+
+#     # Case 4
+#     s = "([])"
+#     # Output: True
+
+#     # Custom Case
+#     s = "))"
+#     # Output: False
+
+#     '''
+#     My Approach (Stack)
+
+#         Intuition:
+            
+#             - Hanlde corner case: If input string length is not even
+#             - Initialize a 'stack' holder to store the closing parenthesis.
+#             - Initialize a 'par' dictionary at each opening parentesis char as key and its correspondent closing as value.
+#             - Iterate from right to left:
+#                 + Pop each element.
+#                 + if the element is a closing parenthesis inserted as first value in 'stack'.
+#                 + else:
+#                     + The first 'stack' element should correspond (with 'par's help) to the last popped, if it doesn't:
+#                         * Return False
+#                         * Otherwise, pop the first element of 'stack' and continue the iterations.
+            
+#             - If the code gets to this point, return True.
+
+#     '''
+
+#     def isValid(s: str) -> bool:
+        
+#         # Turn the input into a list
+#         s = list(s)
+
+#         # Handle Corner case: Odd lengthed input
+#         if len(s)%2 != 0:
+#             return False
+        
+#         # Initialize a 'stack' holder to store the closing parenthesis.
+#         stack = []
+
+#         # Initialize a 'par' dictionary
+#         par = {
+#             '(':')',
+#             '{':'}',
+#             '[':']',
+#         }
+
+#         for i in range(len(s)-1,-1,-1):
+
+#             char = s[i]
+
+#             if char in ')}]':
+#                 stack.insert(0, char)
+            
+#             else:
+
+#                 if not stack or par[char] != stack[0]:
+#                     return False
+
+#                 else:
+#                     stack.pop(0)
+
+#         # Return True if it gets to this point
+#         return True if not stack else False
+
+#     # Testing
+#     print(isValid(s=s))
+
+#     'Notes: it works!'
 
 
 
