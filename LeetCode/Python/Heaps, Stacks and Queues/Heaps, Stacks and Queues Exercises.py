@@ -17,6 +17,7 @@ CHALLENGES INDEX
 32. Longest Valid Parentheses (Stack) (DP)
 394. Decode String (RC) (Stack)
 739. Daily Temperatures (Array) (Stack) [Monotonic Stack]
+71. Simplify Path (Stack)
 
 
 *LL: Linked-Lists
@@ -38,7 +39,7 @@ CHALLENGES INDEX
 *Graphs & Trees
 *Others
 
-(15)
+(16)
 '''
 
 
@@ -1464,6 +1465,68 @@ CHALLENGES INDEX
 
 #     '''Note: Done'''
 
+'''71. Simplify Path'''
+# def x():
+    
+#     from typing import Optional
+
+#     # Input
+#     # Case 1
+#     path = "/home/"
+#     # Output: "/home"
+
+#     # Case 2
+#     path = "/home//foo/"
+#     # Output: "/home/foo"
+
+#     # Case 3
+#     path = "/home/user/Documents/../Pictures"
+#     # Output: "/home/user/Pictures"
+
+#     # Case 4
+#     path = "/../"
+#     # Output: "/"
+
+#     # Case 5
+#     path = "/.../a/../b/c/../d/./"
+#     # Output: "/.../b/d"
+
+#     '''
+#     My Approach
+
+#         1. Split the path by / to process each component.
+#         2. Traverse the components:
+#             + Push valid directory names onto the stack.
+#             + Pop the stack for .. (if the stack isn't empty).
+#             + Ignore '.' or empty components.
+#         3. Join the stack with / to construct the simplified path.
+#     '''
+
+#     def simplifyPath(path: str) -> str:
+
+#         # Redefine the input path
+#         components = path.split('/')
+
+#         # Initialize a 'stack' list holder
+#         stack = []
+
+#         # Process the input
+#         for comp in components:
+
+#             if comp == '..':
+#                 if stack:
+#                     stack.pop()
+            
+#             elif comp and comp != '.':
+#                 stack.append(comp)        
+        
+#         return '/'+ '/'.join(stack)
+
+
+#     # Testing
+#     print(simplifyPath(path=path))
+
+#     '''Note: Done'''
 
 
 
