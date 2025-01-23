@@ -261,96 +261,86 @@ CHALLENGES INDEX
 '''150. Evaluate Reverse Polish Notation'''
 # def x():
 
+#     from typing import Optional
+#     from math import floor, ceil
+
 #     # Input
-#     # Case1
+#     # Case 1
 #     tokens = ["2","1","+","3","*"]
-#     #Output: 9 / ((2 + 1) * 3)
+#     # Output: 9
 
-#     # Case2
+#     # Case 2
 #     tokens = ["4","13","5","/","+"]
-#     #Output: 6 / (4 + (13 / 5) )
+#     # Output: 6
 
-#     # Case3
+#     # Case 3
 #     tokens = ["10","6","9","3","+","-11","*","/","*","17","+","5","+"]
-#     #Output: ((((((9 + 3) * -11) / 6) * 10) + 17) + 5)
-    
+#     # Output: 22
+
+#     # # Case 4
+#     # tokens = ["4","-2","/","2","-3","-","-"]
+#     # # Output: -7
 
 #     '''
-#     My approach
+#     My Approach (Stack)
 
-#         Intuition
-
-#             Look from left to right the first operand and operate with the trailing two elements (which should be digits)
-#             and return the result to where the first of the digits were and iterate the same process until ther is only
-#             3 elements in the list to make the last operation.
+#         Intuition:
+            
+#             - Handle corner case: Single element input.
+#             - Create a 'stack' holder to keep the record of the numbers.
+#             - Create a 'result' holder to keep the running result
+#             - in a for loop (for token ni tokens):
+#                 + if a number: append it to the stack
+#                 + if an operator: apply the operation to the las two elements in the stack and store it in 'result'
+#             - return result
 #     '''
 
-#     def evalPRN(tokens:list[str]) -> int:    
+#     def evalRPN(tokens: list[str]) -> int:
 
-#         operations = [x for x in tokens if x in '+-*/']
-
-#         for _ in range(len(operations)):
-
-#             operation = operations.pop(0)
-#             idx = tokens.index(operation)
-#             return_idx = idx-2
-
-#             operand, num2, num1 = tokens.pop(idx), tokens.pop(idx-1), tokens.pop(idx-2)
-
-#             if operand == '/':
-
-#                 num1, num2 = int(num1), int(num2)
-#                 op_result = num1//num2 if num2 > 0 else (num1 + (-num1 % num2)) // num2
-
-#             else:
-#                 op_result = eval(num1+operand+num2)
-
-#             tokens.insert(return_idx, str(op_result))
-            
-#         return tokens[0]
-
-#     # Testing
-#     print(evalPRN(tokens=tokens))
-
-#     'Note: My solution worked for 81% of the cases'
-
-
-#     'Another Approach'
-#     def evalRPN(tokens):
-            
+#         # Handle corner case: single element input
+#         if len(tokens) == 1:
+#             return tokens[0]
+        
+#         # Create a 'stack' holder
 #         stack = []
 
-#         for x in tokens:
+#         # Process the input
+#         for token in tokens:
 
-#             if stack == []:
-#                 stack.append(int(x))
-
-#             elif x not in '+-/*':
-#                 stack.append(int(x))
-
+#             if token.isnumeric() or token[1:].isnumeric():
+#                 stack.append(int(token))
+            
 #             else:
 
-#                 l = len(stack) - 2
+#                 second = stack.pop()
+#                 first = stack.pop()
 
-#                 if x == '+':
-#                     stack[l] = stack[l] + stack.pop()
+#                 if token == '+':
+#                     result = first + second
+#                     stack.append(result)
 
-#                 elif x == '-':
-#                     stack[l] = stack[l] - stack.pop()
-
-#                 elif x == '*':
-#                     stack[l] = stack[l] * stack.pop()
-
-#                 else:
-#                     stack[l] = float(stack[l]) / float(stack.pop())
-#                     stack[l] = int(stack[l])    
-
-#         return stack[0]
+#                 elif token == '-':
+#                     result = first - second
+#                     stack.append(result)
+                
+#                 elif token == '*':
+#                     result = first * second
+#                     stack.append(result)
+                
+#                 elif token == '/':
+#                     if first/second >0:
+#                         result = floor(first/second)
+#                     else:
+#                         result=ceil(first/second)
+#                     stack.append(result)
+                
+#         # Return the running result
+#         return result
 
 #     # Testing
 #     print(evalRPN(tokens=tokens))
 
-#     'Done'
+#     '''Note: Done'''
 
 '''155. Min Stack'''
 # def x():
