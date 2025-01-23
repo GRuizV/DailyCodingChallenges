@@ -355,129 +355,79 @@ CHALLENGES INDEX
 '''155. Min Stack'''
 # def x():
 
+#     from typing import Optional
+
 #     # Input
 #     # Case 1
-#     commands = ["MinStack","push","push","push","getMin","pop","top","getMin"]
-#     inputs = [[],[-2],[0],[-3],[],[],[],[]]
-#     # Output: [None,None,None,None,-3,None,0,-2]
+#     ops = ["MinStack","push","push","push","getMin","pop","top","getMin"]
+#     vals = [[],[-2],[0],[-3],[],[],[],[]]
+#     # Output: [null,null,null,null,-3,null,0,-2]
 
-#     # Custom Case
-#     commands = ["MinStack","push","push","push","top","pop","getMin","pop","getMin","pop","push","top","getMin","push","top","getMin","pop","getMin"]
-#     inputs = [[],[2147483646],[2147483646],[2147483647],[],[],[],[],[],[],[2147483647],[],[],[-2147483648],[],[],[],[]]
-#     # Output: [None,None,None,None,-3,None,0,-2]
+#     # Case 2
+#     ops = ["MinStack","push","push","push","push","pop","getMin","pop","getMin","pop","getMin"]
+#     vals = [[],[2],[0],[3],[0],[],[],[],[],[],[]]
+#     # Output: [null,null,null,null,null,null,0,null,0,null,2]
+    
+#     # Case 9
+#     ops = ["MinStack","push","push","push","top","pop","getMin","pop","getMin","pop","push","top","getMin","push","top","getMin","pop","getMin"]
+#     vals = [[],[2147483646],[2147483646],[2147483647],[],[],[],[],[],[],[2147483647],[],[],[-2147483648],[],[],[],[]]
+#     # Output: ...
 
+#     '''
+#     My Approach
 
-#     'Solution'
-#     class MinStack(object):
+#         Intuition:
+            
+#             -...
+#     '''
+
+#     class MinStack:
 
 #         def __init__(self):
 #             self.stack = []
-#             self.min = None
-            
+#             self.min = float('inf')
 
-#         def push(self, val):
-#             """
-#             :type val: int
-#             :rtype: None
-#             """
+#         def push(self, val: int) -> None:
 #             self.stack.append(val)
+#             self.min = min(self.min, val)
 
-#             if not self.min:
-#                 self.min = val
+#         def pop(self) -> None:
             
-#             else:
-#                 self.min = min(val, self.min)
-            
-
-#         def pop(self):
-#             """
-#             :rtype: None
-#             """
-#             item = self.stack.pop()
-
-#             if item == self.min:
-                
-#                 self.min = min(self.stack) if self.stack else None
-
-
-#         def top(self):
-#             """
-#             :rtype: int
-#             """
-#             return self.stack[-1]
-            
-
-#         def getMin(self):
-#             """
-#             :rtype: int
-#             """
-#             return self.min
-            
-
-#     # Testing
-#     for i, command in enumerate(commands):
-
-#         if command == 'MinStack':
-#             stack = MinStack()
-        
-#         elif command == 'push':
-#             stack.push(inputs[i][0])   
-
-#         elif command == 'pop':
-#             stack.pop()    
-        
-#         elif command == 'top':
-#             res = stack.top()
-
-#         elif command == 'getMin':
-#             res = stack.getMin()
-
-#     'Note: My solution worked for 97% of the cases'
-
-
-#     'Another solution'
-#     class MinStack(object):
-
-#         def __init__(self):
-#             self.stack = []
-                    
-
-#         def push(self, val):
-#             """
-#             :type val: int
-#             :rtype: None
-#             """
-
-#             if not self.stack:
-#                 self.stack.append([val, val])
-#                 return
-            
-#             min_elem = self.stack[-1][1]
-
-#             self.stack.append([val, min(val, min_elem)])
-            
-
-#         def pop(self):
-#             """
-#             :rtype: None
-#             """
 #             self.stack.pop()
             
+#             if self.stack:
+#                 self.min = min(self.stack)
+#             else:
+#                 self.min = float('inf')
 
-#         def top(self):
-#             """
-#             :rtype: int
-#             """
-#             return self.stack[-1][0]
-            
+#         def top(self) -> int:
+#             return self.stack[-1]
 
-#         def getMin(self):
-#             """
-#             :rtype: int
-#             """
-#             return self.stack[-1][1]
+#         def getMin(self) -> int: 
+#             return self.min
 
-#     'Done'
+
+#     # Testing
+#     # Your MinStack object will be instantiated and called as such:
+#     for i,op in enumerate(ops):
+
+#         if op == 'MinStack':
+#             obj = MinStack()
+        
+#         elif op == 'push':
+#             print(obj.push(val=vals[i][0]))
+        
+#         elif op == 'pop':
+#             print(obj.pop())
+        
+#         elif op == 'top':
+#             print(obj.top())
+
+#         elif op == 'getMin':
+#             print(obj.getMin())
+    
+
+#     '''Note: Done'''
 
 '''215. Kth Largest Element in an Array'''
 # def x():
