@@ -65,6 +65,11 @@ class TreeNode:
         self.left = left
         self.right = right
 
+class ListNode:
+    def __init__(self, x):
+        self.val = x
+        self.next = None
+
 def pretty_print_bst(node:TreeNode, prefix="", is_left=True):
 
     if not node:
