@@ -1,7 +1,7 @@
 '''
 CHALLENGES INDEX
 
-2. Add Two Numbers (LL) (RC)
+2. Add Two Numbers (LL)
 19. Remove Nth Node From End of List (LL) (TP)
 21. Merge Two Sorted Lists (LL) (RC)
 23. Merge k Sorted Lists (LL) (DQ) (Heap) (Sorting)
@@ -44,108 +44,147 @@ CHALLENGES INDEX
 '''
 
 
+class ListNode:
+    def __init__(self, x):
+        self.val = x
+        self.next = None
+
+
+
 '2. Add Two Numbers'
 # def x():
 
-#     # Definition for singly-linked list.
-#     class ListNode(object):
-#         def __init__(self, val=0, next=None):
-#             self.val = val
-#             self.next = next
+#     from typing import Optional
 
 #     # Input
-#     l1 = ListNode(2, ListNode(4, ListNode(3)))
-#     l2 = ListNode(5, ListNode(6, ListNode(4)))
+#     # Case 1
+#     l1 = [2,4,3]
+#     l2 = [5,6,4]
+#     l1 = ListNode(2)
+#     l1.next = ListNode(4)
+#     l1.next.next = ListNode(3)
+#     l2 = ListNode(5)
+#     l2.next = ListNode(6)
+#     l2.next.next = ListNode(4)
+#     # Output: [7,0,8]
+
+#     # Case 2
+#     l1 = [0]
+#     l2 = [0]
+#     l1 = ListNode(0)
+#     l2 = ListNode(0)
+#     # Output: [0]
+
+#     # Case 3
+#     l1 = [9,9,9,9,9,9,9]
+#     l2 = [9,9,9,9]
+#     l1 = ListNode(9)
+#     l1.next = ListNode(9)
+#     l1.next.next = ListNode(9)
+#     l1.next.next.next = ListNode(9)
+#     l1.next.next.next.next = ListNode(9)
+#     l1.next.next.next.next.next = ListNode(9)
+#     l1.next.next.next.next.next.next = ListNode(9)
+#     l2 = ListNode(9)
+#     l2.next = ListNode(9)
+#     l2.next.next = ListNode(9)
+#     l2.next.next.next = ListNode(9)
+#     # Output: [8,9,9,9,0,0,0,1]
+
+#     # Case 4
+#     l1 = [2,4,9]
+#     l2 = [5,6,4,9]
+#     l1 = ListNode(2)
+#     l1.next = ListNode(4)
+#     l1.next.next = ListNode(9)
+#     l2 = ListNode(5)
+#     l2.next = ListNode(6)
+#     l2.next.next = ListNode(4)
+#     l2.next.next.next = ListNode(9)
+#     # Output: [7,0,4,0,1]
 
 
-#     # LeetCode Editorial solution
-#     def addTwoNumbers(l1, l2):
+#     '''
+#     My Approach
 
-#         dummyHead = ListNode(0)
+#         Intuition:
+            
+#             - Initialize an empty node called 'head'.
+#             - Initialize another empty node called 'current'.
+#             - Assign point 'head' next to 'current'.
+#             - Initialize a holder 'carry' to hold the remainder of the sums of the elements at 0.
+#             - in a while loop (while l1 and l2):
+                
+#                 + if l1:
+#                     * 'carry' += l1
+#                     * l1 = l1.next
 
-#         curr = dummyHead
+#                 + if l2:
+#                     * 'carry' += l2
+#                     * l2 = l2.next
 
+#                 + if 'carry' > 9:
+#                     * Assign the last digit of 'carry' as 'current' value pointer.
+#                     * redefine 'carry' as:
+#                         - 'carry' -= current.val
+#                         - 'carry' /= 10
+
+#                 + else:
+#                     * Assign 'carry' to 'current' value pointer.
+#                     * reset 'carry' to 0.
+
+#                 + Assign 'current' next pointer to an empty node.
+#                 + Assign 'current' to 'current' 'next' pointer.
+
+            
+#             - Return head's next pointer
+
+#     '''
+
+#     def addTwoNumbers(l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+
+#         # Initialize an empty node called 'head'
+#         head = ListNode(0)
+
+#         # Initialize a node holder at 'head'.
+#         current = head
+       
+#         # Initialize a holder 'carry'
 #         carry = 0
 
-#         while l1 != None or l2 != None or carry != 0:
+#         # Process the input
+#         while l1 or l2 or carry:
+            
+#             value1 = l1.val if l1 else 0
+#             value2 = l2.val if l2 else 0
 
-#             l1Val = l1.val if l1 else 0
-#             l2Val = l2.val if l2 else 0
+#             total = value1 + value2 + carry
 
-#             columnSum = l1Val + l2Val + carry
+#             carry = total // 10
+#             current.next = ListNode(total%10)
 
-#             carry = columnSum // 10
+#             current = current.next
 
-#             newNode = ListNode(columnSum % 10)
+#             if l1:
+#                 l1 = l1.next
+            
+#             if l2:
+#                 l2 = l2.next       
 
-#             curr.next = newNode
-#             curr = newNode
+#         # Return the head's next 
+#         return head.next
 
-#             l1 = l1.next if l1 else None
-#             l2 = l2.next if l2 else None
+#     # Testing
+#     head = addTwoNumbers(l1=l1, l2=l2)
+#     result = []
 
-#         return dummyHead.next
+#     while head:
+#         result.append(head.val)
+#         head=head.next
+    
+#     print(result)
 
-#     result = addTwoNumbers(l1, l2)
-
-
-
-#     # My version of the solution
-
-#     # 1st list processing
-#     l1_list = []
-#     l1_next_node = l1
-
-#     while l1_next_node is not None:
-
-#         l1_list.append(l1_next_node.val)
-#         l1_next_node = l1_next_node.next
-
-#     l1_num = str()
-
-#     for num in l1_list:
-#         l1_num += str(num)
-
-#     l1_num = int(l1_num[-1::-1])
-
-
-#     # 2nd list processing
-#     l2_list = []
-#     l2_next_node = l2
-
-#     while l2_next_node is not None:
-
-#         l2_list.append(l2_next_node.val)
-#         l2_next_node = l2_next_node.next
-
-#     l2_num = str()
-
-#     for num in l2_list:
-#         l2_num += str(num)
-
-#     l2_num = int(l2_num[-1::-1])
-
-
-#     # Result outputting
-
-#     lr_num = l1_num + l2_num
-#     lr_str = str(lr_num)[-1::-1]
-
-#     lr_llist = ListNode()
-#     curr = lr_llist
-
-#     for i in lr_str:
-
-#         new_node = ListNode(i)
-
-#         curr.next = new_node
-#         curr = new_node
-
-
-#     # Validating
-#     while lr_llist is not None:
-#         print(lr_llist.val)
-#         lr_llist = lr_llist.next
+#     '''Note: Done'''
 
 '19. Remove Nth Node From End of List'
 # def x():
