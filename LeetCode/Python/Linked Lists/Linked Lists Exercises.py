@@ -264,94 +264,111 @@ class ListNode:
 '21. Merge Two Sorted Lists'
 # def x():
 
-#     # Base
-#     class ListNode(object):
-#         def __init__(self, val=0, next=None):
-#             self.val = val
-#             self.next = next
+#     from typing import Optional
 
 #     # Input
+#     # Case 1
+#     list1 = [1,2,4]
+#     list2 = [1,3,4]
+#     list1 = ListNode(1)
+#     list1.next = ListNode(2)
+#     list1.next.next = ListNode(4)
+#     list2 = ListNode(1)
+#     list2.next = ListNode(3)
+#     list2.next.next = ListNode(4)
+#     # Output: [1,1,2,3,4,4]
+    
 
-#     # 1st Input
-#     #List 1
-#     one1, two1, three1 = ListNode(1), ListNode(2), ListNode(4)
-#     one1.next, two1.next = two1, three1
+#     '''
+#     My Approach
 
-#     #List 2
-#     one2, two2, three2 = ListNode(1), ListNode(3), ListNode(4)
-#     one2.next, two2.next = two2, three2
-
-
-#     # 2nd Input
-#     #List 1
-#     one1, two1, three1 = ListNode(4), ListNode(3), ListNode(4)
-#     one1.next, two1.next = two1, three1
-
-#     #List 2
-#     one2, two2, three2 = ListNode(1), ListNode(0), ListNode(50)
-#     one2.next, two2.next = two2, three2
-
-#     # My Approach
-#     def mergeTwoLists(list1:ListNode, list2:ListNode) -> ListNode:
-
-#         if list1.val == None and list2.val != None:
-#             return list2
-        
-#         if list2.val == None and list1.val != None:
-#             return list1
-        
-#         if list1.val == None and list2.val == None:
-#             return ListNode(None)
-
-
-#         head = ListNode()
-#         curr_res = head
-
-#         curr1, curr2 = list1, list2
-
-#         while True:
-
-#             if curr1 != None and curr2 != None:
+#         Intuition:
+            
+#             - Handle corner case: No list1 nor list2, return None.
+#             - Handle corner case: No list1 or list2, return the other list.
+#             - Create an empty node 'dummy'.
+#             - Initialize a node holder 'current' at 'dummy'.
+            
+#             - In a while loop (while list1 and list2):
                 
-#                 if curr1.val <= curr2.val:
-#                     curr_res.next = curr1
-#                     curr_res = curr_res.next
-#                     curr1 = curr1.next     
+#                 + if list1 and list2:
+
+#                     * if list1.val > list2.val:
+#                         - current.next = list1
+#                         - list1 = list1.next
                     
+#                     * else:
+#                         - current.next = list2
+#                         - list2 = list2.next
+                
+#                 + if not list2:
+#                     * current.next = list1
+                                    
+#                 + if not list1:
+#                     * current.next = list2
+
+#                 + current = current.next
+            
+#             - Return dummy.next
+
+#     '''
+
+#     def mergeTwoLists(list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
+
+#         # Handle Corner case:  No list1 nor list2
+#         if not list1 and not list2:
+#             return None
+        
+#         # Handle corner case: No list1 or list2, return the other list.
+#         if not list1:
+#             return list2
+
+#         if not list2:
+#             return list1
+
+#         # Create an empty node
+#         dummy = ListNode(0)
+
+#         # Initialize a node holder 'current' at 'dummy'
+#         current = dummy
+
+
+#         while list1 and list2:
+
+#             if list1 and list2:
+
+#                 if list1.val < list2.val:
+#                     current.next = list1
+#                     list1 = list1.next
+                
 #                 else:
-#                     curr_res.next = curr2
-#                     curr_res = curr_res.next
-#                     curr2 = curr2.next                   
+#                     current.next = list2
+#                     list2 = list2.next
+            
+#             current = current.next
 
-#             elif curr1 != None:
-#                 curr_res.next = curr1
-#                 curr_res = curr_res.next
-#                 curr1 = curr1.next
 
-#             elif curr2 != None:
-#                 curr_res.next = curr2
-#                 curr_res = curr_res.next
-#                 curr2 = curr2.next
+#         if list1 and not list2:
+#             current.next = list1
             
 
-#             if curr1 == None and curr2 == None:
-#                 break
+#         if list2 and not list1:
+#             current.next = list2
+           
+        
+#         # Return dummy's next pointer
+#         return dummy.next
 
-#         return head.next
 
 #     # Testing
+#     head = mergeTwoLists(list1=list1, list2=list2)
 #     res = []
-#     res_node = mergeTwoLists(one1, one2)
-
-#     while res_node != None:
-
-#         res.append(res_node.val)
-#         res_node = res_node.next
-
-
+#     while head:
+#         res.append(head.val)
+#         head = head.next
 #     print(res)
 
-#     'Notes: it works!'
+#     '''Note: Done'''
 
 '23. Merge k Sorted Lists'
 # def x():
