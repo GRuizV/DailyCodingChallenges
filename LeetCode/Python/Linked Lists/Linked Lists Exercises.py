@@ -18,6 +18,7 @@ CHALLENGES INDEX
 25. Reverse Nodes in k-Group (LL)
 114. Flatten Binary Tree to Linked List (LL) (DFS) (Tree)
 142. Linked List Cycle II (Hash Table) (LL) (TP) (FCD)
+92. Reverse Linked List II (LL)
 
 
 *LL: Linked-Lists
@@ -40,7 +41,7 @@ CHALLENGES INDEX
 *Others
 
 
-(16)
+(17)
 '''
 
 
@@ -1796,6 +1797,99 @@ class ListNode:
 #     # Testing
 #     print(detectCycle(head=head))
 
+'''92. Reverse Linked List II'''
+# def x():
+    
+#     from typing import Optional
+
+#     # Input
+#     # Case 1
+#     head = [1,2,3,4,5]
+#     left = 2
+#     right = 4
+#     head = ListNode(1)
+#     head.next = ListNode(2)
+#     head.next.next = ListNode(3)
+#     head.next.next.next = ListNode(4)
+#     head.next.next.next.next = ListNode(5)
+#     # Output: [1,4,3,2,5]
+
+#     # Case 2
+#     head = [5]
+#     left = 1
+#     right = 1
+#     head = ListNode(5)
+#     # Output: [5]
+
+#     # Case 3
+#     head = [3,5]
+#     left = 1
+#     right = 2
+#     head = ListNode(3)
+#     head.next = ListNode(5)
+#     # Output: [5,3]
+
+#     # Case 4
+#     head = [1,2,3,4,5]
+#     left = 1
+#     right = 5
+#     head = ListNode(1)
+#     head.next = ListNode(2)
+#     head.next.next = ListNode(3)
+#     head.next.next.next = ListNode(4)
+#     head.next.next.next.next = ListNode(5)
+#     # Output: [5,4,3,2,1]
+
+    
+#     '''
+#     Explanation
+
+#         * Step 1: Handle Corner Cases
+#         * Step 2: Create a Dummy node before head.
+#         * Step 3: Move the 'prev' holder just before the left input.
+#         * Step 4: Reverse the portion between left and right.
+
+#         - Return dummy's next.
+
+       
+#     ''' 
+
+#     def reverseBetween(head: Optional[ListNode], left: int, right: int) -> Optional[ListNode]:
+
+#         # Step 1: Handle edge cases
+#         if not head or left == right:
+#             return head
+
+#         # Step 2: Create a dummy node before head
+#         dummy = ListNode(0)
+#         dummy.next = head
+#         prev = dummy
+
+#         # Step 3: Move `prev` to the node before `left`
+#         for _ in range(left - 1):
+#             prev = prev.next
+
+#         # Step 4: Reverse the sublist
+#         curr = prev.next  # The `left` node
+#         next_node = None
+
+#         for _ in range(right - left):
+#             next_node = curr.next
+#             curr.next = next_node.next
+#             next_node.next = prev.next
+#             prev.next = next_node
+
+#         return dummy.next
+
+#     # Testing
+#     curr = reverseBetween(head=head, left=left, right=right)
+#     res = []
+#     while curr:
+#         res.append(curr.val)
+#         curr = curr.next
+#     print(res)
+
+#     '''Note: Done'''
 
 
 
