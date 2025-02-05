@@ -189,78 +189,273 @@ class ListNode:
 
 '19. Remove Nth Node From End of List'
 # def x():
+    
+#     from typing import Optional
 
-#     # Base
-#     class ListNode(object):
-#         def __init__(self, val=0, next=None):
-#             self.val = val
-#             self.next = next
+#     # Input
+#     # Case 1
+#     head = [1,2,3,4,5]
+#     n = 2
+#     head = ListNode(1)
+#     head.next = ListNode(2)
+#     head.next.next = ListNode(3)
+#     head.next.next.next = ListNode(4)
+#     head.next.next.next.next = ListNode(5)
+#     # Output: [1,2,3,5]
+    
+#     # Case 2
+#     head = [1]
+#     n = 1
+#     head = ListNode(1)
+#     # Output: []
+
+#     # Case 3
+#     head = [1,2]
+#     n = 1
+#     head = ListNode(1)
+#     head.next = ListNode(2)
+#     # Output: [1]
+
+#     # Case 4
+#     head = [1,2]
+#     n = 2
+#     head = ListNode(1)
+#     head.next = ListNode(2)
+#     # Output: [2]
+
+#     # Case 5
+#     head = [1,2,3]
+#     n = 3
+#     head = ListNode(1)
+#     head.next = ListNode(2)
+#     head.next.next = ListNode(3)
+#     # Output: [2,3]
 
 
+#     '''
+#     My Approach (Double passing)
 
-#     # input
-#     # [1, 2, 3, 4, 5]
-#     one, two, three, four, five = ListNode(1), ListNode(2), ListNode(3), ListNode(4), ListNode(5), 
-#     one.next, two.next, three.next, four.next = two, three, four, five
+#         Intuition:
+            
+#             - Handle corner cases: if no node passed return the input.
+#             - Create a dummy node initialized at 0.
+#             - Point the 'next' poiner of dummy to the 'head'.
+#             - Initialize a counter (for the nodes) at 1.
+#             - Create a curr node holder initialized at dummy's 'next' pointer.
+#             - In a While Loop (while curr):
+#                 + curr = curr.next.
+#                 + counter adds 1.
+#             - Substract 'n' to 'counter'.
+#             - Initialize an index 'i' at 1.
+#             - Reset 'curr' back to dummy's next pointer.
+#             - Initialize a 'prev' node holder at 'dummy'.
+#             - In a While Loop (while curr):
+#                 + if 'i' is the current 'counter' number:
+#                     * prev 'next' pointer assigned to curr 'next' pointer if exists,
+#                         otherwise, prev 'next' should be assigned to None.
+#                     * Break
+                
+#                 + curr = curr.next.
+#                 + counter adds 1.
+            
+#             - Return dummy's 'next'.
 
-#     # # input 2
-#     #     # [1, 2]
-#     one, two = ListNode(1), ListNode(2)
-#     one.next = two
+#     '''
 
+#     def removeNthFromEnd(head: Optional[ListNode], n: int) -> Optional[ListNode]:
 
-#     # My Approach
-#     def removeNthFromEnd(head:ListNode, n:int) -> ListNode:
-       
-#         # Handiling the special case [1]
-#         if not head.next:
-#             return ListNode('')
-
-#         # Setting variables
-#         curr = head
-#         next_node = None
-#         list_len = 0
-
-#         # Probing the list and defining the target        
-#         while curr:   
-#             list_len += 1
-#             curr = curr.next   
-
-#         target = list_len - n
-
-#         curr = head # Resetting the current node to modify the list
-
-#         # Handiling the special case tagert = 0
-#         if target == 0:
-#             return curr.next
+#         # Handle Corner case
+#         if not head:
+#             return head
         
-#         # Getting to the node before the target
-#         for _ in range(1, target):
+#         # Create a dummy node initialized at 0
+#         dummy = ListNode(0)
+
+#         # Point the 'next' poiner of dummy to the 'head'
+#         dummy.next = head
+
+#         # Initialize a counter at 1.
+#         counter = 1
+
+#         # Create a curr node holder initialized at dummy's 'next'
+#         curr = dummy.next
+
+#         # Probe the list
+#         while curr:
 #             curr = curr.next
+#             counter += 1
+        
+#         # Substract 'n' to 'counter'
+#         counter -= n
 
-#         # Actually modifying the list
-#         curr.next = curr.next.next
+#         # Initialize an index 'i' at 1
+#         i = 1
 
-#         return head
+#         # Reset 'curr' back to dummy's next pointer
+#         curr = dummy.next
+
+#         # Initialize a 'prev' node holder at 'dummy'
+#         prev = dummy
+
+#         # Traverser the list again
+#         while curr:
+
+#             if i == counter:
+
+#                 prev.next = curr.next if curr.next else None
+            
+#                 break
+            
+#             prev = curr
+#             curr = curr.next
+#             i += 1
+
+#         # Return the node next to dummy
+#         return dummy.next
 
 #     # Testing
-#     result = removeNthFromEnd(None, one, 2)
+#     dummy = removeNthFromEnd(head=head, n=n)
+#     res = []
 
-
-#     # Verifying the functioning
-#     li = []
-
-#     # if one.next is None:
-#     #     print(result)
-
-#     if True:
-#         while result is not None:
-#             li.append(result.val)
-#             result = result.next
-
-#         print(li)
+#     while dummy:
+#         res.append(dummy.val)
+#         dummy = dummy.next
     
-#     'Notes: It works!'
+#     print(res)
+
+#     '''
+#     Note: 
+    
+#         It worked just fine!
+#             Runtime: 0ms (100%)
+#             Memory: 17.9mb (11.2%)
+
+#         But... as follow up, the problem asks if we could do it in just one pass,
+#         and I think we do, with the help of a Hash-Table.
+
+#     '''
+
+
+
+
+#     '''
+#     My Approach (Hash Table)
+
+#         Intuition:
+            
+#             - Handle corner cases: if no node passed return the input.
+#             - Create a dummy node initialized at 0.
+#             - Point the 'next' poiner of dummy to the 'head'.
+#             - Initialize a counter (for the nodes) at 0.
+#             - Initialize an empty dictionary holder.
+#             - Create a curr node holder initialized at dummy's.
+#             - In a While Loop (while curr):
+#                 + Add an entry to the dictionary with counter as key and the 'curr' node as value.
+#                 + curr = curr.next.
+#                 + counter adds 1.
+#             - Substract 'n' to 'counter'.
+#             - Assign 'counter + 1' entry of the dict to the 'counter - 1' entry of the dict, if
+#                 'counter + 1' is less than the length of the dictionary, otherwise assign 'None'
+#                 to 'counter - 1' entry of the dict.
+#             - Return dummy's 'next'.
+
+#     '''
+
+#     def removeNthFromEnd(head: Optional[ListNode], n: int) -> Optional[ListNode]:
+
+#         # Handle Corner case
+#         if not head:
+#             return head
+        
+#         # Create a dummy node initialized at 0
+#         dummy = ListNode(0)
+
+#         # Point the 'next' poiner of dummy to the 'head'
+#         dummy.next = head
+
+#         # Initialize a counter at 1.
+#         counter = 0
+
+#         # Create a curr node holder initialized at dummy's 'next'
+#         curr = dummy
+
+#         # Initialize an empty dictionary holder
+#         dic = {}
+
+#         # Probe the list
+#         while curr:
+#             dic[counter] = curr
+#             curr = curr.next
+#             counter += 1
+        
+#         # Substract 'n' to 'counter'
+#         counter -= n
+
+#         # # Make the modification to the list through the dictionary
+#         dic[counter-1].next = dic[counter+1] if counter+1 < len(dic) else None
+        
+#         # Return the node next to dummy
+#         return dummy.next
+
+#     # Testing
+#     dummy = removeNthFromEnd(head=head, n=n)
+#     res = []
+
+#     while dummy:
+#         res.append(dummy.val)
+#         dummy = dummy.next
+    
+#     print(res)
+
+#     '''
+#     Note: 
+    
+#         It worked just fine!
+#             Runtime: 0ms (100%)
+#             Memory: 17.96mb (11.2%)
+
+#         It is made in a single passing but at the cost of using O(n) of memory, so that's not the optimal wat to do it.
+
+#         Actually with Floyd's Detection Cycle, and with a Two-Pointer's approach this could be solved in just one passing (Time: O(n)) and with constant space (Space: O(1)).
+#         This would be actually the same of the first solution but more elegant.
+
+#     '''
+
+
+
+
+#     '''
+#     Two-Pointer's approach
+    
+#         Explanation:
+#             - Maintain two pointers: fast and slow.
+#             - Move fast pointer n steps ahead.
+#             - Move both fast and slow together until fast reaches the end.
+#             - Slow now points to the node before the one to be deleted.
+#             - Modify slow.next to remove the nth node.
+
+#     '''
+
+#     def removeNthFromEnd(head: Optional[ListNode], n: int) -> Optional[ListNode]:
+
+#         # Create a dummy node before head to simplify edge cases
+#         dummy = ListNode(0)
+#         dummy.next = head
+#         fast = slow = dummy
+
+#         # Move fast pointer `n + 1` steps ahead (so slow stops at the node before the target)
+#         for _ in range(n + 1):
+#             fast = fast.next
+
+#         # Move both fast and slow until fast reaches the end
+#         while fast:
+#             fast = fast.next
+#             slow = slow.next
+
+#         # Remove the nth node
+#         slow.next = slow.next.next
+
+#         return dummy.next
 
 '21. Merge Two Sorted Lists'
 # def x():
