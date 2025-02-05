@@ -19,6 +19,7 @@ CHALLENGES INDEX
 114. Flatten Binary Tree to Linked List (LL) (DFS) (Tree)
 142. Linked List Cycle II (Hash Table) (LL) (TP) (FCD)
 92. Reverse Linked List II (LL)
+82. Remove Duplicates from Sorted List II (LL)
 
 
 *LL: Linked-Lists
@@ -41,7 +42,7 @@ CHALLENGES INDEX
 *Others
 
 
-(17)
+(19)
 '''
 
 
@@ -2082,6 +2083,152 @@ class ListNode:
 #     while curr:
 #         res.append(curr.val)
 #         curr = curr.next
+#     print(res)
+
+#     '''Note: Done'''
+
+'''82. Remove Duplicates from Sorted List II'''
+# def x():
+    
+#     from typing import Optional
+
+#     # Input
+#     # Case 1
+#     head = [1,2,3,3,4,4,5]
+#     head = ListNode(1)
+#     head.next = ListNode(2)
+#     head.next.next = ListNode(3)
+#     head.next.next.next = ListNode(3)
+#     head.next.next.next.next = ListNode(4)
+#     head.next.next.next.next.next = ListNode(4)
+#     head.next.next.next.next.next.next = ListNode(5)
+#     # Output: [1,2,5]
+
+#     # Case 2
+#     head = [1,1,1,2,3]
+#     head = ListNode(1)
+#     head.next = ListNode(1)
+#     head.next.next = ListNode(1)
+#     head.next.next.next = ListNode(2)
+#     head.next.next.next.next = ListNode(3)
+#     # Output: [2,3]
+
+#     # Case 3
+#     head = [1,1,1,2,3,3,3,4,4,5]
+#     head = ListNode(1)
+#     head.next = ListNode(1)
+#     head.next.next = ListNode(1)
+#     head.next.next.next = ListNode(2)
+#     head.next.next.next.next = ListNode(3)
+#     head.next.next.next.next.next = ListNode(3)
+#     head.next.next.next.next.next.next = ListNode(3)
+#     head.next.next.next.next.next.next.next = ListNode(4)
+#     head.next.next.next.next.next.next.next.next = ListNode(4)
+#     head.next.next.next.next.next.next.next.next.next = ListNode(5)
+#     # Output: [2,5]
+
+#     # Case 4
+#     head = [1,2,3,4,5]
+#     head = ListNode(1)
+#     head.next = ListNode(2)
+#     head.next.next = ListNode(3)
+#     head.next.next.next = ListNode(4)
+#     head.next.next.next.next = ListNode(5)
+#     # Output: [1,2,3,4,5]
+
+#     # Case 5
+#     head = []
+#     head = None
+
+#     # Case 6
+#     head = [1,1,1,1,1]
+#     head = ListNode(1)
+#     head.next = ListNode(1)
+#     head.next.next = ListNode(1)
+#     head.next.next.next = ListNode(1)
+#     head.next.next.next.next = ListNode(1)
+#     # Output: []
+
+
+#     '''
+#     My Approach (Linked Lists)
+
+#         Intuition:
+            
+#             - Handle corner case: No node is passed.
+#             - Initialize a 'dummy' node holder at 0.
+#             - Point dummy's next pointer to the head of the list.
+#             - Initialize a 'prev' node holder at dummy.
+#             - Initialize a 'curr' node holder pointing at the head of list.
+#             - In a While Loop (while curr):
+                
+#                 + If the node next to the current exists, and that node's value is the same as the curr:
+
+#                     * While the node next to the current exists, and that node's value is the same as the curr:
+#                         - Move 'curr' one node ahead.
+
+#                     * Make prev point to curr's next.
+                
+#                 + else: 
+                    
+#                     * Move 'prev' one node ahead.
+
+#                 + Move curr one node ahead               
+                
+#             - Return dummy's next.
+#     '''
+
+#     def deleteDuplicates(head: Optional[ListNode]) -> Optional[ListNode]:
+
+#         # Handle Corner case: No node passed
+#         if not head:
+#             return None
+        
+#         # Initialize a 'dummy' node holder
+#         dummy = ListNode(0)
+
+#         # Point dummy's next pointer to the head of the list
+#         dummy.next = head
+
+#         # Initialize a 'prev' node holder
+#         prev = dummy
+
+#         #  Initialize a 'curr' node holder 
+#         curr = head
+        
+#         # Process the list
+#         while curr:
+            
+#             # If the node next to the current exists, and that node's value is the same as the curr
+#             if curr.next and curr.val == curr.next.val:
+                
+#                 # While the same conditional
+#                 while curr.next and curr.val == curr.next.val:
+#                     curr = curr.next    # Move curr one node ahead
+
+#                 # Connect prev with the node next to curr
+#                 prev.next = curr.next
+           
+#             # Otherwise
+#             else:
+
+#                 # Move prev one node ahead          
+#                 prev = prev.next
+
+#             # Move curr one node ahead
+#             curr = curr.next
+
+#         # Return the node next to dummy
+#         return dummy.next
+
+#     # Testing
+#     dummy = deleteDuplicates(head=head)
+#     res = []
+
+#     while dummy:
+#         res.append(dummy.val)
+#         dummy = dummy.next
+    
 #     print(res)
 
 #     '''Note: Done'''
