@@ -20,6 +20,7 @@ CHALLENGES INDEX
 142. Linked List Cycle II (Hash Table) (LL) (TP) (FCD)
 92. Reverse Linked List II (LL)
 82. Remove Duplicates from Sorted List II (LL)
+61. Rotate List (LL)
 
 
 *LL: Linked-Lists
@@ -2233,6 +2234,217 @@ class ListNode:
 
 #     '''Note: Done'''
 
+'''61. Rotate List'''
+# def x():
+    
+#     from typing import Optional
+
+#     # Input
+#     # Case 1
+#     head = [1,2,3,4,5],
+#     k = 2
+#     head = ListNode(1)
+#     head.next = ListNode(2)
+#     head.next.next = ListNode(3)
+#     head.next.next.next = ListNode(4)
+#     head.next.next.next.next = ListNode(5)
+#     # Output: [4,5,1,2,3]
+
+#     # Case 2
+#     head = [0,1,2]
+#     k = 4
+#     head = ListNode(0)
+#     head.next = ListNode(1)
+#     head.next.next = ListNode(2)
+#     # Output: [2,0,1]
+
+#     # Case 3
+#     head = []
+#     k = 0
+#     head = None
+#     # Output: []
+
+#     # Case 4
+#     head = [1]
+#     k = 0
+#     head = ListNode(1)
+#     # Output: [1]
+
+#     # Case 5
+#     head = [1,2]
+#     k = 0
+#     head = ListNode(1)
+#     head.next = ListNode(2)
+#     # Output: [1,2]
+
+#     # Case 6
+#     head = [1,2]
+#     k = 1
+#     head = ListNode(1)
+#     head.next = ListNode(2)
+#     # Output: [2,1]
+
+#     # Case 7
+#     head = [1,2]
+#     k = 2
+#     head = ListNode(1)
+#     head.next = ListNode(2)
+#     # Output: [1,2]
+    
+
+#     '''
+#     My Approach 
+
+#         Intuition:
+            
+#             Handle corner cases:
+#                 + No node passed.
+#                 + k = 0.
+            
+#             Create initial Variables                
+#             - Initialize an int holder 'n' at 0 (Which will hold the length of the list).
+#             - Initialize two ListNode holders at 0 named 'dummy' and 'sec_part'.
+#             - Initialize a 'curr' List node holder at 'head' (This will be used to move around the list).
+
+#             Probe the list
+#             - In a While Loop (While 'curr' exists):
+#                 + Move 'curr' one node ahead.
+#                 + Add 1 to n.
+            
+#             Calculate the rotation start node: 
+#             - Set 'k' to k modulo n.
+#             - Initialize a variable 'ini_pos' at n - k 
+            
+#             Early Exit
+#             if ini_pos is 0: return the head of the list as it is
+            
+#             List Modification
+#             - Reset 'curr' back to 'head'.
+#             - Point 'sec_part' next attribute to 'head'.
+#             - In a for loop (for _ in range(ini_pos)):
+#                 + Move 'curr' one node ahead.
+#             - Point 'dummy' next attribute to 'curr.next'.
+#             - Point 'curr.next' to None.
+#             - Set 'curr' to 'dummy'.
+#             - In a for loop (for _ in range(k)):
+#                 + Move 'curr' one node ahead.
+#             - Connect the end of the last piece of the partial list that starts at 'dummy' to the 'sec_part'
+#                 as: curr.next = sec_part
+
+            
+#             - Return dummy's next.
+#     '''
+
+#     def rotateRight(head: Optional[ListNode], k: int) -> Optional[ListNode]:
+
+#         # Handle Corner cases: Not node or k is 0
+#         if not head or k==0:
+#             return head
+
+#         # Initialize a holder 'n'
+#         n = 0
+        
+#         # Initialize two ListNode holders at 0
+#         dummy = ListNode(0)
+#         sec_part = ListNode(0)
+
+#         # Initialize a 'curr' ListNode holder at 'head'
+#         curr = head
+
+#         # Probe the list
+#         while curr:
+#             curr = curr.next
+#             n += 1
+
+#         # Set 'k' to k modulo n 
+#         k %= n
+
+#         # Initialize a variable 'ini_pos' at n - k
+#         ini_pos = n - k
+
+#         # Early Exit Guard
+#         if k == 0:
+#             return head
+
+#         # Reset 'curr' back to 'head'.
+#         curr = head
+
+#         # Point 'sec_part' next attribute to 'head'
+#         sec_part.next = head
+
+#         # Get to the rotation point in the list
+#         for _ in range(ini_pos-1):
+#             curr = curr.next
+
+#         # Point 'dummy' next attribute to the new start of the rotated list
+#         dummy.next = curr.next
+
+#         # Close the tail of the second part of the rotated list
+#         curr.next = None
+
+#         # Reset back curr to the the point before the start of the new rotated list
+#         curr = dummy
+
+#         # Get to the end of the curr start of the rotated list
+#         for _ in range(k):
+#             curr = curr.next
+
+#         # Connect the two parts together
+#         curr.next = sec_part.next
+
+#         # Return dummy's next
+#         return dummy.next
+
+#     # Testing
+#     dummy = rotateRight(head=head, k=k)
+#     res = []
+
+#     while dummy:
+#         res.append(dummy.val)
+#         dummy = dummy.next
+    
+#     print(res)
+
+#     '''Note: Done, but there is a simplified version of it'''
+
+
+
+
+#     '''
+#     Simplified Approach
+#     '''
+
+#     def rotateRight(head: Optional[ListNode], k: int) -> Optional[ListNode]:
+
+#         # Handle Corner Cases: Empty list or no rotation needed
+#         if not head or not head.next or k == 0:
+#             return head
+
+#         # Step 1: Compute the length of the list
+#         n = 1
+#         tail = head
+#         while tail.next:
+#             tail = tail.next
+#             n += 1
+
+#         # Step 2: Adjust `k` to avoid redundant rotations
+#         k %= n
+#         if k == 0:  
+#             return head  # No rotation needed if `k` is a multiple of `n`
+
+#         # Step 3: Find the new head (n-k from the start)
+#         prev = head
+#         for _ in range(n - k - 1):
+#             prev = prev.next
+
+#         # Step 4: Perform the rotation
+#         new_head = prev.next
+#         prev.next = None
+#         tail.next = head  # Connect original tail to original head
+
+#         return new_head
+    
+#     '''Notes: Now is done and pretty!'''
 
 
 
