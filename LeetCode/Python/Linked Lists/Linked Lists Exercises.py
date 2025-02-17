@@ -21,6 +21,7 @@ CHALLENGES INDEX
 92. Reverse Linked List II (LL)
 82. Remove Duplicates from Sorted List II (LL)
 61. Rotate List (LL)
+86. Partition List (LL) (TP)
 
 
 *LL: Linked-Lists
@@ -43,7 +44,7 @@ CHALLENGES INDEX
 *Others
 
 
-(19)
+(20)
 '''
 
 
@@ -2446,6 +2447,160 @@ class ListNode:
     
 #     '''Notes: Now is done and pretty!'''
 
+'''86. Partition List'''
+# def x():
+    
+#     from typing import Optional
+
+#     # Input
+#     # Case 1
+#     head = [1,4,3,2,5,2]
+#     x = 3
+#     head = ListNode(1)
+#     head.next = ListNode(4)
+#     head.next.next = ListNode(3)
+#     head.next.next.next = ListNode(2)
+#     head.next.next.next.next = ListNode(5)
+#     head.next.next.next.next.next = ListNode(2)
+#     # Output: [1,2,2,4,3,5]
+
+#     # Case 2
+#     head = [2,1]
+#     x = 2
+#     head = ListNode(2)
+#     head.next = ListNode(1)
+#     # Output: [1,2]
+
+#     # Case 3
+#     head = [1,2,3]
+#     x = 3
+#     head = ListNode(1)
+#     head.next = ListNode(2)
+#     head.next.next = ListNode(3)
+#     # Output: [1,2,3]
+
+#     # Case 4
+#     head = [1,2,3]
+#     x = 1
+#     head = ListNode(1)
+#     head.next = ListNode(2)
+#     head.next.next = ListNode(3)
+#     # Output: [1,2,3]
+
+#     # Case 5
+#     head = [1,2,3]
+#     x = 2
+#     head = ListNode(1)
+#     head.next = ListNode(2)
+#     head.next.next = ListNode(3)
+#     # Output: [1,2,3]
+
+#     # Case 6
+#     head = [1,2,3]
+#     x = 4
+#     head = ListNode(1)
+#     head.next = ListNode(2)
+#     head.next.next = ListNode(3)
+#     # Output: [1,2,3]
+
+#     # Case 7
+#     head = [1,2,3]
+#     x = 0
+#     head = ListNode(1)
+#     head.next = ListNode(2)
+#     head.next.next = ListNode(3)
+#     # Output: [1,2,3]
+
+#     # Case 8
+#     head = []
+#     x = 0
+#     head = None
+
+    
+#     '''
+#     My Approach (Two Pointer)
+
+#         Intuition:
+            
+#             - Handle corner case: No node.
+#             - Initialize two listnode holders, 'fp' (first part) and 'sp' (second part) both at 0.
+#             - Initialize three variables 'curr', 'fp_curr' and 'sp_curr' at 'head', 'fp' and 'sp' respectively.
+            
+#             - In a while loop (while there are node in the head list [while curr]):
+#                 + if curr.val < x:
+#                     * Assign fp_curr next pointer to curr
+#                     * Move fp_curr one node ahead.
+#                 + else:
+#                     * Assign sp_curr next pointer to curr
+#                     * Move sp_curr one node ahead. 
+                
+#                 + Move curr one node ahead.
+
+#             - Set fp_curr next pointer to sp next's next pointer.
+#             - Set sp_curr next pointer to None.
+
+#             return fp next's pointer
+
+#     '''
+
+#     def partition(head: Optional[ListNode], x: int) -> Optional[ListNode]:
+
+#         # Handle Corner case: No head
+#         if not head:
+#             return None
+
+#         # Initialize listnode holders at 0
+#         fp = ListNode(0)
+#         sp = ListNode(0)
+
+#         # Initialize mobile variables
+#         curr, fp_curr, sp_curr = head, fp, sp
+
+#         # Process the list
+#         while curr:
+
+#             # If the value is less than the partition pivot
+#             if curr.val < x:
+                
+#                 # Assign the node to the first part (fp)
+#                 fp_curr.next = curr
+
+#                 # Move the first part mobile variable one node ahead
+#                 fp_curr = fp_curr.next
+
+#             # Otherwise
+#             else:
+                
+#                 # Assign the node to the second part (sp)
+#                 sp_curr.next = curr
+
+#                 # Move the second part mobile variable one node ahead
+#                 sp_curr = sp_curr.next
+
+#             # Move curr one node ahead
+#             curr = curr.next
+        
+
+#         # Join the two parts together
+#         fp_curr.next = sp.next
+
+#         # Close down the tail of the second part
+#         sp_curr.next = None
+
+#         # Return the node next to the fp node holder
+#         return fp.next
+
+#     # Testing
+#     dummy = partition(head=head, x=x)
+#     res = []
+
+#     while dummy:
+#         res.append(dummy.val)
+#         dummy = dummy.next
+    
+#     print(res)
+
+#     '''Note: This solution worked just fine. '''
 
 
 
