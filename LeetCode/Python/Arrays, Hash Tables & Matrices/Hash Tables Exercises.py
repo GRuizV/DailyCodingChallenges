@@ -8,7 +8,6 @@ CHALLENGES INDEX
 76. Minimum Window Substring (Hash Table) (SW)
 127. Word Ladder (Hast Table) (BFS)
 138. Copy List with Random Pointer (Hash Table) (LL)
-146. LRU Cache (Hash Table)
 166. Fraction to Recurring Decimal (Hash Table) (Others)
 202. Happy Number (Hash Table) (TP) (Others)
 208. Implement Trie (Hast Table) (Tree)
@@ -794,82 +793,6 @@ CHALLENGES INDEX
 #     while result is not None:
 #         new_copy.append([result.val, result.random.val if result.random is not None else None])
 #         result = result.next
-
-#     'Done'
-
-'''146. LRU Cache'''
-# def x():
-
-#     # Input
-#     commands = ["LRUCache", "put", "put", "get", "put", "get", "put", "get", "get", "get"]
-#     inputs = [[2], [1, 1], [2, 2], [1], [3, 3], [2], [4, 4], [1], [3], [4]]
-#     # Output: [null, null, null, 1, null, -1, null, -1, 3, 4]
-
-
-#     '''
-#     My Approach
-    
-#         Intuition:
-
-#             - The use of 'OrderedDicts' from the Collections module will be useful to keep track of the last recently used values
-#     '''
-
-#     class LRUCache(object):   
-
-#         def __init__(self, capacity):
-#             """
-#             :type capacity: int
-#             """     
-
-#             self.capacity = capacity
-#             self.capacity_count = 0
-#             self.memory = {}
-            
-
-#         def get(self, key):
-#             """
-#             :type key: int
-#             :rtype: int
-#             """
-
-#             output = self.memory.get(key,-1)
-
-#             if output != -1:
-
-#                 item = (key, self.memory[key])
-#                 del self.memory[item[0]]
-#                 self.memory[item[0]] = item[1]
-
-#             return output
-            
-
-#         def put(self, key, value):
-#             """
-#             :type key: int
-#             :type value: int
-#             :rtype: None
-#             """
-
-#             existing_key = self.memory.get(key, -1)
-
-#             if existing_key == -1:
-#                 self.memory[key] = value
-
-#             else:
-#                 self.memory.update({key:value})
-
-#                 item = (key, value)
-#                 del self.memory[item[0]]
-#                 self.memory[item[0]] = item[1]
-            
-#             self.capacity_count += 1
-
-#             if self.capacity_count > self.capacity:
-
-#                 del_item = list(self.memory.keys())[0]
-#                 del self.memory[del_item]
-                
-#                 self.capacity_count = self.capacity
 
 #     'Done'
 
