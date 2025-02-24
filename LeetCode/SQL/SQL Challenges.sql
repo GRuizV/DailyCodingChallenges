@@ -6,7 +6,7 @@ CHALLENGES INDEX
         584. Find Customer Referee
         595. Big Countries
         1148. Article Views I
-        1683. Invalid Tweets
+        1683. Invalid Tweets [The length of the tweets]
 
 
 
@@ -311,9 +311,9 @@ CHALLENGES INDEX
     """
 
     -- Solution
-    SELECT Views.author_id AS id FROM Views
-    WHERE Views.author_id = Views.viewer_id
-    GROUP BY id ORDER BY id ASC
+    SELECT tweet_id
+    FROM Tweets
+    WHERE LENGTH(content) > 15
 ;
 
 
