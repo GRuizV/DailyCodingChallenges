@@ -5,7 +5,7 @@ CHALLENGES INDEX
 101. Symmetric Tree (Tree) (BFS) (DFS)
 102. Binary Tree Level Order Traversal (Tree) (BFS) (DFS)
 103. Binary Tree Zigzag Level Order Traversal (BFS) (DFS)
-104. Maximum Depth of Binary Tree (Tree) (BFS) (DFS)
+104. Maximum Depth of Binary Tree (Tree) (BFS)
 116. Populating Next Right Pointers in Each Node (BFS) (DFS) (Tree)
 124. Binary Tree Maximum Path Sum (DP) (Tree) (DFS)
 127. Word Ladder (Hast Table) (BFS)
@@ -69,6 +69,58 @@ def pretty_print_bst(node:TreeNode, prefix="", is_left=True):
 
     if node.left is not None:
         pretty_print_bst(node.left, prefix + ("    " if is_left else "│   "), True)
+
+# The base BFS algorithm
+def bfs(graph, start):
+    
+    import collections
+
+    visited = set()
+    queue = collections.deque([start])
+    
+    while queue:
+
+        node = queue.popleft()
+        
+        if node not in visited:
+
+            visited.add(node)
+
+            print(node, end=' ') # Process the node (you can replace this with your own logic)
+
+            # Enqueue unvisited neighbors
+            for neighbor in graph.get(node, []):
+
+                if neighbor not in visited:
+
+                    queue.extend([neighbor])
+    
+    print()
+
+# The base DFS algorithm
+def dfs(graph, start):
+
+    visited = set()
+    stack = [start]
+
+    while stack:
+
+        node = stack.pop()
+
+        if node not in visited:
+
+            visited.add(node)
+
+            print(node, end=' ') # Process the node (you can replace this with your own logic)
+
+            if node in graph:
+
+                for neighbor in graph[node]:
+
+                    if neighbor not in visited:
+
+                        stack.extend(neighbor)
+
 
 
 
@@ -507,71 +559,113 @@ def pretty_print_bst(node:TreeNode, prefix="", is_left=True):
 '104. Maximum Depth of Binary Tree'
 # def x():
 
-#     # Base
-#     class TreeNode(object):
-#         def __init__(self, val=0, left=None, right=None):
-#             self.val = val
-#             self.left = left
-#             self.right = right
+#     from typing import Optional
 
 #     # Input
 #     # Case 1
-#     root_layout = [3,9,20,None,None,15,7]
-#     root = TreeNode(val=3)
-#     first_left= TreeNode(val=9)
-#     first_right = TreeNode(val=20, left=TreeNode(val=15), right=TreeNode(val=7))
-#     root.left, root.right = first_left, first_right
+#     root = [3,9,20,None,None,15,7]
+#     root = TreeNode(3)
+#     root.left = TreeNode(9)
+#     root.right = TreeNode(20)
+#     root.right.left = TreeNode(15)
+#     root.right.right = TreeNode(7)
 #     # Output: 3
 
 #     # Case 2
-#     root_layout = [1, None, 2]
-#     root = TreeNode(val=1, right=TreeNode(val=2))
+#     root = [1,None,2]
+#     root = TreeNode(1)
+#     root.right = TreeNode(2)
 #     # Output: 2
 
+#     # Case 3
+#     root = []
+#     root = None
+#     # Output: 0
+
+#     # Case 4
+#     root = [0]
+#     root = TreeNode(0)
+#     # Output: 1
+
+#     # Case 5
+#     root = [1,2,3,4,5]
+#     root = TreeNode(1)
+#     root.left = TreeNode(2)
+#     root.right = TreeNode(3)
+#     root.left.left = TreeNode(4)
+#     root.left.right = TreeNode(5)
+#     # Output: 3
+
+#     # Case 6
+#     root = [1,2,3,4,5,None,6,7,None,None,None,None,8]
+#     root = TreeNode(1)
+#     root.left = TreeNode(2)
+#     root.right = TreeNode(3)
+#     root.left.left, root.left.right = TreeNode(4), TreeNode(5)
+#     root.right.right = TreeNode(6)
+#     root.left.left.left = TreeNode(7)
+#     root.right.right.right = TreeNode(8)
+#     # Output: 4
 
 #     '''
-#     My approach
+#     My Approach (BFS)
 
-#         Notes:
-#             Here could be to ways (or more) to solve it:
-#                 1. Implement the BFS by level listing (like the challenges prior to this one) and count the elements of the result
-#                 2. Simply list through DFS or BFS and apply l = 1 + floor(log_2(n)), to know the number of levels, but probably leetcode won't have 
-#                 the log2 function in its math module, so I'll the first way.
+#         Intuition:
+            
+#             Implement BFS by lvl and return the number of elements in a holder 'lvls'. 
 #     '''
 
-#     def maxDepth(root:TreeNode) -> int:
+#     def maxDepth(root: Optional[TreeNode]) -> int:
+        
+#         # Handle Corner case: No node passed
+#         if not root:
+#             return 0
 
-#         from collections import deque
+#         # Initialize a Queue holder    
+#         queue = []
 
-#         queue = deque()
+#         # Add the root of the tree to the queue
 #         queue.append(root)
+
+#         # Initialize a result list holder
 #         result = []
 
+#         # Process the tree
 #         while queue:
 
+#             # Capture the current queue length
 #             queue_len = len(queue)
-#             level = []
 
+#             # Initialize a lvl list holder
+#             lvl = []
+
+#             # Process the level's nodes
 #             for _ in range(queue_len):
 
-#                 node = queue.popleft()
+#                 # Pop the first element present in the list
+#                 node = queue.pop(0)
 
-#                 if node is not None:
-
+#                 # if it is actually a node
+#                 if node:
+                    
+#                     # Add the children nodes to the queue
 #                     queue.append(node.left)
 #                     queue.append(node.right)
+                    
+#                     # Add the node's value to the lvl
+#                     lvl.append(node.val)            
 
-#                     level.append(node.val)
+#             # if there are any nodes in the lvl, Add the lvl to the result
+#             result.append(lvl) if lvl else None
 
-#             if level:
-#                 result.append(level)
-        
+#         # Return the result's length
 #         return result
 
 #     # Testing
-#     print(maxDepth(root))
+#     pretty_print_bst(root)
+#     print(f"\nResult: {len(maxDepth(root=root))}\nActual lvls: {maxDepth(root=root)}")
 
-#     'Done!'
+#     '''Note: Done'''
 
 '116. Populating Next Right Pointers in Each Node'
 # def x():
