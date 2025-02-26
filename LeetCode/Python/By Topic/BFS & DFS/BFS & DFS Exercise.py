@@ -25,6 +25,9 @@ CHALLENGES INDEX
 
 994. Rotting Oranges (Matrix) (BFS) *DIFFERENTIAL COORDINATES
 
+100. Same Tree (DFS) (RC)
+
+
 
 
 *LL: Linked-Lists
@@ -47,7 +50,7 @@ CHALLENGES INDEX
 *Others
 
 
-(21)
+(22)
 '''
 
 # Base Definition of TreeNode & Tree Print Func
@@ -2720,6 +2723,102 @@ def dfs(graph, start):
 #         # If there are fresh oranges left, return -1, otherwise return minutes
 #         return minutes if fresh_count == 0 else -1
 
+'''100. Same Tree'''
+# def x():
+    
+#     from typing import Optional
+
+#     # Input
+#     # Case 1
+#     p = TreeNode(1, TreeNode(2), TreeNode(3))
+#     q = TreeNode(1, TreeNode(2), TreeNode(3))
+#     # Output: True
+
+#     # Case 2
+#     p = TreeNode(1, TreeNode(2))
+#     q = TreeNode(1, None, TreeNode(2))
+#     # Output: False
+
+#     # Case 3
+#     p = TreeNode(1, TreeNode(2), TreeNode(1))
+#     q = TreeNode(1, TreeNode(1), TreeNode(2))
+#     # Output: False
+
+#     # Case 4
+#     p = TreeNode(1, TreeNode(2), TreeNode(1))
+#     q = TreeNode(1, TreeNode(2), TreeNode(1))
+#     # Output: True
+
+#     '''
+#     My Approach
+
+#         Intuition:
+            
+#             - Perform a DFS for both nodes at same time and compare node by node as
+#                 the algorithm traverses the trees.
+#     '''
+
+#     def isSameTree(p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
+
+#         # Handle Corner case: No nodes passed (p & q)
+#         if not p and not q:
+#             return True
+        
+#         # Handle Corner case: One of the two nodes was not passed
+#         if (p and not q) or (q and not p):
+#             return False
+        
+#         # Initialize both stacks for the traversal
+#         stack_p, stack_q = [p],[q]
+
+#         # Process the trees
+#         while stack_p and stack_q:
+
+#             node_p, node_q = stack_p.pop(), stack_q.pop()
+
+#             if node_p and node_q and node_p.val == node_q.val:
+
+#                 stack_p.extend([node_p.left, node_p.right])
+#                 stack_q.extend([node_q.left, node_q.right])
+            
+#             elif not node_p and not node_q:
+#                 pass
+
+#             else:
+#                 return False
+        
+#         # Return True if the algorithm gets to this point
+#         return True
+
+#     # Testing
+#     print(isSameTree(p=p, q=q))
+
+#     '''Note: this solution where already rpetty solid but the recursive version is cleaner. Either way I prefer this one'''
+
+
+
+
+#     '''
+#     Recursive Approach       
+#     '''
+
+#     def isSameTree(p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
+
+#         # Both are None
+#         if not p and not q:
+#             return True
+        
+#         # Both are differente
+#         if not p or not q or p.val != q.val:
+#             return False        
+        
+#         # Make it recursive
+#         return isSameTree(p=p.left,q=q.left) and isSameTree(p=p.right,q=q.right)
+
+#     # Testing
+#     print(isSameTree(p=p, q=q))
+
+#     '''Note: Done'''
 
 
 
