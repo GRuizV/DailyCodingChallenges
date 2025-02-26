@@ -2,7 +2,7 @@
 CHALLENGES INDEX
 
 98. Validate Binary Search Tree (Tree) (DFS)
-101. Symmetric Tree (Tree) (BFS) (DFS)
+101. Symmetric Tree (Tree) (RC)
 102. Binary Tree Level Order Traversal (Tree) (BFS) (DFS)
 103. Binary Tree Zigzag Level Order Traversal (BFS) (DFS)
 104. Maximum Depth of Binary Tree (Tree) (BFS)
@@ -22,9 +22,7 @@ CHALLENGES INDEX
 114. Flatten Binary Tree to Linked List (LL) (DFS) (Tree)
 199. Binary Tree Right Side View (Tree) (DFS) (RC)
 226. Invert Binary Tree (DFS) (RC)
-
 994. Rotting Oranges (Matrix) (BFS) *DIFFERENTIAL COORDINATES
-
 100. Same Tree (DFS) (RC)
 
 
@@ -255,108 +253,167 @@ def dfs(graph, start):
 '101. Symmetric Tree' 
 # def x():
     
-#     # Base
-#     class TreeNode(object):
-#         def __init__(self, val=0, left=None, right=None):
-#             self.val = val
-#             self.left = left
-#             self.right = right
+#     from typing import Optional
+#     import copy
 
 #     # Input
 #     # Case 1
-#     root_layout = [1,2,2,3,4,4,3]
-#     root = TreeNode(val=1)
-#     first_left= TreeNode(val=2, left=TreeNode(val=3), right=TreeNode(val=4))
-#     first_right = TreeNode(val=2, left=TreeNode(val=4), right=TreeNode(val=3))
-#     root.left, root.right = first_left, first_right
+#     root = [1,2,2,3,4,4,3]
+#     root = TreeNode(1)
+#     root.left = TreeNode(2)
+#     root.right = TreeNode(2)
+#     root.left.left = TreeNode(3)
+#     root.left.right = TreeNode(4)
+#     root.right.left = TreeNode(4)
+#     root.right.right = TreeNode(3)
 #     # Output: True
 
 #     # Case 2
-#     root_layout = [1,2,2,None,3,None,3]
-#     root = TreeNode(val=1)
-#     first_left= TreeNode(val=2, right=TreeNode(val=3))
-#     first_right = TreeNode(val=2, right=TreeNode(val=3))
-#     root.left, root.right = first_left, first_right
+#     root = [1,2,2,None,3,None,3]
+#     root = TreeNode(1)
+#     root.left = TreeNode(2)
+#     root.right = TreeNode(2)
+#     root.left.right = TreeNode(3)
+#     root.right.right = TreeNode(3)
 #     # Output: False
 
-#     # Custom Case 1
-#     root_layout = [1,2,2,2,None,2]
-#     root = TreeNode(val=1)
-#     first_left= TreeNode(val=2, left=TreeNode(val=2))
-#     first_right = TreeNode(val=2, left=TreeNode(val=2))
-#     root.left, root.right = first_left, first_right
-#     # Output: False    
+#     # Case Custom
+#     root = [1,2,3,4,5,6,7]
+#     root = TreeNode(1)
+#     root.left = TreeNode(2)
+#     root.right = TreeNode(3)
+#     root.left.left = TreeNode(4)
+#     root.left.right = TreeNode(5)
+#     root.right.left = TreeNode(6)
+#     root.right.right = TreeNode(7)
+#     # Output: False
+
+#     # Case 3
+#     root = [1,2,2,2,None,2]
+#     root = TreeNode(1)
+#     root.left = TreeNode(2)
+#     root.right = TreeNode(2)
+#     root.left.left = TreeNode(2)
+#     root.right.right = TreeNode(2)
+#     # Output: False
+
+#     # Case 4
+#     root = [1,2,2,2,None,2,2]
+#     root = TreeNode(1)
+#     root.left = TreeNode(2)
+#     root.right = TreeNode(2)
+#     root.left.left = TreeNode(2)
+#     root.right.left = TreeNode(2)
+#     root.right.right = TreeNode(2)
+#     # Output: False
+
+
+
+#     # pretty_print_bst(root)
+
 
 #     '''
-#     My approach
+#     My Approach
 
 #         Intuition:
-        
-#             Return a inorder-traversal list of the trees from the first left and right node,
-#             and one should be the reverse of the other.
-
-#             Handling corner cases:
-#             - If only a root: True
-#             - If only a root with two leaves, if the leaves are equal: True
-#             - If the number of nodes is even: False
+            
+#             - Create an auxialiry function that reverses a inverts a tree.
+#             - Create a second auxiliary function that checks is two trees are actually the same.
+#             - Call the aux_func on the right sub-tree.
+#             - Return a call to the secondary function comparing the left subtree and the inverted right subtree.
 #     '''
 
-#     def isSymetric(root:TreeNode):
-
-#         tree_nodes = []
-
-#         def inorder(root):
-
-#             if root == None:
-#                 return 
-            
-#             inorder(root.left)
-#             tree_nodes.append(root.val)
-#             inorder(root.right)
-
-#         inorder(root=root)
-
+#     def invert_tree(root: TreeNode) -> TreeNode:
         
-#         if len(tree_nodes) == 1:
+#         # Corner Case: If there is not root
+#         if not root:
+#             return None
+        
+#         # Swap the child nodes positions recursively
+#         root.left, root.right = invert_tree(root=root.right), invert_tree(root=root.left)
+        
+#         # Return each node
+#         return root
+
+
+#     def is_same_tree(p: TreeNode, q: TreeNode) -> bool:
+        
+#         # If both are None
+#         if not p and not q:
 #             return True
-        
-#         # If there are an even number of nodes, it can be symetrical
-#         if len(tree_nodes)%2 == 0:
-#             return False   
-        
-#         if len(tree_nodes) == 3:
-#             if root.left.val == root.right.val:
-#                 return True
 
-#         mid = len(tree_nodes)//2 
-#         left_tree = tree_nodes[:mid]
-#         right_tree = tree_nodes[mid+1:]
-        
-#         return left_tree == list(reversed(right_tree))
-
-#     # Testing
-#     print(isSymetric(root))
-
-#     'Note: This solution works for cases where all node are identical, since it didnt distinguish between left and right'
-
-
-#     'Recursive Approach'
-#     def is_mirror(self, n1, n2):
-
-#         if n1 is None and n2 is None:
-#             return True
-        
-#         if (n1 is None) or (n2 is None) or (n1.val != n2.val):
+#         # If both are different somehow
+#         if not p or not q or p.val != q.val:
 #             return False
+               
+#         # Return a recursive call in both sides of each tree
+#         return is_same_tree(p=p.left, q=q.left) and is_same_tree(p=p.right, q=q.right) 
 
-#         return self.is_mirror(n1.left, n2.right) and self.is_mirror(n1.right, n2.left)
+
+#     def isSymmetric(root: Optional[TreeNode]) -> bool:
+
+#         # Handling corner case:if no node passed
+#         if not root:
+#             return False
+        
+#         # Separete both subtrees
+#         left_subtree = root.left
+#         right_subtree = root.right
+
+#         # Invert the right subtree
+#         right_subtree = invert_tree(root=right_subtree)
+
+#         # Return the call to the is_same_tree aux func
+#         return is_same_tree(p=left_subtree, q=right_subtree)
+
+    
+    
+    
+#     # Testing Suite
+
+#     # # Auxiliary functions testing
+#     # # Initial tree collecting 
+#     # result = []
+#     # queue = [root]
+
+#     # while queue:
+#     #     node = queue.pop(0)
+
+#     #     if node:
+
+#     #         result.append(node.val)
+#     #         queue.extend([node.left, node.right])
+    
+#     # print(f"Initial Tree: {result}")
+#     # # pretty_print_bst(root)
 
 
-#     def isSymmetric(self, root):
+#     # # Final tree collecting 
+#     # root_copy = copy.deepcopy(root)
+#     # root2 = invert_tree(root=root_copy)
 
-#         return self.is_mirror(n1=root.left, n2=root.right)
+#     # result = []
+#     # queue = [root2]
 
-#     'This solution works perfectly'
+#     # while queue:
+#     #     node = queue.pop(0)
+
+#     #     if node:
+
+#     #         result.append(node.val)
+#     #         queue.extend([node.left, node.right])
+    
+#     # print(f"Final Tree: {result}")
+#     # # pretty_print_bst(root2)
+
+#     # print(f"\nAre both trees the same? R/ {is_same_tree(p=root, q=root2)}")
+
+
+#     # Final function testing
+#     print(isSymmetric(root=root))
+
+
+#     '''Note: Done'''
 
 '102. Binary Tree Level Order Traversal' 
 # def x():
