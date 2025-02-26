@@ -21,7 +21,7 @@ CHALLENGES INDEX
 
 114. Flatten Binary Tree to Linked List (LL) (DFS) (Tree)
 199. Binary Tree Right Side View (Tree) (DFS) (RC)
-226. Invert Binary Tree (Tree) (DFS)
+226. Invert Binary Tree (DFS) (RC)
 
 994. Rotting Oranges (Matrix) (BFS) *DIFFERENTIAL COORDINATES
 
@@ -2472,46 +2472,40 @@ def dfs(graph, start):
 #     # Input
 #     # Case 1
 #     root = [4,2,7,1,3,6,9]
-#     root = TreeNode(val=4,
-#                     left=TreeNode(val=2,
-#                         left=TreeNode(val=1),
-#                         right=TreeNode(val=3)),                    
-#                     right=TreeNode(val=7,
-#                         left=TreeNode(val=6),
-#                         right=TreeNode(val=9))
-#                     )
+#     root = TreeNode(4)
+#     root.left = TreeNode(2)
+#     root.right = TreeNode(7)
+#     root.left.left = TreeNode(1)
+#     root.left.right = TreeNode(3)
+#     root.right.left = TreeNode(6)
+#     root.right.right = TreeNode(9)
 #     # Output: [4,7,2,9,6,3,1]
 
 #     # Case 2
 #     root = [2,1,3]
-#     root = TreeNode(val=2,
-#                     left=TreeNode(val=1),                    
-#                     right=TreeNode(val=3)
-#                     )
+#     root = TreeNode(2)
+#     root.left = TreeNode(1)
+#     root.right = TreeNode(3)
 #     # Output: [2,3,1]
 
+#     # Case 3
+#     root = []
+#     # Output: []
+
+#     # Case 4
+#     root = [1]
+#     root = TreeNode(1)
+#     # Output: [1]
+
 #     '''
-#     My Approach (DFS)
+#     My Approach (Recursion)
 
 #         Intuition:
             
-#             - Handle corner case: If no node is passed, return None.
-#             - Create a stack with the root node as its only value.
-#             - In a While loop, while stack exists:
-                
-#                 + Create a 'node' holder to receive the return of stack.pop()
-#                 + If 'node' is not none:
-
-#                     * Create a 'next_rsubtree' holder to save the left side of the tree that will go in the right pointer of 'node'.
-#                     * Reassign the 'left' pointer of 'node' to hold the 'node.right' content.
-#                     * Reassign the 'right' pointer of 'node' to hold the 'next_rsubtree' content.
-#                     * Append node.left, node.right into 'stack'.
-            
-#             - Return 'root'
-
-            
+#             - Switch the first left and right child and pass it over to the same function recursively.
 #     '''
 
+#     # Iteratively
 #     def invertTree(root: Optional[TreeNode]) -> Optional[TreeNode]:
 
 #         # Handle Corner case: If no node is passed, return None
@@ -2545,10 +2539,52 @@ def dfs(graph, start):
 #         # Return root
 #         return root
 
-#     # Testing
+
+#     # Recursively
+#     def invertTree(root: Optional[TreeNode]) -> Optional[TreeNode]:
+
+#         # Handle Corner case: If no node is passed, return None
+#         if not root:
+#             return None
+        
+#         # Swap the right and left childs recursively
+#         root.left, root.right = invertTree(root=root.right), invertTree(root=root.left)
+        
+#         # Return root
+#         return root
+
     
-#     print(pretty_print_bst(node=root),end="\n\n\n")
-#     print(pretty_print_bst(node=invertTree(root=root)))
+#     # Testing
+
+#     # Initial tree collecting 
+#     result = []
+#     queue = [root]
+
+#     while queue:
+#         node = queue.pop(0)
+
+#         if node:
+
+#             result.append(node.val)
+#             queue.extend([node.left, node.right])
+    
+#     print(f"Initial Tree: {result}")
+
+#     # Final tree collecting 
+#     root = invertTree(root=root)
+
+#     result = []
+#     queue = [root]
+
+#     while queue:
+#         node = queue.pop(0)
+
+#         if node:
+
+#             result.append(node.val)
+#             queue.extend([node.left, node.right])
+    
+#     print(f"Final Tree: {result}")
 
 #     '''Note: Done'''
 
