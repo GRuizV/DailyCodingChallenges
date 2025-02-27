@@ -15,6 +15,9 @@ CHALLENGES INDEX
         1068. Product Sales Analysis I (INNER JOIN)
         1378. Replace Employee ID With The Unique Identifier (LEFT JOIN)
         197. Rising Temperature (SELF JOIN) [ARITMETIC DATE CALCULATIONS]
+        1661. Average Time of Process per Machine (SELF JOIN) [with Type-Casting, AVG agregation, ENUM matching and ROUND func]
+        577. Employee Bonus (LEFT JOIN) [including NULLs]
+        1280. Students and Examinations (CROSS JOIN / LEFT JOIN) [And a COUNT aggregation]
     .
 
 
@@ -681,16 +684,308 @@ CHALLENGES INDEX
     ORDER BY w1.id
 ;
 
+-- @block // 1661. Average Time of Process per Machine
+"""
+
+    Challenge Statement
+
+        Base
+
+            Table: Activity
+
+            +----------------+---------+
+            | Column Name    | Type    |
+            +----------------+---------+
+            | machine_id     | int     |
+            | process_id     | int     |
+            | activity_type  | enum    |
+            | timestamp      | float   |
+            +----------------+---------+
+            The table shows the user activities for a factory website.
+            (machine_id, process_id, activity_type) is the primary key (combination of columns with unique values) of this table.
+            machine_id is the ID of a machine.
+            process_id is the ID of a process running on the machine with ID machine_id.
+            activity_type is an ENUM (category) of type ('start', 'end').
+            timestamp is a float representing the current time in seconds.
+            'start' means the machine starts the process at the given timestamp and 'end' means the machine ends the process at the given timestamp.
+            The 'start' timestamp will always be before the 'end' timestamp for every (machine_id, process_id) pair.
+            It is guaranteed that each (machine_id, process_id) pair has a 'start' and 'end' timestamp.
+                        
+        .
 
 
+        Statement
+
+            There is a factory website that has several machines each running the same number of processes. Write a solution to find the average time each machine takes to complete a process.
+
+            The time to complete a process is the 'end' timestamp minus the 'start' timestamp. The average time is calculated by the total time to complete every process on the machine divided by the number of processes that were run.
+
+            The resulting table should have the machine_id along with the average time as processing_time, which should be rounded to 3 decimal places.
+
+            Return the result table in any order.
+
+            The result format is in the following example.
+        .
+
+        Example
+
+            Input: 
+
+            Activity table:
+            +------------+------------+---------------+-----------+
+            | machine_id | process_id | activity_type | timestamp |
+            +------------+------------+---------------+-----------+
+            | 0          | 0          | start         | 0.712     |
+            | 0          | 0          | end           | 1.520     |
+            | 0          | 1          | start         | 3.140     |
+            | 0          | 1          | end           | 4.120     |
+            | 1          | 0          | start         | 0.550     |
+            | 1          | 0          | end           | 1.550     |
+            | 1          | 1          | start         | 0.430     |
+            | 1          | 1          | end           | 1.420     |
+            | 2          | 0          | start         | 4.100     |
+            | 2          | 0          | end           | 4.512     |
+            | 2          | 1          | start         | 2.500     |
+            | 2          | 1          | end           | 5.000     |
+            +------------+------------+---------------+-----------+
+            Output: 
+            +------------+-----------------+
+            | machine_id | processing_time |
+            +------------+-----------------+
+            | 0          | 0.894           |
+            | 1          | 0.995           |
+            | 2          | 1.456           |
+            +------------+-----------------+
+            Explanation: 
+            There are 3 machines running 2 processes each.
+            Machine 0's average time is ((1.520 - 0.712) + (4.120 - 3.140)) / 2 = 0.894
+            Machine 1's average time is ((1.550 - 0.550) + (1.420 - 0.430)) / 2 = 0.995
+            Machine 2's average time is ((4.512 - 4.100) + (5.000 - 2.500)) / 2 = 1.456
+
+    """
+
+    -- Solution with SELF JOIN
+    SELECT a1.machine_id, 
+        ROUND(CAST (AVG(a2.processing_time - a1.processing_time AS NUMERIC), 3) AS processing_time
+    FROM Activity a1 JOIN Activity a2
+        ON a1.machine_id = a2.machine_id AND a1.process_id = a2.process_id
+        AND a1.activity_type = 'start' AND a1.activity_type = 'end'
+    GROUP BY a1.machine_id
+;
+
+-- @block // 577. Employee Bonus
+"""
+
+    Challenge Statement
+
+        Base
+
+            Table: Employee
+
+            +-------------+---------+
+            | Column Name | Type    |
+            +-------------+---------+
+            | empId       | int     |
+            | name        | varchar |
+            | supervisor  | int     |
+            | salary      | int     |
+            +-------------+---------+
+            empId is the column with unique values for this table.
+            Each row of this table indicates the name and the ID of an employee in addition to their salary and the id of their manager.
+            
+
+            Table: Bonus
+
+            +-------------+------+
+            | Column Name | Type |
+            +-------------+------+
+            | empId       | int  |
+            | bonus       | int  |
+            +-------------+------+
+            empId is the column of unique values for this table.
+            empId is a foreign key (reference column) to empId from the Employee table.
+            Each row of this table contains the id of an employee and their respective bonus.
+                        
+        .
 
 
+        Statement
+
+            Write a solution to report the name and bonus amount of each employee with a bonus less than 1000.
+
+            Return the result table in any order.
+
+            The result format is in the following example.
+        .
+
+        Example
+
+            Input: 
+
+            Employee table:
+            +-------+--------+------------+--------+
+            | empId | name   | supervisor | salary |
+            +-------+--------+------------+--------+
+            | 3     | Brad   | null       | 4000   |
+            | 1     | John   | 3          | 1000   |
+            | 2     | Dan    | 3          | 2000   |
+            | 4     | Thomas | 3          | 4000   |
+            +-------+--------+------------+--------+
+
+            Bonus table:
+            +-------+-------+
+            | empId | bonus |
+            +-------+-------+
+            | 2     | 500   |
+            | 4     | 2000  |
+            +-------+-------+
+
+            Output: 
+            +------+-------+
+            | name | bonus |
+            +------+-------+
+            | Brad | null  |
+            | John | null  |
+            | Dan  | 500   |
+            +------+-------+
+
+    """
+
+    -- Solution with CROSS JOIN
+    SELECT e.name, b.bonus
+    FROM Employee e LEFT JOIN Bonus belongs
+        ON e.empId = b.empId
+    WHERE b.bonus > 1000 or b.bonus IS NULL
+    ORDER BY e.name
+;
+
+-- @block // 1280. Students and Examinations
+"""
+
+    Challenge Statement
+
+        Base
+
+            Table: Students
+
+            +---------------+---------+
+            | Column Name   | Type    |
+            +---------------+---------+
+            | student_id    | int     |
+            | student_name  | varchar |
+            +---------------+---------+
+            student_id is the primary key (column with unique values) for this table.
+            Each row of this table contains the ID and the name of one student in the school.
 
 
+            Table: Subjects
+
+            +--------------+---------+
+            | Column Name  | Type    |
+            +--------------+---------+
+            | subject_name | varchar |
+            +--------------+---------+
+            subject_name is the primary key (column with unique values) for this table.
+            Each row of this table contains the name of one subject in the school.
+            
+
+            Table: Examinations
+
+            +--------------+---------+
+            | Column Name  | Type    |
+            +--------------+---------+
+            | student_id   | int     |
+            | subject_name | varchar |
+            +--------------+---------+
+            There is no primary key (column with unique values) for this table. It may contain duplicates.
+            Each student from the Students table takes every course from the Subjects table.
+            Each row of this table indicates that a student with ID student_id attended the exam of subject_name.
+                        
+        .
 
 
+        Statement
 
+            Write a solution to find the number of times each student attended each exam.
 
+            Return the result table ordered by student_id and subject_name.
+
+            The result format is in the following example.
+        .
+
+        Example
+
+            Input: 
+            Students table:
+            +------------+--------------+
+            | student_id | student_name |
+            +------------+--------------+
+            | 1          | Alice        |
+            | 2          | Bob          |
+            | 13         | John         |
+            | 6          | Alex         |
+            +------------+--------------+
+
+            Subjects table:
+            +--------------+
+            | subject_name |
+            +--------------+
+            | Math         |
+            | Physics      |
+            | Programming  |
+            +--------------+
+
+            Examinations table:
+            +------------+--------------+
+            | student_id | subject_name |
+            +------------+--------------+
+            | 1          | Math         |
+            | 1          | Physics      |
+            | 1          | Programming  |
+            | 2          | Programming  |
+            | 1          | Physics      |
+            | 1          | Math         |
+            | 13         | Math         |
+            | 13         | Programming  |
+            | 13         | Physics      |
+            | 2          | Math         |
+            | 1          | Math         |
+            +------------+--------------+
+
+            Output: 
+            +------------+--------------+--------------+----------------+
+            | student_id | student_name | subject_name | attended_exams |
+            +------------+--------------+--------------+----------------+
+            | 1          | Alice        | Math         | 3              |
+            | 1          | Alice        | Physics      | 2              |
+            | 1          | Alice        | Programming  | 1              |
+            | 2          | Bob          | Math         | 1              |
+            | 2          | Bob          | Physics      | 0              |
+            | 2          | Bob          | Programming  | 1              |
+            | 6          | Alex         | Math         | 0              |
+            | 6          | Alex         | Physics      | 0              |
+            | 6          | Alex         | Programming  | 0              |
+            | 13         | John         | Math         | 1              |
+            | 13         | John         | Physics      | 1              |
+            | 13         | John         | Programming  | 1              |
+            +------------+--------------+--------------+----------------+
+
+            Explanation: 
+                The result table should contain all students and all subjects.
+                Alice attended the Math exam 3 times, the Physics exam 2 times, and the Programming exam 1 time.
+                Bob attended the Math exam 1 time, the Programming exam 1 time, and did not attend the Physics exam.
+                Alex did not attend any exams.
+                John attended the Math exam 1 time, the Physics exam 1 time, and the Programming exam 1 time.
+
+    """
+
+    -- Solution with CROSS JOIN
+    SELECT st.student_id, st.student_name, s.subject_name, COUNT(e.subject_name) AS attended_exams
+    FROM Students st CROSS JOIN Subjects s LEFT JOIN Examinations e 
+        ON st.student_id = e.student_id AND s.subject_name = e.subject_name
+    GROUP BY st.student_id, st.student_name, s.subject_name
+    ORDER BY st.student_id, s.subject_name
+;
 
 
 
