@@ -24,6 +24,7 @@ CHALLENGES INDEX
 226. Invert Binary Tree (DFS) (RC)
 994. Rotting Oranges (Matrix) (BFS) *DIFFERENTIAL COORDINATES
 100. Same Tree (DFS) (RC)
+117. Populating Next Right Pointers in Each Node II (BFS)
 
 
 
@@ -48,7 +49,7 @@ CHALLENGES INDEX
 *Others
 
 
-(22)
+(23)
 '''
 
 # Base Definition of TreeNode & Tree Print Func
@@ -2913,6 +2914,103 @@ def dfs(graph, start):
 
 #     '''Note: Done'''
 
+'''117. Populating Next Right Pointers in Each Node II'''
+# def x():
+    
+#     from typing import Optional
+
+#     # Input
+#     # Case 1
+#     root = [1,2,3,4,5,None,7]
+#     root = TreeNode(1)
+#     root.left = TreeNode(2)
+#     root.right = TreeNode(3)
+#     root.left.left = TreeNode(4)
+#     root.left.right = TreeNode(5)
+#     root.right.right = TreeNode(7)
+#     # Output: [1,#,2,3,#,4,5,7,#]
+
+#     # Case 2
+#     root = [1]
+#     root = TreeNode(1)
+#     # Output: [1,#]
+
+#     # Case 3
+#     root = []
+#     # Output: []
+
+
+#     '''
+#     My Approach (Breadth-First Search)
+
+#         Intuition:
+            
+#             - Traverse the tree in a BFS-style by levels, and on each level conect the nodes to each other
+#                 left to right.
+#     '''
+
+#     def connect(root: Optional[TreeNode]) -> Optional[TreeNode]:
+
+#         # Handle Corner case: No node passed
+#         if not root:
+#             return None
+
+#         # Define the BFS Queue
+#         queue = [root]
+
+#         # Process the tree
+#         while queue:
+            
+#             # Capture the current queue length
+#             q_len = len(queue)
+
+#             # Create a list holder to store the next level
+#             next_lvl = []
+
+#             # Populate the next level iteratively
+#             for _ in range(q_len):
+            
+#                 node = queue.pop(0)
+#                 next_lvl.append(node.left) if node.left else None
+#                 next_lvl.append(node.right) if node.right else None
+            
+#             # Extend the queue to the next level
+#             queue.extend(next_lvl)
+
+#             # Connect the next level from left to right
+#             for i in range(len(next_lvl)-1):
+#                 next_lvl[i].next = next_lvl[i+1]            
+        
+#         # Return The root back
+#         return root
+
+
+#     # Testing
+#     dummy = connect(root=root)
+
+#     d_queue = [dummy]
+#     path = []
+
+#     while d_queue:
+
+#         node = d_queue.pop(0)
+
+#         if node:
+
+#             path.append([f"Node: {node.val}", f"Next: {None if not node.next else node.next.val}" ])
+#             d_queue.extend([node.left, node.right])
+    
+#     for i in path:
+#         print(i)
+
+#     '''
+#     Notes
+
+#         Done with:
+
+#          - O(n) in time, beating subs in 31%.
+#          - O(n) in space, beating subs in 59%.
+#     '''
 
 
 
