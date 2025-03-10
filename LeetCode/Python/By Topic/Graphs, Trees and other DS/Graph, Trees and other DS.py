@@ -16,7 +16,7 @@ CHALLENGES INDEX
 230. Kth Smallest Element in a BST (Heap) (DFS) (Tree)
 297. Serialize and Deserialize Binary Tree (BFS) (Tree)
 
-114. Flatten Binary Tree to Linked List (LL) (DFS) (Tree)
+114. Flatten Binary Tree to Linked List (RC) (Tree)
 199. Binary Tree Right Side View (Tree) (DFS) (RC)
 226. Invert Binary Tree (Tree) (DFS)
 543. Diameter of Binary Tree (Tree)
@@ -1371,128 +1371,131 @@ def pretty_print_bst(node:TreeNode, prefix="", is_left=True):
     
 #     from typing import Optional
 
-#     # Definition for a binary tree node
-#     class TreeNode:
-#         def __init__(self, val=0, left=None, right=None):
-#             self.val = val
-#             self.left = left
-#             self.right = right
-
 #     # Input
 #     # Case 1
-#     tree = [1,2,5,3,4,None,6]
-#     root = TreeNode(val=1, 
-#                     left=TreeNode(val=2,
-#                                   left=TreeNode(val=3),
-#                                   right=TreeNode(val=4)),
-#                     right=TreeNode(val=5,
-#                                    right=TreeNode(val=6))
-#                     )
-#     # Output: [1,null,2,null,3,null,4,null,5,null,6]
+#     root = [1,2,5,3,4,None,6]
+#     root = TreeNode(1)
+#     root.left = TreeNode(2)
+#     root.right = TreeNode(5)
+#     root.left.left = TreeNode(3)
+#     root.left.right = TreeNode(4)
+#     root.right.right = TreeNode(6)
+#     # Output: [1,None,2,None,3,None,4,None,5,None,6]
+
+#     # Case 2
+#     root = []
+#     # Output: []
+
+#     # Case 3
+#     root = [0]
+#     root = TreeNode(0)
+#     # Output: [0]
+
+#     # Case 4
+#     root = [1,2,3]
+#     root = TreeNode(1)
+#     root.left = TreeNode(2)
+#     root.right = TreeNode(3)
+#     # Output: [1,None,2,None,3]
+
 
 #     '''
 #     My Approach
 
 #         Intuition:
             
-#             - Handle Corner Case: No Node passed
-           
-#             - Create a 'dummy' head pointer into which the linked list will be built
-#                 and a 'curr' pointer that will be located to in the 'right' pointer of the dummy.
-            
-#             - Define a preorder traversal function: 
-#                 *This function will add each node to the curr's 'right' pointer.
-#                 *And will also move the 'curr' pointer to the right to be located at the just added node.
-
-#             - Reassign 'root' to the dummy's 'right' pointer
+#             - Initialize a dummy tree node holder at 0.
+#             - In a preorder traversal keep assigning each visited node to the right pointer of dummy.
+#             - Assign the right of dummy to root.
 #     '''
 
-#     'O(n) Approach'
 #     def flatten(root: Optional[TreeNode]) -> None:
 
-#         # Handle Corner case: ...
+#         # Handle Corner case: if not root
 #         if not root:
 #             return None
-                
-#         ll_layout = []
-
-#         # Preorder traversal function definition
-#         def preorder(node:TreeNode) -> None:
-
-#             if not node:
-#                 return    
-
-#             ll_layout.append(node)
-#             preorder(node=node.left)
-#             preorder(node=node.right)
         
+#         # Initialize the dummy holder
+#         dummy = TreeNode(0)
 
+#         # Initialize a list holder to store the preorder traversal result
+#         visited = []
+
+#         def preorder(node: TreeNode) -> None:
+
+#             if node:
+#                 visited.append(node) 
+#                 preorder(node=node.left)
+#                 preorder(node=node.right)
+
+
+#         # Call the preorder func
 #         preorder(node=root)
 
+#         # Initialize a TreeNode holder to help the traverse
+#         curr = TreeNode(0)
 
-#         for i in range(len(ll_layout)-1):
+#         # Assign the right of dummy to curr
+#         dummy.right = curr
 
-#             curr = ll_layout[i]
-#             curr.left = None
-#             curr.right = ll_layout[i+1]
-               
-    
+#         # Traverse through the visited nodes
+#         for node in visited:
+#             node.left, node.right = None, None
+#             curr.right = node
+#             curr = curr.right
+                
+#         # Reassign root
+#         root = dummy.right.right
+
+#         # # For testing: Return the modified dummy and the visited list
+#         # return dummy.right, visited
+
 #     # Testing
-#     print(flatten(root=root))
-        
+#     node, li = flatten(root=root)
+
+#     print([elem.val for elem in li])
+
+#     '''Note: While this way works, is inefficient, its time complexity goes up to O(n^2)'''
 
 
-#     'Optimized O(1) Space Solution'
+
+
+#     """A More Efficient Approach"""
+
 #     def flatten(root: Optional[TreeNode]) -> None:
 
-#         # Handle Corner case: No node passed
+#         # Handle Corner case: if not root
 #         if not root:
 #             return None
-                
         
-#         # Create a mutable container for curr so that changes are shared
-#         curr = [None]  # Using a list to hold the current pointer
-        
+#         # Initialize a mutable object to be modified inside the preorder func
+#         node = [None]
 
-#         # Preorder traversal function definition
-#         def preorder(node:TreeNode) -> None:
-
+#         def preorder(node: TreeNode) -> None:
+            
+#             # Node existing guard
 #             if not node:
-#                 return
-           
-#             # Flatten the current node
-#             if curr[0]:  # If curr[0] exists, link it to the current node
-#                 curr[0].right = node
-#                 curr[0].left = None
+#                 return None
+
+#             # If the node exist, flatten it
+#             if node[0]:
+                
+#                 node[0].left = None
+#                 node[0].right = node # Link it to the current node
 
 #             # Move curr to the current node
-#             curr[0] = node
-            
-#             # Save the right subtree before recursion (because we modify the right pointer)
+#             node[0] = node
+
+#             # Save the right subtree for the other recursive calls
 #             right_subtree = node.right
             
-#             # Traverse left subtree first (preorder)
-#             preorder(node.left)
-            
-#             # Traverse right subtree last
-#             preorder(right_subtree)
-        
-#         # Traverse the root with the preorder function
+#             preorder(node=node.left)    # Move to the left part of the tree first (Preorder)
+#             preorder(node=right_subtree)    # Move to the right part of the tree after
+
+#         # Call the preorder func
 #         preorder(node=root)
 
-
-#     # Testing
-#     print(flatten(root=root))
-    
-
-#     '''
-#     Note: 
-       
-#        - Within a recursion inmutable object can not be affected out of the function, since Python creates a copy of them to work locally, the workaround here is to work with mutables (a list).
-
-#        - The right sub-tree must be saved because is the next recursive call the right pointer will be modified and when it rolls back, the remaining right part will be lost otherwise.
-    
-#     '''
+#     '''Note: This approach only goes up to O(n)'''
 
 '''199. Binary Tree Right Side View'''
 # def x():
