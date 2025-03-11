@@ -1,6 +1,8 @@
 '''
 CHALLENGES INDEX
 
+[D]: Done
+
 ARRAYS
 [D] 11. Container With Most Water (Array)
 ->  31. Next Permutation (Array) (TP)
@@ -60,6 +62,7 @@ DFS & BFS
     226. Invert Binary Tree (Tree) (DFS)
     329. Longest Increasing Path in a Matrix (Matrix) (DFS) (MEM) (RC)
     341. Flatten Nested List Iterator (DFS)
+[D] 112. Path Sum (Tree) (DFS)    
 
 
 DYNAMIC PROGRAMMING
@@ -137,8 +140,78 @@ OTHERS
 *Others
 
 
-(90)
+(91)
 '''
+
+
+
+
+#Template
+"xxx"
+"""xxx"""
+def x():
+    
+    from typing import Optional
+
+    # Input
+    # Case 1
+    head = None
+    # Output: None
+
+    '''
+    My Approach
+
+        Intuition:
+            
+            -...
+    '''
+
+    def y() -> int:
+
+        # Handle Corner case: ...
+        if not head:
+            return
+                
+        # Return ...
+        return 
+
+    # Testing
+    print(y())
+
+    '''Note: Done'''
+
+
+# Binary Tree Node Definition
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None, next=None):
+        self.val = val
+        self.left = left
+        self.right = right
+        self.next = next
+
+# List Node Definition
+class ListNode:
+    def __init__(self, x):
+        self.val = x
+        self.next = None
+
+# Pretty Print Function
+def pretty_print_bst(node:TreeNode, prefix="", is_left=True):
+
+    if not node:
+        return
+
+    if node.right is not None:
+        pretty_print_bst(node.right, prefix + ("│   " if is_left else "    "), False)
+
+    print(prefix + ("└── " if is_left else "┌── ") + str(node.val))
+
+    if node.left is not None:
+        pretty_print_bst(node.left, prefix + ("    " if is_left else "│   "), True)
+
+
+
+
 
 
 
@@ -583,7 +656,6 @@ OTHERS
 
 
 
-
 'HASH TABLES'
 
 '''12. Integer to Roman'''
@@ -850,6 +922,101 @@ OTHERS
     
 #     # Testing
 #     print(romanToInt(s=s))
+
+#     '''Note: Done'''
+
+
+
+
+
+
+
+"MATRICES"
+
+
+
+
+
+
+
+
+"DFS & BFS"
+
+'''112. Path Sum'''
+# def x():
+    
+#     from typing import Optional
+
+#     # Input
+#     # Case 1
+#     root = [5,4,8,11,None,13,4,7,2,None,None,None,1]
+#     targetSum = 22
+#     root = TreeNode(5)
+#     root.left = TreeNode(4)
+#     root.right = TreeNode(8)
+#     root.left.left = TreeNode(11)
+#     root.right.left = TreeNode(13)
+#     root.right.right = TreeNode(4)
+#     root.left.left.left = TreeNode(7)
+#     root.left.left.right = TreeNode(2)
+#     root.right.right.right = TreeNode(1)
+#     # Output: True
+
+#     # Case 2
+#     root = [1,2,3]
+#     targetSum = 5
+#     root = TreeNode(1)
+#     root.left = TreeNode(2)
+#     root.right = TreeNode(3)
+#     # Output: False
+
+#     # Case 3
+#     root = [1,2]
+#     targetSum = 0
+#     root = TreeNode(1)
+#     root.left = TreeNode(2)
+#     # Output: False
+
+#     '''
+#     My Approach (Depth-Fisrt Search)
+
+#         Intuition:
+            
+#             - Traverse iteratively the BT having a running sum for each path
+#     '''
+
+#     def hasPathSum(root: Optional[TreeNode], targetSum: int) -> bool:
+
+#         # No node guard
+#         if not root:
+#             return False
+            
+#         # Initialize the stack to hold the running path sum
+#         stack = [(root, root.val)]
+
+#         # Traverse the tree
+#         while stack:
+
+#             # Take the last element in the stack
+#             node, path_sum = stack.pop()
+
+#             # If it's a leaf node, compare it to the target
+#             if not node.left and not node.right:
+#                 if path_sum == targetSum:
+#                     return True
+
+#             # Push right and left children onto the stack
+#             if node.right:
+#                 stack.append((node.right, node.right.val + path_sum))
+
+#             if node.left:
+#                 stack.append((node.left, node.left.val + path_sum))
+
+#         # If the code gets up to here, means it didn't find the target
+#         return False
+
+#     # Testing
+#     print(hasPathSum(root=root, targetSum=targetSum))
 
 #     '''Note: Done'''
 
