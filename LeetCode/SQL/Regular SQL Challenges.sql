@@ -5,6 +5,7 @@ CHALLENGES INDEX
     176. Second Highest Salary  (SUBQUERIES: DISCTINCT, ROW_NUM(), MAX())
     181. Employees Earning More Than Their Managers (SELF JOIN)
     182. Duplicate Emails (HAVING)
+    183. Customers Who Never Order (LEFT JOIN)
     
 '''
 
@@ -256,6 +257,82 @@ CHALLENGES INDEX
     GROUP BY email
     HAVING count(email) > 1
 ;
+
+-- @block // 183. Customers Who Never Order
+
+    """
+    Challenge Statement
+
+        Base
+
+            Table: Customers
+            +-------------+---------+
+            | Column Name | Type    |
+            +-------------+---------+
+            | id          | int     |
+            | name        | varchar |
+            +-------------+---------+
+
+            id is the primary key (column with unique values) for this table.
+            Each row of this table indicates the ID and name of a customer.
+
+            Table: Orders
+            +-------------+------+
+            | Column Name | Type |
+            +-------------+------+
+            | id          | int  |
+            | customerId  | int  |
+            +-------------+------+
+
+            id is the primary key (column with unique values) for this table.
+            customerId is a foreign key (reference columns) of the ID from the Customers table.
+            Each row of this table indicates the ID of an order and the ID of the customer who ordered it.
+        
+
+        Statement
+
+            Write a solution to find all customers who never order anything.
+
+            Return the result table in any order.
+
+
+        Example
+
+            Customers table:
+            +----+-------+
+            | id | name  |
+            +----+-------+
+            | 1  | Joe   |
+            | 2  | Henry |
+            | 3  | Sam   |
+            | 4  | Max   |
+            +----+-------+
+
+            Orders table:
+            +----+------------+
+            | id | customerId |
+            +----+------------+
+            | 1  | 3          |
+            | 2  | 1          |
+            +----+------------+
+
+            Output: 
+            +-----------+
+            | Customers |
+            +-----------+
+            | Henry     |
+            | Max       |
+            +-----------+
+    """
+    
+    -- My Approach
+    SELECT c.name AS Customers
+    FROM Customers c LEFT JOIN Orders o
+        ON c.id = o.customerId
+    WHERE o.id IS NULL
+
+;
+
 
 
 
