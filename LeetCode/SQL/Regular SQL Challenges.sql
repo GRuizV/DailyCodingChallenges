@@ -1,139 +1,32 @@
 '''
 CHALLENGES INDEX
 
+    *FU: Follow-Up
     
-    176. Second Highest Salary  (SUBQUERIES: DISCTINCT, ROW_NUM(), MAX())
+    
+    EASY
+    
     181. Employees Earning More Than Their Managers (SELF JOIN)
     182. Duplicate Emails (HAVING)
     183. Customers Who Never Order (LEFT JOIN)
-    
+    586. Customer Placing the Largest Number of Orders (ORDER BY: COUNT() / FU: SUBQUERY + MAX())
+
+
+    MEDIUM
+
+    176. Second Highest Salary  (SUBQUERIES: DISCTINCT, ROW_NUM(), MAX())
+
+
+
 '''
 
 
 
 
 
--- SELECT
+-- CHALLENGES
 
--- @block // 176. Second Highest Salary 
-
-    """
-    Challenge Statement
-
-        Base
-
-            Table: Employee
-            +-------------+------+
-            | Column Name | Type |
-            +-------------+------+
-            | id          | int  |
-            | salary      | int  |
-            +-------------+------+
-            id is the primary key (column with unique values) for this table.
-            Each row of this table contains information about the salary of an employee.
-        
-
-        Statement
-
-            Write a solution to find the second highest distinct salary from the Employee table.
-            If there is no second highest salary, return null
-
-
-        Example
-
-            Input: 
-
-            Employee table:
-            +----+--------+
-            | id | salary |
-            +----+--------+
-            | 1  | 100    |
-            | 2  | 200    |
-            | 3  | 300    |
-            +----+--------+
-
-            Output: 
-            +---------------------+
-            | SecondHighestSalary |
-            +---------------------+
-            | 200                 |
-            +---------------------+
-
-
-            Example 2:
-
-            Input: 
-
-            Employee table:
-            +----+--------+
-            | id | salary |
-            +----+--------+
-            | 1  | 100    |
-            +----+--------+
-
-            Output: 
-            +---------------------+
-            | SecondHighestSalary |
-            +---------------------+
-            | null                |
-            +---------------------+
-
-    """
-
-    -- There could be 3 solutions with their pros and cons, All using SUBQUERIES
-
-    "First: 'DISTINCT-LIMIT-OFFSET' APPROACH"
-    SELECT (
-        SELECT DISTINCT salary FROM Employee
-        ORDER BY salary DESC LIMIT 1 OFFSET 1
-    ) AS SecondHighestSalary
-
-    /* 
-    Notes
-    
-        This is the most intuitive approach.
-    
-        This Subquery is necessary, because without it, the Query wouldn't return NULL if there is
-        no second highest salary 
-
-        In term of performance it has the 3rd place.
-    */
-
-
-    "Second: 'ROW_NUMBER()' APPROACH"
-    SELECT (
-
-        SELECT salary FROM(
-            SELECT salary, ROW_NUMBER() OVER(ORDER BY salary DESC) AS rnk
-            FROM Employee
-            GROUP BY salary
-        ) ranked_salaries 
-        WHERE rnk = 2
-
-    ) AS SecondHighestSalary
-
-    /* 
-    Notes
-        
-        This is a bit more complex approach since it has nested subqueries (3).
-
-        In term of performance it has the 1st place.
-    */
-    
-    
-
-    "Third: 'MAX() - SUBQUERY' APPROACH"
-    SELECT max(salary) FROM Employee AS SecondHighestSalary
-    WHERE salary < (SELECT max(salary) FROM Employee)
-
-    /* 
-    Notes
-        
-        This is also quite intuitive but it doesn't work pretty well in large data sets.
-
-        In term of performance it has the 2nd place.
-    */
-;
+"EASY"
 
 -- @block // 181. Employees Earning More Than Their Managers
 
@@ -333,9 +226,215 @@ CHALLENGES INDEX
 
 ;
 
+-- @block // 586. Customer Placing the Largest Number of Orders
+
+    """
+    Challenge Statement
+
+        Base
+
+            Table: Customers
+            +-----------------+----------+
+            | Column Name     | Type     |
+            +-----------------+----------+
+            | order_number    | int      |
+            | customer_number | int      |
+            +-----------------+----------+
+            order_number is the primary key (column with unique values) for this table.
+            This table contains information about the order ID and the customer ID.             
+
+                   
+
+        Statement
+
+            Write a solution to find the customer_number for the customer who has placed the largest number of orders.
+
+            The test cases are generated so that exactly one customer will have placed more orders than any other customer.
+
+            The result format is in the following example.
+
+
+        Example
+
+            Orders table:
+            +--------------+-----------------+
+            | order_number | customer_number |
+            +--------------+-----------------+
+            | 1            | 1               |
+            | 2            | 2               |
+            | 3            | 3               |
+            | 4            | 3               |
+            +--------------+-----------------+
+
+            Output: 
+            +-----------------+
+            | customer_number |
+            +-----------------+
+            | 3               |
+            +-----------------+
+
+            Explanation: 
+            The customer with number 3 has two orders, which is greater than either customer 1 or 2 because each of them only has one order. 
+            So the result is customer_number 3.
+        
+
+        Follow Up Question:
+            What if more than one customer has the largest number of orders, can you find all the customer_number in this case?
+
+
+    """
+    
+    -- My Approach
+    SELECT customer_number 
+    FROM Orders
+    GROUP BY customer_number
+    ORDER BY COUNT(customer_number) DESC
+    LIMIT 1
+
+
+    -- Follow Up solution: What if ties?
+    SELECT customer_number
+    FROM Orders
+    GROUP BY customer_number
+    HAVING COUNT(customer_number) = (
+        SELECT MAX(order_count) 
+        FROM (
+            SELECT customer_number, COUNT(*) AS order_count 
+            FROM Orders 
+            GROUP BY customer_number
+            ) AS counts
+    )
+;
 
 
 
+
+
+
+
+
+
+"MEDIUM"
+
+-- @block // 176. Second Highest Salary 
+
+    """
+    Challenge Statement
+
+        Base
+
+            Table: Employee
+            +-------------+------+
+            | Column Name | Type |
+            +-------------+------+
+            | id          | int  |
+            | salary      | int  |
+            +-------------+------+
+            id is the primary key (column with unique values) for this table.
+            Each row of this table contains information about the salary of an employee.
+        
+
+        Statement
+
+            Write a solution to find the second highest distinct salary from the Employee table.
+            If there is no second highest salary, return null
+
+
+        Example
+
+            Input: 
+
+            Employee table:
+            +----+--------+
+            | id | salary |
+            +----+--------+
+            | 1  | 100    |
+            | 2  | 200    |
+            | 3  | 300    |
+            +----+--------+
+
+            Output: 
+            +---------------------+
+            | SecondHighestSalary |
+            +---------------------+
+            | 200                 |
+            +---------------------+
+
+
+            Example 2:
+
+            Input: 
+
+            Employee table:
+            +----+--------+
+            | id | salary |
+            +----+--------+
+            | 1  | 100    |
+            +----+--------+
+
+            Output: 
+            +---------------------+
+            | SecondHighestSalary |
+            +---------------------+
+            | null                |
+            +---------------------+
+
+    """
+
+    -- There could be 3 solutions with their pros and cons, All using SUBQUERIES
+
+    "First: 'DISTINCT-LIMIT-OFFSET' APPROACH"
+    SELECT (
+        SELECT DISTINCT salary FROM Employee
+        ORDER BY salary DESC LIMIT 1 OFFSET 1
+    ) AS SecondHighestSalary
+
+    /* 
+    Notes
+    
+        This is the most intuitive approach.
+    
+        This Subquery is necessary, because without it, the Query wouldn't return NULL if there is
+        no second highest salary 
+
+        In term of performance it has the 3rd place.
+    */
+
+
+    "Second: 'ROW_NUMBER()' APPROACH"
+    SELECT (
+
+        SELECT salary FROM(
+            SELECT salary, ROW_NUMBER() OVER(ORDER BY salary DESC) AS rnk
+            FROM Employee
+            GROUP BY salary
+        ) ranked_salaries 
+        WHERE rnk = 2
+
+    ) AS SecondHighestSalary
+
+    /* 
+    Notes
+        
+        This is a bit more complex approach since it has nested subqueries (3).
+
+        In term of performance it has the 1st place.
+    */
+    
+    
+
+    "Third: 'MAX() - SUBQUERY' APPROACH"
+    SELECT max(salary) FROM Employee AS SecondHighestSalary
+    WHERE salary < (SELECT max(salary) FROM Employee)
+
+    /* 
+    Notes
+        
+        This is also quite intuitive but it doesn't work pretty well in large data sets.
+
+        In term of performance it has the 2nd place.
+    */
+;
 
 
 
