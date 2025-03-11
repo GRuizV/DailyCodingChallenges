@@ -23,8 +23,8 @@ CHALLENGES TAGS
 '''
 
 #Template
-'xxx'
-'''xxx'''
+"xxx"
+"""xxx"""
 def x():
     
     from typing import Optional
@@ -57,8 +57,7 @@ def x():
     '''Note: Done'''
 
 
-# In case is a Tree Challenge
-# Definition for a binary tree node.
+# Binary Tree Node Definition
 class TreeNode:
     def __init__(self, val=0, left=None, right=None, next=None):
         self.val = val
@@ -66,11 +65,13 @@ class TreeNode:
         self.right = right
         self.next = next
 
+# List Node Definition
 class ListNode:
     def __init__(self, x):
         self.val = x
         self.next = None
 
+# Pretty Print Function
 def pretty_print_bst(node:TreeNode, prefix="", is_left=True):
 
     if not node:
