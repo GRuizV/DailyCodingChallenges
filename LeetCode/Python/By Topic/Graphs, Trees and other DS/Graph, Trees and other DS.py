@@ -20,6 +20,7 @@ CHALLENGES INDEX
 199. Binary Tree Right Side View (Tree) (DFS) (RC)
 226. Invert Binary Tree (Tree) (DFS)
 543. Diameter of Binary Tree (Tree)
+112. Path Sum (Tree) (DFS)
 
 
 
@@ -42,7 +43,7 @@ CHALLENGES INDEX
 *Graphs & Trees
 *Others
 
-(18)
+(19)
 '''
 
 # Base Definition of TreeNode & Tree Print Func
@@ -1795,6 +1796,83 @@ def pretty_print_bst(node:TreeNode, prefix="", is_left=True):
 
 #     '''Note: Done'''
 
+'''112. Path Sum'''
+# def x():
+    
+#     from typing import Optional
+
+#     # Input
+#     # Case 1
+#     root = [5,4,8,11,None,13,4,7,2,None,None,None,1]
+#     targetSum = 22
+#     root = TreeNode(5)
+#     root.left = TreeNode(4)
+#     root.right = TreeNode(8)
+#     root.left.left = TreeNode(11)
+#     root.right.left = TreeNode(13)
+#     root.right.right = TreeNode(4)
+#     root.left.left.left = TreeNode(7)
+#     root.left.left.right = TreeNode(2)
+#     root.right.right.right = TreeNode(1)
+#     # Output: True
+
+#     # Case 2
+#     root = [1,2,3]
+#     targetSum = 5
+#     root = TreeNode(1)
+#     root.left = TreeNode(2)
+#     root.right = TreeNode(3)
+#     # Output: False
+
+#     # Case 3
+#     root = [1,2]
+#     targetSum = 0
+#     root = TreeNode(1)
+#     root.left = TreeNode(2)
+#     # Output: False
+
+#     '''
+#     My Approach (Depth-Fisrt Search)
+
+#         Intuition:
+            
+#             - Traverse iteratively the BT having a running sum for each path
+#     '''
+
+#     def hasPathSum(root: Optional[TreeNode], targetSum: int) -> bool:
+
+#         # No node guard
+#         if not root:
+#             return False
+            
+#         # Initialize the stack to hold the running path sum
+#         stack = [(root, root.val)]
+
+#         # Traverse the tree
+#         while stack:
+
+#             # Take the last element in the stack
+#             node, path_sum = stack.pop()
+
+#             # If it's a leaf node, compare it to the target
+#             if not node.left and not node.right:
+#                 if path_sum == targetSum:
+#                     return True
+
+#             # Push right and left children onto the stack
+#             if node.right:
+#                 stack.append((node.right, node.right.val + path_sum))
+
+#             if node.left:
+#                 stack.append((node.left, node.left.val + path_sum))
+
+#         # If the code gets up to here, means it didn't find the target
+#         return False
+
+#     # Testing
+#     print(hasPathSum(root=root, targetSum=targetSum))
+
+#     '''Note: Done'''
 
 
 
