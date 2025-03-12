@@ -26,6 +26,7 @@ CHALLENGES INDEX
 100. Same Tree (DFS) (RC)
 117. Populating Next Right Pointers in Each Node II (BFS)
 112. Path Sum (Tree) (DFS)
+129. Sum Root to Leaf Numbers (Tree) (DFS)
 
 
 
@@ -49,7 +50,7 @@ CHALLENGES INDEX
 *Others
 
 
-(24)
+(25)
 '''
 
 # Base Definition of TreeNode & Tree Print Func
@@ -3090,7 +3091,81 @@ def dfs(graph, start):
 
 #     '''Note: Done'''
 
+"""129. Sum Root to Leaf Numbers"""
+# def x():
+    
+#     from typing import Optional
 
+#     # Input
+#     # Case 1
+#     root = [1,2,3]
+#     root = TreeNode(1)
+#     root.left = TreeNode(2)
+#     root.right = TreeNode(3)
+#     # Output: 25
+
+#     # Case 2
+#     root = [4,9,0,5,1]
+#     root = TreeNode(4)
+#     root.left = TreeNode(9)
+#     root.right = TreeNode(0)
+#     root.left.left = TreeNode(5)
+#     root.left.right = TreeNode(1)
+#     # Output: 1026
+
+#     # Case 3
+#     root = [1,0]
+#     root = TreeNode(1)
+#     root.right = TreeNode(0)
+#     # Output: 10
+
+
+#     '''
+#     My Approach (Depth-First Seach)
+
+#         Intuition:
+            
+#             - Iteratively collect the values of each path as str.
+#                 - When a Leaf node is reached cast a int type into the collected path number
+#                     and store it
+#             - Sum all the collected path numbers to return it
+#     '''
+
+#     def sumNumbers(root: Optional[TreeNode]) -> int:
+
+#         # Initialize the DFS stack
+#         stack = [(root, str(root.val))]   # The stack stores tuples like (Node, "{Node.val}")
+        
+#         # Initialize an empty list holder to store the collected path nums
+#         path_nums = []
+
+#         # Iteratively Depth-First Search in the tree
+#         while stack:
+
+#             # Pop the last stacked element
+#             node, path_sum = stack.pop()
+
+#             # Check if its a Lead Node
+#             if not node.right and not node.left:
+
+#                 # Add the path sum to the holder
+#                 path_nums.append(int(path_sum))
+            
+#             # Stack the right child node
+#             if node.right:
+#                 stack.append((node.right, path_sum + str(node.right.val)))
+            
+#             # Stack the left child node
+#             if node.left:
+#                 stack.append((node.left, path_sum + str(node.left.val)))
+
+#         # Return the sum of path_nums
+#         return sum(path_nums)
+
+#     # Testing
+#     print(sumNumbers(root=root))
+
+#     '''Note: Done'''
 
 
 

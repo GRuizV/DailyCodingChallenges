@@ -10,7 +10,7 @@ CHALLENGES INDEX
     182. Duplicate Emails (HAVING)
     183. Customers Who Never Order (LEFT JOIN)
     586. Customer Placing the Largest Number of Orders (ORDER BY: COUNT() / FU: SUBQUERY + MAX())
-    511. Game Play Analysis I    
+    511. Game Play Analysis I (SELECT + MIN())
 
 
     MEDIUM
