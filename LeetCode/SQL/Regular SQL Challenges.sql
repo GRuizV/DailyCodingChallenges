@@ -11,6 +11,8 @@ CHALLENGES INDEX
     183. Customers Who Never Order (LEFT JOIN)
     586. Customer Placing the Largest Number of Orders (ORDER BY: COUNT() / FU: SUBQUERY + MAX())
     511. Game Play Analysis I (SELECT + MIN())
+    596. Classes More Than 5 Students (HAVING + COUNT())
+    
 
 
     MEDIUM
@@ -372,6 +374,67 @@ CHALLENGES INDEX
 
 ;
 
+-- @block // 596. Classes More Than 5 Students
+
+    """
+    Challenge Statement
+
+        Base
+
+            Table:  Courses
+            +-------------+---------+
+            | Column Name | Type    |
+            +-------------+---------+
+            | student     | varchar |
+            | class       | varchar |
+            +-------------+---------+
+            (student, class) is the primary key (combination of columns with unique values) for this table.
+            Each row of this table indicates the name of a student and the class in which they are enrolled.
+
+                   
+
+        Statement
+
+            Write a solution to find all the classes that have at least five students.
+
+            Return the result table in any order.
+
+            The result format is in the following example.
+
+
+        Example
+
+            Courses table:
+            +---------+----------+
+            | student | class    |
+            +---------+----------+
+            | A       | Math     |
+            | B       | English  |
+            | C       | Math     |
+            | D       | Biology  |
+            | E       | Math     |
+            | F       | Computer |
+            | G       | Math     |
+            | H       | Math     |
+            | I       | Math     |
+            +---------+----------+
+            Output: 
+            +---------+
+            | class   |
+            +---------+
+            | Math    |
+            +---------+
+
+
+    """
+    
+    -- My Approach
+    SELECT class
+    FROM Courses
+    GROUP BY class
+    HAVING COUNT(student) >= 5;
+
+;
 
 
 
