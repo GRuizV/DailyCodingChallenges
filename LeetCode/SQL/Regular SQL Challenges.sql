@@ -4,7 +4,7 @@ CHALLENGES INDEX
     *FU: Follow-Up
 
     
-    EASY
+    EASY (9)
     
     181. Employees Earning More Than Their Managers (SELF JOIN)
     182. Duplicate Emails (HAVING)
@@ -14,9 +14,10 @@ CHALLENGES INDEX
     596. Classes More Than 5 Students (HAVING + COUNT())
     607. Sales Person (LEFT JOIN + SUBQUERY [LEF JOINT + LIKE])
     610. Triangle Judgement (CASE)
+    619. Biggest Single Number (MAX() + SUBQUERY)
 
 
-    MEDIUM
+    MEDIUM (1)
 
     176. Second Highest Salary  (SUBQUERIES: DISCTINCT, ROW_NUM(), MAX())
 
@@ -615,6 +616,95 @@ CHALLENGES INDEX
             THEN 'Yes' ELSE 'No'
         END AS triangle
     FROM Triangle
+;
+
+-- @block // 619. Biggest Single Number
+
+    """
+    Challenge Statement
+
+        Base
+
+            Table: MyNumbers
+
+            +-------------+------+
+            | Column Name | Type |
+            +-------------+------+
+            | num         | int  |
+            +-------------+------+
+            This table may contain duplicates (In other words, there is no primary key for this table in SQL).
+            Each row of this table contains an integer.
+
+                   
+
+        Statement
+
+            A single number is a number that appeared only once in the MyNumbers table.
+
+            Find the largest single number. If there is no single number, report null.
+
+            The result format is in the following example.
+
+
+        Example
+
+            MyNumbers table:
+            +-----+
+            | num |
+            +-----+
+            | 8   |
+            | 8   |
+            | 3   |
+            | 3   |
+            | 1   |
+            | 4   |
+            | 5   |
+            | 6   |
+            +-----+
+
+            Output: 
+            +-----+
+            | num |
+            +-----+
+            | 6   |
+            +-----+
+            Explanation: The single numbers are 1, 4, 5, and 6.
+            Since 6 is the largest single number, we return it.
+
+
+            Example 2:
+
+            MyNumbers table:
+            +-----+
+            | num |
+            +-----+
+            | 8   |
+            | 8   |
+            | 7   |
+            | 7   |
+            | 3   |
+            | 3   |
+            | 3   |
+            +-----+
+
+            Output: 
+            +------+
+            | num  |
+            +------+
+            | null |
+            +------+
+
+            Explanation: There are no single numbers in the input table so we return null.
+
+
+    """
+    
+    -- My Approach
+    SELECT MAX(num) AS num FROM (
+        SELECT num FROM MyNumbers
+        GROUP BY num
+        HAVING COUNT(num) = 1
+        ) AS mynumber
 ;
 
 
