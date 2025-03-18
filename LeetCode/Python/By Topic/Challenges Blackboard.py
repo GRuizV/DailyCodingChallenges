@@ -1,3 +1,5 @@
+from typing import Optional, List
+
 '''
 CHALLENGES TAGS
 
@@ -27,8 +29,6 @@ CHALLENGES TAGS
 """xxx"""
 def x():
     
-    from typing import Optional
-
     # Input
     # Case 1
     head = None
