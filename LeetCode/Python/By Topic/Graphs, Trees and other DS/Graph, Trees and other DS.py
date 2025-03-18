@@ -22,6 +22,8 @@ CHALLENGES INDEX
 543. Diameter of Binary Tree (Tree)
 112. Path Sum (Tree) (DFS)
 129. Sum Root to Leaf Numbers (Tree) (DFS)
+173. Binary Search Tree Iterator (Tree)
+
 
 
 
@@ -44,7 +46,7 @@ CHALLENGES INDEX
 *Graphs & Trees
 *Others
 
-(20)
+(21)
 '''
 
 # Base Definition of TreeNode & Tree Print Func
@@ -1951,6 +1953,165 @@ def pretty_print_bst(node:TreeNode, prefix="", is_left=True):
 
 #     '''Note: Done'''
 
+"""173. Binary Search Tree Iterator"""
+# def x():
+        
+#     # Input
+#     # Case 1
+#     instructions = ["BSTIterator", "next", "next", "hasNext", "next", "hasNext", "next", "hasNext", "next", "hasNext"]
+#     root = [7, 3, 15, None, None, 9, 20]
+#     root = TreeNode(7)
+#     root.left = TreeNode(3)
+#     root.right = TreeNode(15)
+#     root.right.left = TreeNode(9)
+#     root.right.right = TreeNode(20)
+#     # Output: [None, 3, 7, true, 9, true, 15, true, 20, false]
+
+#     '''
+#     My Approach
+
+#         Intuition:
+            
+#             - My first solution will be store the whole tree and retrieve one by one its nodes with inorder traversal order.
+
+#             After making it work I will figure a way to make a generator out of it and solve to enhance from O(n) to O(h).
+#     '''
+
+#     class BSTIterator:
+
+#         def __init__(self, root: Optional[TreeNode]):
+            
+#             # Initialize the BSTI object
+#             self.root = root
+#             self.nodes = []
+
+#             # Call the inorder method
+#             self.inorder(node=self.root, path=self.nodes)
+
+
+#         def next(self) -> int: 
+            
+#             return self.nodes.pop(0)
+            
+
+#         def hasNext(self) -> bool: 
+            
+#             if self.nodes:
+#                 return True
+
+#             else:
+#                 return False
+
+
+#         def inorder(self, node, path:list = []) -> None:
+            
+#             if not node:
+#                 return None
+            
+#             self.inorder(node=node.left, path=path)
+#             path.append(node.val)
+#             self.inorder(node=node.right, path=path)
+
+
+
+#     # Testing
+#     res = []
+
+#     for ins in instructions:
+
+#         if ins == "BSTIterator":
+#             obj = BSTIterator(root=root)
+#             res.append(None)
+        
+#         if ins == "next":
+#             res.append(obj.next())
+        
+#         if ins == "hasNext":
+#             res.append(obj.hasNext())
+
+#     # print(res)
+
+#     '''Note: This solution works beating submissions by 17% in Runtime and 19% in Memory'''
+    
+
+
+
+
+
+
+#     '''
+#     Corrected Approach
+
+#         Avoid storing all elements upfront and instead use a stack to simulate in-order traversal dynamically.
+        
+#         1. __init__(root)
+#             Initializes an empty stack to store nodes as we traverse the tree.
+#             Calls _leftmost_inorder(root), which:
+#                 Pushes the leftmost path of the BST onto the stack.
+#                 Ensures next() starts with the smallest element.
+
+#         2. next() - O(1) Time Complexity
+#             Removes the topmost node from the stack (the current smallest).
+#             If this node has a right child, we:
+#                 Call _leftmost_inorder(node.right) to process the right subtree's leftmost path.
+#             Returns the node's value.
+
+#         3. hasNext() - O(1) Time Complexity
+#             Simply checks if the stack is non-empty.
+
+#     '''
+
+#     class BSTIterator:
+
+#         def __init__(self, root):
+
+#             self.stack = []
+#             self._leftmost_inorder(root)
+
+#         def _leftmost_inorder(self, node):
+
+#             """Pushes all the leftmost nodes to the stack"""
+
+#             while node:
+#                 self.stack.append(node)
+#                 node = node.left
+
+#         def next(self):
+
+#             """Returns the next smallest number"""
+#             top_node = self.stack.pop()
+
+#             # If the node has a right child, process its left subtree
+#             if top_node.right:
+#                 self._leftmost_inorder(top_node.right)
+
+#             return top_node.val
+
+#         def hasNext(self):
+
+#             """Returns whether there is a next number"""
+#             return len(self.stack) > 0
+
+
+
+#     # Testing
+#     res = []
+
+#     for ins in instructions:
+
+#         if ins == "BSTIterator":
+#             obj = BSTIterator(root=root)
+#             res.append(None)
+        
+#         if ins == "next":
+#             res.append(obj.next())
+        
+#         if ins == "hasNext":
+#             res.append(obj.hasNext())
+
+#     print(res)
+
+#     '''Note: This solution works beating submissions by 66% in Runtime and 90% in Memory'''
 
 
 
