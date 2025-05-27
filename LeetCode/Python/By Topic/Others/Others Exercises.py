@@ -14,6 +14,9 @@ CHALLENGES INDEX
 326. Power of Three (RC) (Others)
 
 
+6. Zigzag Conversion (String)
+
+
 *LL: Linked-Lists
 *BS: Binary Search
 *DP: Dynamic Programming
@@ -840,6 +843,104 @@ CHALLENGES INDEX
 #         return False
 
 #     'Done'
+
+
+
+
+"""6. Zigzag Conversion"""
+# def x():
+    
+#     # Input
+#     # Case 1
+#     s = "PAYPALISHIRING"
+#     numRows = 3
+#     # Output: "PAHNAPLSIIGYIR"
+
+#     # Case 2
+#     s = "PAYPALISHIRING"
+#     numRows = 4
+#     # Output: "PINALSIGYAHRPI"
+
+#     # Case 3
+#     s = "A"
+#     numRows = 1
+#     # Output: "A"
+
+#     # Case 4
+#     s = ""
+#     numRows = 1
+#     # Output: ""
+
+#     # Case 5
+#     s = "AB"
+#     numRows = 1
+#     # Output: "AB"
+
+#     # Case 6
+#     s = "AB"
+#     numRows = 2
+#     # Output: "AB"
+
+#     # Case 7
+#     s = "AB"
+#     numRows = 3
+#     # Output: "AB"
+
+#     # Case 8
+#     s = "ABCD"
+#     numRows = 4
+#     # Output: "ABCD"
+
+#     '''
+#     EXPLANATION
+
+#         Step-by-step:
+
+#             - Initialize rows = [""] * numRows
+
+#             - Track curr_row (current row) and going_down (direction).
+
+#             - For each character:
+
+#                 + Append it to the current row: rows[curr_row] += char
+
+#                 + If at the top or bottom row, flip direction
+
+#                 + Move curr_row accordingly: +1 if down, -1 if up
+
+#             - At the end, return ''.join(rows)
+#     '''
+
+#     def convert(s: str, numRows: int) -> str:
+
+#         # Handle Corner Case: Not enough columns to break the word
+#         if numRows == 1 or numRows >= len(s):
+#             return s
+
+#         # Initializing the working variables
+#         rows = [''] * numRows
+#         curr_row = 0
+#         going_down = False
+
+#         # Traverse the string
+#         for char in s:
+
+#             rows[curr_row] += char
+
+#             # Change direction if we hit the top or bottom row
+#             if curr_row == 0 or curr_row == numRows - 1:
+#                 going_down = not going_down
+
+#             # Move up or down
+#             curr_row += 1 if going_down else -1
+
+#         # Join all the rows and return the resulting string
+#         return ''.join(rows)
+
+#     # Testing
+#     print(convert(s=s, numRows=numRows))
+
+#     '''Note: Done'''
 
 
 
