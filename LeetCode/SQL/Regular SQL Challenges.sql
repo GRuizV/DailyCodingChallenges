@@ -4,7 +4,7 @@ CHALLENGES INDEX
     *FU: Follow-Up
 
     
-    EASY (10)
+    EASY (11)
     
     181. Employees Earning More Than Their Managers (SELF JOIN)
     182. Duplicate Emails (HAVING)
@@ -16,6 +16,7 @@ CHALLENGES INDEX
     610. Triangle Judgement (CASE)
     619. Biggest Single Number (MAX() + SUBQUERY)
     620. Not Boring Movies (CONDITIONALS + ORDER BY)
+    196. Delete Duplicate Emails (DML [Deletion]: SUBQUERIES & FU: CTE)
 
 
     MEDIUM (1)
@@ -773,6 +774,82 @@ CHALLENGES INDEX
     WHERE id % 2 =1
         AND description NOT LIKE '%boring%'
     ORDER BY rating DESC
+;
+
+-- @block // 196. Delete Duplicate Emails
+
+    """
+    Challenge Statement
+
+        Base
+
+            Table: Person
+
+            +-------------+---------+
+            | Column Name | Type    |
+            +-------------+---------+
+            | id          | int     |
+            | email       | varchar |
+            +-------------+---------+
+            id is the primary key (column with unique values) for this table.
+            Each row of this table contains an email. The emails will not contain uppercase letters.
+                   
+
+        Statement
+
+            Write a solution to delete all duplicate emails, keeping only one unique email with the smallest id.
+
+            For SQL users, please note that you are supposed to write a DELETE statement and not a SELECT one.
+
+            For Pandas users, please note that you are supposed to modify Person in place.
+
+            After running your script, the answer shown is the Person table. The driver will first compile and run your piece of code and then show the Person table. The final order of the Person table does not matter.
+
+            The result format is in the following example.
+
+
+        Example
+
+            Person table:
+            +----+------------------+
+            | id | email            |
+            +----+------------------+
+            | 1  | john@example.com |
+            | 2  | bob@example.com  |
+            | 3  | john@example.com |
+            +----+------------------+
+
+            Output: 
+            +----+------------------+
+            | id | email            |
+            +----+------------------+
+            | 1  | john@example.com |
+            | 2  | bob@example.com  |
+            +----+------------------+
+
+            Explanation: john@example.com is repeated two times. We keep the row with the smallest Id = 1.
+
+
+    """
+    
+    -- Direct Apporach
+    DELETE FROM Person
+    WHERE id NOT IN (
+        SELECT MIN(id) FROM Person
+        GROUP BY email
+    )
+
+
+    -- Real life approach: CTE
+    WITH to_keep AS (
+        SELECT MIN(id) FROM Person
+        GROUP BY email
+    )
+
+    DELETE FROM Person
+    WHERE id NOT IN( 
+        SELECT * FROM to_keep
+    )
 ;
 
 
