@@ -24,6 +24,7 @@ CHALLENGES INDEX
 27. Remove Element (Array) (TP)
 392. Is Subsequence (TP) (DP)
 11. Container With Most Water (TP)
+16. 3Sum Closest (TP)
 
 
 *LL: Linked-Lists
@@ -46,7 +47,7 @@ CHALLENGES INDEX
 *Others
 
 
-(22)
+(23)
 '''
 
 
@@ -1925,7 +1926,113 @@ CHALLENGES INDEX
 #     # Testing
 #     print(maxArea(height=height))
 
+"""16. 3Sum Closest"""
+# def x():
+    
+#     # Input
+#     # Case 1
+#     nums = [-1,2,1,-4]
+#     target = 1
+#     # Output: 2
 
+#     # Case 2
+#     nums = [0,0,0]
+#     target = 1
+#     # Output: 0
+
+#     # Case 3
+#     nums = [1,1,1,1]
+#     target = 0
+#     # Output: 3
+
+#     # Case 4
+#     nums = [1,2,3,4,5]
+#     target = 10
+#     # Output: 10
+
+#     '''
+#     My Approach
+
+#         Intuition:
+            
+#             - Sort the input ascendingly.
+#             - Initialize a 'result' int holder as sum(num[:2]).
+#             - Iterate for i in range(len(nums)-2): 
+#                 [Innerloop] for j in range(i+1, len(nums)-1):
+#                     [Innerloop] for k in range(j+1, len(nums)):
+#                         + if sum(nums[i], nums[j], nums[k]) > target:
+#                             break
+
+#                         + elif sum(nums[i], nums[j], nums[k]) == target:
+#                             return target
+                        
+#                         + else:
+#                             result = sum(nums[i], nums[j], nums[k])) if abs(sum(nums[i], nums[j], nums[k]))-target) < abs(result-target) else result
+#             - return result
+#     '''
+
+#     def threeSumClosest(nums: list[int], target: int) -> int:
+
+#         # Sort the input asecndingly
+#         nums.sort(reverse=False)
+
+#         # Initialize the reuslt holder
+#         result = sum(nums[:3])
+
+#         for i in range(len(nums)-2):
+
+#             for j in range(i+1, len(nums)-1):
+
+#                 for k in range(j+1, len(nums)):
+                    
+#                     running_sum = sum([nums[i], nums[j], nums[k]])
+                                                                
+#                     if running_sum == target:
+#                         return running_sum
+                    
+#                     if abs(running_sum-target) < abs(result-target):
+#                         result = running_sum
+
+#         # Return the result
+#         return result
+
+#     # Testing
+#     print(threeSumClosest(nums=nums, target=target))
+
+#     '''Note: This solution solves the problem but it does it in O(n^3), so not efficient enough'''
+
+
+#     """Two-Pointer Approach"""
+#     def threeSumClosest(nums: list[int], target: int) -> int:
+
+#         nums.sort()
+#         closest = sum(nums[:3])  # Initialize with the first 3-element sum
+
+#         for i in range(len(nums) - 2):
+#             left, right = i + 1, len(nums) - 1
+
+#             while left < right:
+#                 current_sum = nums[i] + nums[left] + nums[right]
+
+#                 # If exact match, return immediately
+#                 if current_sum == target:
+#                     return current_sum
+
+#                 # Update closest if this is better
+#                 if abs(current_sum - target) < abs(closest - target):
+#                     closest = current_sum
+
+#                 # Move pointers based on comparison
+#                 if current_sum < target:
+#                     left += 1
+                    
+#                 else:
+#                     right -= 1
+
+#         return closest
+
+#     # Testing
+#     print(threeSumClosest(nums=nums, target=target))
 
 
 
