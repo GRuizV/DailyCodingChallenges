@@ -28,6 +28,7 @@ CHALLENGES INDEX
 416. Partition Equal Subset Sum (Array) (DP)
 1143. Longest Common Subsequence (DP)
 392. Is Subsequence (TP) (DP)
+10. Regular Expression (DP)
 
 
 
@@ -51,7 +52,7 @@ CHALLENGES INDEX
 *Others
 
 
-(26)
+(27)
 '''
 
 
@@ -1008,7 +1009,7 @@ CHALLENGES INDEX
 #     Notes: At least this I was able to do, from here on, I am feeling I am going to brute forcing this and it won't end up being efficient.
 
 #         I didn't actually solved it but I don't want to waste more time over this.
-#     '''
+# #     '''
 
 '''139. Word Break'''
 # def x():
@@ -2193,7 +2194,75 @@ CHALLENGES INDEX
 
 #     '''Note: Done'''
 
+"""10. Regular Expression"""
+# def x():
+    
+#     # Input
+#     # Case 1
+#     s,p = "mississippi", "mis*is*p*."
+#     # Output: True
 
+#     '''
+#     Rationale
+
+#         1. Create a 2D table to track whether the first i characters of s match the first j characters of p.
+
+#         2. Initialize the base case: an empty string matches an empty pattern.
+
+#         3. Pre-fill the first row of the table to handle patterns like "a*", "a*b*", etc., where * allows characters to be skipped from the pattern.
+
+#         4. Then, go through the table cell by cell and apply the following rules:
+
+#             - If the current pattern character is not *, it's a match if the characters are equal or the pattern has a dot ..
+
+#             - If the pattern character is *, two situations apply:
+
+#                 + Treat it as zero occurrences of the character before it — skip both.
+
+#                 + Or, if the preceding character matches the current string character, carry over the match from the previous string character (i.e., use * to consume more).
+
+#         5. After filling the table, the value in the bottom-right cell tells you whether the full string matches the full pattern.
+#     '''
+
+#     def isMatch(s: str, p: str) -> bool:
+        
+#         # Variable definition
+#         m, n = len(s), len(p)
+
+#         # Initialize a (m+1) x (n+1) DP table with False
+#         dp = [[False] * (n + 1) for _ in range(m + 1)]
+        
+#         # Empty pattern matches empty string
+#         dp[0][0] = True
+
+#         # Handle patterns like a*, a*b*, a*b*c* at the beginning
+#         for j in range(2, n + 1):
+#             if p[j - 1] == '*':
+#                 dp[0][j] = dp[0][j - 2]  # zero occurrence of char before *
+
+#         # Fill the DP table
+#         for i in range(1, m + 1):
+#             for j in range(1, n + 1):
+
+#                 # If current pattern character is not '*'
+#                 if p[j - 1] != '*':
+#                     dp[i][j] = dp[i - 1][j - 1] and (s[i - 1] == p[j - 1] or p[j - 1] == '.')
+
+#                 # If current pattern character is '*'
+#                 else:
+#                     # Case 1: '*' means zero of the char before it
+#                     dp[i][j] = dp[i][j - 2]
+
+#                     # Case 2: '*' means one or more of the char before it
+#                     if p[j - 2] == s[i - 1] or p[j - 2] == '.':
+#                         dp[i][j] |= dp[i - 1][j]
+
+#         return dp[m][n]
+
+#     # Testing
+#     print(isMatch(s=s, p=p))
+
+#     '''Note: Done'''
 
 
 
