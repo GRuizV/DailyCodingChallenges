@@ -25,6 +25,7 @@ CHALLENGES INDEX
 392. Is Subsequence (TP) (DP)
 11. Container With Most Water (TP)
 16. 3Sum Closest (TP)
+18. 4Sum (TP) (Array)
 
 
 *LL: Linked-Lists
@@ -47,7 +48,7 @@ CHALLENGES INDEX
 *Others
 
 
-(23)
+(24)
 '''
 
 
@@ -2034,6 +2035,104 @@ CHALLENGES INDEX
 #     # Testing
 #     print(threeSumClosest(nums=nums, target=target))
 
+"""18. 4Sum"""
+# def x():
+    
+#     # Input
+#     # Case 1
+#     nums = [1, 0, -1, 0, -2, 2]
+#     target = 0
+#     # Output: [[-2,-1,1,2],[-2,0,0,2],[-1,0,0,1]]
+    
+#     # Case 2
+#     nums = []
+#     target = 0
+#     # Output: []
+
+#     # Case 3
+#     nums = [2,2,2,2,2]
+#     target = 8
+#     # Output: [[2, 2, 2, 2]]
+
+#     # Case 4
+#     nums = [1, 2, 3, 4]
+#     target = 10
+#     # Output: []
+
+#     '''
+#     My Approach
+
+#         Intuition:
+            
+#             - Capture input length in n.
+#             - Handle corner case: Empty input or ln < 4.
+
+#             - Sort the input ascendingly.
+#             - Initialize a result list holder 'result'.            
+#             - Initialize i and j pointer to 0.
+            
+#             - Iterate i from 0 up to n-3:
+            
+#                     + Iterate j from i+1 up to n-2:
+                
+#                         * Initilize 'left' and 'right' in j+1 and n-1 respectively.
+                    
+#                     + Iterate while left < right:
+                        
+#                         - Initialize a 'quad' list holder containing: [nums[i] , nums[j] , nums[left] , nums[right]]
+                        
+#                         - if sum(quad) == target: add 'quad' to 'result'
+#                         - elif sum(quad) < target: left += 1.
+#                         - else: right -= 1.
+
+#             - return 'result'.
+#     ''' 
+
+#     def fourSum(nums: list[int], target: int) -> list[list[int]]:
+
+#         # Capture input length in n
+#         n = len(nums)
+
+#         # Handle corner case: Empty input or ln < 4
+#         if not nums or n<4:
+#             return []
+
+#         # Sort the input ascendingly
+#         nums.sort()
+
+#         # Initialize the working variables
+#         i,j = 0,0
+#         result = []
+
+#         # Process the input
+#         for i in range(n-3):
+            
+#             for j in range(i+1, n-2):
+
+#                 left, right = j+1, n-1
+
+#                 while left < right:
+
+#                     quad = [nums[i], nums[j], nums[left], nums[right]]
+#                     total = sum(quad)
+
+#                     if total == target:
+#                         result.append(quad) if quad not in result else None
+#                         left += 1
+                    
+#                     elif total < target:
+#                         left += 1
+                    
+#                     else:
+#                         right -= 1
+        
+#         # Return the result
+#         return result
+
+#     # Testing
+#     print(fourSum(nums=nums, target=target))
+
+#     '''Note: Done'''
 
 
 
