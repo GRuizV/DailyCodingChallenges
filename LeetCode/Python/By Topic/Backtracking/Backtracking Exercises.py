@@ -12,6 +12,7 @@ CHALLENGES INDEX
 
 39. Combination Sum (Array) (BT)
 51. N-Queens (Matrix) (BT)
+40. Combination Sum II (BT) (Array)
 
 
 *LL: Linked-Lists
@@ -34,7 +35,7 @@ CHALLENGES INDEX
 *Others
 
 
-(10)
+(11)
 '''
 
 
@@ -465,7 +466,7 @@ CHALLENGES INDEX
 #     Notes: At least this I was able to do, from here on, I am feeling I am going to brute forcing this and it won't end up being efficient.
 
 #         I didn't actually solved it but I don't want to waste more time over this.
-#     '''
+# #     '''
 
 '''140. Word Break II'''
 # def x():
@@ -1066,6 +1067,91 @@ CHALLENGES INDEX
 
 #     '''Note: Done'''
 
+"""40. Combination Sum II"""
+# def x():
+    
+#     # Input
+#     # Case 1
+#     candidates = [10,1,2,7,6,1,5]
+#     target = 8
+#     # Output: [[1,1,6],[1,2,5],[1,7],[2,6]]
+
+#     # Case 2
+#     candidates = [2,5,2,1,2]
+#     target = 5
+#     # Output: [[1,2,2],[5]]
+
+#     '''
+#     Solution
+
+#         1. Sort the input list of candidate numbers.
+
+#             This is important for two reasons:
+#                 - It allows us to skip over duplicate values efficiently.
+#                 - It enables early stopping (pruning) when the current candidate exceeds the remaining target.
+                
+#         2. Use backtracking to explore all valid combinations.
+
+#             The goal is to build combinations of numbers that sum up to the target, without reusing the same index more than once per combination, and avoiding duplicate combinations in the output.
+
+#         3. Define a recursive backtracking function that takes:
+#             start: the current index in the candidates list.
+#             path: the current list of numbers being built as a potential solution.
+#             remaining: the value left to reach the target sum.
+
+#         4. Base cases inside the backtracking function:
+#             If remaining == 0: the current path is a valid combination, so it is added to the result list.
+#             If remaining < 0: the current path exceeds the target, so we return early (prune the branch).
+
+#         5. Loop through the candidates starting from the start index:
+            
+#             If the current index i is greater than start and the current number is the same as the previous one, we skip it to avoid duplicates at the same level of recursion.
+#             If the current candidate is greater than remaining, we break the loop because all further candidates will also be too large (thanks to sorting).
+            
+#             Otherwise:
+#                 Add the current candidate to the path.
+#                 ○ Recurse with i + 1 as the new start index (move forward to avoid reusing the same number).
+#                 ○ After recursion, remove the last number from the path to backtrack and explore other options.
+
+#         6. Return the list of all valid combinations found during the recursive exploration.
+#     '''
+
+#     def combinationSum2(candidates: list[int], target: int) -> list[list[int]]:
+        
+#         # Sort to group duplicates and help with pruning
+#         candidates.sort()
+        
+#         result = []
+
+#         def backtrack(start: int, path: list[int], remaining: int):
+#             if remaining == 0:
+#                 result.append(path[:])
+#                 return
+#             if remaining < 0:
+#                 return
+
+#             for i in range(start, len(candidates)):
+#                 # Skip duplicates at the same recursive level
+#                 if i > start and candidates[i] == candidates[i - 1]:
+#                     continue
+
+#                 # If the current number is greater than the remaining target, break
+#                 if candidates[i] > remaining:
+#                     break
+
+#                 # Include current number and recurse
+#                 path.append(candidates[i])
+#                 backtrack(i + 1, path, remaining - candidates[i])  # move to i+1, not i
+#                 path.pop()  # backtrack
+
+#         backtrack(0, [], target)
+
+#         return result 
+
+#     # Testing
+#     print(combinationSum2(candidates=candidates, target=target))
+
+#     '''Note: Done'''
 
 
 
