@@ -22,7 +22,7 @@ CHALLENGES INDEX
     MEDIUM (2)
 
     176. Second Highest Salary  (SUBQUERIES: DISCTINCT, ROW_NUM(), MAX())
-    177. Nth Higest Salary  (PL/SQL: Procedural Language SQL)
+    177. Nth Higest Salary  (PL/SQL: Procedural Language SQL / Type Casting)
 
 
 
@@ -1044,13 +1044,21 @@ CHALLENGES INDEX
     RETURNS TABLE (Salary INT) AS $$
 
     BEGIN
-        RETURN QUERY
-        SELECT DISTINCT e.salary
-        FROM Employee e
-        ORDER BY e.salary DESC
-        OFFSET N - 1 LIMIT 1;
-    
-    END; 
+
+        IF N < 1 THEN
+            RETURN QUERY(SELECT NULL :: INT AS salary);
+
+        ELSE
+            RETURN QUERY(
+                SELECT DISTINCT e.salary
+                FROM Employee e
+                ORDER BY e.salary DESC
+                LIMIT 1
+                OFFSET N - 1 
+                );
+        END IF;
+    END;
+
     $$ LANGUAGE plpgsql;
 
 -- @block // xx.
