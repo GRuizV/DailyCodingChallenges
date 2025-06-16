@@ -11,12 +11,14 @@ CHALLENGES INDEX
 994. Rotting Oranges (Matrix) (BFS) *DIFFERENTIAL COORDINATES
 
 
+
 51. N-Queens (Matrix) (BT)
 64. Minimum Path Sum (Matrix) (DP)
 74. Search a 2D Matrix (BS) (Matrix)
 994. Rotting Oranges (Matrix) (BFS)
 48. Rotate Image (Matrix)
 73. Set Matrix Zeroes (Matrix)
+59. Spiral Matrix II (Matrix)
 
 
 *LL: Linked-Lists
@@ -39,7 +41,7 @@ CHALLENGES INDEX
 *Others
 
 
-(15)
+(16)
 '''
 
 
@@ -1576,6 +1578,85 @@ CHALLENGES INDEX
 
 #     '''Note: Done'''
 
+"""59. Spiral Matrix II"""
+# def x():
+    
+#     # Input
+#     # Case 1
+#     n = 3
+#     # Output: [[1, 2, 3], [8, 9, 4], [7, 6, 5]]
+
+#     # Case 2
+#     n = 1
+#     # Output: [[1]]
+
+#     # Case 3
+#     n = 4
+#     # Output: [[1, 2, 3, 4], [12, 13, 14, 5], [11, 16, 15, 6], [10, 9, 8, 7]]
+
+
+#     '''
+#     Solution
+
+#         1. Create an empty n x n matrix filled with 0s. -> This will hold the final result.
+
+#         2. Define the four movement directions in clockwise order:
+#             Right → (0, 1)
+#             Down → (1, 0)
+#             Left → (0, -1)
+#             Up → (-1, 0)
+
+#         3. Initialize pointers and direction tracker:
+#             x, y = 0, 0 → Start at top-left corner.
+#             dir_idx = 0 → Start moving right.
+
+#         4. Loop from 1 to n * n:
+#             - Assign current number to result[x][y].
+#             - Compute next position: nx, ny = x + dx, y + dy.
+#             - If the next position is out of bounds or already filled, rotate direction:
+#             - dir_idx = (dir_idx + 1) % 4
+#             - Recompute nx, ny based on new direction.
+#             - Move to the next cell: x, y = nx, ny.
+
+#         5. Return the filled matrix.
+#     '''
+
+#     def generateMatrix(n: int) -> list[list[int]]:
+
+#         result = [[0 for _ in range(n)] for _ in range(n)]
+    
+#         # Direction deltas: right, down, left, up
+#         directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]
+#         dir_idx = 0  # Start moving right
+        
+#         x, y = 0, 0
+#         x_min, y_min = 0, 0
+#         x_max, y_max = n - 1, n - 1
+
+#         for num in range(1, n * n + 1):
+
+#             result[x][y] = num
+
+#             # Try to move to the next cell
+#             dx, dy = directions[dir_idx]
+#             nx, ny = x + dx, y + dy
+
+#             # Check if we're out of bounds or hit a filled cell
+#             if not (x_min <= nx <= x_max and y_min <= ny <= y_max) or result[nx][ny] != 0:
+
+#                 # Change direction clockwise
+#                 dir_idx = (dir_idx + 1) % 4
+#                 dx, dy = directions[dir_idx]
+#                 nx, ny = x + dx, y + dy
+
+#             x, y = nx, ny
+
+#         return result
+
+#     # Testing
+#     print(generateMatrix(n=n))
+
+#     '''Note: Done'''
 
 
 
