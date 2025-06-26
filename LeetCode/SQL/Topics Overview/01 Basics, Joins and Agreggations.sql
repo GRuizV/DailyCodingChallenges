@@ -1,0 +1,294 @@
+"""
+JOINS
+
+    INNER JOIN, LEFT JOIN, RIGHT JOIN, FULL OUTER JOIN
+    Join logic based on user_id, product_id, date
+"""
+-- @block [LEFT JOIN] Users that never have placed an order
+
+"""
+    Prompt:
+    You have a table users with all registered users and a table orders with customer orders. You need to find all users who have never placed an order.
+    
+    Tables:
+        ○ users(id, name)
+        ○ orders(id, user_id, order_date)
+    
+    Expected Result:
+    List of users who do not appear in the orders table.
+
+"""
+
+    -- Join Solution
+    SELECT u.id, u.name
+    FROM users u LEFT JOIN orders o
+        ON u.id = o.user_id
+    WHERE o.id IS NULL -- ';'
+
+
+    -- CTE Solution
+    WITH users_with_orders AS (
+        SELECT DISTINCT user_id
+        FROM orders
+    )
+
+    SELECT u.* 
+    FROM users u
+    WHERE u.id NOT IN (SELECT * FROM users_with_orders) -- ';'
+
+;
+
+-- @block [JOIN (INNER JOIN)] Return orders placed with existing user
+"""
+    Prompt:
+    Return all orders placed, including the user's name for each. Only include orders that are tied to an existing user.
+
+    Tables:
+        ○ users(id, name)
+        ○ orders(id, user_id, order_date)
+
+    Expected Result:
+    Each order, along with the user's name.
+
+"""
+
+    -- Solution
+    SELECT o.id AS order_id, o.user_id, u.name
+    FROM orders o INNER JOIN user u
+        ON o.user_id = u.id
+;
+
+-- @block [LEFT JOIN] Return all product with sells even if never sold
+"""
+    Prompt:
+	You have a products table and a sales table. You want to see every product, including those that have never been sold.
+	
+	Tables:
+		○ products(id, name)
+		○ sales(id, product_id, quantity)
+	
+	Expected Result:
+	All products listed, with sale quantities if any, and NULL for products with no sales.
+
+
+"""
+
+    -- Solution
+    SELECT p.id AS product_id, p.name AS product_name, s.quantity AS quantity
+    FROM products p LEFT JOIN sales s
+        ON p.id = s.product_id
+;
+
+-- @block [LEFT JOIN] Sales Records of Deleted Products
+"""
+    Prompt:
+	You want to find sales records that reference a product ID that no longer exists in the products table. These could be orphaned rows due to a deletion.
+	
+	Tables:
+		- products(id, name)
+        - sales(id, product_id, quantity)
+	
+	Expected Result:
+    Only sales where the product_id does not match any existing product.
+"""
+
+    -- Solution
+    SELECT s.product_id
+    FROM sales s LEFT JOIN products p
+        ON s.product_id = p.id
+    WHERE p.id IS NULL
+;
+
+-- @block [INNER JOIN + LEFT JOIN] Return Orders Paid but not Shipped
+"""
+    Prompt:
+	You have the following tables:
+		• orders(id, customer_id, created_at)
+		• payments(order_id, amount, paid_at)
+		• shipments(order_id, shipped_at)
+		
+    Return all orders that have been paid but not yet shipped.
+"""
+
+    -- Solution
+    SELECT o.*, p.paid_at
+    FROM orders o
+        INNER JOIN payments p ON o.id = p.order_id
+        LEFT JOIN shipments s ON o.id = s.order_id
+    WHERE s.order_id IS NULL
+;
+
+
+
+"""
+AGGREGATIONS
+
+    COUNT(), SUM(), AVG(), MAX(), MIN()
+    Grouped aggreagatuins and conditional counts (COUNT(CASE WHEN))
+
+"""
+
+-- @block [AVG() + COUNT()] Average prices per product category
+"""
+    Prompt:
+	You have a products(id, name, category, price) table.
+		
+	Return the average price per category, but only for categories where more than 10 products exist.
+    Sort the results with the most expensive categories first.
+"""
+
+    -- Solution
+    SELECT p.category, AVG(p.price) AS avg_price
+    GROUP BY p.category
+    HAVING COUNT(p.id) > 10
+    ORDER BY  avg_price DESC
+;
+
+-- @block [CASE] Product name, price, and price category
+"""
+    Prompt:
+	You have a table products(id, name, price).
+	
+	Write a query that returns each product's name, price, and a column called price_category with the following logic:
+		• If price is less than 20 → 'Low'
+		• If price is between 20 and 100 → 'Medium'
+    If price is over 100 → 'High'
+"""
+
+    -- Solution
+    SELECT p.name, p.price, 
+        CASE
+            WHEN p.price < 20 THEN 'Low'
+            WHEN p.price BETWEEN 20 and 100 THEN 'Medium'
+            ELSE 'High'
+        END AS price_category --';'
+;
+
+-- @block [COUNT(CASE)] High and Low Value Orders
+"""
+    Prompt:
+	You have a table orders(id, customer_id, total, created_at).
+
+	Write a query that returns two columns:
+		• high_value_orders: count of orders with total > 100
+		• low_value_orders: count of orders with total ≤ 100
+		
+	Each row in the result should summarize the total count for each category across the whole table (i.e., one row total).
+
+"""
+
+    -- CASE Solution
+    SELECT 
+        COUNT(CASE WHEN o.total > 100 THEN 1 ELSE NULL END) AS high_value_orders
+        COUNT(CASE WHEN o.total <= 100 THEN 1 ELSE NULL END) AS low_value_orders
+    FROM orders o --';'
+
+
+    -- SUBQUERY Solution
+    SELECT category, COUNT(*) AS category_count
+        FROM(
+            SELECT *,
+                CASE
+                    WHEN o.total > 100 THEN 'high_value_orders'
+                    ELSE 'low_value_orders'
+                END AS category
+            FROM orders o
+        ) AS categorized
+       GROUP BY category --';'
+
+       """
+       The thing with the SUBQUERY Approach, more than being a bit let readable
+       is that the solution will be given in rows instead of columns as the prompt requested:
+
+       Category             category_count
+       high_value_orders    45
+       low_value_orders     20
+
+       """
+;
+
+-- @block [SUM(CASE) | ATL: CTE + LEFT JOIN | OPT ALT: CTE + FULL OUTER JOIN + COALESCE] High and Low Value Orders
+"""
+    	Prompt:
+        You have a table orders(id, customer_id, total, status).
+        
+        Each order can have one of several statuses: 'completed', 'pending', or 'cancelled'.
+       
+        Write a query that shows, for each customer, the total dollar value of:
+            • Completed orders → column: total_completed
+            • Cancelled orders → column: total_cancelled
+            
+        One row per customer.
+
+"""
+
+    -- CASE Solution
+    SELECT o.id, o.customer_id,
+        SUM(CASE(WHEN o.status = 'completed' THEN o.total ELSE 0 END)) AS total_completed
+        SUM(CASE(WHEN o.status = 'cancelled' THEN o.total ELSE 0 END)) AS total_cancelled
+    FROM orders o
+    GROUP BY o.customer_id --';'
+
+
+    -- CTE Solution
+    WITH total_completed_table AS (
+        SELECT o.customer_id, SUM(o.total) AS sum_total_completed
+        FROM Orders o
+        WHERE o.status = 'completed'
+        GROUP BY o.customer_id
+    ),
+
+    WITH total_cancelled_table AS (
+        SELECT o.customer_id, SUM(o.total) AS sum_total_cancelled
+        FROM Orders o
+        WHERE o.status = 'cancelled'
+        GROUP BY o.customer_id
+    ),
+
+    SELECT 
+        o.customer_id, 
+        SUM(co.sum_total_completed) AS total_completed,
+        SUM(ca.sum_total_cancelled) AS total_cancelled
+    FROM
+        orders o 
+            LEFT JOIN total_completed_table co ON o.customer_id = co.customer_id
+            LEFT JOIN total_cancelled_table ca ON o.customer_id = ca.customer_id
+    GROUP BY o.customer_id
+
+
+    -- Optimized CTE Solution
+    	WITH completed_orders AS (
+	    SELECT customer_id, SUM(total) AS total_completed
+	    FROM orders
+	    WHERE status = 'completed'
+	    GROUP BY customer_id
+	),
+	cancelled_orders AS (
+	    SELECT customer_id, SUM(total) AS total_cancelled
+	    FROM orders
+	    WHERE status = 'cancelled'
+	    GROUP BY customer_id
+	)
+	
+	SELECT
+	    COALESCE(co.customer_id, ca.customer_id) AS customer_id,
+	    COALESCE(co.total_completed, 0) AS total_completed,
+	    COALESCE(ca.total_cancelled, 0) AS total_cancelled
+	FROM completed_orders co
+	FULL OUTER JOIN cancelled_orders ca ON co.customer_id = ca.customer_id
+    
+;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
