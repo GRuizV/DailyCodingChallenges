@@ -927,7 +927,7 @@ CHALLENGES INDEX
     --     WHEN sex = 'm' THEN 'f'
     --     ELSE 'N/A'
     -- END AS swapped_sex
-    -- FROM Salary s;
+    -- FROM Salary s ';'
 ;
 
 -- @block // 1050. Actors and Directors Who Cooperated At Least Three Times
@@ -980,7 +980,7 @@ CHALLENGES INDEX
     -- DML
     SELECT actor_id, director_id FROM ActorDirector
     GROUP BY actor_id, director_id
-    HAVING COUNT(*) > 2;
+    HAVING COUNT(*) > 2 --';'
 ;
 
 
@@ -1173,7 +1173,7 @@ CHALLENGES INDEX
     BEGIN
 
         IF N < 1 THEN
-            RETURN QUERY(SELECT NULL :: INT AS salary);
+            RETURN QUERY(SELECT NULL :: INT AS salary)--';'
 
         ELSE
             RETURN QUERY(
@@ -1182,11 +1182,13 @@ CHALLENGES INDEX
                 ORDER BY e.salary DESC
                 LIMIT 1
                 OFFSET N - 1 
-                );
-        END IF;
-    END;
+                )--';'
+        END IF--';'
+    END--';'
 
-    $$ LANGUAGE plpgsql;
+    $$ 
+    LANGUAGE plpgsql --';'
+;
 
 -- @block // xx.
 
