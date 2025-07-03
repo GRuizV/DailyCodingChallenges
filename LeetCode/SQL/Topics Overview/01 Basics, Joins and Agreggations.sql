@@ -118,6 +118,27 @@ JOINS
     WHERE s.order_id IS NULL
 ;
 
+-- @block [DISTINCT] Select all categories present in the table
+
+"""
+    Prompt:
+    A company tracks its customer support tickets in a table called SupportTickets. 
+    Each row includes the ticket ID, the customer ID, the ticket status ("open", "closed", "pending"), 
+    and the category ("billing", "technical", "general").
+
+    Task:
+    List all distinct ticket categories currently in use in the system.
+
+"""
+
+    -- SELECT / DISTINCT approach
+
+    SELECT DISTINCT st.category
+    FROM SupportTickets st --';'
+;
+
+
+
 
 
 """
@@ -127,6 +148,59 @@ AGGREGATIONS
     Grouped aggreagatuins and conditional counts (COUNT(CASE WHEN))
 
 """
+
+
+-- @block [SUM()/GROUP BY/ORDER BY] Top three selling products | ALT: SUBQUERY + WINDOW FUNC
+
+"""
+    Prompt:
+    The table Sales has columns: order_id, product_id, and quantity.
+
+    Task:
+    Find the top 3 products (by product_id) that have been sold in the highest total quantity.
+
+"""
+
+    -- ORDER BY/LIMIT approach
+
+    SELECT s.product_id, SUM(quantity) AS total_quantity
+    FROM Sales s
+    GROUP BY s.product_id
+    ORDER BY total_quantity DESC
+    LIMIT 3 --';'
+
+
+    -- SUBQUERY/WINDOW FUNC approach
+
+    SELECT s.product_id, total_quantity
+    FROM (
+        SELECT product_id, SUM(quantity) AS total_quantity,
+            RANK() OVER (ORDER BY SUM(quantity) DESC) as RANK
+        FROM Sales
+        GROUP BY product_id
+    ) ranked
+    WHERE rnk <= 3 --';'
+
+;
+
+-- @block [MAX] Last user visit
+
+"""
+    Prompt:
+    You have a table WebTraffic(session_id, user_id, visit_time) representing web sessions.
+
+    Task:
+    For each user, return their most recent visit time.
+
+"""
+
+    -- COUNT/DATE_TRUNC approach
+
+    SELECT wt.user_id, MAX(wt.visit_time) AS last_visit
+    FROM WebTraffic wt
+    GROUP BY wt.user_id --";"
+
+;
 
 -- @block [AVG() + COUNT()] Average prices per product category
 """
@@ -278,6 +352,19 @@ AGGREGATIONS
 	FULL OUTER JOIN cancelled_orders ca ON co.customer_id = ca.customer_id
     
 ;
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
