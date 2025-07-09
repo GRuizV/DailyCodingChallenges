@@ -6,8 +6,6 @@
         Calculating growth over time, retention by week, cohort analysis
     
 """
-
-
 -- @block [DATE() + COUNT(DISTINCT)] Show the distinct users logged daily
 
 """
@@ -56,6 +54,24 @@
 
 ;
 
+-- @block [DATE_TRUNC + COUNT] Total view by week
+"""
+    Prompt:
+    You're analyzing user engagement from a table Views(user_id, view_time).
+    
+    Task:
+    Show the total number of views per week, ordered chronologically.
+
+"""
+
+    -- SELECT DISTINCT Solution
+    SELECT 
+        DATE_TRUNC('Week', view_time) AS week_start, 
+        COUNT(view_time) as views_per_week
+    FROM Views
+    GROUP BY week_start
+    ORDER BY week_start ASC --';'
+;
 
 
 

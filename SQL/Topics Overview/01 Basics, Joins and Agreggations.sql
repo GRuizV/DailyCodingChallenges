@@ -1,4 +1,29 @@
 """
+BASICS
+
+    SELECT, WHERE; ORDER BY, GROUP BY, ETC
+"""
+-- @block [SELECT + WHERE] Products with items fewer than 20
+"""
+    Prompt:
+    You manage a warehouse inventory system. The table Products contains product_id, product_name, category, and stock_quantity.
+    
+    Task:
+    Show the name and quantity of all products that have fewer than 20 units in stock.
+
+"""
+
+    -- SELECT/WHERE Solution
+    SELECT DISTINCT p.product_id, p.stock_quantity
+    FROM Products p
+    WHERE p.stock_quantity < 20 --';'
+;
+
+
+
+
+
+"""
 JOINS
 
     INNER JOIN, LEFT JOIN, RIGHT JOIN, FULL OUTER JOIN
@@ -137,7 +162,23 @@ JOINS
     FROM SupportTickets st --';'
 ;
 
+-- @block [LEFT JOIN + COALESCE ] Employees with total compensation
+"""
+    Prompt:
+    You have two tables: Employees(employee_id, name) and Salaries(employee_id, base_salary, bonus).
+    
+    Task:
+    Produce a list of all employees along with their total compensation (base + bonus). Include employees even if they don't have salary data recorded yet.
 
+"""
+
+    -- LEFT JOIN / COALESCE Solution
+    SELECT 
+        e.name AS employee_name,
+        COALESCE(s.base_salary, 0) + COALESCE(s.bonus, 0) AS total_compensation
+    FROM Employees e LEFT JOIN Salaries s 
+        ON e.employee_id = s.employee_id --';'
+;
 
 
 
@@ -148,8 +189,6 @@ AGGREGATIONS
     Grouped aggreagatuins and conditional counts (COUNT(CASE WHEN))
 
 """
-
-
 -- @block [SUM()/GROUP BY/ORDER BY] Top three selling products | ALT: SUBQUERY + WINDOW FUNC
 
 """
@@ -353,6 +392,41 @@ AGGREGATIONS
     
 ;
 
+-- @block [SUM + HAVING] Customers with purchases over $1.000
+"""
+    Prompt:
+    A retail database has a table Purchases(customer_id, purchase_amount, purchase_date).
+    
+    Task:
+    Which customers have spent more than $1000 in total across all purchases?
+
+"""
+
+    -- SUM / HAVING Solution
+    SELECT customer_id, SUM(purchase_amount) AS total_spent
+    FROM Purchases
+    GROUP BY customer_id
+    HAVING SUM(purchase_amount) > 1000 --';'
+;
+
+-- @block [COUNT + MIN] Drivers, total deliveries and their first
+"""
+    Prompt:
+    You have a table Deliveries(driver_id, delivery_time).
+    
+    Task:
+    For each driver, show the number of deliveries made and the time of their first delivery.
+
+"""
+
+    -- COUNT/MIN Solution
+    SELECT 
+        driver_id,
+        COUNT(*) AS total_deliveries,
+        MIN(delivery_time) AS first_delivery
+    FROM Deliveries
+    GROUP BY driver_id --';'
+;
 
 
 
@@ -360,11 +434,22 @@ AGGREGATIONS
 
 
 
+-- Boilerplate
+-- @block [...] ...
+"""
+    Prompt:
+    ...
+    
+    Task:
+    ...
 
+"""
 
-
-
-
+    -- ... Solution
+    SELECT 
+    
+    --';'
+;
 
 
 
