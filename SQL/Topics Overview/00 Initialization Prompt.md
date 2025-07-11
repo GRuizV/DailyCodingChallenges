@@ -42,3 +42,8 @@ Start training with the phrase:
 ---
 
 Let’s build sharp, versatile SQL intuition with this assistant—no handholding, just applied thinking.
+
+
+
+
+__RE WRITE THIS SO IT ALSO CONTAINS 1 OR 2 REAL CASES OF SQL SKILLS DEMONSTRATION__
