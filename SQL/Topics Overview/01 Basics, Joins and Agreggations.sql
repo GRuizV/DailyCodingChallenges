@@ -222,7 +222,7 @@ AGGREGATIONS
 
 ;
 
--- @block [MAX] Last user visit
+-- @block [MAX()] Last user visit
 
 """
     Prompt:
@@ -364,8 +364,8 @@ AGGREGATIONS
         SUM(ca.sum_total_cancelled) AS total_cancelled
     FROM
         orders o 
-            LEFT JOIN total_completed_table co ON o.customer_id = co.customer_id
-            LEFT JOIN total_cancelled_table ca ON o.customer_id = ca.customer_id
+        LEFT JOIN total_completed_table co ON o.customer_id = co.customer_id
+        LEFT JOIN total_cancelled_table ca ON o.customer_id = ca.customer_id
     GROUP BY o.customer_id
 
 
@@ -392,7 +392,7 @@ AGGREGATIONS
     
 ;
 
--- @block [SUM + HAVING] Customers with purchases over $1.000
+-- @block [SUM() + HAVING] Customers with purchases over $1.000
 """
     Prompt:
     A retail database has a table Purchases(customer_id, purchase_amount, purchase_date).
@@ -409,7 +409,7 @@ AGGREGATIONS
     HAVING SUM(purchase_amount) > 1000 --';'
 ;
 
--- @block [COUNT + MIN] Drivers, total deliveries and their first
+-- @block [COUNT() + MIN()] Drivers, total deliveries and their first
 """
     Prompt:
     You have a table Deliveries(driver_id, delivery_time).

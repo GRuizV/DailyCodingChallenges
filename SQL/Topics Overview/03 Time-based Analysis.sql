@@ -27,7 +27,7 @@
     ORDER BY login_date --';'
 ;
 
--- @block [CTE + DATE_TRUNC] Show which customers placed more than 1 order in the same week.
+-- @block [CTE + DATE_TRUNC()] Show which customers placed more than 1 order in the same week.
 
 """
     Prompt:
@@ -38,7 +38,7 @@
 
 """
 
-    -- approach
+    -- CTE approach
     WITH weekly_orders AS(
         SELECT 
             DATE_TRUNC('week', order_date) as week,
@@ -54,7 +54,7 @@
 
 ;
 
--- @block [DATE_TRUNC + COUNT] Total view by week
+-- @block [DATE_TRUNC() + COUNT()] Total view by week
 """
     Prompt:
     You're analyzing user engagement from a table Views(user_id, view_time).

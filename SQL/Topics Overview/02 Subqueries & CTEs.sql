@@ -6,7 +6,7 @@
     
 """
 
--- @block [CTE + DATE_TRUNC] Show which customers placed more than 1 order in the same week.
+-- @block [CTE + DATE_TRUNC()] Show which customers placed more than 1 order in the same week.
 
 """
     Prompt:
@@ -17,7 +17,7 @@
 
 """
 
-    -- approach
+    -- CTE approach
     WITH weekly_orders AS(
         SELECT 
             DATE_TRUNC('week', order_date) as week,
