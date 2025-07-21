@@ -69,6 +69,68 @@
     
 ;
 
+-- @block [CTE + MULTIPLE GROUP BYs] Users visiting the same page more than once per day
+"""
+    Prompt:
+    You have a table PageViews(user_id, page_id, view_time).
+
+    Task:
+    Return user IDs that viewed the same page at least twice on the same day.
+
+"""
+
+    -- CTE + MULTIPLE GROUP BYs Solution
+    WITH visits_per_day AS (
+        SELECT 
+            DATE(view_time) AS dates,
+            page_id,
+            user_id,
+            COUNT(user_id) AS visits
+        FROM PageViews
+        GROUP BY DATE(view_time), page_id, user_id
+        ORDER BY DATE(view_time)
+    )
+
+    SELECT DISTINCT user_id FROM visits_per_day WHERE visits >= 2 --';'
+;
+
+-- @block [CTE + MULTIPLE GROUP BYs | ALT: SUBQUERY + WINDOW FUNC] Users visiting the same page more than once per day
+"""
+    Prompt:
+    You have a table PageViews(user_id, page_id, view_time).
+
+    Task:
+    Return user IDs that viewed the same page at least twice on the same day.
+
+"""
+
+    -- CTE + MULTIPLE GROUP BYs Solution
+    WITH visits_per_day AS (
+        SELECT 
+            DATE(view_time) AS dates,
+            page_id,
+            user_id,
+            COUNT(user_id) AS visits
+        FROM PageViews
+        GROUP BY DATE(view_time), page_id, user_id
+        ORDER BY DATE(view_time)
+    )
+
+    SELECT DISTINCT user_id FROM visits_per_day WHERE visits >= 2 --';'
+
+
+    -- WINDOW FUNCTION + SUBQUERY
+    SELECT DISTINCT user_id
+    FROM (
+        SELECT 
+            user_id,
+            page_id,
+            DATE(view_time) AS view_date,
+            COUNT(*) OVER (PARTITION BY user_id, page_id, DATE(view_time)) AS daily_page_views
+        FROM PageViews
+    ) sub
+    WHERE daily_page_views >= 2 --';'
+;
 
 
 

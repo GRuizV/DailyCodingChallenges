@@ -6,6 +6,42 @@
         Calculating growth over time, retention by week, cohort analysis
     
 """
+
+-- @block [DATE + COUNT(DISTINCT)] Number of unique visist daily
+"""
+    Prompt:
+    The SiteTraffic table contains user_id and visit_timestamp.
+
+    Task:
+    For each day, return the number of distinct users who visited the site.
+
+"""
+
+    -- DATE + COUNT/DISTINCT Solution
+    SELECT 
+        DATE(visit_timestamp) AS dates,
+        COUNT(DISTINCT user_id) AS distinct_visits
+    FROM SiteTraffic
+    GROUP BY DATE(visit_timestamp)
+    ORDER BY dates DESC --';'
+;
+
+-- @block [WHERE + WERE / DATE] Return users signed before Jan 1, 2023
+"""
+    Prompt:
+    You manage an app with a table Users(user_id, signup_date).
+    
+    Task:
+    Return all users who signed up before January 1, 2023.
+
+"""
+
+    -- SELECT + WHERE / DATE Solution
+    SELECT user_id
+    FROM Users
+    WHERE signup_date < DATE '2023-01-01' --';'
+;
+
 -- @block [DATE() + COUNT(DISTINCT)] Show the distinct users logged daily
 
 """

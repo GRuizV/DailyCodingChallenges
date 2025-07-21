@@ -19,6 +19,21 @@ BASICS
     WHERE p.stock_quantity < 20 --';'
 ;
 
+-- @block [WHERE + WERE / DATE] Return users signed before Jan 1, 2023
+"""
+    Prompt:
+    You manage an app with a table Users(user_id, signup_date).
+    
+    Task:
+    Return all users who signed up before January 1, 2023.
+
+"""
+
+    -- SELECT + WHERE / DATE Solution
+    SELECT user_id
+    FROM Users
+    WHERE signup_date < DATE '2023-01-01' --';'
+;
 
 
 
@@ -179,7 +194,6 @@ JOINS
     FROM Employees e LEFT JOIN Salaries s 
         ON e.employee_id = s.employee_id --';'
 ;
-
 
 
 """
@@ -434,7 +448,7 @@ AGGREGATIONS
 
 
 
--- Boilerplate
+-- Template
 -- @block [...] ...
 """
     Prompt:
@@ -450,10 +464,6 @@ AGGREGATIONS
     
     --';'
 ;
-
-
-
-
 
 
 
