@@ -195,6 +195,49 @@ JOINS
         ON e.employee_id = s.employee_id --';'
 ;
 
+-- @block [LEFT JOIN + COALESCE] Show all customers and their most recent purchase with NULL handling
+"""
+    Prompt:
+    Your company uses two tables: customers and purchases.
+    Not every customer has made a purchase yet. Management wants a list of all customers and their most recent purchase date — or a note saying "No purchases yet" for those who haven't bought anything.
+    
+    Approach:
+    1. SELECT the customer id, and an agreggation with MAX() on the date of the purchases.
+        - The date of the customers will be NULL in those not having purchases yet, so a COALESCE() will handle that.
+    2. LEFT JOIN customers and purchases.
+    3. GROUP BY customers
+
+"""
+
+    -- LEFT JOIN + COALESCE Solution
+    SELECT
+        c.customer_id,
+        COALESCE(
+            TO_CHAR(MAX(p.purchase_date), 'YYYY-MM-DD'),
+            'No purchases yet') AS last_purchase
+    FROM customers c 
+    LEFT JOIN purchases p 
+        ON c.customer_id = p.customer_id
+    GROUP BY c.customer_id--';'
+
+
+    -- WINDOW FUNC Alternative
+    SELECT customer_id,
+       COALESCE(TO_CHAR(purchase_date, 'YYYY-MM-DD'), 'No purchases yet') AS last_purchase
+    FROM (
+        SELECT c.customer_id,
+            p.purchase_date,
+            ROW_NUMBER() OVER (PARTITION BY c.customer_id ORDER BY p.purchase_date DESC) AS rn
+        FROM customers c
+        LEFT JOIN purchases p ON c.customer_id = p.customer_id
+    ) ranked
+    WHERE rn = 1 OR rn IS NULL --';'
+;
+
+
+
+
+
 
 """
 AGGREGATIONS
@@ -464,6 +507,15 @@ AGGREGATIONS
     
     --';'
 ;
+
+
+
+"""
+CHALLENGES
+
+
+"""
+
 
 
 
